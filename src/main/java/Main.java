@@ -1,9 +1,17 @@
+import controller.SystemController;
 import model.DiceCup;
 import model.Die;
 
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world");
+
+        SystemController systemController = new SystemController();
+
+
+
+
+
 
         //tester terning
         Die terning = new Die(6);
