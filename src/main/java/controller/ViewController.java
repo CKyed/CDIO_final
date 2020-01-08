@@ -19,9 +19,8 @@ public class ViewController {
 
     public ViewController(Board board) {
         GUI_Field[] fields = createFields(board);
-
-
         this.gui = new GUI(fields);
+
 
 
     }
@@ -58,5 +57,20 @@ public class ViewController {
         }
         return guiFields;
     }
+
+    public String[] setupPlayers(){
+        int numberOfPlayers = Integer.parseInt(gui.getUserSelection("","3","4","5","6"));
+
+        String[] playerNames = new String[numberOfPlayers];
+
+        for (int i =0;i<numberOfPlayers;i++){
+            playerNames[i] = gui.getUserString("");
+
+        }
+
+        return playerNames;
+    }
+
+
 
 }
