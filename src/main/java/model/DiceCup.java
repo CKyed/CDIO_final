@@ -2,7 +2,7 @@ package model;
 
 public class DiceCup {
     private int numberOfDice;
-    private int dieSum = 0;
+    private int dieSum;
     private Die[] dice;
 
     public DiceCup(int numberOfDice, int numberOfSides) {
@@ -29,10 +29,11 @@ public class DiceCup {
     }
 
     public int getDieSum(){
-        int sum = 0;
+        int dieSum = 0;
         for(int i =0; i<numberOfDice; i++){
-         //  sum += this.die.
+          dieSum += this.dice[i].getFaceValue();
         }
+        return dieSum;
     }
 
 }
