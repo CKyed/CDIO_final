@@ -96,5 +96,5 @@ fabric.properties
 .idea/vcs.xml
 .idea/modules.xml
 _20_del4.iml
-/target/classes
+target/
 target/generated-sources
