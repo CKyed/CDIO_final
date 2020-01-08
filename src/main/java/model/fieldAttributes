@@ -1,0 +1,43 @@
+prison:Fængsel
+
+chance:Prøv lykken,2
+chance:Prøv lykken,7
+chance:Prøv lykken,17
+chance:Prøv lykken,22
+chance:Prøv lykken,33
+chance:Prøv lykken,37
+
+tax01:Indkomstskat,4
+tax02:Ekstraordinær statsskat,38
+
+brew01:Tuborg Squash,12,3000,100
+brew02:Coca Cola,28,3000,100
+
+ferry01:Helsingør - Helsingborg,5,4000,500
+ferry02:Mols-Linien,15,4000,500
+ferry03:Gedser - Rostock,25,4000,500
+ferry04:Rødby - Puttgarden,35,4000,500
+
+
+field01:Rødovrevej
+field02:Hvidovrevej
+field03:Roskildevej
+field04:Valby Langgade
+field05:Allégade
+field06:Frederiksberg Allé
+field07:Bülowsvej
+field08:Gl. Kongevej
+field09:Bernstorffsvej
+field10:Hellerupvej
+field11:Strandvejen
+field12:Trianglen
+field13:Øserbrogade
+field14:Grønningen
+field15:Bredgade
+field16:Kgs. Nytorv
+field17:Østergade
+field18:Amagertorv
+field19:Vimmelskaftet
+field20:Nygade
+field21:Frederiksberggade
+field22:Rådhuspladsen
