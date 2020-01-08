@@ -1,4 +1,4 @@
 package model.Fields;
 
-public class Visit {
+public class Visit  extends Field {
 }

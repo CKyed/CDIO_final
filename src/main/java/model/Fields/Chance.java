@@ -1,4 +1,4 @@
 package model.Fields;
 
-public class Chance {
+public class Chance  extends Field {
 }

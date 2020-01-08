@@ -1,4 +1,6 @@
 package model.Fields.OwnableFile;
 
-public class Brewery {
+import model.Fields.Ownable;
+
+public class Brewery extends Ownable {
 }

@@ -1,4 +1,4 @@
 package model.Fields;
 
-public class Parking {
+public class Parking  extends Field {
 }

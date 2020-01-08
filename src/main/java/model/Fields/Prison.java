@@ -1,4 +1,4 @@
 package model.Fields;
 
-public class Prison {
+public class Prison  extends Field{
 }
