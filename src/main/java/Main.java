@@ -11,9 +11,9 @@ public class Main {
         System.out.println("én terning har slået: "+terning.getFaceValue());
 
         //tester raflebæger
-        DiceCup raflebæger = new DiceCup(5,6);
+        DiceCup raflebæger = new DiceCup(10,6);
         raflebæger.rollDice();
-        System.out.println(raflebæger.getDieSum());
+        System.out.println(raflebæger.getNumberOfDice() +" terninger har slået: "+raflebæger.getDieSum());
 
     }
 }
