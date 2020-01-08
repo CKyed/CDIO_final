@@ -91,3 +91,7 @@ fabric.properties
 .idea/**/markdown-navigator/
 
 # End of https://www.gitignore.io/api/intellij
+.idea/compiler.xml
+.idea/misc.xml
+.idea/vcs.xml
+_20_del4.iml
