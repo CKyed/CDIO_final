@@ -1,16 +1,20 @@
-import java.util.Scanner;
-import controller.PathExpert.*;
-
-import static java.lang.System.out;
-import static controller.PathExpert.*;
-import static controller.TextController.readFile;
+import model.DiceCup;
+import model.Die;
 
 public class Main {
     public static void main(String[] args) {
-        out.println("Hello world");
+        System.out.println("Hello world");
 
-        //MARTIN TESTER TEXTCONTROLLER
-        String hej = readFile(namePath,"chance");
-        out.println(hej);
+        //tester terning
+        Die terning = new Die(6);
+        terning.roll();
+        System.out.println("én terning har slået: "+terning.getFaceValue());
+
+        //tester raflebæger
+        DiceCup raflebaeger = new DiceCup(10,6);
+        raflebaeger.rollDice();
+        System.out.println(raflebaeger.getNumberOfDice() +" terninger har slået: "+raflebaeger.getDieSum());
+
     }
 }
+
