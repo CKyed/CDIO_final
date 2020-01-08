@@ -94,4 +94,5 @@ fabric.properties
 .idea/compiler.xml
 .idea/misc.xml
 .idea/vcs.xml
+.idea/modules.xml
 _20_del4.iml
