@@ -25,25 +25,25 @@ ferry03:Gedser - Rostock,25,4000,500
 ferry04:Rødby - Puttgarden,35,4000,500
 
 
-field01:Rødovrevej
-field02:Hvidovrevej
-field03:Roskildevej
-field04:Valby Langgade
-field05:Allégade
-field06:Frederiksberg Allé
-field07:Bülowsvej
-field08:Gl. Kongevej
-field09:Bernstorffsvej
-field10:Hellerupvej
-field11:Strandvejen
-field12:Trianglen
-field13:Øserbrogade
-field14:Grønningen
-field15:Bredgade
-field16:Kgs. Nytorv
-field17:Østergade
-field18:Amagertorv
-field19:Vimmelskaftet
-field20:Nygade
-field21:Frederiksberggade
-field22:Rådhuspladsen
+field01:Rødovrevej,1,0,1200,1000,50,250,750,2250,4000,6000
+field02:Hvidovrevej,3,0,1200,1000,50,250,750,2250,400,6000
+field03:Roskildevej,6,1,2000,1000,100,600,1800,5400,8000,11000
+field04:Valby Langgade,8,1,2000,1000,100,600,1800,5400,8000,11000
+field05:Allégade,9,1,2400,1000,150,800,2000,6000,9000,12000
+field06:Frederiksberg Allé,11,2,2800,2000,200,1000,3000,9000,12500,15000
+field07:Bülowsvej,13,2,2800,2000,200,1000,3000,9000,12500,15000
+field08:Gl. Kongevej,14,2,3200,2000,250,1250,3750,10000,14000,18000
+field09:Bernstorffsvej,16,3,3600,2000,300,1400,4000,11000,15000,19000
+field10:Hellerupvej,18,3,3600,2000,300,1400,4000,11000,15000,19000
+field11:Strandvejen,19,3,4000,2000,350,1600,4400,12000,16000,20000
+field12:Trianglen,21,4,4400,3000,350,1800,5000,14000,17500,21000
+field13:Øserbrogade,23,4,4400,3000,350,1800,5000,14000,17500,21000
+field14:Grønningen,24,4,4800,3000,400,2000,6000,15000,18500,22000
+field15:Bredgade,26,5,5200,3000,450,2200,6600,16000,19500,23000
+field16:Kgs. Nytorv,27,5,5200,3000,450,2200,6600,16000,19500,23000
+field17:Østergade,29,5,5600,3000,500,2400,7200,17000,20500,24000
+field18:Amagertorv,31,6,6000,4000,550,2600,7800,18000,22000,25000
+field19:Vimmelskaftet,32,6,6000,4000,550,2600,7800,18000,22000,25000
+field20:Nygade,34,6,6400,4000,600,3000,9000,20000,24000,28000
+field21:Frederiksberggade,37,7,7000,4000,700,3500,10000,22000,26000,30000
+field22:Rådhuspladsen,39,7,8000,4000,1000,4000,12000,28000,34000,40000
