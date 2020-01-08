@@ -2,6 +2,7 @@ import java.util.Scanner;
 import controller.PathExpert.*;
 import model.*;
 import model.Fields.*;
+import model.Fields.OwnableFile.Ferry;
 
 
 import static java.lang.System.out;
@@ -17,6 +18,6 @@ public class Main {
         out.println(hej);
 
         //Tester noget mere
-        Field start = new Start("start");
+        Field ferry = new Ferry("ferry01");
     }
 }
