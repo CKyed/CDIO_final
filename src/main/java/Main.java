@@ -1,5 +1,8 @@
 import java.util.Scanner;
 import controller.PathExpert.*;
+import model.*;
+import model.Fields.*;
+
 
 import static java.lang.System.out;
 import static controller.PathExpert.*;
@@ -12,5 +15,8 @@ public class Main {
         //MARTIN TESTER TEXTCONTROLLER
         String hej = readFile(namePath,"chance");
         out.println(hej);
+
+        //Tester noget mere
+        Field start = new Start("start");
     }
 }

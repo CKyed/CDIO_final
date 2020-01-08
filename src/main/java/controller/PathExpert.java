@@ -6,7 +6,7 @@ public class PathExpert {
     public static final String turnPath            = "language/" + language +"/gamecontroller/turn";
     public static final String namePath            = "language/" + language +"/fields/name";
     public static final String descriptionPath     = "language/" + language +"/fields/description";
-    public static final String fieldAttributesPath = "fieldAttributes";
+    public static final String fieldAttributesPath = "fieldAttributes/";
 
     public static void setSprog(String sprog) {
         language = sprog;
