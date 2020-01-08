@@ -1,11 +1,15 @@
 package model;
 
 public class Player {
-    //the player needs attributes such as name, account and inJail,
     private String name;
-    private Account account = new Account();
-    private boolean inJail = false;
+    private Account account;
+    private boolean inJail;
 
+    public Account getAccount() {
+        return account;
+    }
 
-
+    public void setAccount(Account account) {
+        this.account = account;
+    }
 }

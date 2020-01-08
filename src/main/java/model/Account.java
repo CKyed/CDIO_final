@@ -1,20 +1,22 @@
 package model;
 
 public class Account {
+
     private int balance;
 
-
-    public Account(){
-        this.balance = 30000;
-    }
-
     public void withdraw(int amount){
-        this.balance-= amount;
+        this.balance-=amount;
     }
 
     public void deposit(int amount){
-        this.balance+= amount;
+        balance+=amount;
     }
 
+    public int getBalance() {
+        return balance;
+    }
 
+    public void setBalance(int balance) {
+        this.balance = balance;
+    }
 }
