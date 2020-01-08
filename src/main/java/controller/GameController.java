@@ -4,8 +4,10 @@ public class GameController {
     private BoardController boardController;
 
     public GameController(){
-        this.BoardController = new BoardController();
+        this.boardController = new BoardController();
     }
 
-
+    public BoardController getBoardController() {
+        return boardController;
+    }
 }

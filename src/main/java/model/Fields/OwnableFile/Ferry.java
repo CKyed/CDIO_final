@@ -4,4 +4,8 @@ import model.Fields.Ownable;
 
 public class Ferry extends Ownable {
     private int rentLevel;
+
+    public Ferry(String state) {
+        super(state);
+    }
 }

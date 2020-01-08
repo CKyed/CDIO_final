@@ -9,10 +9,6 @@ public class Main {
         SystemController systemController = new SystemController();
 
 
-
-
-
-
         //tester terning
         Die terning = new Die(6);
         terning.roll();

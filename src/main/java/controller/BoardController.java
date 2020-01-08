@@ -7,6 +7,11 @@ public class BoardController {
 
 
     public BoardController(){
+        this.board = new Board();
 
+    }
+
+    public Board getBoard() {
+        return board;
     }
 }

@@ -9,4 +9,7 @@ public class Street extends Ownable {
     private int[] rentLevels;
 
 
+    public Street(String state) {
+        super(state);
+    }
 }

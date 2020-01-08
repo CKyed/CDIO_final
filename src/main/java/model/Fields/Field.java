@@ -21,11 +21,27 @@ public abstract class Field {
         String data = readFile(fieldAttributesPath,state);
         String[] stringData = data.split(",");
         int[] intData = new int[stringData.length];
-        for (int i=0;i<stringData.length;i++){
+
+        //Billig løsning - 1-tallet bør rettes til et 0
+        for (int i=1;i<stringData.length;i++){
             intData[i] = Integer.parseInt(stringData[i]);
         }
         return intData;
     }
 
+    public String getName() {
+        return name;
+    }
 
+    public String getColor() {
+        return color;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }
