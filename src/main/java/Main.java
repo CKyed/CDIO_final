@@ -13,7 +13,7 @@ public class Main {
         //tester raflebæger
         DiceCup raflebæger = new DiceCup(5,6);
         raflebæger.rollDice();
-        //System.out.println(raflebæger.);
+        System.out.println(raflebæger.getDieSum());
 
     }
 }
