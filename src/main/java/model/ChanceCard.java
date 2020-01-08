@@ -1,5 +1,5 @@
 package model;
 
 public class ChanceCard {
-    String text;
+    private String text;
 }
