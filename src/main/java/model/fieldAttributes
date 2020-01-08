@@ -1,4 +1,10 @@
-prison:Fængsel
+start:Start,0
+
+carpark:Parkering,20
+
+visit:I fængsel/På besøg,10
+
+prison:Fængsel,30
 
 chance:Prøv lykken,2
 chance:Prøv lykken,7
