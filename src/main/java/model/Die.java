@@ -4,11 +4,11 @@ import java.util.Random;
 
 public class Die {
 
-    private int faceValue = 1;
-    private int sideNumber = 6;
+    private int faceValue;
+    private int sideNumber;
 
-    public Die(int i) {
-        sideNumber = i;
+    public Die(int numberOfSides) {
+        sideNumber = numberOfSides;
     }
 
     public void roll(){

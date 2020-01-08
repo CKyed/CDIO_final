@@ -33,16 +33,10 @@ public class DiceController {
             counter++;
         }
 
-
         for (int i =0; i<diceCup.getDiceNumber();i++){
-
-
 
         }
 
     }
-
-
-
 
 }

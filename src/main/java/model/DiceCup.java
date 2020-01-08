@@ -1,15 +1,15 @@
 package model;
 
 public class DiceCup {
-    private int diceNumber = 1;
+    private int diceNumber;
     private int dieSum = 0;
     private Die[] dice;
 
-    public DiceCup(int diceNumber, int diceSideNumber) {
-        this.diceNumber = diceNumber;
-        dice = new Die[diceNumber];
-        for (int i = 0; i < diceNumber; i++) {
-            dice[i] = new Die(diceSideNumber);
+    public DiceCup(int numberOfDice, int numberOfSides) {
+        this.diceNumber = numberOfDice;
+        dice = new Die[numberOfDice];
+        for (int i = 0; i < numberOfDice; i++) {
+            dice[i] = new Die(numberOfSides);
         }
     }
 
