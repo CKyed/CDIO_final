@@ -7,4 +7,7 @@ public abstract class Ownable extends Field {
     private boolean isPledged;
     private Player owner;
 
+    public Ownable(String state) {
+        super(state);
+    }
 }
