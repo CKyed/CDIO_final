@@ -1,9 +1,15 @@
 package controller;
+import static controller.PathExpert.namePath;
+import static controller.TextController.readFile;
+import static controller.PathExpert.fieldAttributesPath;
 
 import gui_fields.GUI_Field;
+import gui_fields.GUI_Refuge;
 import gui_fields.GUI_Start;
 import gui_main.GUI;
 import model.*;
+import model.Fields.*;
+import model.Fields.OwnableFile.*;
 
 import java.awt.*;
 
@@ -27,12 +33,28 @@ public class ViewController {
 
         // Her bliver det simpelt
         for (int i=0;i<numberOfFields;i++){
-            if (board.getFields()[i].getName().equals("Start")){
+            if (board.getFields()[i].getName().equals(readFile(namePath,"start")) ){
                 guiFields[i] = new GUI_Start();
                 guiFields[i].setBackGroundColor(Color.red);
                 guiFields[i].setTitle("Start");
-                guiFields[i].setSubText("Modtag 4000 kr.");
             }
+
+            if (board.getFields()[i].getName().equals(readFile(namePath,"carpark")) ){
+                guiFields[i] = new GUI_Refuge();
+                guiFields[i].setBackGroundColor(Color.blue);
+                guiFields[i].setTitle(readFile(namePath,"carpark"));
+            }
+
+
+            if (board.getFields()[i].getName().equals(readFile(namePath,"start")) ){
+                guiFields[i] = new GUI_Start();
+                guiFields[i].setBackGroundColor(Color.red);
+                guiFields[i].setTitle("Start");
+            }
+
+
+
+
         }
         return guiFields;
     }
