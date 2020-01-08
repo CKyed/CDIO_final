@@ -15,14 +15,14 @@ public class DiceController {
     public void roll() {
         //Rolls and updates the diceNumber and the sameValue variables
         this.diceCup.rollDice();
-        this.faceValues = new int[diceCup.getDiceNumber()];
-        for (int i = 0; i<diceCup.getDiceNumber();i++){
+        this.faceValues = new int[diceCup.getNumberOfDice()];
+        for (int i = 0; i<diceCup.getNumberOfDice(); i++){
             this.faceValues[i] = diceCup.getDice()[i].getFaceValue();
         }
         this.sameValue = true;
         int counter =0;
         while (sameValue==true){
-            if(counter==diceCup.getDiceNumber()-1){
+            if(counter==diceCup.getNumberOfDice()-1){
                 break;
             }
 
@@ -33,7 +33,7 @@ public class DiceController {
             counter++;
         }
 
-        for (int i =0; i<diceCup.getDiceNumber();i++){
+        for (int i = 0; i<diceCup.getNumberOfDice(); i++){
 
         }
 

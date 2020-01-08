@@ -1,12 +1,12 @@
 package model;
 
 public class DiceCup {
-    private int diceNumber;
+    private int numberOfDice;
     private int dieSum = 0;
     private Die[] dice;
 
     public DiceCup(int numberOfDice, int numberOfSides) {
-        this.diceNumber = numberOfDice;
+        this.numberOfDice = numberOfDice;
         dice = new Die[numberOfDice];
         for (int i = 0; i < numberOfDice; i++) {
             dice[i] = new Die(numberOfSides);
@@ -15,16 +15,24 @@ public class DiceCup {
 
     public void rollDice() {
         int sum = 0;
-        for (int i = 0; i < diceNumber; i++) {
+        for (int i = 0; i < numberOfDice; i++) {
             dice[i].roll();
         }
     }
 
-    public int getDiceNumber() {
-        return diceNumber;
+    public int getNumberOfDice() {
+        return numberOfDice;
     }
 
     public Die[] getDice() {
         return dice;
     }
+
+    public int getDieSum(){
+        int sum = 0;
+        for(int i =0; i<numberOfDice; i++){
+         //  sum += this.die.
+        }
+    }
+
 }
