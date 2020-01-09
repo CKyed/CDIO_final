@@ -4,7 +4,7 @@ public class Player {
     private String name;
     private Account account;
     private boolean inJail;
-
+    private int currentFieldId=0;
 
     public Player(String name, int startKapital){
         this.account.setBalance(startKapital);
@@ -29,5 +29,14 @@ public class Player {
     public int getAccountBalance(){
         return this.account.getBalance();
     }
+
+    public void setCurrentFieldId(int currentFieldId) {
+        this.currentFieldId = currentFieldId;
+    }
+
+    public int getCurrentFieldId() {
+        return currentFieldId;
+    }
+
 }
 
