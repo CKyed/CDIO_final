@@ -47,4 +47,13 @@ public class PlayerController {
     public Player[] getPlayers() {
         return players;
     }
+
+    public int[] getFieldIds(){
+        int[] fieldIds = new int[numberOfPlayers];
+        for (int i =0; i< numberOfPlayers; i++){
+            fieldIds[i] = players[i].getCurrentFieldId();
+        }
+        return fieldIds;
+    }
+
 }

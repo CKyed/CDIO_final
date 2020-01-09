@@ -28,7 +28,9 @@ public class SystemController {
             //Gets dieRoll and updates view
             int[] faceValues = gameController.rollDice();
             int sum = gameController.getDiceController().getSum();
-            viewController.rollDiceAndMove(faceValues,sum);
+            int[] oldFieldIds = gameController.getPlayerController().getFieldIds();
+
+            viewController.rollDiceAndMove(faceValues,sum,activePlayerId,oldFieldIds,numberOfPlayers);
 
 
 

@@ -5,6 +5,7 @@ import static controller.PathExpert.fieldAttributesPath;
 
 import gui_fields.*;
 import gui_fields.GUI_Field;
+import gui_fields.GUI_Player;
 import gui_fields.GUI_Refuge;
 import gui_fields.GUI_Start;
 import gui_main.GUI;
@@ -16,12 +17,13 @@ import java.awt.*;
 
 public class ViewController {
     private GUI gui;
+    private GUI_Field[] fields;
     private GUI_Player[] guiPlayers;
 
 
     public ViewController(Board board) {
         GUI_Field[] fields = createFields(board);
-
+        this.fields = fields;
         this.gui = new GUI(fields);
 
 
@@ -125,9 +127,64 @@ public class ViewController {
 
         return playerNames;
     }
+    
+    public void rollDiceAndMove(int[] faceValues, int sum,int activePlayerId, int[] oldFieldIds, int numberOfPlayers){
+        gui.setDice(faceValues[0],faceValues[1]);
 
-    public void rollDiceAndMove(int[] faceValues, int sum){
+        for (int i =0;i<sum;i++){
+            teleportPlayerCar(activePlayerId,1,oldFieldIds);
+            try
+            {
+                Thread.sleep(100);
+            }
+            catch(InterruptedException ex)
+            {
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
 
+    public void teleportPlayerCar(int playerId, int dieRoll, int[] oldFieldIds){
+        //Moves the player dieRoll fields forward
+        //If fromJail, the player won't get his bonus when passing start
+
+        int activePlayerOldFieldId = oldFieldIds[playerId];
+        int newPosition = (activePlayerOldFieldId+1)%40;
+
+
+        //counts how many players are on that field
+        int numberOfPlayersOnField =0;
+        for (int i=0;i<oldFieldIds.length;i++){
+            if (oldFieldIds[i]==activePlayerOldFieldId){
+                numberOfPlayersOnField++;
+            }
+        }
+
+
+        //Makes array of playerID's of players on oldField
+        int[] playersOnOldFieldIds = new int[numberOfPlayersOnField];
+
+        //Fills the array
+        for (int i=0;i<oldFieldIds.length;i++){
+            int j=0;
+            if (oldFieldIds[i]==activePlayerOldFieldId){
+                playersOnOldFieldIds[j] = oldFieldIds[i];
+                j++;
+            }
+        }
+
+        //Removes all players from old field
+        this.fields[activePlayerOldFieldId].removeAllCars();
+
+        //Puts the remaining cars back again
+        for (int i=0;i<playersOnOldFieldIds.length;i++){
+            if (playerId!=playersOnOldFieldIds[i]){
+                this.fields[activePlayerOldFieldId].setCar(guiPlayers[i],true);
+            }
+        }
+
+        //Moves the guiPlayer to the new position
+        fields[newPosition].setCar(guiPlayers[playerId],true);
     }
 
     private void setupGuiPlayers(String[] playerNames){
