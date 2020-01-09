@@ -11,7 +11,7 @@ public class SystemController {
 
 
         this.viewController = new ViewController(this.gameController.getBoardController().getBoard());
-
+        setupPlayers();
     }
     //Setup players with an array of Strings witch the setupPlayers method in viewcontroller returns
     public void setupPlayers(){

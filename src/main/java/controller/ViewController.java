@@ -16,10 +16,12 @@ import java.awt.*;
 
 public class ViewController {
     private GUI gui;
+    private GUI_Player[] guiPlayers;
 
 
     public ViewController(Board board) {
         GUI_Field[] fields = createFields(board);
+
         this.gui = new GUI(fields);
 
 
@@ -119,12 +121,23 @@ public class ViewController {
 
         //tjek om navne er ens
 
-        //Setup GUI-players
+        setupGuiPlayers(playerNames);
 
         return playerNames;
     }
 
     public void rollDiceAndMove(int[] faceValues, int sum){
+
+    }
+
+    private void setupGuiPlayers(String[] playerNames){
+        for (int i=0;i<playerNames.length;i++){
+            this.guiPlayers[i] = new GUI_Player(playerNames[i]);
+        }
+
+
+
+
 
     }
 
