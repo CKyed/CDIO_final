@@ -16,11 +16,18 @@ public class GameController {
         this.playerController = new PlayerController(playerNames);
     }
 
+    /**
+     * Calls the method safeTransferToBank in playerController that returns a boolean that tells if the player has enough money on account
+     * If false, the player could not afford the
+     * @param playerId
+     * @param amount
+     */
+
     public void safePaymentToBank(int playerId,int amount){
-        //Calls the method in playerController and gets a boolean. If false, the player could not afford
         boolean succes = playerController.safeTransferToBank(playerId,amount);
         if(succes==false){
             //The player could not afford to pay
+            //TODO logic what happens when player goes bankrupt
         }
     }
 

@@ -5,8 +5,12 @@ public class PlayerController {
     private Player[] players;
     private int numberOfPlayers;
 
+    /**
+     * Setup the players with player names and start money
+     * @param playerNames
+     */
+
     public PlayerController(String[] playerNames){
-        //Setup the players with player names and start money
         this.numberOfPlayers = playerNames.length;
         int startKapital=30000;
         players = new Player[numberOfPlayers];

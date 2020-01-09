@@ -9,7 +9,9 @@ import model.Fields.OwnableFile.Street;
 public class BoardController {
     private Board board;
 
-
+    /**
+     * Constructor runs the method setup, that gets an array of field from Board class
+     */
     public BoardController(){
         this.board = new Board();
         setup();

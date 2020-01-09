@@ -7,13 +7,19 @@ public class DiceController {
     private int[] faceValues;
     private boolean sameValue =false;
 
-
+    /**
+     * Dice constructor, this is where you can choose number of dice and number of sides
+     */
     public DiceController(){
         this.diceCup = new DiceCup(2,6);
     }
 
+    /**
+     * Rolls the dice and checks for two equal rolls, if the facevalues are the same, then the counter becomes one higher
+     *
+     */
+
     public void roll() {
-        //Rolls and updates the diceNumber and the sameValue variables
         this.diceCup.rollDice();
         this.faceValues = new int[diceCup.getNumberOfDice()];
         for (int i = 0; i<diceCup.getNumberOfDice(); i++){
@@ -29,7 +35,7 @@ public class DiceController {
             if (faceValues[counter] != faceValues[counter+1]){
                 this.sameValue=false;
             }
-
+            //TODO: maybe there is a problem with this counter, it counts even if the faceValues are not the same
             counter++;
         }
 

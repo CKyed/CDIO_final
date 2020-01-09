@@ -11,6 +11,10 @@ public abstract class Field {
     private String description;
     private int id;
 
+    /**
+     * Fields take state as parameter from the namePath file, and is able to return name and id
+     * @param state
+     */
     public Field(String state){
         this.name = readFile(namePath,state);
         this.id = getFieldData(state,"id");
