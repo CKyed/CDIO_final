@@ -1,3 +1,6 @@
+import controller.SystemController;
+import model.DiceCup;
+import model.Die;
 import java.util.Scanner;
 import controller.PathExpert.*;
 import model.*;
@@ -11,7 +14,20 @@ import static controller.TextController.readFile;
 
 public class Main {
     public static void main(String[] args) {
-        out.println("Hello world");
+        System.out.println("Hello world");
+
+        SystemController systemController = new SystemController();
+
+
+        //tester terning
+        Die terning = new Die(6);
+        terning.roll();
+        System.out.println("én terning har slået: "+terning.getFaceValue());
+
+        //tester raflebæger
+        DiceCup raflebaeger = new DiceCup(10,6);
+        raflebaeger.rollDice();
+        System.out.println(raflebaeger.getNumberOfDice() +" terninger har slået: "+raflebaeger.getDieSum());
 
         //MARTIN TESTER TEXTCONTROLLER
         String hej = readFile(namePath,"chance");
@@ -21,3 +37,4 @@ public class Main {
         Field ferry = new Ferry("ferry01");
     }
 }
+
