@@ -23,21 +23,24 @@ public class PlayerController {
         players[playerid].withdraw(amount);
     }
 
-    public void safeTransferToBank(int playerId,int amount) {
+    public boolean safeTransferToBank(int playerId,int amount) {
+        boolean succes=true;
         if (amount <= players[playerId].getAccountBalance()) {
             takeMoneyFromPlayer(playerId, amount);
         } else {
-            //Should call a method which handles, if the player dosen't have enough money to pay
+            succes=false;
         }
+        return succes;
     }
 
-    public void safeTransferToPlayer(int fromPlayerId, int amount, int toPlayerId){
-        //Returns true if transfer is successful. Otherwise returns false and ends game.
+    public boolean safeTransferToPlayer(int fromPlayerId, int amount, int toPlayerId){
+        boolean succes = true;
         if(amount<=players[fromPlayerId].getAccountBalance()){
             takeMoneyFromPlayer(fromPlayerId,amount);
             addMoneyToPlayer(toPlayerId,amount);
         } else {
-            //Should call a method which handles, if the player dosen't have enough money to pay
+            succes=false;
         }
+        return succes;
     }
 }
