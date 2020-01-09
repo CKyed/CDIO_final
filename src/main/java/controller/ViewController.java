@@ -3,9 +3,7 @@ import static controller.PathExpert.namePath;
 import static controller.TextController.readFile;
 import static controller.PathExpert.fieldAttributesPath;
 
-import gui_fields.GUI_Field;
-import gui_fields.GUI_Refuge;
-import gui_fields.GUI_Start;
+import gui_fields.*;
 import gui_main.GUI;
 import model.*;
 import model.Fields.*;
@@ -32,6 +30,8 @@ public class ViewController {
 
         // Her bliver det simpelt
         for (int i=0;i<numberOfFields;i++){
+            String[] fieldTypes = {"start","street","tax","chance","brew","prison","ferry","parking"};
+            GUI_Field[] guiFieldTypes = {new GUI_Start(),new GUI_Street(),new GUI_Tax(),new GUI_Chance(),new GUI_Brewery(),new GUI_Jail(),new GUI_Shipping(),new GUI_Refuge()};
             if (board.getFields()[i].getName().equals(readFile(namePath,"start")) ){
                 guiFields[i] = new GUI_Start();
                 guiFields[i].setBackGroundColor(Color.red);
