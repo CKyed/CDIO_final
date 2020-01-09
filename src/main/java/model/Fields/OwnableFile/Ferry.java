@@ -8,4 +8,9 @@ public class Ferry extends Ownable {
     public Ferry(String state) {
         super(state);
     }
+
+    @Override
+    public void setRent() {
+
+    }
 }
