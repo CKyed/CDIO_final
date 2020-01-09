@@ -109,9 +109,15 @@ public class ViewController {
 
         for (int i =0;i<sum;i++){
             teleportPlayerCar(activePlayerId,1,oldFieldIds);
+            try
+            {
+                Thread.sleep(100);
+            }
+            catch(InterruptedException ex)
+            {
+                Thread.currentThread().interrupt();
+            }
         }
-
-
     }
 
     public void teleportPlayerCar(int playerId, int dieRoll, int[] oldFieldIds){
@@ -156,7 +162,6 @@ public class ViewController {
         //Moves the guiPlayer to the new position
         fields[newPosition].setCar(guiPlayers[playerId],true);
     }
-
 
 
     public void updatePlayerBalances() {
