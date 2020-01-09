@@ -21,28 +21,29 @@ public class ViewController {
         int numberOfFields = board.getFields().length;
         GUI_Field[] guiFields = new GUI_Field[numberOfFields];
 
+        //typer bliver sat op for at sammenligne med model attributter.
+        String[] fieldTypes = {"start", "street", "tax", "chance", "brew", "prison", "ferry", "parking"};
+        GUI_Field[] guiFieldTypes = {
+                new GUI_Start(),
+                new GUI_Street(),
+                new GUI_Tax(),
+                new GUI_Chance(),
+                new GUI_Brewery(),
+                new GUI_Jail(),
+                new GUI_Shipping(),
+                new GUI_Refuge()
+        };
+        int[] fieldColorIDs = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
+        Color[] guiFieldColors = {
+                Color.BLUE, Color.RED, Color.CYAN,
+                Color.YELLOW, Color.WHITE, Color.BLACK,
+                Color.MAGENTA, Color.GRAY, Color.GREEN,
+                Color.PINK, Color.ORANGE, Color.LIGHT_GRAY,
+                Color.DARK_GRAY, Color.darkGray
+        };
 
-        // Her bliver det simpelt
         for (int i = 0; i < numberOfFields; i++) {
-            String[] fieldTypes = {"start", "street", "tax", "chance", "brew", "prison", "ferry", "parking"};
-            GUI_Field[] guiFieldTypes = {
-                    new GUI_Start(),
-                    new GUI_Street(),
-                    new GUI_Tax(),
-                    new GUI_Chance(),
-                    new GUI_Brewery(),
-                    new GUI_Jail(),
-                    new GUI_Shipping(),
-                    new GUI_Refuge()
-            };
-            int[] fieldColorIDs = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
-            Color[] guiFieldColors = {
-                    Color.BLUE, Color.RED, Color.CYAN,
-                    Color.YELLOW, Color.WHITE, Color.BLACK,
-                    Color.MAGENTA, Color.GRAY, Color.GREEN,
-                    Color.PINK, Color.ORANGE, Color.LIGHT_GRAY,
-                    Color.DARK_GRAY, Color.darkGray
-            };
+
             for (int j = 0; j < fieldTypes.length; j++) {
                 if (fieldTypes[j].equals(board.getFields()[i].getType()))
                     guiFields[i] = guiFieldTypes[j];

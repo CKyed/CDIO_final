@@ -11,7 +11,6 @@ public class Board {
 
         for (int i=0; i <40;i++){
             fields[i] = new Start("start");
-
         }
 
     }
