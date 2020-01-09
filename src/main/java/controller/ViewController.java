@@ -63,10 +63,41 @@ public class ViewController {
 
         String[] playerNames = new String[numberOfPlayers];
 
-        for (int i =0;i<numberOfPlayers;i++){
+        for (int i =0;i<numberOfPlayers;i++) {
             playerNames[i] = gui.getUserString("");
+/*
+            while (playerNames[i].equals("")||playerNames[i].equals(" ")){
+                System.out.println("Indtast nyt navn"); //TODO GUI-meddelese
+                playerNames[i] = gui.getUserString("");
+            }
+*/
+            while(playerNames[i].isEmpty()){
+                System.out.println("prøv igen ");
+                playerNames[i] = gui.getUserString("");
+            }
 
+            for (int j = 0; j < numberOfPlayers; j++) {
+
+                if (playerNames[i].equals(playerNames[j]) && i != j)
+                playerNames[i] = gui.getUserString("");
+
+            }
+
+
+            int numberOfLetters = playerNames[i].length();
+            /*
+            for(int j = 0; j<numberOfLetters;j++) {
+               char c = playerNames[i].charAt(j);
+               while
+            }
+*/
         }
+
+        //tjek om navne er tomme :P
+
+        //tjek om navne er ens
+
+        //Setup GUI-players
 
         return playerNames;
     }

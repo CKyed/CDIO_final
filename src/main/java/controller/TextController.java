@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import static controller.PathExpert.*;
+
 
 public class TextController {
 
@@ -25,9 +27,9 @@ public class TextController {
                         return value;
                     }
                 }
-                else {
-                    System.out.println("ignoring line: " + line);
-                }
+                //else {
+                    //System.out.println("ignoring line: " + line);
+                //}
 
             }
 
@@ -36,5 +38,23 @@ public class TextController {
         }
 
         return null;
+    }
+
+
+    public static int getFieldData(String state, String attribute){
+        String line = readFile(fieldAttributesPath,state);
+        String[] stringData = line.split(",");
+        int[] intData = new int[stringData.length];
+        for (int i=0;i<stringData.length;i++){
+            intData[i] = Integer.parseInt(stringData[i]);
+        }
+        String[] choices = {"id","price","rent","houseprice","house1","house2","house3","house4","hotel","serie"};
+        int number = 0;
+        for (int i = 0; i < intData.length; i++) {
+            if (choices[i].equals(attribute)){
+                number = intData[i];
+            }
+        }
+        return number;
     }
 }
