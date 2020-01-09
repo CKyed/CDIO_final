@@ -20,7 +20,7 @@ public class Taxes extends Field{
                 player.getAccount().withdraw( 4000 );
             }else {
                 int tenOfPlayerAccount = player.getAccount().getBalance() *(10/100);
-                // TODO mangle Ownable
+                // TODO mangle Ownable. Skal redigeres når gamecontroller til at lave.
              }
     }
 }
