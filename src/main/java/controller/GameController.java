@@ -1,6 +1,7 @@
 package controller;
 
 import model.*;
+import model.Fields.IncomeTax;
 import model.Fields.OrdinaryTax;
 
 public class GameController {
@@ -42,10 +43,25 @@ public class GameController {
         return succes;
     }
 
-    //Method that can be called when a player lands on the field called Ordinary Tax
+    /**
+     * Method that can be called when a player lands on the field called Ordinary Tax
+     * @param activePlayerId
+     * @return
+     */
+
     public boolean payOrdinaryTax(int activePlayerId){
         return safePaymentToBank(activePlayerId, ((OrdinaryTax)boardController.getBoard().getFields()[38]).getTax());
 
+    }
+
+    //the user has chosen either 0 or 1, 0 is 4000 kr and 1 is 10%
+    public boolean payIncomeTax(int activePlayerId, int choice){
+        if(choice == 0){
+            return safePaymentToBank(activePlayerId, ((IncomeTax)boardController.getBoard().getFields()[4]).getIncomeTax());
+        }
+        else if(choice == 1){
+            //TODO: create method that counts players total value
+        }
     }
 
 
@@ -56,6 +72,8 @@ public class GameController {
             //The player could not afford to pay
         }
     }
+
+
 
     public void setActivePlayer(Player player){
         this.activePlayer = player;
