@@ -1,6 +1,9 @@
 package model;
 
 public class Player {
+    /**
+     * Player has a name, account and inJail(boolean) as attributes
+     */
     private String name;
     private Account account;
     private boolean inJail;
@@ -10,6 +13,8 @@ public class Player {
         this.account.setBalance(startKapital);
         this.name = name;
     }
+
+
     public Account getAccount() {
         return account;
     }

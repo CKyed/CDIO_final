@@ -2,6 +2,7 @@ package model;
 
 import java.util.Random;
 
+
 public class Die {
 
     private int faceValue = 1;
