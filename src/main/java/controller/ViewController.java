@@ -73,7 +73,7 @@ public class ViewController {
 
         }
 
-        //tjek om navne er tomme
+        //tjek om navne er tomme :P
 
         //tjek om navne er ens
 
