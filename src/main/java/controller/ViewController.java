@@ -20,9 +20,6 @@ public class ViewController {
     public ViewController(Board board) {
         GUI_Field[] fields = createFields(board);
         this.gui = new GUI(fields);
-
-
-
     }
 
     public GUI_Field[] createFields(Board board){
@@ -51,9 +48,6 @@ public class ViewController {
                 guiFields[i].setTitle("Start");
             }
 
-
-
-
         }
         return guiFields;
     }
@@ -65,12 +59,24 @@ public class ViewController {
 
         for (int i =0;i<numberOfPlayers;i++){
             playerNames[i] = gui.getUserString("");
-
+/*
             while (playerNames[i].equals("")||playerNames[i].equals(" ")){
                 System.out.println("Indtast nyt navn"); //TODO GUI-meddelese
                 playerNames[i] = gui.getUserString("");
             }
+*/
+            while(playerNames[i].isEmpty()){
+                System.out.println("prøv igen ");
+                playerNames[i] = gui.getUserString("");
+            }
 
+            int numberOfLetters = playerNames[i].length();
+            /*
+            for(int j = 0; j<numberOfLetters;j++) {
+               char c = playerNames[i].charAt(j);
+               while
+            }
+*/
         }
 
         //tjek om navne er tomme :P
