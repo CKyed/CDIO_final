@@ -11,22 +11,8 @@ public abstract class Field {
     private int id;
 
     public Field(String state){
-        int[] data = getFieldData(state);
-
+        this.id = getFieldData(state,"id");
         this.name = readFile(namePath,state);
-        this.id = data[1];
-
-    }
-    public int[] getFieldData(String state){
-        String data = readFile(fieldAttributesPath,state);
-        String[] stringData = data.split(",");
-        int[] intData = new int[stringData.length];
-
-        //Billig løsning - 1-tallet bør rettes til et 0
-        for (int i=1;i<stringData.length;i++){
-            intData[i] = Integer.parseInt(stringData[i]);
-        }
-        return intData;
     }
 
     public String getName() {
