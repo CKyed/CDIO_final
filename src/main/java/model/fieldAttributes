@@ -6,12 +6,12 @@ visit:10
 
 prison:30
 
-chance:2
-chance:7
-chance:17
-chance:22
-chance:33
-chance:37
+chance1:2
+chance2:7
+chance3:17
+chance4:22
+chance5:33
+chance6:37
 
 tax01:4
 tax02:38

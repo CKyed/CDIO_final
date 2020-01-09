@@ -1,8 +1,13 @@
 package controller;
+import static controller.PathExpert.namePath;
+import static controller.TextController.readFile;
+import static controller.PathExpert.fieldAttributesPath;
 
 import gui_fields.*;
 import gui_main.GUI;
 import model.*;
+import model.Fields.*;
+import model.Fields.OwnableFile.*;
 
 import java.awt.*;
 
@@ -13,6 +18,7 @@ public class ViewController {
     public ViewController(Board board) {
         GUI_Field[] fields = createFields(board);
         this.gui = new GUI(fields);
+
 
 
     }
