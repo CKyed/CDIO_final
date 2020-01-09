@@ -3,8 +3,12 @@ package model.Fields;
 import model.Account;
 import model.Player;
 
-public class Taxes {
+public class Taxes extends Field{
     private int tax;
+
+    public Taxes(String state){
+        super(state);
+    }
 
 
     public void tax(Player player){

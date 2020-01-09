@@ -14,7 +14,7 @@ public abstract class Field {
         int[] data = getFieldData(state);
 
         this.name = readFile(namePath,state);
-        this.id = data[1];
+        this.id = data[0];
 
     }
     public int[] getFieldData(String state){

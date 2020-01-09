@@ -8,12 +8,6 @@ public class Board {
 
     public Board(){
         fields = new Field[40];
-
-        for (int i=0; i <40;i++){
-            fields[i] = new Start("start");
-
-        }
-
     }
 
     public Field[] getFields() {
