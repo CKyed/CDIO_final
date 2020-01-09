@@ -21,8 +21,6 @@ public class ViewController {
         GUI_Field[] fields = createFields(board);
         this.gui = new GUI(fields);
 
-
-
     }
 
     public GUI_Field[] createFields(Board board){

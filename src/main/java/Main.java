@@ -5,7 +5,7 @@ import java.util.Scanner;
 import controller.PathExpert.*;
 import model.*;
 import model.Fields.*;
-import model.Fields.OwnableFile.Ferry;
+//import model.Fields.OwnableFile.Ferry;
 
 
 import static java.lang.System.out;
@@ -17,6 +17,7 @@ public class Main {
         System.out.println("Hello world");
 
         SystemController systemController = new SystemController();
+
 
 
         //tester terning
@@ -34,7 +35,8 @@ public class Main {
         out.println(hej);
 
         //Tester noget mere
-        Field ferry = new Ferry("ferry01");
+       // Field ferry = new Ferry("ferry01");
+
     }
 }
 
