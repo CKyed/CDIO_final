@@ -72,5 +72,39 @@ public class ViewController {
     }
 
 
+    String[] players = {"c", "a", "b", "e"};
+    //Shuffels the chance card deck
+    public  void shuffle(){
+        for (int i=0; i<1000; i++ ){
+            int a= (int) (Math.random()*players.length);
+            int b= (int) (Math.random()*players.length);
+            swap(a,b);
+        }
+    }
+
+    public  void swap(int a, int b){
+        String cardA = players[a];
+        String cardB = players[b];
+        players[a] = cardB ;
+        players[b] = cardA;
+    }
+
+    /**
+     * i take care of first element in array
+     * j take care of second element in array
+     * compareToIgnoreCase Example https://beginnersbook.com/2013/12/java-string-comparetoignorecase-method-example/
+     */
+    public  void alphabetSort() {
+        for (int i = 0; i < players.length; i++) {
+            for (int j = i + 1; j < players.length; j++) {
+                if (players[i].compareToIgnoreCase( players[j] ) > 0) {
+                    String temp = players[i];
+                    players[i] = players[j];
+                    players[j] = temp;
+
+                }
+            }
+        }
+    }
 
 }
