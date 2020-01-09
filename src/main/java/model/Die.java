@@ -1,26 +1,13 @@
 package model;
-
-import java.util.Random;
-
 public class Die {
 
-    private int faceValue = 1;
-    private int sideNumber = 6;
+    private int minValue = 1;
+    private int faceValue;
+    private int maxValue = 6;
 
-    public Die(int i) {
-        sideNumber = i;
-    }
-
-    public void roll(){
-        Random Ran = new Random();
-        faceValue = Ran.nextInt(sideNumber) + 1;
-    }
-
-    public int getFaceValue(){
+    //Roll dice and get random value
+    public int roll(){
+        faceValue = minValue + (int) (Math.random()*maxValue);
         return faceValue;
-    }
-
-    public void setFaceValue(int y){
-        faceValue = y;
     }
 }
