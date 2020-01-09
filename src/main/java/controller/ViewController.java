@@ -20,6 +20,9 @@ public class ViewController {
     public ViewController(Board board) {
         GUI_Field[] fields = createFields(board);
         this.gui = new GUI(fields);
+
+
+
     }
 
     public GUI_Field[] createFields(Board board){
@@ -48,6 +51,9 @@ public class ViewController {
                 guiFields[i].setTitle("Start");
             }
 
+
+
+
         }
         return guiFields;
     }
@@ -57,7 +63,7 @@ public class ViewController {
 
         String[] playerNames = new String[numberOfPlayers];
 
-        for (int i =0;i<numberOfPlayers;i++){
+        for (int i =0;i<numberOfPlayers;i++) {
             playerNames[i] = gui.getUserString("");
 /*
             while (playerNames[i].equals("")||playerNames[i].equals(" ")){
@@ -69,6 +75,14 @@ public class ViewController {
                 System.out.println("prøv igen ");
                 playerNames[i] = gui.getUserString("");
             }
+
+            for (int j = 0; j < numberOfPlayers; j++) {
+
+                if (playerNames[i].equals(playerNames[j]) && i != j)
+                playerNames[i] = gui.getUserString("");
+
+            }
+
 
             int numberOfLetters = playerNames[i].length();
             /*
