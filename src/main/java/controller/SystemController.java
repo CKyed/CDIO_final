@@ -33,10 +33,6 @@ public class SystemController {
             viewController.rollDiceAndMove(faceValues,sum,activePlayerId,oldFieldIds,numberOfPlayers);
 
 
-
-
-
-
             //Updates the balances of all Players
             viewController.updatePlayerBalances();
 
@@ -47,12 +43,7 @@ public class SystemController {
 
         }
 
-
-
     }
-
-
-
 
 
 

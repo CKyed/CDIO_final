@@ -14,6 +14,7 @@ public abstract class Field {
     public Field(String state){
         this.name = readFile(namePath,state);
         this.id = getFieldData(state,"id");
+
     }
 
     public abstract int getGroup();

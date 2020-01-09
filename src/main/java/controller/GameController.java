@@ -1,6 +1,7 @@
 package controller;
 
 import model.*;
+import model.Fields.OrdinaryTax;
 
 public class GameController {
     private BoardController boardController;
@@ -32,13 +33,22 @@ public class GameController {
     }
 
 
-    public void safePaymentToBank(int playerId,int amount){
+    public boolean safePaymentToBank(int playerId,int amount){
         //Calls the method in playerController and gets a boolean. If false, the player could not afford
         boolean succes = playerController.safeTransferToBank(playerId,amount);
         if(succes==false){
             //The player could not afford to pay
         }
+        return succes;
     }
+
+    //Method that can be called when a player lands on the field called Ordinary Tax
+    public boolean payOrdinaryTax(int activePlayerId){
+        return safePaymentToBank(activePlayerId, ((OrdinaryTax)boardController.getBoard().getFields()[38]).getTax());
+
+    }
+
+
 
     public void safePaymentToPlayer(int fromPlayerId, int amount, int toPlayerId){
         boolean succes = playerController.safeTransferToPlayer(fromPlayerId,amount,toPlayerId);
