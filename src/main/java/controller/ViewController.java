@@ -96,6 +96,7 @@ public class ViewController {
 /*
             while (playerNames[i].equals("")||playerNames[i].equals(" ")){
                 System.out.println("Indtast nyt navn"); //TODO GUI-meddelese
+
                 playerNames[i] = gui.getUserString("");
             }
 */
@@ -140,19 +141,12 @@ public class ViewController {
         return playerNames;
     }
     
-    public void rollDiceAndMove(int[] faceValues, int sum,int activePlayerId, int oldFieldId){
+    public void rollDiceAndMove(int[] faceValues,int activePlayerId, int oldFieldId){
         gui.setDice(faceValues[0],faceValues[1]);
+        int sum = faceValues[0]+faceValues[1];
 
         for (int i =0;i<sum;i++){
             teleportPlayerCar(activePlayerId,1,oldFieldId+i);
-            try
-            {
-                Thread.sleep(200);
-            }
-            catch(InterruptedException ex)
-            {
-                Thread.currentThread().interrupt();
-            }
         }
     }
 
@@ -189,5 +183,15 @@ public class ViewController {
     }
 
     public void updateOwnerships() {
+    }
+    private void pause(int time){
+        try
+        {
+            Thread.sleep(time);
+        }
+        catch(InterruptedException ex)
+        {
+            Thread.currentThread().interrupt();
+        }
     }
 }

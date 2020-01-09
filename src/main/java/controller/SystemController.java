@@ -30,11 +30,10 @@ public class SystemController {
         while (true){
             //Gets dieRoll and updates view
             faceValues = gameController.rollDice();
-            sum = gameController.getDiceController().getSum();
             oldFieldId = gameController.getActivePlayer().getCurrentFieldId();
 
 
-            viewController.rollDiceAndMove(faceValues,sum,activePlayerId,oldFieldId);
+            viewController.rollDiceAndMove(faceValues,activePlayerId,oldFieldId);
 
 
 
@@ -54,7 +53,7 @@ public class SystemController {
     }
 
     public void movePlayer(int[] diceValues){
-        int playerStepsToMove =
+        int playerStepsToMove = diceValues[0]+diceValues[1];
     }
 
 
