@@ -13,6 +13,9 @@ public class Die {
         sideNumber = i;
     }
 
+    /**
+     *  method randomizes a number between
+     */
     public void roll(){
         Random Ran = new Random();
         faceValue = Ran.nextInt(sideNumber) + 1;

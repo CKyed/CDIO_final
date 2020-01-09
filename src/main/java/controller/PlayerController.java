@@ -20,13 +20,32 @@ public class PlayerController {
         }
     }
 
+    /**
+     * Adds an ammount of money to a players account
+     * @param playerId
+     * @param amount
+     */
+
     public void addMoneyToPlayer(int playerId, int amount){
         players[playerId].deposit(amount);
     }
 
+    /**
+     * Withdraws an ammount of money from a players account.
+     * @param playerid
+     * @param amount
+     */
+
     public void takeMoneyFromPlayer(int playerid, int amount){
         players[playerid].withdraw(amount);
     }
+
+    /**
+     *
+     * @param playerId
+     * @param amount
+     * @return Boolean
+     */
 
     public boolean safeTransferToBank(int playerId,int amount) {
         boolean succes=true;
