@@ -66,7 +66,18 @@ public class ViewController {
         for (int i =0;i<numberOfPlayers;i++){
             playerNames[i] = gui.getUserString("");
 
+            while (playerNames[i].equals("")||playerNames[i].equals(" ")){
+                System.out.println("Indtast nyt navn"); //TODO GUI-meddelese
+                playerNames[i] = gui.getUserString("");
+            }
+
         }
+
+        //tjek om navne er tomme
+
+        //tjek om navne er ens
+
+        //Setup GUI-players
 
         return playerNames;
     }
