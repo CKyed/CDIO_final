@@ -6,7 +6,8 @@ public class PlayerController {
     private int numberOfPlayers;
 
     /**
-     * Setup the players with player names and start money
+     * Sets number of players equal to length og playerNames array
+     * Gives each player a name from array playerNames and 30000 in startmoney
      * @param playerNames
      */
 
