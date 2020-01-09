@@ -1,17 +1,17 @@
-start:start
+start:0
 
-carpark:parking
+carpark:20
 
 visit:10
 
 prison:30
 
-chance1:2
-chance2:7
-chance3:17
-chance4:22
-chance5:33
-chance6:37
+chance01:2
+chance02:7
+chance03:17
+chance04:22
+chance05:33
+chance06:37
 
 tax01:4
 tax02:38

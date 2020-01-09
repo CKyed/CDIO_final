@@ -7,6 +7,8 @@ public class SystemController {
 
     public SystemController(){
         this.gameController = new GameController();
+
+
         this.viewController = new ViewController(this.gameController.getBoardController().getBoard());
 //        this.viewController.setupPlayers();
     }
