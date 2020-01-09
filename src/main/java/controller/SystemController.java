@@ -51,11 +51,11 @@ public class SystemController {
             activePlayerId = gameController.getActivePlayerId();
 
         }
-
-
-
     }
 
+    public void movePlayer(int[] diceValues){
+        int playerStepsToMove =
+    }
 
 
 

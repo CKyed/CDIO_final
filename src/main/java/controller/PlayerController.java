@@ -8,10 +8,10 @@ public class PlayerController {
     public PlayerController(String[] playerNames){
         //Setup the players with player names and start money
         this.numberOfPlayers = playerNames.length;
-        int startKapital=30000;
+        int startCapital=30000;
         players = new Player[numberOfPlayers];
         for (int i=0;i<numberOfPlayers;i++){
-            players[i] = new Player(playerNames[i],startKapital);
+            players[i] = new Player(playerNames[i],startCapital);
         }
     }
 
@@ -23,6 +23,9 @@ public class PlayerController {
         players[playerid].withdraw(amount);
     }
 
+    //This method checks if player has enough money to pay
+    //If the player has enough money then he will pay.
+    //If he cant pay then he wont pay and the method will let him know that he cant
     public boolean safeTransferToBank(int playerId,int amount) {
         boolean succes=true;
         if (amount <= players[playerId].getAccountBalance()) {

@@ -30,12 +30,10 @@ public class GameController {
         activePlayerId =0;
         updateActivePlayer();
     }
-
+    //Pass-on method returns dice for use in systemcontroller and viewontroller
     public int[] rollDice(){
-        diceController.roll();
-
-        this.activePlayer.setCurrentFieldId((this.activePlayer.getCurrentFieldId()+diceController.getSum())%this.boardController.getBoard().getFields().length);
-        return diceController.getFaceValues();
+        int[] diceValues = diceController.diceValues();
+        return diceValues;
     }
 
 
