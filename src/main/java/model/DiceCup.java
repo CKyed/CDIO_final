@@ -4,14 +4,16 @@ public class DiceCup {
     private int numberOfDice;
     private int dieSum;
     private Die[] dice;
-
+    private int[] faceValues;
 
     //Creates an array with a number of dice and a number of sides, defined by the two variables
     public DiceCup(int numberOfDice, int numberOfSides) {
         this.numberOfDice = numberOfDice;
+        this.faceValues= new int[numberOfDice];
         dice = new Die[numberOfDice];
         for (int i = 0; i < numberOfDice; i++) {
             dice[i] = new Die(numberOfSides);
+            faceValues[i] =0;
         }
     }
 
@@ -37,6 +39,10 @@ public class DiceCup {
           dieSum += this.dice[i].getFaceValue();
         }
         return dieSum;
+    }
+
+    public int[] getFaceValues() {
+        return faceValues;
     }
 
 }

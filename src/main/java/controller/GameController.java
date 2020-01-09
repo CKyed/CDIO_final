@@ -6,6 +6,9 @@ public class GameController {
     private BoardController boardController;
     private PlayerController playerController;
     private Player activePlayer;
+
+
+
     private int activePlayerId;
     private DiceController diceController;
     private ChanceCardController chanceCardController;
@@ -28,6 +31,8 @@ public class GameController {
 
     public int[] rollDice(){
         diceController.roll();
+
+        this.activePlayer.setCurrentFieldId((this.activePlayer.getCurrentFieldId()+diceController.getSum())%this.boardController.getBoard().getFields().length);
         return diceController.getFaceValues();
     }
 
@@ -70,5 +75,9 @@ public class GameController {
         this.activePlayerId = this.activePlayerId % numberOfPlayers;
         this.activePlayer = playerController.getPlayers()[activePlayerId];
 
+    }
+
+    public int getActivePlayerId() {
+        return activePlayerId;
     }
 }

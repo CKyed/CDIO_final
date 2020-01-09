@@ -7,7 +7,7 @@ public class Player {
     private int currentFieldId=0;
 
     public Player(String name, int startKapital){
-        this.account.setBalance(startKapital);
+        this.account = new Account(startKapital);
         this.name = name;
     }
     public Account getAccount() {

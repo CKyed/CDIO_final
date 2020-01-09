@@ -19,7 +19,7 @@ public class ViewController {
     private GUI gui;
     private GUI_Field[] fields;
     private GUI_Player[] guiPlayers;
-
+    private GUI_Car[] guiCars;
 
     public ViewController(Board board) {
         GUI_Field[] fields = createFields(board);
@@ -89,6 +89,8 @@ public class ViewController {
 
         String[] playerNames = new String[numberOfPlayers];
 
+        this.guiCars = new GUI_Car[numberOfPlayers];
+
         for (int i =0;i<numberOfPlayers;i++) {
             playerNames[i] = gui.getUserString("");
 /*
@@ -110,32 +112,42 @@ public class ViewController {
             }
 
 
+
+
             int numberOfLetters = playerNames[i].length();
             /*
             for(int j = 0; j<numberOfLetters;j++) {
                char c = playerNames[i].charAt(j);
                while
             }
-*/
+
+         */
+            //Spilleren vælger deres bil
+            //this.guiCars[i] = new GUI_Car(Color.BLUE,Color.BLUE,GUI_Car.Type.CAR,GUI_Car.Pattern.FILL);
+
         }
 
         //tjek om navne er tomme :P
 
         //tjek om navne er ens
 
+        this.guiCars = new GUI_Car[]{new GUI_Car(Color.GREEN, Color.GREEN, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL),
+                new GUI_Car(Color.RED, Color.RED, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL), new GUI_Car(Color.YELLOW, Color.YELLOW, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL), new GUI_Car(Color.WHITE, Color.WHITE, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL), new GUI_Car(Color.BLUE, Color.BLUE, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL), new GUI_Car(Color.BLUE, Color.BLUE, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL)};
+
+
         setupGuiPlayers(playerNames);
 
         return playerNames;
     }
     
-    public void rollDiceAndMove(int[] faceValues, int sum,int activePlayerId, int[] oldFieldIds, int numberOfPlayers){
+    public void rollDiceAndMove(int[] faceValues, int sum,int activePlayerId, int oldFieldId){
         gui.setDice(faceValues[0],faceValues[1]);
 
         for (int i =0;i<sum;i++){
-            teleportPlayerCar(activePlayerId,1,oldFieldIds);
+            teleportPlayerCar(activePlayerId,1,oldFieldId+i);
             try
             {
-                Thread.sleep(100);
+                Thread.sleep(200);
             }
             catch(InterruptedException ex)
             {
@@ -144,52 +156,26 @@ public class ViewController {
         }
     }
 
-    public void teleportPlayerCar(int playerId, int dieRoll, int[] oldFieldIds){
+    public void teleportPlayerCar(int playerId, int dieRoll, int oldFieldId){
         //Moves the player dieRoll fields forward
         //If fromJail, the player won't get his bonus when passing start
 
-        int activePlayerOldFieldId = oldFieldIds[playerId];
-        int newPosition = (activePlayerOldFieldId+1)%40;
+        int newPosition = (oldFieldId+dieRoll)%fields.length;
 
-
-        //counts how many players are on that field
-        int numberOfPlayersOnField =0;
-        for (int i=0;i<oldFieldIds.length;i++){
-            if (oldFieldIds[i]==activePlayerOldFieldId){
-                numberOfPlayersOnField++;
-            }
-        }
-
-
-        //Makes array of playerID's of players on oldField
-        int[] playersOnOldFieldIds = new int[numberOfPlayersOnField];
-
-        //Fills the array
-        for (int i=0;i<oldFieldIds.length;i++){
-            int j=0;
-            if (oldFieldIds[i]==activePlayerOldFieldId){
-                playersOnOldFieldIds[j] = oldFieldIds[i];
-                j++;
-            }
-        }
-
-        //Removes all players from old field
-        this.fields[activePlayerOldFieldId].removeAllCars();
-
-        //Puts the remaining cars back again
-        for (int i=0;i<playersOnOldFieldIds.length;i++){
-            if (playerId!=playersOnOldFieldIds[i]){
-                this.fields[activePlayerOldFieldId].setCar(guiPlayers[i],true);
-            }
-        }
+        //removes the guiPlayer from the old position
+        fields[oldFieldId].setCar(guiPlayers[playerId],false);
 
         //Moves the guiPlayer to the new position
         fields[newPosition].setCar(guiPlayers[playerId],true);
     }
 
     private void setupGuiPlayers(String[] playerNames){
+        this.guiPlayers = new GUI_Player[playerNames.length];
         for (int i=0;i<playerNames.length;i++){
-            this.guiPlayers[i] = new GUI_Player(playerNames[i]);
+            this.guiPlayers[i] = new GUI_Player(playerNames[i],30000,this.guiCars[i]);
+            this.gui.addPlayer(guiPlayers[i]);
+
+           this.fields[0].setCar(this.guiPlayers[i],true);
         }
 
 

@@ -12,6 +12,7 @@ public class SystemController {
 
         this.viewController = new ViewController(this.gameController.getBoardController().getBoard());
         setupPlayers();
+        play();
     }
     //Setup players with an array of Strings witch the setupPlayers method in viewcontroller returns
     public void setupPlayers(){
@@ -20,17 +21,20 @@ public class SystemController {
     }
 
     public void play(){
-        int activePlayerId = 0;
-
+        int activePlayerId = gameController.getActivePlayerId();
+        int[] faceValues;
+        int sum;
+        int oldFieldId;
 
         //Plays turns
         while (true){
             //Gets dieRoll and updates view
-            int[] faceValues = gameController.rollDice();
-            int sum = gameController.getDiceController().getSum();
-            int[] oldFieldIds = gameController.getPlayerController().getFieldIds();
+            faceValues = gameController.rollDice();
+            sum = gameController.getDiceController().getSum();
+            oldFieldId = gameController.getActivePlayer().getCurrentFieldId();
 
-            viewController.rollDiceAndMove(faceValues,sum,activePlayerId,oldFieldIds,numberOfPlayers);
+
+            viewController.rollDiceAndMove(faceValues,sum,activePlayerId,oldFieldId);
 
 
 
@@ -44,6 +48,7 @@ public class SystemController {
 
             //Gives the turn to the next player
             gameController.updateActivePlayer();
+            activePlayerId = gameController.getActivePlayerId();
 
         }
 

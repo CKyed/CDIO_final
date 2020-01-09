@@ -40,7 +40,7 @@ public class DiceController {
     }
 
     public int[] getFaceValues(){
-        return this.getFaceValues();
+        return diceCup.getFaceValues();
     }
 
     public int getSum(){
