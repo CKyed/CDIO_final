@@ -13,12 +13,14 @@ public class GameController {
     private DiceController diceController;
     private ChanceCardController chanceCardController;
 
+    //Constructor initiates instances of classes that the controller controls.
     public GameController(){
         this.boardController = new BoardController();
         this.diceController = new DiceController();
         this.chanceCardController = new ChanceCardController();
     }
 
+    //Pass-on methods (are not used for anything else than to pass it on to classes above this class)
     public BoardController getBoardController() {
         return boardController;
     }
