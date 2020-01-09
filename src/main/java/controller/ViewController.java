@@ -101,7 +101,15 @@ public class ViewController {
 
         return playerNames;
     }
+    
+    public void rollDiceAndMove(int[] faceValues, int sum){
+        
+    }
 
 
+    public void updatePlayerBalances() {
+    }
 
+    public void updateOwnerships() {
+    }
 }

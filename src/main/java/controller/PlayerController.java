@@ -43,4 +43,8 @@ public class PlayerController {
         }
         return succes;
     }
+
+    public Player[] getPlayers() {
+        return players;
+    }
 }

@@ -39,4 +39,12 @@ public class DiceController {
 
     }
 
+    public int[] getFaceValues(){
+        return this.getFaceValues();
+    }
+
+    public int getSum(){
+        return this.diceCup.getDieSum();
+    }
+
 }
