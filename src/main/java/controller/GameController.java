@@ -6,7 +6,6 @@ public class GameController {
 
     public GameController(){
         this.boardController = new BoardController();
-
     }
 
     public BoardController getBoardController() {

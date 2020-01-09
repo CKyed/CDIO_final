@@ -17,4 +17,17 @@ public class Player {
     public void setAccount(Account account) {
         this.account = account;
     }
+
+    public void deposit(int amount){
+        this.account.deposit(amount);
+    }
+
+    public void withdraw(int amount){
+        this.account.withdraw(amount);
+    }
+
+    public int getAccountBalance(){
+        return this.account.getBalance();
+    }
 }
+
