@@ -14,6 +14,9 @@ public abstract class Field {
         this.name = readFile(namePath,state);
     }
 
+    public abstract int getGroup();
+    public abstract String getType();
+
     public String getName() {
         return name;
     }
