@@ -109,6 +109,8 @@
                             <addClasspath>
                                 true
                             </addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
