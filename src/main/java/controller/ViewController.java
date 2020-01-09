@@ -3,9 +3,7 @@ import static controller.PathExpert.namePath;
 import static controller.TextController.readFile;
 import static controller.PathExpert.fieldAttributesPath;
 
-import gui_fields.GUI_Field;
-import gui_fields.GUI_Refuge;
-import gui_fields.GUI_Start;
+import gui_fields.*;
 import gui_main.GUI;
 import model.*;
 import model.Fields.*;
@@ -20,122 +18,58 @@ public class ViewController {
     public ViewController(Board board) {
         GUI_Field[] fields = createFields(board);
         this.gui = new GUI(fields);
-
-
-
     }
-
-    public GUI_Field[] createFields(Board board){
+    public GUI_Field[] createFields(Board board) {
         int numberOfFields = board.getFields().length;
         GUI_Field[] guiFields = new GUI_Field[numberOfFields];
+        //typer bliver sat op for at sammenligne med model attributter.
+        int[] fieldColorIDs = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
+        Color[] guiFieldColors = {
+                Color.BLUE, Color.RED, Color.CYAN,
+                Color.YELLOW, Color.WHITE, Color.BLACK,
+                Color.MAGENTA, Color.GRAY, Color.GREEN,
+                Color.PINK, Color.ORANGE, Color.LIGHT_GRAY,
+                Color.DARK_GRAY, Color.darkGray,Color.darkGray
+        };
+        for (int i = 0; i < numberOfFields; i++) {
 
-
-        // Her bliver det simpelt
-        for (int i=0;i<numberOfFields;i++){
-            if (board.getFields()[i].getName().equals(readFile(namePath,"start")) ){
-                guiFields[i] = new GUI_Start();
-                guiFields[i].setBackGroundColor(Color.red);
-                guiFields[i].setTitle("Start");
+            for (int j = 0; j < fieldColorIDs.length; j++) {
+                switch (board.getFields()[i].getType()){
+                    case ("start"):
+                        guiFields[i] = new GUI_Start();
+                        break;
+                    case ("street"):
+                        guiFields[i] = new GUI_Street();
+                        break;
+                    case ("tax"):
+                        guiFields[i] = new GUI_Tax();
+                        break;
+                    case ("chance"):
+                        guiFields[i] = new GUI_Chance();
+                        break;
+                    case ("brew"):
+                        guiFields[i] = new GUI_Brewery();
+                        break;
+                    case ("prison"):
+                        guiFields[i] = new GUI_Jail();
+                        break;
+                    case ("ferry"):
+                        guiFields[i] = new GUI_Shipping();
+                        break;
+                    case ("parking"):
+                        guiFields[i] = new GUI_Refuge();
+                        break;
+                }
             }
-
-            if (board.getFields()[i].getName().equals(readFile(namePath,"carpark")) ){
-                guiFields[i] = new GUI_Refuge();
-                guiFields[i].setBackGroundColor(Color.blue);
-                guiFields[i].setTitle(readFile(namePath,"carpark"));
+            for (int j = 0; j < fieldColorIDs.length; j++) {
+                if (fieldColorIDs[j] == board.getFields()[i].getGroup()) {
+                    guiFields[i].setBackGroundColor(guiFieldColors[j]);
+                }
             }
-
-
-            if (board.getFields()[i].getName().equals(readFile(namePath,"start")) ){
-                guiFields[i] = new GUI_Start();
-                guiFields[i].setBackGroundColor(Color.red);
-                guiFields[i].setTitle("Start");
-            }
-
-
-
-
+            guiFields[i].setTitle(board.getFields()[i].getName());
+            guiFields[i].setDescription("");
+            guiFields[i].setSubText(null);
         }
         return guiFields;
     }
-
-    public String[] setupPlayers(){
-        int numberOfPlayers = Integer.parseInt(gui.getUserSelection("","3","4","5","6"));
-
-        String[] playerNames = new String[numberOfPlayers];
-
-        for (int i =0;i<numberOfPlayers;i++) {
-            playerNames[i] = gui.getUserString("");
-/*
-            while (playerNames[i].equals("")||playerNames[i].equals(" ")){
-                System.out.println("Indtast nyt navn"); //TODO GUI-meddelese
-                playerNames[i] = gui.getUserString("");
-            }
-*/
-            while(playerNames[i].isEmpty()){
-                System.out.println("prøv igen ");
-                playerNames[i] = gui.getUserString("");
-            }
-
-            for (int j = 0; j < numberOfPlayers; j++) {
-
-                if (playerNames[i].equals(playerNames[j]) && i != j)
-                playerNames[i] = gui.getUserString("");
-
-            }
-
-
-            int numberOfLetters = playerNames[i].length();
-            /*
-            for(int j = 0; j<numberOfLetters;j++) {
-               char c = playerNames[i].charAt(j);
-               while
-            }
-*/
-        }
-
-        //tjek om navne er tomme :P
-
-        //tjek om navne er ens
-
-        //Setup GUI-players
-
-        return playerNames;
-    }
-
-
-    String[] players = {"c", "a", "b", "e"};
-    //Shuffels the chance card deck
-    public  void shuffle(){
-        for (int i=0; i<1000; i++ ){
-            int a= (int) (Math.random()*players.length);
-            int b= (int) (Math.random()*players.length);
-            swap(a,b);
-        }
-    }
-
-    public  void swap(int a, int b){
-        String cardA = players[a];
-        String cardB = players[b];
-        players[a] = cardB ;
-        players[b] = cardA;
-    }
-
-    /**
-     * i take care of first element in array
-     * j take care of second element in array
-     * compareToIgnoreCase Example https://beginnersbook.com/2013/12/java-string-comparetoignorecase-method-example/
-     */
-    public  void alphabetSort() {
-        for (int i = 0; i < players.length; i++) {
-            for (int j = i + 1; j < players.length; j++) {
-                if (players[i].compareToIgnoreCase( players[j] ) > 0) {
-                    String temp = players[i];
-                    players[i] = players[j];
-                    players[j] = temp;
-
-                }
-            }
-        }
-    }
-
 }
