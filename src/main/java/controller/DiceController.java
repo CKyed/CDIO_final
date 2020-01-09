@@ -5,6 +5,7 @@ import model.DiceCup;
 public class DiceController {
     private DiceCup diceCup;
     private int[] faceValues;
+
     private boolean sameValue =false;
 
 
@@ -47,4 +48,7 @@ public class DiceController {
         return this.diceCup.getDieSum();
     }
 
+    public boolean isSameValue() {
+        return sameValue;
+    }
 }

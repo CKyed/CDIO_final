@@ -6,6 +6,7 @@ public class GameController {
     private BoardController boardController;
     private PlayerController playerController;
     private Player activePlayer;
+    private int startBonus = 2000;
 
 
 
@@ -31,8 +32,20 @@ public class GameController {
 
     public int[] rollDice(){
         diceController.roll();
+        int currentFieldId = this.activePlayer.getCurrentFieldId();
+        int dieSum = diceController.getSum();
+        int numberOfFields = this.boardController.getBoard().getFields().length;
 
-        this.activePlayer.setCurrentFieldId((this.activePlayer.getCurrentFieldId()+diceController.getSum())%this.boardController.getBoard().getFields().length);
+        //Calculates new field and adds startbonus if player passed start
+        int newFieldId = (currentFieldId+dieSum)%numberOfFields;
+        this.activePlayer.setCurrentFieldId(newFieldId);
+        if (currentFieldId+dieSum>numberOfFields){
+            activePlayer.deposit(2000);
+        }
+
+
+
+
         return diceController.getFaceValues();
     }
 
@@ -69,11 +82,14 @@ public class GameController {
     }
 
     public void updateActivePlayer(){
-        //Updates the activePlayer
-        int numberOfPlayers = playerController.getPlayers().length;
-        this.activePlayerId++;
-        this.activePlayerId = this.activePlayerId % numberOfPlayers;
-        this.activePlayer = playerController.getPlayers()[activePlayerId];
+        //Updates the activePlayer - only if last diceroll wasn't 2 of the same
+        if(!diceController.isSameValue()){
+            int numberOfPlayers = playerController.getPlayers().length;
+            this.activePlayerId++;
+            this.activePlayerId = this.activePlayerId % numberOfPlayers;
+            this.activePlayer = playerController.getPlayers()[activePlayerId];
+        }
+
 
     }
 

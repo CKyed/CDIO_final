@@ -142,9 +142,10 @@ public class ViewController {
     
     public void rollDiceAndMove(int[] faceValues, int sum,int activePlayerId, int oldFieldId){
         gui.setDice(faceValues[0],faceValues[1]);
+        gui.showMessage("");
 
         for (int i =0;i<sum;i++){
-            teleportPlayerCar(activePlayerId,1,oldFieldId+i);
+            teleportPlayerCar(activePlayerId,1,(oldFieldId+i)% fields.length);
             try
             {
                 Thread.sleep(200);
@@ -185,7 +186,11 @@ public class ViewController {
     }
 
 
-    public void updatePlayerBalances() {
+    public void updatePlayerBalances(int[] playerBalances) {
+        //Updates the balances of all players on the board
+        for (int i =0; i<playerBalances.length;i++){
+            guiPlayers[i].setBalance(playerBalances[i]);
+        }
     }
 
     public void updateOwnerships() {

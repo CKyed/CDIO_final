@@ -29,12 +29,14 @@ public class SystemController {
         //Plays turns
         while (true){
             //Gets dieRoll and updates view
+            oldFieldId = gameController.getActivePlayer().getCurrentFieldId();
             faceValues = gameController.rollDice();
             sum = gameController.getDiceController().getSum();
-            oldFieldId = gameController.getActivePlayer().getCurrentFieldId();
-
-
             viewController.rollDiceAndMove(faceValues,sum,activePlayerId,oldFieldId);
+
+            //Updates the balances of all Players
+            viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
+
 
 
 
@@ -42,7 +44,7 @@ public class SystemController {
 
 
             //Updates the balances of all Players
-            viewController.updatePlayerBalances();
+            viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
 
             viewController.updateOwnerships();
 
