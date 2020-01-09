@@ -62,6 +62,7 @@ public class GameController {
         else if(choice == 1){
             //TODO: create method that counts players total value
         }
+        return true; //change later
     }
 
 
