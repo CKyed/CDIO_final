@@ -278,5 +278,8 @@ public class ViewController {
         }
     }
 
+    public void prisonMessage(){
+
+    }
 
 }

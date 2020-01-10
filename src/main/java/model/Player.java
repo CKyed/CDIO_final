@@ -5,6 +5,8 @@ public class Player {
     private Account account;
     private boolean inJail;
     private int currentFieldId=0;
+// TODO declare variable to inform about the players debt
+
 
     public Player(String name, int startKapital){
         this.account = new Account(startKapital);

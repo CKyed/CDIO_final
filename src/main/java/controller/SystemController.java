@@ -26,8 +26,17 @@ public class SystemController {
         //Plays turns
         while (true){
             activePlayerId = gameController.getActivePlayerId();
-
+/**
+ * If the player is in jail, try to pay the bail, and set inJail to false
+ * If the player can't pay the bail, then the player loses (to be written)
+ */
             if(gameController.getActivePlayer().isInJail()){
+                boolean success = gameController.payBail(activePlayerId);
+                gameController.getPlayerController().getPlayers()[activePlayerId].setInJail(false);
+
+                if(success == false){
+                    //TODO Method for handling loser-condition is called here
+                }
 
             } else{
                 playTurn();
@@ -116,6 +125,8 @@ public class SystemController {
                 break;
             case "prison":
                     //TODO add text-message
+                gameController.getPlayerController().getPlayers()[activePlayer].setInJail(true);
+                gameController.movePlayer(30,20);
 
                 break;
         }
