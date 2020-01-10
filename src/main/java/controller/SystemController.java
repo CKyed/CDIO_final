@@ -25,7 +25,7 @@ public class SystemController {
         int[] faceValues;
         int sum;
         int oldFieldId;
-        String activeFieldType;
+
         //Plays turns
         while (true){
             //Gets dieRoll and updates view and logic
@@ -36,28 +36,11 @@ public class SystemController {
 
             viewController.rollDiceAndMove(faceValues,sum,activePlayerId,oldFieldId);
 
-            activeFieldType = gameController.getBoardController().getBoard().getFields()[gameController.getActivePlayer().getCurrentFieldId()].getType();
 
-            //Land on field
-            switch (activeFieldType){
-                case "field":
-                    playPropertyField();
+            landOnField();
 
 
 
-
-
-                    break;
-                case "ferry":
-
-
-
-                    break;
-
-
-
-
-            }
 
 
 
@@ -126,6 +109,31 @@ public class SystemController {
 
 
 
+    }
+
+    public void landOnField(){
+        String activeFieldType = gameController.getBoardController().getBoard().getFields()[gameController.getActivePlayer().getCurrentFieldId()].getType();
+
+        //Land on field
+        switch (activeFieldType){
+            case "street":
+                playPropertyField();
+
+
+
+
+
+                break;
+            case "ferry":
+
+
+
+                break;
+
+
+
+
+        }
     }
 
 
