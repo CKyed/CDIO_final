@@ -79,10 +79,6 @@ public class SystemController {
 
             }
 
-
-
-
-
         } else{
             //If the player owns it himself
 
@@ -105,28 +101,33 @@ public class SystemController {
 
     }
 
-    public void landOnField(){
+    public void landOnField() {
         String activeFieldType = gameController.getBoardController().getBoard().getFields()[gameController.getActivePlayer().getCurrentFieldId()].getType();
+        int activePlayer = gameController.getActivePlayerId();
+        boolean cantAfford=true;
 
         //Land on field
-        switch (activeFieldType){
+        switch (activeFieldType) {
             case "street":
                 playPropertyField();
-
-
-
-
 
                 break;
             case "ferry":
 
-
-
                 break;
+            case "incomeTax":
+                //TODO: Add correct text message here
+                boolean choice = viewController.payIncomeTax("Test message");
+                cantAfford = gameController.payIncomeTax(activePlayer,choice);
+                break;
+            case "ordinaryTax":
+                //TODO: Add some text message
+                cantAfford = gameController.payOrdinaryTax(activePlayer);
+                break;
+        }
 
-
-
-
+        if(cantAfford==false){
+            //TODO: Should handle if the players can't afford to pay
         }
     }
 

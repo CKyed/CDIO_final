@@ -3,7 +3,7 @@ import static controller.TextController.*;
 
 public class OrdinaryTax extends Field{
     private int group = 11;
-    private String type = "tax";
+    private String type = "ordinaryTax";
     private int tax = 2000;
     //TODO Her har vi hardcoded beløbet, så senere kan de importeres fra textfil
 

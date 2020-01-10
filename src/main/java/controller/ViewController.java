@@ -52,7 +52,10 @@ public class ViewController {
                     case ("street"):
                         guiFields[i] = new GUI_Street();
                         break;
-                    case ("tax"):
+                    case ("incomeTax"):
+                        guiFields[i] = new GUI_Tax();
+                        break;
+                    case("ordinaryTax"):
                         guiFields[i] = new GUI_Tax();
                         break;
                     case ("chance"):
@@ -205,10 +208,17 @@ public class ViewController {
         } else{
             return true;
         }
-
     }
 
-
+    public boolean payIncomeTax(String message){
+        String selection = gui.getUserSelection(message,"Betal 4000 i skat","Betal 10% i skat");
+        if(selection.equals("Betal 4000 i skat")){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
 
 }
