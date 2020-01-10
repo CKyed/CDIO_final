@@ -1,6 +1,8 @@
 package controller;
 
 import model.Fields.Ownable;
+import static controller.PathExpert.*;
+import static controller.TextController.readFile;
 
 public class SystemController {
     private GameController gameController;
@@ -28,17 +30,8 @@ public class SystemController {
         //Plays turns
         while (true){
             activePlayerId = gameController.getActivePlayerId();
-/**
- * If the player is in jail, try to pay the bail, and set inJail to false
- * If the player can't pay the bail, then the player loses (to be written)
- */
-            if(gameController.getActivePlayer().isInJail()){
-                boolean success = gameController.payBail(activePlayerId);
-                gameController.getPlayerController().getPlayers()[activePlayerId].setInJail(false);
 
-                if(success == false){
-                    //TODO Method for handling loser-condition is called here
-                }
+            if(gameController.getActivePlayer().isInJail()){
 
             } else{
                 playTurn();
@@ -84,6 +77,30 @@ public class SystemController {
 
         if(gameController.getOwnerId()>=0 && gameController.getOwnerId()!= gameController.getActivePlayerId()){
             //If the property is owned by someone else
+            int fieldId = gameController.getActivePlayer().getPositionOnBoard();
+            String fromPlayerName = gameController.getActivePlayer().getName();
+            String toPlayerName = gameController.getPlayerController().getPlayers()[gameController.getOwnerId()].getName();
+            int amount = ((Ownable)gameController.getBoardController().getBoard().getFields()[fieldId]).getRent();
+
+            //
+            if(gameController.getPlayerController().safeTransferToPlayer(gameController.getActivePlayerId(),amount,gameController.getOwnerId())){
+                //Displays message
+                String message = String.format(readFile(turnMessagesPath,"payRentFromTo"),fromPlayerName,amount,toPlayerName);
+                viewController.showMessage(message);
+
+                //Updates player balances
+                viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
+            } else {
+                //Player can't afford the rent
+                //TODO
+                System.out.println("HER SKAL VI GØRE NOGET");
+
+
+
+
+            }
+
+
 
 
         } else if (gameController.getOwnerId()==-1){
@@ -101,22 +118,43 @@ public class SystemController {
             }
 
 
+
+
+
         } else{
             //If the player owns it himself
 
+
+
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
 
     public void landOnField(){
-        String activeFieldType = gameController.getBoardController().getBoard().getFields()[gameController.getActivePlayer().getCurrentFieldId()].getType();
+        String activeFieldType = gameController.getBoardController().getBoard().getFields()[gameController.getActivePlayer().getPositionOnBoard()].getType();
         int activePlayer = gameController.getActivePlayerId();
         boolean cantAfford=true;
 
         //Land on field
-        switch (activeFieldType) {
+        switch (activeFieldType){
             case "street":
                 playPropertyField();
+
+
+
 
 
                 break;
