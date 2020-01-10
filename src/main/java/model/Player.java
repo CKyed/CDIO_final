@@ -42,5 +42,9 @@ public class Player {
     public boolean isInJail() {
         return inJail;
     }
+
+    public void setInJail(boolean inJail) {
+        this.inJail = inJail;
+    }
 }
 

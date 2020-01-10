@@ -85,10 +85,14 @@ public class GameController {
         }
         return succesfulTransfer; //change later
     }
-    // The method withdraws bail from class prison from current player
+    // The method sets player in jail, moves player to jail and withdraws bail from class prison
     public boolean payBail(int activePlayerId){
+        playerController.getPlayers()[activePlayerId].setInJail(true);
+        movePlayer(30,20);
         return playerController.safeTransferToBank(activePlayerId,((Prison)boardController.getBoard().getFields()[30]).getBail());
     }
+
+
 
     public boolean safePaymentToPlayer(int fromPlayerId, int amount, int toPlayerId){
         return playerController.safeTransferToPlayer(fromPlayerId,amount,toPlayerId);

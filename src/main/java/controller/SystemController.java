@@ -88,19 +88,6 @@ public class SystemController {
 
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     public void landOnField(){
@@ -128,6 +115,7 @@ public class SystemController {
                 cantAfford = gameController.payOrdinaryTax(activePlayer);
                 break;
             case "prison":
+                    //TODO add text-message
 
                 break;
         }
