@@ -58,8 +58,8 @@ public class SystemController {
             //Updates the balances of all Players
             viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
 
-            //Tom metode
-            viewController.updateOwnerships();
+
+            viewController.updateOwnerships(gameController.getBoardController().getBoard());
 
             //Gives the turn to the next player
             gameController.updateActivePlayer();

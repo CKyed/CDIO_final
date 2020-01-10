@@ -25,4 +25,9 @@ public class Ferry extends Ownable {
     public String getType() {
         return this.type;
     }
+
+    public int getRentLevel() {
+        return rentLevel;
+    }
+
 }

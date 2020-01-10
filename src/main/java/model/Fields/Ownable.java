@@ -32,4 +32,11 @@ public abstract class Ownable extends Field {
         this.ownerId = ownerId;
     }
 
+    public int getRent() {
+        return rent;
+    }
+
+    public boolean isPledged() {
+        return isPledged;
+    }
 }
