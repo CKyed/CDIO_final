@@ -80,11 +80,8 @@ public class SystemController {
     }
 
     public void playPropertyField(){
-
-
         if(gameController.getOwnerId()>=0 && gameController.getOwnerId()!= gameController.getActivePlayerId()){
             //If the property is owned by someone else
-
 
         } else if (gameController.getOwnerId()==-1){
             //If it is vacant - asks if player wants to buy
@@ -136,7 +133,9 @@ public class SystemController {
                     //TODO add text-message
                 gameController.getPlayerController().getPlayers()[activePlayer].setInJail(true);
                 gameController.movePlayer(30,20);
-
+                int oldFieldId = gameController.getActivePlayer().getCurrentFieldId();
+                int virutalFaceValues[] = {10,10};
+                viewController.rollDiceAndMove(virutalFaceValues,20,activePlayer,oldFieldId);
                 break;
         }
 
