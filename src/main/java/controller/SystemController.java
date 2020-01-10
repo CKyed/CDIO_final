@@ -40,18 +40,8 @@ public class SystemController {
             landOnField();
 
 
-
-
-
-
-
-
             //Updates the balances of all Players
             viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
-
-
-
-
 
 
 
@@ -66,8 +56,6 @@ public class SystemController {
             activePlayerId = gameController.getActivePlayerId();
 
         }
-
-
 
     }
 
@@ -86,27 +74,10 @@ public class SystemController {
             }
 
 
-
-
-
         } else{
             //If the player owns it himself
 
-
-
         }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     }
@@ -120,25 +91,14 @@ public class SystemController {
                 playPropertyField();
 
 
-
-
-
                 break;
             case "ferry":
 
-
-
                 break;
-
-
 
 
         }
     }
-
-
-
-
 
 
     public GameController getGameController() {
