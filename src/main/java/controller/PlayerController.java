@@ -5,6 +5,7 @@ public class PlayerController {
     private Player[] players;
     private int numberOfPlayers;
 
+
     public PlayerController(String[] playerNames){
         //Setup the players with player names and start money
         this.numberOfPlayers = playerNames.length;
@@ -23,9 +24,13 @@ public class PlayerController {
         players[playerid].withdraw(amount);
     }
 
-    //This method checks if player has enough money to pay
-    //If the player has enough money then he will pay.
-    //If he cant pay then he wont pay and the method will let him know that he cant
+    /**
+     * Checks is player has enough money on account, if yes then returns true
+     * @param playerId
+     * @param amount
+     * @return
+     */
+
     public boolean safeTransferToBank(int playerId,int amount) {
         boolean succes=true;
         if (amount <= players[playerId].getAccountBalance()) {
@@ -54,9 +59,17 @@ public class PlayerController {
     public int[] getFieldIds(){
         int[] fieldIds = new int[numberOfPlayers];
         for (int i =0; i< numberOfPlayers; i++){
-            fieldIds[i] = players[i].getCurrentFieldId();
+            fieldIds[i] = players[i].getPositionOnBoard();
         }
         return fieldIds;
+    }
+
+    public int[] getPlayerBalances(){
+        int[] playerBalances = new int[numberOfPlayers];
+        for (int i =0;i<numberOfPlayers;i++){
+            playerBalances[i] = players[i].getAccountBalance();
+        }
+        return playerBalances;
     }
 
 }

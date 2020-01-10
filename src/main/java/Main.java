@@ -18,23 +18,6 @@ public class Main {
 
         SystemController systemController = new SystemController();
 
-
-        //tester terning
-        Die terning = new Die(6);
-        terning.roll();
-        System.out.println("én terning har slået: "+terning.getFaceValue());
-
-        //tester raflebæger
-        DiceCup raflebaeger = new DiceCup(10,6);
-        raflebaeger.rollDice();
-        System.out.println(raflebaeger.getNumberOfDice() +" terninger har slået: "+raflebaeger.getDieSum());
-
-        //MARTIN TESTER TEXTCONTROLLER
-        String hej = readFile(namePath,"chance");
-        out.println(hej);
-
-        //Tester noget mere
-        Field ferry = new Ferry("ferry01");
     }
 }
 
