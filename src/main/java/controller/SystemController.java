@@ -60,9 +60,9 @@ public class SystemController {
 
         //Plays turns
         while (true){
-            //Gets dieRoll and updates view
+            //Gets die Roll and updates view
             faceValues = gameController.rollDice();
-            oldFieldId = gameController.getActivePlayer().getCurrentFieldId();
+            oldFieldId = gameController.getActivePlayer().getPositionOnBoard();
 
 
             viewController.rollDiceAndMove(faceValues,activePlayerId,oldFieldId);
@@ -121,6 +121,7 @@ public class SystemController {
 
         } else{
             //If the player owns it himself
+            System.out.println("hej");
 
 
 

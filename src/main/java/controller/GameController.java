@@ -41,7 +41,7 @@ public class GameController {
         int[] diceValues = diceController.diceValues();
 
         //Moves the players position
-        movePlayer(currentFieldId,diceValues[0]+diceValues[1]);
+        movePlayer(playerController.getPlayers()[activePlayerId].getPositionOnBoard(),diceController.sum());
         return diceValues;
     }
 
@@ -113,7 +113,7 @@ public class GameController {
 
     public void updateActivePlayer(){
         //Updates the activePlayer - only if last diceroll wasn't 2 of the same
-        if(!diceController.isSameValue()){
+        if(!diceController.equals()){
             int numberOfPlayers = playerController.getPlayers().length;
             this.activePlayerId++;
             this.activePlayerId = this.activePlayerId % numberOfPlayers;

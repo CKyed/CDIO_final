@@ -1,7 +1,6 @@
 package controller;
-import static controller.PathExpert.namePath;
+import static controller.PathExpert.*;
 import static controller.TextController.readFile;
-import static controller.PathExpert.fieldAttributesPath;
 
 import gui_fields.*;
 import gui_fields.GUI_Field;
@@ -31,7 +30,7 @@ public class ViewController {
 
     }
 
-    public GUI_Field[] createFields(Board board){
+    private GUI_Field[] createFields(Board board){
         int numberOfFields = board.getFields().length;
         fieldSubtexts = new String[numberOfFields];
         GUI_Field[] guiFields = new GUI_Field[numberOfFields];
@@ -172,14 +171,14 @@ public class ViewController {
     }
     
     public void rollDiceAndMove(int[] faceValues,int activePlayerId, int oldFieldId){
-        String newTurnMessage = String.format(readFile(turnMessagesPath,"newTurn"),guiPlayers[activePlayerId].getName());
+        int sum = faceValues[0]+faceValues[1];
+        String newTurnMessage = String.format(readFile(turnMessagesPath, "newTurn"), guiPlayers[activePlayerId].getName());
         gui.showMessage(newTurnMessage);
         gui.setDice(faceValues[0],faceValues[1]);
-        int sum = faceValues[0]+faceValues[1];
 
         for (int i =0;i<sum;i++){
             teleportPlayerCar(activePlayerId,1,(oldFieldId+i)% fields.length);
-            pause(100)
+            pause(100);
         }
     }
 
