@@ -118,50 +118,37 @@ public class ViewController {
         this.guiCars = new GUI_Car[numberOfPlayers];
 
         String playerNameMessage;
-        for (int i =0;i<numberOfPlayers;i++) {
+        int i=0;
+        int nameErrors;
+
+        //Loops through all players and asks for names, checking that they are valid
+        while (i<numberOfPlayers) {
+            nameErrors=0;
             playerNameMessage = readFile(setupMessagesPath,"player") + " " + (i + 1) +" " + readFile(setupMessagesPath,"writeName");
             playerNames[i] = gui.getUserString(playerNameMessage);
-/*
-            while (playerNames[i].equals("")||playerNames[i].equals(" ")){
-                System.out.println("Indtast nyt navn"); //TODO GUI-meddelese
-                playerNames[i] = gui.getUserString("");
+
+            //If someone else has same name
+            for (int j=0;j<i;j++){
+                if(playerNames[i].equals(playerNames[j])){
+                    nameErrors++;
+                }
             }
-*/
-            while(playerNames[i].isEmpty()){
+
+            //If name is empty or just " "
+            if (playerNames[i].isEmpty() || playerNames[i].equals(" ")){
+                nameErrors++;
+            }
+
+            if (nameErrors==0){
+                //If name is valid, it is next players turn
+                i++;
+            } else{ //else, shows errorMessage
                 gui.showMessage(readFile(setupMessagesPath,"nameError"));
-                playerNames[i] = gui.getUserString("");
             }
-
-            for (int j = 0; j < numberOfPlayers; j++) {
-
-                if (playerNames[i].equals(playerNames[j]) && i != j)
-                playerNames[i] = gui.getUserString("");
-
-            }
-
-
-
-
-            int numberOfLetters = playerNames[i].length();
-            /*
-            for(int j = 0; j<numberOfLetters;j++) {
-               char c = playerNames[i].charAt(j);
-               while
-            }
-
-         */
-            //Spilleren vælger deres bil
-            //this.guiCars[i] = new GUI_Car(Color.BLUE,Color.BLUE,GUI_Car.Type.CAR,GUI_Car.Pattern.FILL);
-
         }
 
-        //tjek om navne er tomme :P
-
-        //tjek om navne er ens
-
         this.guiCars = new GUI_Car[]{new GUI_Car(Color.GREEN, Color.GREEN, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL),
-                new GUI_Car(Color.RED, Color.RED, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL), new GUI_Car(Color.YELLOW, Color.YELLOW, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL), new GUI_Car(Color.WHITE, Color.WHITE, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL), new GUI_Car(Color.BLUE, Color.BLUE, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL), new GUI_Car(Color.BLUE, Color.BLUE, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL)};
-
+                new GUI_Car(Color.RED, Color.RED, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL), new GUI_Car(Color.YELLOW, Color.YELLOW, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL), new GUI_Car(Color.WHITE, Color.WHITE, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL), new GUI_Car(Color.BLUE, Color.BLUE, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL), new GUI_Car(Color.BLACK, Color.BLACK, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL)};
 
         setupGuiPlayers(playerNames);
 
