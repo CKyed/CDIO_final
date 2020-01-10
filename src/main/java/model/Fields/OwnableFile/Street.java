@@ -37,6 +37,14 @@ public class Street extends Ownable {
         return rentLevels;
     }
 
+    public void buildHouses(int numberOfhouses){
+        this.houseLevel += numberOfhouses;
+    }
+
+    public void removeHouses(int numberOfhouses){
+        this.houseLevel -= numberOfhouses;
+    }
+
 
     @Override
     public int getGroup() {

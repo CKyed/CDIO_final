@@ -25,10 +25,12 @@ public class SystemController {
 
         //Plays turns
         while (true){
+            buyOrSellBeforeTurn();
+
 
             if(gameController.getActivePlayer().isInJail()){ //If the player is in jail
 
-            } else{ //Otherwise, player rolls dice and play normal turn
+            } else{ //Otherwise, player rolls dice and plays normal turn
                 playTurn();
             }
 
@@ -39,6 +41,31 @@ public class SystemController {
             //Gives the turn to the next player
             gameController.updateActivePlayer();
         }
+    }
+
+    public void buyOrSellBeforeTurn(){
+        //If the player wants to buy or sell houses before his turn
+        if (viewController.chooseToBuyOrSell()){
+            int[] streetsOwnedByPlayer = gameController.getBoardController().getStreetIdsOwnedByPlayer(gameController.getActivePlayerId());
+            int wantedNumberOfHouses;
+            for (int i=0;i<streetsOwnedByPlayer.length;i++){
+                wantedNumberOfHouses = viewController.getWantedNumberOfHouses(streetsOwnedByPlayer[i],gameController.getActivePlayerId());
+                if(wantedNumberOfHouses!=0){
+                    boolean succes = gameController.tryToBuyHouses(streetsOwnedByPlayer[i],wantedNumberOfHouses);
+                    if (succes){
+                        viewController.showMessage(String.format(readFile(turnMessagesPath,"buildingSucceeded"),wantedNumberOfHouses));
+                    } else{
+                        viewController.showMessage(String.format(readFile(turnMessagesPath,"notPossibleToBuild"),wantedNumberOfHouses));
+
+                    }
+                }
+
+
+            }
+
+
+        }
+
     }
 
     public void playTurn(){
@@ -145,4 +172,6 @@ public class SystemController {
             //TODO: Should handle if the players can't afford to pay
         }
     }
+
+
 }

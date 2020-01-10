@@ -62,4 +62,31 @@ public class BoardController {
         this.board.getFields()[39] = new Street("field22");
     }
 
+    public int[] getStreetIdsOwnedByPlayer(int playerId){
+        int numberOfStreetsOwned=0;
+
+        //counts how many streets player owns
+        for(int i=0;i<board.getFields().length;i++){
+            if (board.getFields()[i].getType()=="street"){
+                if (((Street)board.getFields()[i]).getOwnerId()==playerId){
+                    numberOfStreetsOwned++;
+                }
+
+            }
+        }
+        int[] streetsOwnedIds = new int[numberOfStreetsOwned];
+
+        //Same loop again to add id's to the array
+        int counter =0;
+        for(int i=0;i<board.getFields().length;i++){
+            if (board.getFields()[i].getType()=="street"){
+                if (((Street)board.getFields()[i]).getOwnerId()==playerId){
+                    streetsOwnedIds[counter] = i;
+                    counter++;
+                }
+            }
+        }
+        return streetsOwnedIds;
+    }
+
 }

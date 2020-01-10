@@ -218,6 +218,18 @@ public class ViewController {
                             + readFile(setupMessagesPath,"rent") +" " + ((Street)board.getFields()[i]).getRent() + "\n"
                     ;
                     fields[i].setDescription(fieldSubtexts[i]);
+                    if (((Street)board.getFields()[i]).getHouseLevel() < 5){
+                        ((GUI_Street)fields[i]).setHouses(((Street)board.getFields()[i]).getHouseLevel());
+                        ((GUI_Street)fields[i]).setHotel(false);
+
+                    } else{ //if house level is 5
+                        ((GUI_Street)fields[i]).setHouses(0);
+                        ((GUI_Street)fields[i]).setHotel(true);
+                    }
+
+
+
+
                     break;
 
                 case ("brew"):
@@ -269,6 +281,23 @@ public class ViewController {
 
     public void prisonMessage(){
 
+    }
+
+    public boolean chooseToBuyOrSell(){
+        String selection = gui.getUserButtonPressed(readFile(turnMessagesPath,"buyOrSellBeforeTurn"),
+                readFile(turnMessagesPath,"yes"),readFile(turnMessagesPath,"no"));
+        if(selection.equals(readFile(turnMessagesPath,"yes"))){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public int getWantedNumberOfHouses(int fieldId, int activePlayerId){
+        String message = String.format(readFile(turnMessagesPath,"howManyHouses"),guiPlayers[activePlayerId],fields[fieldId].getTitle());
+        String selection = gui.getUserSelection(message,"0","1","2","3","4","5");
+        int numberOfHouses = Integer.parseInt(selection);
+        return numberOfHouses;
     }
 
 }
