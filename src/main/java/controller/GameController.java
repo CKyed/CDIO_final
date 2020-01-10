@@ -30,7 +30,7 @@ public class GameController {
 
     public void setupPlayers(String[] playerNames){
         this.playerController = new PlayerController(playerNames);
-        activePlayerId =0;
+        activePlayerId =-1;
         updateActivePlayer();
     }
 
@@ -38,19 +38,21 @@ public class GameController {
         diceController.roll();
         int currentFieldId = this.activePlayer.getCurrentFieldId();
         int dieSum = diceController.getSum();
-        int numberOfFields = this.boardController.getBoard().getFields().length;
 
+        //Moves the players position
+        movePlayer(currentFieldId,dieSum);
+
+        return diceController.getFaceValues();
+    }
+
+    public void movePlayer(int currentFieldId, int dieSum){
+        int numberOfFields = this.boardController.getBoard().getFields().length;
         //Calculates new field and adds startbonus if player passed start
         int newFieldId = (currentFieldId+dieSum)%numberOfFields;
         this.activePlayer.setCurrentFieldId(newFieldId);
-        if (currentFieldId+dieSum>numberOfFields){
-            activePlayer.deposit(startBonus);
+        if (currentFieldId+dieSum>numberOfFields && !activePlayer.isInJail()){
+                activePlayer.deposit(startBonus);
         }
-
-
-
-
-        return diceController.getFaceValues();
     }
 
 
