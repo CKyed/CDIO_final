@@ -24,10 +24,6 @@ public class GameController {
         return boardController;
     }
 
-    public void setupPlayers(String[] playerNames){
-        this.playerController = new PlayerController(playerNames);
-    }
-
     public int[] rollDice(){
         diceController.roll();
         int currentFieldId = playerController.getActivePlayer().getPositionOnBoard();
