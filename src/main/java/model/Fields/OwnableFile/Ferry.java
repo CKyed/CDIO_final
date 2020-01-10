@@ -11,10 +11,6 @@ public class Ferry extends Ownable {
         super(state);
     }
 
-    @Override
-    public void setRent() {
-
-    }
 
     @Override
     public int getGroup() {

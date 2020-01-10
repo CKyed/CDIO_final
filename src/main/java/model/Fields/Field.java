@@ -5,10 +5,11 @@ import static controller.TextController.readFile;
 
 
 public abstract class Field {
-    private String color;
-    private String name;
-    private String description;
-    private int id;
+    protected String color;
+    protected String name;
+    protected String description;
+    protected int id;
+    protected String type;
 
     public Field(String state){
         this.name = readFile(namePath,state);

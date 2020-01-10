@@ -109,6 +109,7 @@ public class ViewController {
         gui.showMessage(readFile(setupMessagesPath,"welcome"));
         gui.showMessage(readFile(setupMessagesPath,"choosePlayerNumber"));
 
+
         int numberOfPlayers = Integer.parseInt(gui.getUserSelection("","3","4","5","6"));
 
         String[] playerNames = new String[numberOfPlayers];
@@ -228,8 +229,9 @@ public class ViewController {
                     fieldSubtexts[i] = readFile(setupMessagesPath,"owner") + " " + guiPlayers[ownerId].getName()  +" \n"
                             + readFile(setupMessagesPath,"price") +" " + ((Street)board.getFields()[i]).getPrice() + " \n"
                             + readFile(setupMessagesPath,"housePrice") +" " + ((Street)board.getFields()[i]).getHousePrice() + " \n"
-                            + readFile(setupMessagesPath,"rent") +" " + ((Street)board.getFields()[i]).getRentLevels()[((Street)board.getFields()[i]).getHouseLevel()] + "\n"
+                            + readFile(setupMessagesPath,"rent") +" " + ((Street)board.getFields()[i]).getRent() + "\n"
                     ;
+                    fields[i].setDescription(fieldSubtexts[i]);
                     break;
 
                 case ("brew"):
@@ -238,8 +240,9 @@ public class ViewController {
                     fieldSubtexts[i] = readFile(setupMessagesPath,"owner") + " " + guiPlayers[ownerId].getName() +" \n"
                             + readFile(setupMessagesPath,"price") +" " + ((Brewery)board.getFields()[i]).getPrice() + " \n"
                             + readFile(setupMessagesPath,"rent") +" " + ((Brewery)board.getFields()[i]).getRent() + "\n";
-
+                    fields[i].setDescription(fieldSubtexts[i]);
                     break;
+
                 case ("ferry"):
                     ownerId = ((Ownable)board.getFields()[i]).getOwnerId();
                     if (ownerId>=0)
@@ -247,8 +250,11 @@ public class ViewController {
                             + readFile(setupMessagesPath,"price") +" " + ((Ferry)board.getFields()[i]).getPrice() + " \n"
                             + readFile(setupMessagesPath,"rent") +" " + ((Ferry)board.getFields()[i]).getRent() + "\n"
                     ;
+                    fields[i].setDescription(fieldSubtexts[i]);
+                    break;
 
             }
+
 
         }
 

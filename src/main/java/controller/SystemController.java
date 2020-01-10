@@ -1,5 +1,7 @@
 package controller;
 
+import model.Fields.Ownable;
+
 public class SystemController {
     private GameController gameController;
     private ViewController viewController;
@@ -79,7 +81,10 @@ public class SystemController {
             //If it is vacant - asks if player wants to buy
 
             if (viewController.buyFieldOrNot(gameController.getActivePlayerId(),gameController.getActivePlayer().getCurrentFieldId())){
-
+                //If he chooses to buy
+                //Updates the owner
+                int currentFieldId = gameController.getActivePlayer().getCurrentFieldId();
+                ((Ownable)gameController.getBoardController().getBoard().getFields()[currentFieldId]).setOwnerId(gameController.getActivePlayerId());
             }
 
 
