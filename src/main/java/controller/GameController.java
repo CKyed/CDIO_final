@@ -121,7 +121,16 @@ public class GameController {
 
     }
 
+    /**
+     * Method that can be called when a player lands on the field called Ordinary Tax
+     * @param activePlayerId
+     * @return
+     */
 
+    //public boolean payOrdinaryTax(int activePlayerId){
+        //return safePaymentToBank(activePlayerId, ((OrdinaryTax)boardController.getBoard().getFields()[38]).getTax());
+
+    //}
 
 
 
@@ -137,10 +146,20 @@ public class GameController {
     // 3 - The player who is imprisoned does not get rent from other players
     // 4 - The player can use chancecards to get out of Jail
     //
-    // The following method should: return a boolean to tell if player is in prison or not
+    // The following method should: set the current prisonstatus of player to true
+    //  also: return a boolean to tell if player is in prison or not
     // (maybe also return an int to tell how long the player has been in prison for later use)
     // if the player is in prison (System controller) then following method:
     // pay bail (1000 kr)
+
+    public int isPlayerInPrison(int activePlayerId){
+
+    }
+
+    public boolean setPrisonStatus(int activePlayerId){
+
+    }
+    //if isplayerinprison is false then setprisonstatus to true (in Systemcontroller)
 
 
 

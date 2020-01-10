@@ -6,6 +6,11 @@ public class Prison  extends Field{
     public Prison(String state) {
         super(state);
     }
+    private int bail = 1000;
+    //TODO I have hardoded the bail, later this should be implemented from textdocument
+    private int turnsInJail = 0;
+
+   //method for counting turns in Jail
 
     @Override
     public int getGroup() {
@@ -16,4 +21,14 @@ public class Prison  extends Field{
     public String getType() {
         return this.type;
     }
+
+    public int getBail() {
+        return bail;
+    }
+
+    public int getTurnsInJail() {
+        return turnsInJail;
+    }
+
+
 }
