@@ -1,6 +1,7 @@
 package controller;
 
 import model.*;
+import model.Fields.OrdinaryTax;
 import model.Fields.Ownable;
 import model.Fields.OwnableFile.Street;
 
@@ -119,6 +120,35 @@ public class GameController {
 
 
     }
+
+
+
+
+
+    //Make prison field logic:
+    //Step by step:
+    // when a player lands on field no 31 (OR when player picks certain chance card,) the following happens:
+    // - For the rest of the ongoing turn nothing happens
+    // - Next turn he has to pay 1000 kr before rolling dice
+    //
+    // improvements for later:
+    // 1 - The player can choose between paying the bail or try to roll a double
+    // 2 - This choice is avalaible only three turns in a row, otherwise the player is forced to pay
+    // 3 - The player who is imprisoned does not get rent from other players
+    // 4 - The player can use chancecards to get out of Jail
+    //
+    // The following method should: return a boolean to tell if player is in prison or not
+    // (maybe also return an int to tell how long the player has been in prison for later use)
+    // if the player is in prison (System controller) then following method:
+    // pay bail (1000 kr)
+
+
+
+
+
+
+
+
 
 
 
