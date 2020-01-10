@@ -2,9 +2,14 @@ package model.Fields;
 
 public class IncomeTax extends Field{
     private int group = 11;
-    private String type = "tax";
+    private String type = "incomeTax";
+    private int incomeTax = 4000;
     public IncomeTax(String state) {
         super(state);
+    }
+
+    public int getIncomeTax() {
+        return incomeTax;
     }
 
     @Override
@@ -17,3 +22,5 @@ public class IncomeTax extends Field{
         return this.type;
     }
 }
+
+

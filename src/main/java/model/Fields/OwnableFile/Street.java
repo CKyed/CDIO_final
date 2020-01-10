@@ -14,13 +14,25 @@ public class Street extends Ownable {
 
     public Street(String state) {
         super(state);
-        this.group = getFieldData(state,"serie");
+        this.group = getFieldData(state,"series");
         this.housePrice = getFieldData(state,"housePrice");
-        this.houseLevel = 5;
-        this.rentLevels = new int[houseLevel];
+        this.houseLevel = 0;
+        this.rentLevels = new int[6];
         for (int i = 1; i <rentLevels.length ; i++) {
             rentLevels[i] = getFieldData(state,"house"+i);
         }
+    }
+
+    public int getHousePrice() {
+        return housePrice;
+    }
+
+    public int getHouseLevel() {
+        return houseLevel;
+    }
+
+    public int[] getRentLevels() {
+        return rentLevels;
     }
 
     @Override

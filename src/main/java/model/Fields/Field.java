@@ -1,5 +1,5 @@
 package model.Fields;
-import static controller.PathExpert.namePath;
+import static controller.PathExpert.*;
 import static controller.TextController.getFieldData;
 import static controller.TextController.readFile;
 import static controller.PathExpert.fieldAttributesPath;
@@ -14,6 +14,7 @@ public abstract class Field {
     public Field(String state){
         this.name = readFile(namePath,state);
         this.id = getFieldData(state,"id");
+        this.description = readFile(descriptionMessagesPath,state);
     }
 
     public abstract int getGroup();

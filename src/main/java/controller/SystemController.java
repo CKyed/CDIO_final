@@ -84,6 +84,8 @@ public class SystemController {
 
     public void landOnField(){
         String activeFieldType = gameController.getBoardController().getBoard().getFields()[gameController.getActivePlayer().getCurrentFieldId()].getType();
+        int activePlayer = gameController.getActivePlayerId();
+        boolean cantAfford=true;
 
         //Land on field
         switch (activeFieldType){
@@ -95,17 +97,30 @@ public class SystemController {
             case "ferry":
 
                 break;
-
+            case "incomeTax":
+                //TODO: Add correct text message here
+                boolean choice = viewController.payIncomeTax("Test message");
+                cantAfford = gameController.payIncomeTax(activePlayer,choice);
+                break;
+            case "ordinaryTax":
+                //TODO: Add some text message
+                cantAfford = gameController.payOrdinaryTax(activePlayer);
+                break;
+        }
 
             case "prison":
 
 
 
                 break;
+        if(cantAfford==false){
+            //TODO: Should handle if the players can't afford to pay
         }
     }
 
 
+
+    //What does this getter do here? Can someone please explain later. Ida
     public GameController getGameController() {
         return gameController;
     }

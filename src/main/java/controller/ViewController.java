@@ -1,7 +1,6 @@
 package controller;
-import static controller.PathExpert.namePath;
+import static controller.PathExpert.*;
 import static controller.TextController.readFile;
-import static controller.PathExpert.fieldAttributesPath;
 
 import gui_fields.*;
 import gui_fields.GUI_Field;
@@ -20,6 +19,7 @@ public class ViewController {
     private GUI_Field[] fields;
     private GUI_Player[] guiPlayers;
     private GUI_Car[] guiCars;
+    private String[] fieldSubtexts;
 
     public ViewController(Board board) {
         GUI_Field[] fields = createFields(board);
@@ -32,6 +32,7 @@ public class ViewController {
 
     public GUI_Field[] createFields(Board board){
         int numberOfFields = board.getFields().length;
+        fieldSubtexts = new String[numberOfFields];
         GUI_Field[] guiFields = new GUI_Field[numberOfFields];
         //typer bliver sat op for at sammenligne med model attributter.
         int[] fieldColorIDs = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
@@ -51,12 +52,22 @@ public class ViewController {
                         break;
                     case ("street"):
                         guiFields[i] = new GUI_Street();
+                        fieldSubtexts[i] = readFile(setupMessagesPath,"owner") + " " + readFile(setupMessagesPath,"none") +" \n"
+                                + readFile(setupMessagesPath,"price") +" " + ((Street)board.getFields()[i]).getPrice() + " \n"
+                                + readFile(setupMessagesPath,"housePrice") +" " + ((Street)board.getFields()[i]).getHousePrice() + " \n"
+                                + readFile(setupMessagesPath,"rent") +" " + ((Street)board.getFields()[i]).getRentLevels()[((Street)board.getFields()[i]).getHouseLevel()] + "\n"
+                        ;
                         break;
-                    case ("tax"):
+                    case ("incomeTax"):
                         guiFields[i] = new GUI_Tax();
+                        break;
+                    case("ordinaryTax"):
+                        guiFields[i] = new GUI_Tax();
+                        fieldSubtexts[i] = readFile(setupMessagesPath,"tax");
                         break;
                     case ("chance"):
                         guiFields[i] = new GUI_Chance();
+                        fieldSubtexts[i] = readFile(setupMessagesPath,"");
                         break;
                     case ("brew"):
                         guiFields[i] = new GUI_Brewery();
@@ -78,21 +89,26 @@ public class ViewController {
                 }
             }
             guiFields[i].setTitle(board.getFields()[i].getName());
-            guiFields[i].setDescription("");
-            guiFields[i].setSubText(null);
+            guiFields[i].setDescription(board.getFields()[i].getDescription());
+            guiFields[i].setSubText(fieldSubtexts[i]);
         }
         return guiFields;
     }
 
     public String[] setupPlayers(){
+        gui.showMessage(readFile(setupMessagesPath,"welcome"));
+        gui.showMessage(readFile(setupMessagesPath,"choosePlayerNumber"));
+
         int numberOfPlayers = Integer.parseInt(gui.getUserSelection("","3","4","5","6"));
 
         String[] playerNames = new String[numberOfPlayers];
 
         this.guiCars = new GUI_Car[numberOfPlayers];
 
+        String playerNameMessage;
         for (int i =0;i<numberOfPlayers;i++) {
-            playerNames[i] = gui.getUserString("");
+            playerNameMessage = readFile(setupMessagesPath,"player") + " " + (i + 1) +" " + readFile(setupMessagesPath,"writeName");
+            playerNames[i] = gui.getUserString(playerNameMessage);
 /*
             while (playerNames[i].equals("")||playerNames[i].equals(" ")){
                 System.out.println("Indtast nyt navn"); //TODO GUI-meddelese
@@ -100,7 +116,7 @@ public class ViewController {
             }
 */
             while(playerNames[i].isEmpty()){
-                System.out.println("prøv igen ");
+                gui.showMessage(readFile(setupMessagesPath,"nameError"));
                 playerNames[i] = gui.getUserString("");
             }
 
@@ -141,8 +157,9 @@ public class ViewController {
     }
     
     public void rollDiceAndMove(int[] faceValues, int sum,int activePlayerId, int oldFieldId){
+        String newTurnMessage = String.format(readFile(turnMessagesPath,"newTurn"),guiPlayers[activePlayerId].getName());
+        gui.showMessage(newTurnMessage);
         gui.setDice(faceValues[0],faceValues[1]);
-        gui.showMessage("");
 
         for (int i =0;i<sum;i++){
             teleportPlayerCar(activePlayerId,1,(oldFieldId+i)% fields.length);
@@ -192,12 +209,13 @@ public class ViewController {
 
     public void updateOwnerships() {
 
+
     }
 
-    public boolean buyFieldOrNot(int activePlayerId){
-        String selection = gui.getUserSelection("","0","1");
-        int selectionInt = Integer.parseInt(selection);
-        if (selectionInt==0){
+    public boolean buyFieldOrNot(int activePlayerId,int fieldId){
+        String question =String.format(readFile(turnMessagesPath,"buyField?"),guiPlayers[activePlayerId].getName(),fields[fieldId].getTitle());
+        String selection = gui.getUserButtonPressed(question,readFile(turnMessagesPath,"no"),readFile(turnMessagesPath,"yes"));
+        if (selection.equals(readFile(turnMessagesPath,"no"))){
             return false;
         } else{
             return true;
@@ -205,7 +223,15 @@ public class ViewController {
 
     }
 
-
+    public boolean payIncomeTax(String message){
+        String selection = gui.getUserSelection(message,"Betal 4000 i skat","Betal 10% i skat");
+        if(selection.equals("Betal 4000 i skat")){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
 
 }

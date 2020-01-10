@@ -1,6 +1,7 @@
 package controller;
 
 import model.*;
+import model.Fields.IncomeTax;
 import model.Fields.OrdinaryTax;
 import model.Fields.Ownable;
 import model.Fields.OwnableFile.Street;
@@ -54,19 +55,39 @@ public class GameController {
     }
 
 
-    public void safePaymentToBank(int playerId,int amount){
+    public boolean safePaymentToBank(int playerId,int amount){
         //Calls the method in playerController and gets a boolean. If false, the player could not afford
-        boolean succes = playerController.safeTransferToBank(playerId,amount);
-        if(succes==false){
-            //The player could not afford to pay
-        }
+        return playerController.safeTransferToBank(playerId,amount);
+
     }
 
-    public void safePaymentToPlayer(int fromPlayerId, int amount, int toPlayerId){
-        boolean succes = playerController.safeTransferToPlayer(fromPlayerId,amount,toPlayerId);
-        if(succes==false){
-            //The player could not afford to pay
+    /**
+     * Method that can be called when a player lands on the field called Ordinary Tax
+     * @param activePlayerId
+     * @return
+     */
+
+    public boolean payOrdinaryTax(int activePlayerId){
+        return safePaymentToBank(activePlayerId, ((OrdinaryTax)boardController.getBoard().getFields()[38]).getTax());
+
+    }
+
+    //the user has chosen either 0 or 1, 0 is 4000 kr and 1 is 10%
+    public boolean payIncomeTax(int activePlayerId, boolean choice){
+        boolean succesfulTransfer=true;
+        if(choice){
+            succesfulTransfer = safePaymentToBank(activePlayerId, ((IncomeTax)boardController.getBoard().getFields()[4]).getIncomeTax());
         }
+        else{
+            //TODO: create method that counts players total value
+        }
+        return succesfulTransfer; //change later
+    }
+
+
+
+    public boolean safePaymentToPlayer(int fromPlayerId, int amount, int toPlayerId){
+        return playerController.safeTransferToPlayer(fromPlayerId,amount,toPlayerId);
     }
 
     public void setActivePlayer(Player player){
