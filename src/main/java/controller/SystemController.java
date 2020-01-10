@@ -1,5 +1,7 @@
 package controller;
 
+import model.Fields.Ownable;
+
 public class SystemController {
     private GameController gameController;
     private ViewController viewController;
@@ -26,8 +28,17 @@ public class SystemController {
         //Plays turns
         while (true){
             activePlayerId = gameController.getActivePlayerId();
-
+/**
+ * If the player is in jail, try to pay the bail, and set inJail to false
+ * If the player can't pay the bail, then the player loses (to be written)
+ */
             if(gameController.getActivePlayer().isInJail()){
+                boolean success = gameController.payBail(activePlayerId);
+                gameController.getPlayerController().getPlayers()[activePlayerId].setInJail(false);
+
+                if(success == false){
+                    //TODO Method for handling loser-condition is called here
+                }
 
             } else{
                 playTurn();
@@ -79,28 +90,21 @@ public class SystemController {
             //If it is vacant - asks if player wants to buy
 
             if (viewController.buyFieldOrNot(gameController.getActivePlayerId(),gameController.getActivePlayer().getCurrentFieldId())){
+                //If he chooses to buy
 
+                //Withdraws money
+                gameController.buyFieldForPlayer();
+
+                //Updates the owner
+                int currentFieldId = gameController.getActivePlayer().getCurrentFieldId();
+                ((Ownable)gameController.getBoardController().getBoard().getFields()[currentFieldId]).setOwnerId(gameController.getActivePlayerId());
             }
+
 
         } else{
             //If the player owns it himself
 
-
-
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     }
 
@@ -110,9 +114,10 @@ public class SystemController {
         boolean cantAfford=true;
 
         //Land on field
-        switch (activeFieldType){
+        switch (activeFieldType) {
             case "street":
                 playPropertyField();
+
 
                 break;
             case "ferry":
@@ -121,11 +126,17 @@ public class SystemController {
             case "incomeTax":
                 //TODO: Add correct text message here
                 boolean choice = viewController.payIncomeTax("Test message");
-                cantAfford = gameController.payIncomeTax(activePlayer,choice);
+                cantAfford = gameController.payIncomeTax(activePlayer, choice);
                 break;
             case "ordinaryTax":
                 //TODO: Add some text message
                 cantAfford = gameController.payOrdinaryTax(activePlayer);
+                break;
+            case "prison":
+                    //TODO add text-message
+                gameController.getPlayerController().getPlayers()[activePlayer].setInJail(true);
+                gameController.movePlayer(30,20);
+
                 break;
         }
 
@@ -133,6 +144,9 @@ public class SystemController {
             //TODO: Should handle if the players can't afford to pay
         }
     }
+
+
+
 
     //What does this getter do here? Can someone please explain later. Ida
     public GameController getGameController() {
