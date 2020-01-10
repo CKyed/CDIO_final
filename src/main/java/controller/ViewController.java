@@ -110,10 +110,8 @@ public class ViewController {
 
     public String[] setupPlayers(){
         gui.showMessage(readFile(setupMessagesPath,"welcome"));
-        gui.showMessage(readFile(setupMessagesPath,"choosePlayerNumber"));
 
-
-        int numberOfPlayers = Integer.parseInt(gui.getUserSelection("","3","4","5","6"));
+        int numberOfPlayers = Integer.parseInt(gui.getUserSelection(readFile(setupMessagesPath,"choosePlayerNumber"),"3","4","5","6"));
 
         String[] playerNames = new String[numberOfPlayers];
 
@@ -209,8 +207,6 @@ public class ViewController {
 
            this.fields[0].setCar(this.guiPlayers[i],true);
         }
-
-
     }
 
 
@@ -255,12 +251,8 @@ public class ViewController {
                     ;
                     fields[i].setDescription(fieldSubtexts[i]);
                     break;
-
             }
-
-
         }
-
     }
 
     public boolean buyFieldOrNot(int activePlayerId,int fieldId){

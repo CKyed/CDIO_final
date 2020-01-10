@@ -7,8 +7,6 @@ import static controller.TextController.readFile;
 public class SystemController {
     private GameController gameController;
     private ViewController viewController;
-    private int numberOfPlayers;
-
 
     public SystemController(){
         //Initializes controllers
@@ -63,9 +61,10 @@ public class SystemController {
     }
 
     public void playPropertyField(){
-        if(gameController.getOwnerId()>=0 && gameController.getOwnerId()!= gameController.getActivePlayerId()){
 
-            //If the property is owned by someone else
+        //If the property is owned by someone else
+        if(gameController.getOwnerId()>=0 && gameController.getOwnerId()!= gameController.getActivePlayerId()){
+            //Gets data
             int fieldId = gameController.getActivePlayer().getPositionOnBoard();
             String fromPlayerName = gameController.getActivePlayer().getName();
             String toPlayerName = gameController.getPlayerController().getPlayers()[gameController.getOwnerId()].getName();
@@ -85,12 +84,11 @@ public class SystemController {
                 System.out.println("HER SKAL VI GØRE NOGET");
 
             }
-
-        } else if (gameController.getOwnerId()==-1){
             //If it is vacant - asks if player wants to buy
+        } else if (gameController.getOwnerId()==-1){
 
+            //If he chooses to buy
             if (viewController.buyFieldOrNot(gameController.getActivePlayerId(),gameController.getActivePlayer().getPositionOnBoard())){
-                //If he chooses to buy
 
                 //Withdraws money
                 gameController.buyFieldForPlayer();
@@ -100,29 +98,9 @@ public class SystemController {
                 ((Ownable)gameController.getBoardController().getBoard().getFields()[currentFieldId]).setOwnerId(gameController.getActivePlayerId());
             }
 
-
-
-
-
-        } else{
-            //If the player owns it himself
-
-
+        } else{//If the player owns it himself
 
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     }
 
@@ -166,13 +144,5 @@ public class SystemController {
         if(cantAfford==false){
             //TODO: Should handle if the players can't afford to pay
         }
-    }
-
-
-
-
-    //What does this getter do here? Can someone please explain later. Ida
-    public GameController getGameController() {
-        return gameController;
     }
 }
