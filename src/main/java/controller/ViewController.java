@@ -194,5 +194,21 @@ public class ViewController {
     }
 
     public void updateOwnerships() {
+
     }
+
+    public boolean buyFieldOrNot(int activePlayerId){
+        String selection = gui.getUserSelection("","0","1");
+        int selectionInt = Integer.parseInt(selection);
+        if (selectionInt==0){
+            return false;
+        } else{
+            return true;
+        }
+
+    }
+
+
+
+
 }

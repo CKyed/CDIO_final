@@ -25,14 +25,43 @@ public class SystemController {
         int[] faceValues;
         int sum;
         int oldFieldId;
-
+        String activeFieldType;
         //Plays turns
         while (true){
-            //Gets dieRoll and updates view
+            //Gets dieRoll and updates view and logic
             oldFieldId = gameController.getActivePlayer().getCurrentFieldId();
             faceValues = gameController.rollDice();
             sum = gameController.getDiceController().getSum();
+
+
             viewController.rollDiceAndMove(faceValues,sum,activePlayerId,oldFieldId);
+
+            activeFieldType = gameController.getBoardController().getBoard().getFields()[gameController.getActivePlayer().getCurrentFieldId()].getType();
+
+            //Land on field
+            switch (activeFieldType){
+                case "field":
+                    playPropertyField();
+
+
+
+
+
+                    break;
+                case "ferry":
+
+
+
+                    break;
+
+
+
+
+            }
+
+
+
+
 
             //Updates the balances of all Players
             viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
@@ -54,6 +83,46 @@ public class SystemController {
             activePlayerId = gameController.getActivePlayerId();
 
         }
+
+
+
+    }
+
+    public void playPropertyField(){
+
+
+        if(gameController.getOwnerId()>=0 && gameController.getOwnerId()!= gameController.getActivePlayerId()){
+            //If the property is owned by someone else
+
+
+        } else if (gameController.getOwnerId()==-1){
+            //If it is vacant - asks if player wants to buy
+
+            if (viewController.buyFieldOrNot(gameController.getActivePlayerId())){
+
+            }
+
+
+
+
+
+        } else{
+            //If the player owns it himself
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
