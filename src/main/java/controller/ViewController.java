@@ -283,6 +283,10 @@ public class ViewController {
             return false;
         }
     }
+    public void showMessage(String message){
+        gui.showMessage(message);
+    }
+
 
     public void prisonMessage(){
 

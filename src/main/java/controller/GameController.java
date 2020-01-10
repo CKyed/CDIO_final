@@ -37,7 +37,7 @@ public class GameController {
 
     public int[] rollDice(){
         diceController.roll();
-        int currentFieldId = this.activePlayer.getCurrentFieldId();
+        int currentFieldId = this.activePlayer.getPositionOnBoard();
         int dieSum = diceController.getSum();
 
         //Moves the players position
@@ -50,7 +50,7 @@ public class GameController {
         int numberOfFields = this.boardController.getBoard().getFields().length;
         //Calculates new field and adds startbonus if player passed start
         int newFieldId = (currentFieldId+dieSum)%numberOfFields;
-        this.activePlayer.setCurrentFieldId(newFieldId);
+        this.activePlayer.setPositionOnBoard(newFieldId);
         if (currentFieldId+dieSum>numberOfFields && !activePlayer.isInJail()){
                 activePlayer.deposit(startBonus);
         }
@@ -129,20 +129,20 @@ public class GameController {
 
 
     public int getOwnerId(){
-        int activeFieldId = activePlayer.getCurrentFieldId();
+        int activeFieldId = activePlayer.getPositionOnBoard();
         int ownerId = ((Ownable)this.boardController.getBoard().getFields()[activeFieldId]).getOwnerId();
         return ownerId;
     }
 
     public void buyFieldForPlayer(){
         //Gets price
-        int price = ((Street)boardController.getBoard().getFields()[activePlayer.getCurrentFieldId()]).getPrice();
+        int price = ((Street)boardController.getBoard().getFields()[activePlayer.getPositionOnBoard()]).getPrice();
 
         //Pays
         safePaymentToBank(activePlayerId,price);
 
         //Gives ownership to player
-        ((Street)boardController.getBoard().getFields()[activePlayer.getCurrentFieldId()]).setOwnerId(activePlayerId);
+        ((Street)boardController.getBoard().getFields()[activePlayer.getPositionOnBoard()]).setOwnerId(activePlayerId);
 
     }
 

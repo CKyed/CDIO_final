@@ -59,7 +59,7 @@ public class PlayerController {
     public int[] getFieldIds(){
         int[] fieldIds = new int[numberOfPlayers];
         for (int i =0; i< numberOfPlayers; i++){
-            fieldIds[i] = players[i].getCurrentFieldId();
+            fieldIds[i] = players[i].getPositionOnBoard();
         }
         return fieldIds;
     }
