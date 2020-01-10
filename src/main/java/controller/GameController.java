@@ -1,6 +1,8 @@
 package controller;
 
 import model.*;
+import model.Fields.Ownable;
+import model.Fields.OwnableFile.Street;
 
 public class GameController {
     private BoardController boardController;
@@ -80,4 +82,31 @@ public class GameController {
     public int getActivePlayerId() {
         return activePlayerId;
     }
+
+
+    public int getOwnerId(){
+        int activeFieldId = activePlayer.getCurrentFieldId();
+        int ownerId = ((Ownable)this.boardController.getBoard().getFields()[activeFieldId]).getOwnerId();
+        return ownerId;
+    }
+
+    public void buyFieldForPlayer(){
+        //Gets price
+        int price = ((Street)boardController.getBoard().getFields()[activePlayer.getCurrentFieldId()]).getPrice();
+
+        //Pays
+        safePaymentToBank(activePlayerId,price);
+
+        //Gives ownership to player
+        ((Street)boardController.getBoard().getFields()[activePlayer.getCurrentFieldId()]).setOwnerId(activePlayerId);
+
+
+
+    }
+
+
+
+
 }
+
+
