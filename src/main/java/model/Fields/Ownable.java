@@ -17,7 +17,9 @@ public abstract class Ownable extends Field {
         this.price = getFieldData(state,"price");
         this.rent = getFieldData(state,"rent");
     }
-    public abstract void setRent();
+    public void setRent(int rent){
+        this.rent = rent;
+    };
 
 
     public int getOwnerId() {
