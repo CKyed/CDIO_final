@@ -82,6 +82,10 @@ public class SystemController {
 
             if (viewController.buyFieldOrNot(gameController.getActivePlayerId(),gameController.getActivePlayer().getCurrentFieldId())){
                 //If he chooses to buy
+
+                //Withdraws money
+                gameController.buyFieldForPlayer();
+
                 //Updates the owner
                 int currentFieldId = gameController.getActivePlayer().getCurrentFieldId();
                 ((Ownable)gameController.getBoardController().getBoard().getFields()[currentFieldId]).setOwnerId(gameController.getActivePlayerId());
