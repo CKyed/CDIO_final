@@ -59,7 +59,7 @@ public class SystemController {
         int oldFieldId;
 
         //Gets dieRoll and updates view and logic
-        oldFieldId = gameController.getActivePlayer().getCurrentFieldId();
+        oldFieldId = gameController.getActivePlayer().getPositionOnBoard();
         faceValues = gameController.rollDice();
         sum = gameController.getDiceController().getSum();
 
@@ -76,13 +76,14 @@ public class SystemController {
 
 
         if(gameController.getOwnerId()>=0 && gameController.getOwnerId()!= gameController.getActivePlayerId()){
+
             //If the property is owned by someone else
             int fieldId = gameController.getActivePlayer().getPositionOnBoard();
             String fromPlayerName = gameController.getActivePlayer().getName();
             String toPlayerName = gameController.getPlayerController().getPlayers()[gameController.getOwnerId()].getName();
             int amount = ((Ownable)gameController.getBoardController().getBoard().getFields()[fieldId]).getRent();
 
-            //
+            //Tries to pay rent
             if(gameController.getPlayerController().safeTransferToPlayer(gameController.getActivePlayerId(),amount,gameController.getOwnerId())){
                 //Displays message
                 String message = String.format(readFile(turnMessagesPath,"payRentFromTo"),fromPlayerName,amount,toPlayerName);
@@ -95,25 +96,20 @@ public class SystemController {
                 //TODO
                 System.out.println("HER SKAL VI GØRE NOGET");
 
-
-
-
             }
-
-
 
 
         } else if (gameController.getOwnerId()==-1){
             //If it is vacant - asks if player wants to buy
 
-            if (viewController.buyFieldOrNot(gameController.getActivePlayerId(),gameController.getActivePlayer().getCurrentFieldId())){
+            if (viewController.buyFieldOrNot(gameController.getActivePlayerId(),gameController.getActivePlayer().getPositionOnBoard())){
                 //If he chooses to buy
 
                 //Withdraws money
                 gameController.buyFieldForPlayer();
 
                 //Updates the owner
-                int currentFieldId = gameController.getActivePlayer().getCurrentFieldId();
+                int currentFieldId = gameController.getActivePlayer().getPositionOnBoard();
                 ((Ownable)gameController.getBoardController().getBoard().getFields()[currentFieldId]).setOwnerId(gameController.getActivePlayerId());
             }
 
