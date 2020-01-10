@@ -4,6 +4,7 @@ import model.*;
 import model.Fields.OrdinaryTax;
 import model.Fields.Ownable;
 import model.Fields.OwnableFile.Street;
+import model.Fields.Prison;
 
 public class GameController {
     private BoardController boardController;
@@ -152,13 +153,13 @@ public class GameController {
     // if the player is in prison (System controller) then following method:
     // pay bail (1000 kr)
 
-    public int isPlayerInPrison(int activePlayerId){
+    public boolean payBail(int activePlayerId){
 
     }
 
-    public boolean setPrisonStatus(int activePlayerId){
 
-    }
+
+
     //if isplayerinprison is false then setprisonstatus to true (in Systemcontroller)
 
 

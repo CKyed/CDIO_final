@@ -3,7 +3,6 @@ package model;
 public class Player {
     private String name;
     private Account account;
-    private boolean inJail;
     private int currentFieldId=0;
 
     public Player(String name, int startKapital){
@@ -37,6 +36,7 @@ public class Player {
     public int getCurrentFieldId() {
         return currentFieldId;
     }
+
 
 }
 
