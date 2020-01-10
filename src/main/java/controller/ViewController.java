@@ -19,6 +19,7 @@ public class ViewController {
     private GUI_Field[] fields;
     private GUI_Player[] guiPlayers;
     private GUI_Car[] guiCars;
+    private String[] fieldSubtexts;
 
     public ViewController(Board board) {
         GUI_Field[] fields = createFields(board);
@@ -31,6 +32,7 @@ public class ViewController {
 
     public GUI_Field[] createFields(Board board){
         int numberOfFields = board.getFields().length;
+        fieldSubtexts = new String[numberOfFields];
         GUI_Field[] guiFields = new GUI_Field[numberOfFields];
         //typer bliver sat op for at sammenligne med model attributter.
         int[] fieldColorIDs = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
@@ -50,12 +52,19 @@ public class ViewController {
                         break;
                     case ("street"):
                         guiFields[i] = new GUI_Street();
+                        fieldSubtexts[i] = readFile(setupMessagesPath,"owner") + " " + readFile(setupMessagesPath,"none") +" \n"
+                                + readFile(setupMessagesPath,"price") +" " + ((Street)board.getFields()[i]).getPrice() + " \n"
+                                + readFile(setupMessagesPath,"housePrice") +" " + ((Street)board.getFields()[i]).getHousePrice() + " \n"
+                                + readFile(setupMessagesPath,"rent") +" " + ((Street)board.getFields()[i]).getRentLevels()[((Street)board.getFields()[i]).getHouseLevel()] + "\n"
+                        ;
                         break;
                     case ("tax"):
                         guiFields[i] = new GUI_Tax();
+                        fieldSubtexts[i] = readFile(setupMessagesPath,"tax");
                         break;
                     case ("chance"):
                         guiFields[i] = new GUI_Chance();
+                        fieldSubtexts[i] = readFile(setupMessagesPath,"");
                         break;
                     case ("brew"):
                         guiFields[i] = new GUI_Brewery();
@@ -77,8 +86,8 @@ public class ViewController {
                 }
             }
             guiFields[i].setTitle(board.getFields()[i].getName());
-            guiFields[i].setDescription("");
-            guiFields[i].setSubText(null);
+            guiFields[i].setDescription(board.getFields()[i].getDescription());
+            guiFields[i].setSubText(fieldSubtexts[i]);
         }
         return guiFields;
     }
@@ -196,6 +205,7 @@ public class ViewController {
     }
 
     public void updateOwnerships() {
+
 
     }
 
