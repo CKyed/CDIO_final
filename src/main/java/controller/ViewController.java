@@ -1,7 +1,6 @@
 package controller;
-import static controller.PathExpert.namePath;
+import static controller.PathExpert.*;
 import static controller.TextController.readFile;
-import static controller.PathExpert.fieldAttributesPath;
 
 import gui_fields.*;
 import gui_fields.GUI_Field;
@@ -85,14 +84,19 @@ public class ViewController {
     }
 
     public String[] setupPlayers(){
+        gui.showMessage(readFile(setupMessagesPath,"welcome"));
+        gui.showMessage(readFile(setupMessagesPath,"choosePlayerNumber"));
+
         int numberOfPlayers = Integer.parseInt(gui.getUserSelection("","3","4","5","6"));
 
         String[] playerNames = new String[numberOfPlayers];
 
         this.guiCars = new GUI_Car[numberOfPlayers];
 
+        String playerNameMessage;
         for (int i =0;i<numberOfPlayers;i++) {
-            playerNames[i] = gui.getUserString("");
+            playerNameMessage = readFile(setupMessagesPath,"player") + " " + (i + 1) +" " + readFile(setupMessagesPath,"writeName");
+            playerNames[i] = gui.getUserString(playerNameMessage);
 /*
             while (playerNames[i].equals("")||playerNames[i].equals(" ")){
                 System.out.println("Indtast nyt navn"); //TODO GUI-meddelese
@@ -100,7 +104,7 @@ public class ViewController {
             }
 */
             while(playerNames[i].isEmpty()){
-                System.out.println("prøv igen ");
+                gui.showMessage(readFile(setupMessagesPath,"nameError"));
                 playerNames[i] = gui.getUserString("");
             }
 
@@ -141,8 +145,9 @@ public class ViewController {
     }
     
     public void rollDiceAndMove(int[] faceValues, int sum,int activePlayerId, int oldFieldId){
+        String newTurnMessage = String.format(readFile(turnMessagesPath,"newTurn"),guiPlayers[activePlayerId].getName());
+        gui.showMessage(newTurnMessage);
         gui.setDice(faceValues[0],faceValues[1]);
-        gui.showMessage("");
 
         for (int i =0;i<sum;i++){
             teleportPlayerCar(activePlayerId,1,(oldFieldId+i)% fields.length);
@@ -194,10 +199,10 @@ public class ViewController {
 
     }
 
-    public boolean buyFieldOrNot(int activePlayerId){
-        String selection = gui.getUserSelection("","0","1");
-        int selectionInt = Integer.parseInt(selection);
-        if (selectionInt==0){
+    public boolean buyFieldOrNot(int activePlayerId,int fieldId){
+        String question =String.format(readFile(turnMessagesPath,"buyField?"),guiPlayers[activePlayerId].getName(),fields[fieldId].getTitle());
+        String selection = gui.getUserButtonPressed(question,readFile(turnMessagesPath,"no"),readFile(turnMessagesPath,"yes"));
+        if (selection.equals(readFile(turnMessagesPath,"no"))){
             return false;
         } else{
             return true;
