@@ -40,7 +40,7 @@ public class GameController {
         int newFieldId = (currentFieldId+dieSum)%numberOfFields;
         this.activePlayer.setCurrentFieldId(newFieldId);
         if (currentFieldId+dieSum>numberOfFields){
-            activePlayer.deposit(2000);
+            activePlayer.deposit(startBonus);
         }
 
 
