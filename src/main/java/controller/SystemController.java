@@ -21,41 +21,50 @@ public class SystemController {
     }
 
     public void play(){
+
+        int activePlayerId;
+        //Plays turns
+        while (true){
+            activePlayerId = gameController.getActivePlayerId();
+
+            if(gameController.getActivePlayer().isInJail()){
+
+            } else{
+                playTurn();
+            }
+
+            //Updates the balances and ownerships of all Players
+            viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
+            viewController.updateOwnerships(gameController.getBoardController().getBoard());
+
+            //Gives the turn to the next player
+            gameController.updateActivePlayer();
+
+
+
+        }
+
+
+
+    }
+
+    public void playTurn(){
         int activePlayerId = gameController.getActivePlayerId();
         int[] faceValues;
         int sum;
         int oldFieldId;
 
-        //Plays turns
-        while (true){
-            //Gets dieRoll and updates view and logic
-            oldFieldId = gameController.getActivePlayer().getCurrentFieldId();
-            faceValues = gameController.rollDice();
-            sum = gameController.getDiceController().getSum();
+        //Gets dieRoll and updates view and logic
+        oldFieldId = gameController.getActivePlayer().getCurrentFieldId();
+        faceValues = gameController.rollDice();
+        sum = gameController.getDiceController().getSum();
 
+        viewController.rollDiceAndMove(faceValues,sum,activePlayerId,oldFieldId);
 
-            viewController.rollDiceAndMove(faceValues,sum,activePlayerId,oldFieldId);
+        landOnField();
 
-
-            landOnField();
-
-
-            //Updates the balances of all Players
-            viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
-
-
-
-            //Updates the balances of all Players
-            viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
-
-            //Tom metode
-            viewController.updateOwnerships();
-
-            //Gives the turn to the next player
-            gameController.updateActivePlayer();
-            activePlayerId = gameController.getActivePlayerId();
-
-        }
+        //Updates the balances of all Players
+        viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
 
     }
 
@@ -78,6 +87,18 @@ public class SystemController {
             //If the player owns it himself
 
         }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     }
@@ -115,6 +136,7 @@ public class SystemController {
             //TODO: Should handle if the players can't afford to pay
         }
     }
+
 
 
 

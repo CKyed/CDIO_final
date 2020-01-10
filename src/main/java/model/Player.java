@@ -3,11 +3,13 @@ package model;
 public class Player {
     private String name;
     private Account account;
+    private boolean inJail;
     private int currentFieldId=0;
 
     public Player(String name, int startKapital){
         this.account = new Account(startKapital);
         this.name = name;
+        this.inJail = false;
     }
     public Account getAccount() {
         return account;
@@ -37,6 +39,8 @@ public class Player {
         return currentFieldId;
     }
 
-
+    public boolean isInJail() {
+        return inJail;
+    }
 }
 
