@@ -11,29 +11,26 @@ public class SystemController {
 
 
     public SystemController(){
+        //Initializes controllers
         this.gameController = new GameController();
-
-
         this.viewController = new ViewController(this.gameController.getBoardController().getBoard());
-        setupPlayers();
-        play();
-    }
-    //Setup players with an array of Strings witch the setupPlayers method in viewcontroller returns
-    public void setupPlayers(){
+
+        //Setup players with an array of Strings from the viewcontroller
         String[] playerNames = this.viewController.setupPlayers();
-        gameController.setupPlayers(playerNames);
+        gameController.setPlayerController(new PlayerController(playerNames));
+
+        //Plays game
+        play();
     }
 
     public void play(){
 
-        int activePlayerId;
         //Plays turns
         while (true){
-            activePlayerId = gameController.getActivePlayerId();
 
-            if(gameController.getActivePlayer().isInJail()){
+            if(gameController.getActivePlayer().isInJail()){ //If the player is in jail
 
-            } else{
+            } else{ //Otherwise, player rolls dice and play normal turn
                 playTurn();
             }
 
@@ -43,28 +40,21 @@ public class SystemController {
 
             //Gives the turn to the next player
             gameController.updateActivePlayer();
-
-
-
         }
-
-
-
     }
 
     public void playTurn(){
         int activePlayerId = gameController.getActivePlayerId();
-        int[] faceValues;
-        int sum;
-        int oldFieldId;
+        int oldFieldId = gameController.getActivePlayer().getPositionOnBoard();
 
-        //Gets dieRoll and updates view and logic
-        oldFieldId = gameController.getActivePlayer().getPositionOnBoard();
-        faceValues = gameController.rollDice();
-        sum = gameController.getDiceController().getSum();
+        //Gets dieRoll and updates players position in model-layer
+        int[] faceValues = gameController.rollDice();
+        int sum = gameController.getDiceController().getSum();
 
+        //Updates players position in view-layer
         viewController.rollDiceAndMove(faceValues,sum,activePlayerId,oldFieldId);
 
+        //Does actions on new field
         landOnField();
 
         //Updates the balances of all Players

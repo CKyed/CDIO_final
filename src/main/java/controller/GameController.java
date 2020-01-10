@@ -140,4 +140,10 @@ public class GameController {
         //return safePaymentToBank(activePlayerId, ((OrdinaryTax)boardController.getBoard().getFields()[38]).getTax());
 
     //}
+
+
+    public void setPlayerController(PlayerController playerController) {
+        this.playerController = playerController;
+    }
+
 }
