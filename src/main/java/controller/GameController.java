@@ -28,7 +28,7 @@ public class GameController {
 
     public void setupPlayers(String[] playerNames){
         this.playerController = new PlayerController(playerNames);
-        activePlayerId =0;
+        activePlayerId =-1;
         updateActivePlayer();
     }
 

@@ -33,23 +33,12 @@ public class SystemController {
             faceValues = gameController.rollDice();
             sum = gameController.getDiceController().getSum();
 
-
             viewController.rollDiceAndMove(faceValues,sum,activePlayerId,oldFieldId);
-
 
             landOnField();
 
-
-
-
-
-
-
-
             //Updates the balances of all Players
             viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
-
-
 
 
 
