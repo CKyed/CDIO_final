@@ -4,30 +4,25 @@ public class DiceCup {
     private int numberOfDice;
     private int dieSum;
     private Die[] dice;
+    private int[] faceValues;
 
-    /**
-     *Creates an array with a number of dice, they all have same number of sides, defined by the two variables
-     * @see Die
-     * @param numberOfDice
-     * @param numberOfSides
-     */
-
-
-
+    //Creates an array with a number of dice and a number of sides, defined by the two variables
     public DiceCup(int numberOfDice, int numberOfSides) {
         this.numberOfDice = numberOfDice;
+        this.faceValues= new int[numberOfDice];
         dice = new Die[numberOfDice];
         for (int i = 0; i < numberOfDice; i++) {
             dice[i] = new Die(numberOfSides);
+            faceValues[i] =0;
         }
     }
 
-
-
     //Rolls all the dice in the array
     public void rollDice() {
+        int sum = 0;
         for (int i = 0; i < numberOfDice; i++) {
             dice[i].roll();
+            faceValues[i] = dice[i].getFaceValue();
         }
     }
 
@@ -40,11 +35,15 @@ public class DiceCup {
     }
 
     public int getDieSum(){
-        this.dieSum = 0;
+        int dieSum = 0;
         for(int i =0; i<numberOfDice; i++){
-          this.dieSum += this.dice[i].getFaceValue();
+          dieSum += this.dice[i].getFaceValue();
         }
-        return this.dieSum;
+        return dieSum;
+    }
+
+    public int[] getFaceValues() {
+        return faceValues;
     }
 
 }

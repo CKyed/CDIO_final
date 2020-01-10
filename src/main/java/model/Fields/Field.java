@@ -20,8 +20,11 @@ public abstract class Field {
         this.id = getFieldData(state,"id");
     }
 
+    public abstract int getGroup();
+    public abstract String getType();
+
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public String getColor() {

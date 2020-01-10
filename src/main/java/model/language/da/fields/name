@@ -6,7 +6,13 @@ visit:I fængsel/På besøg
 
 prison:Fængsel
 
-chance:Prøv lykken
+chance01:Prøv lykken
+chance02:Prøv lykken
+chance03:Prøv lykken
+chance04:Prøv lykken
+chance05:Prøv lykken
+chance06:Prøv lykken
+
 
 tax01:Indkomstskat
 tax02:Ekstraordinær statsskat
