@@ -50,6 +50,7 @@ public class ViewController {
                     case ("start"):
                         guiFields[i] = new GUI_Start();
                         break;
+
                     case ("street"):
                         guiFields[i] = new GUI_Street();
                         fieldSubtexts[i] = readFile(setupMessagesPath,"owner") + " " + readFile(setupMessagesPath,"none") +" \n"
@@ -95,7 +96,11 @@ public class ViewController {
             }
             guiFields[i].setTitle(board.getFields()[i].getName());
             guiFields[i].setDescription(board.getFields()[i].getDescription());
-            guiFields[i].setSubText(fieldSubtexts[i]);
+            guiFields[i].setSubText("");
+            if(board.getFields()[i].getType().equals("street")) guiFields[i].setDescription(fieldSubtexts[i]);
+            if(board.getFields()[i].getType().equals("ferry")) guiFields[i].setDescription(fieldSubtexts[i]);
+            if(board.getFields()[i].getType().equals("brew")) guiFields[i].setDescription(fieldSubtexts[i]);
+
         }
         return guiFields;
     }
