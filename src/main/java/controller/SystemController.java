@@ -12,40 +12,34 @@ public class SystemController {
 
         this.viewController = new ViewController(this.gameController.getBoardController().getBoard());
         setupPlayers();
+        play();
     }
     //Setup players with an array of Strings witch the setupPlayers method in viewcontroller returns
     public void setupPlayers(){
         String[] playerNames = this.viewController.setupPlayers();
         gameController.setupPlayers(playerNames);
     }
-    /*
-    public int rollCupAndThrowDice() {
 
-        for (int i = 0; i < eyes.length; i++) {
-            diceValues += eyes[i];
-        }
-        if (eyes[0] == eyes[1])
-            sameValue = true;
-        else
-            sameValue = false;
-        return diceValues;
-    }
-
-    public boolean isSameValue(){
-        return sameValue;
-    }
-    */
     public void play(){
-        int activePlayerId = 0;
-
+        int activePlayerId = gameController.getActivePlayerId();
+        int[] faceValues;
+        int sum;
+        int oldFieldId;
 
         //Plays turns
         while (true){
-            //Gets dieRoll and updates view
-            int[] faceValues = gameController.rollDice();
-            int[] oldFieldIds = gameController.getPlayerController().getFieldIds();
+            //Gets dieRoll and updates view and logic
+            oldFieldId = gameController.getActivePlayer().getCurrentFieldId();
+            faceValues = gameController.rollDice();
+            sum = gameController.getDiceController().getSum();
 
-            viewController.rollDiceAndMove(faceValues,faceValues[1]+faceValues[0],activePlayerId,oldFieldIds,numberOfPlayers);
+
+            viewController.rollDiceAndMove(faceValues,sum,activePlayerId,oldFieldId);
+
+
+            landOnField();
+
+
 
 
 
@@ -53,17 +47,93 @@ public class SystemController {
 
 
             //Updates the balances of all Players
-            viewController.updatePlayerBalances();
+            viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
 
+
+
+
+
+
+
+            //Updates the balances of all Players
+            viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
+
+            //Tom metode
             viewController.updateOwnerships();
 
             //Gives the turn to the next player
             gameController.updateActivePlayer();
+            activePlayerId = gameController.getActivePlayerId();
 
         }
 
 
 
+    }
+
+    public void playPropertyField(){
+
+
+        if(gameController.getOwnerId()>=0 && gameController.getOwnerId()!= gameController.getActivePlayerId()){
+            //If the property is owned by someone else
+
+
+        } else if (gameController.getOwnerId()==-1){
+            //If it is vacant - asks if player wants to buy
+
+            if (viewController.buyFieldOrNot(gameController.getActivePlayerId())){
+
+            }
+
+
+
+
+
+        } else{
+            //If the player owns it himself
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+    public void landOnField(){
+        String activeFieldType = gameController.getBoardController().getBoard().getFields()[gameController.getActivePlayer().getCurrentFieldId()].getType();
+
+        //Land on field
+        switch (activeFieldType){
+            case "street":
+                playPropertyField();
+
+
+
+
+
+                break;
+            case "ferry":
+
+
+
+                break;
+
+
+
+
+        }
     }
 
 
@@ -73,16 +143,5 @@ public class SystemController {
 
     public GameController getGameController() {
         return gameController;
-    }
-
-    public void pause(int time){
-        try
-        {
-            Thread.sleep(time);
-        }
-        catch(InterruptedException ex)
-        {
-            Thread.currentThread().interrupt();
-        }
     }
 }
