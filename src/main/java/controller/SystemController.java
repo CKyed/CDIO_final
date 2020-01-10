@@ -75,7 +75,7 @@ public class SystemController {
         } else if (gameController.getOwnerId()==-1){
             //If it is vacant - asks if player wants to buy
 
-            if (viewController.buyFieldOrNot(gameController.getActivePlayerId())){
+            if (viewController.buyFieldOrNot(gameController.getActivePlayerId(),gameController.getActivePlayer().getCurrentFieldId())){
 
             }
 
@@ -101,13 +101,13 @@ public class SystemController {
 
     }
 
-    public void landOnField() {
+    public void landOnField(){
         String activeFieldType = gameController.getBoardController().getBoard().getFields()[gameController.getActivePlayer().getCurrentFieldId()].getType();
         int activePlayer = gameController.getActivePlayerId();
         boolean cantAfford=true;
 
         //Land on field
-        switch (activeFieldType) {
+        switch (activeFieldType){
             case "street":
                 playPropertyField();
 
@@ -131,8 +131,7 @@ public class SystemController {
         }
     }
 
-
-
+    //What does this getter do here? Can someone please explain later. Ida
     public GameController getGameController() {
         return gameController;
     }
