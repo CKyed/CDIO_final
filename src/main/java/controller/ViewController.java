@@ -200,6 +200,10 @@ public class ViewController {
         //Moves the guiPlayer to the new position
         fields[newPosition].setCar(guiPlayers[playerId],true);
     }
+//TODO Metode til at fjerne spiller efter de har tabt
+    public void removePlayer(int playerId, int oldFieldId){
+
+    }
 
     private void setupGuiPlayers(String[] playerNames){
         this.guiPlayers = new GUI_Player[playerNames.length];
@@ -272,6 +276,10 @@ public class ViewController {
             return true;
         }
 
+    }
+
+    public void looserMessage(){
+        gui.showMessage("Looser"); //TODO taber besked med spilelrens navn
     }
 
     public boolean payIncomeTax(String message){
