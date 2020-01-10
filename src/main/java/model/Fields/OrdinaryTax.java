@@ -4,12 +4,13 @@ import static controller.TextController.*;
 public class OrdinaryTax extends Field{
     private int group = 11;
     private String type = "ordinaryTax";
-    private int tax = 2000;
+    private int tax;
     //TODO Her har vi hardcoded beløbet, så senere kan de importeres fra textfil
 
 
     public OrdinaryTax(String state) {
         super(state);
+        this.tax = getFieldData(state,"rent");
 
     }
 
