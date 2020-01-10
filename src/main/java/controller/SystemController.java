@@ -81,7 +81,7 @@ public class SystemController {
         } else if (gameController.getOwnerId()==-1){
             //If it is vacant - asks if player wants to buy
 
-            if (viewController.buyFieldOrNot(gameController.getActivePlayerId())){
+            if (viewController.buyFieldOrNot(gameController.getActivePlayerId(),gameController.getActivePlayer().getCurrentFieldId())){
 
             }
 
