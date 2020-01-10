@@ -1,5 +1,9 @@
 package controller;
 
+import model.Fields.Ownable;
+import static controller.PathExpert.*;
+import static controller.TextController.readFile;
+
 public class SystemController {
     private GameController gameController;
     private ViewController viewController;
@@ -21,49 +25,26 @@ public class SystemController {
     }
 
     public void play(){
-        int activePlayerId = gameController.getActivePlayerId();
-        int[] faceValues;
-        int sum;
-        int oldFieldId;
 
+        int activePlayerId;
         //Plays turns
         while (true){
-            //Gets dieRoll and updates view and logic
-            oldFieldId = gameController.getActivePlayer().getCurrentFieldId();
-            faceValues = gameController.rollDice();
-            sum = gameController.getDiceController().getSum();
+            activePlayerId = gameController.getActivePlayerId();
 
+            if(gameController.getActivePlayer().isInJail()){
 
-            viewController.rollDiceAndMove(faceValues,sum,activePlayerId,oldFieldId);
+            } else{
+                playTurn();
+            }
 
-
-            landOnField();
-
-
-
-
-
-
-
-
-            //Updates the balances of all Players
+            //Updates the balances and ownerships of all Players
             viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
-
-
-
-
-
-
-
-            //Updates the balances of all Players
-            viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
-
-            //Tom metode
-            viewController.updateOwnerships();
+            viewController.updateOwnerships(gameController.getBoardController().getBoard());
 
             //Gives the turn to the next player
             gameController.updateActivePlayer();
-            activePlayerId = gameController.getActivePlayerId();
+
+
 
         }
 
@@ -71,18 +52,65 @@ public class SystemController {
 
     }
 
+    public void playTurn(){
+        int activePlayerId = gameController.getActivePlayerId();
+        int[] faceValues;
+        int sum;
+        int oldFieldId;
+
+        //Gets dieRoll and updates view and logic
+        oldFieldId = gameController.getActivePlayer().getPositionOnBoard();
+        faceValues = gameController.rollDice();
+        sum = gameController.getDiceController().getSum();
+
+        viewController.rollDiceAndMove(faceValues,sum,activePlayerId,oldFieldId);
+
+        landOnField();
+
+        //Updates the balances of all Players
+        viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
+
+    }
+
     public void playPropertyField(){
 
 
         if(gameController.getOwnerId()>=0 && gameController.getOwnerId()!= gameController.getActivePlayerId()){
+
             //If the property is owned by someone else
+            int fieldId = gameController.getActivePlayer().getPositionOnBoard();
+            String fromPlayerName = gameController.getActivePlayer().getName();
+            String toPlayerName = gameController.getPlayerController().getPlayers()[gameController.getOwnerId()].getName();
+            int amount = ((Ownable)gameController.getBoardController().getBoard().getFields()[fieldId]).getRent();
+
+            //Tries to pay rent
+            if(gameController.getPlayerController().safeTransferToPlayer(gameController.getActivePlayerId(),amount,gameController.getOwnerId())){
+                //Displays message
+                String message = String.format(readFile(turnMessagesPath,"payRentFromTo"),fromPlayerName,amount,toPlayerName);
+                viewController.showMessage(message);
+
+                //Updates player balances
+                viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
+            } else {
+                //Player can't afford the rent
+                //TODO
+                System.out.println("HER SKAL VI GØRE NOGET");
+
+            }
 
 
         } else if (gameController.getOwnerId()==-1){
             //If it is vacant - asks if player wants to buy
 
-            if (viewController.buyFieldOrNot(gameController.getActivePlayerId())){
+            if (viewController.buyFieldOrNot(gameController.getActivePlayerId(),gameController.getActivePlayer().getPositionOnBoard())){
+                //If he chooses to buy
 
+                //Withdraws money
+                gameController.buyFieldForPlayer();
+
+                //Updates the owner
+                int currentFieldId = gameController.getActivePlayer().getPositionOnBoard();
+                ((Ownable)gameController.getBoardController().getBoard().getFields()[currentFieldId]).setOwnerId(gameController.getActivePlayerId());
             }
 
 
@@ -112,7 +140,9 @@ public class SystemController {
     }
 
     public void landOnField(){
-        String activeFieldType = gameController.getBoardController().getBoard().getFields()[gameController.getActivePlayer().getCurrentFieldId()].getType();
+        String activeFieldType = gameController.getBoardController().getBoard().getFields()[gameController.getActivePlayer().getPositionOnBoard()].getType();
+        int activePlayer = gameController.getActivePlayerId();
+        boolean cantAfford=true;
 
         //Land on field
         switch (activeFieldType){
@@ -126,21 +156,33 @@ public class SystemController {
                 break;
             case "ferry":
 
-
+                break;
+            case "incomeTax":
+                //TODO: Add correct text message here
+                boolean choice = viewController.payIncomeTax("Test message");
+                cantAfford = gameController.payIncomeTax(activePlayer, choice);
+                break;
+            case "ordinaryTax":
+                //TODO: Add some text message
+                cantAfford = gameController.payOrdinaryTax(activePlayer);
+                break;
+            case "prison":
+                    //TODO add text-message
+                gameController.getPlayerController().getPlayers()[activePlayer].setInJail(true);
+                gameController.movePlayer(30,20);
 
                 break;
+        }
 
-
-
-
+        if(cantAfford==false){
+            //TODO: Should handle if the players can't afford to pay
         }
     }
 
 
 
 
-
-
+    //What does this getter do here? Can someone please explain later. Ida
     public GameController getGameController() {
         return gameController;
     }

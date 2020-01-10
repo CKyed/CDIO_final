@@ -48,7 +48,7 @@ public class TextController {
         for (int i=0;i<stringData.length;i++){
             intData[i] = Integer.parseInt(stringData[i]);
         }
-        String[] choices = {"id","price","rent","houseprice","house1","house2","house3","house4","hotel","serie"};
+        String[] choices = {"id","price","rent","houseprice","house1","house2","house3","house4","hotel","series"};
         int number = 0;
         for (int i = 0; i < intData.length; i++) {
             if (choices[i].equals(attribute)){

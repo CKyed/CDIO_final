@@ -5,6 +5,7 @@ public class PlayerController {
     private Player[] players;
     private int numberOfPlayers;
 
+
     public PlayerController(String[] playerNames){
         //Setup the players with player names and start money
         this.numberOfPlayers = playerNames.length;
@@ -22,6 +23,13 @@ public class PlayerController {
     public void takeMoneyFromPlayer(int playerid, int amount){
         players[playerid].withdraw(amount);
     }
+
+    /**
+     * Checks is player has enough money on account, if yes then returns true
+     * @param playerId
+     * @param amount
+     * @return
+     */
 
     public boolean safeTransferToBank(int playerId,int amount) {
         boolean succes=true;
@@ -51,7 +59,7 @@ public class PlayerController {
     public int[] getFieldIds(){
         int[] fieldIds = new int[numberOfPlayers];
         for (int i =0; i< numberOfPlayers; i++){
-            fieldIds[i] = players[i].getCurrentFieldId();
+            fieldIds[i] = players[i].getPositionOnBoard();
         }
         return fieldIds;
     }
