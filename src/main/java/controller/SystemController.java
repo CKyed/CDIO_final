@@ -1,6 +1,8 @@
 package controller;
 
 import model.Fields.Ownable;
+import static controller.PathExpert.*;
+import static controller.TextController.readFile;
 
 public class SystemController {
     private GameController gameController;
@@ -57,7 +59,7 @@ public class SystemController {
         int oldFieldId;
 
         //Gets dieRoll and updates view and logic
-        oldFieldId = gameController.getActivePlayer().getCurrentFieldId();
+        oldFieldId = gameController.getActivePlayer().getPositionOnBoard();
         faceValues = gameController.rollDice();
         sum = gameController.getDiceController().getSum();
 
@@ -75,19 +77,43 @@ public class SystemController {
 
         if(gameController.getOwnerId()>=0 && gameController.getOwnerId()!= gameController.getActivePlayerId()){
             //If the property is owned by someone else
+            int fieldId = gameController.getActivePlayer().getPositionOnBoard();
+            String fromPlayerName = gameController.getActivePlayer().getName();
+            String toPlayerName = gameController.getPlayerController().getPlayers()[gameController.getOwnerId()].getName();
+            int amount = ((Ownable)gameController.getBoardController().getBoard().getFields()[fieldId]).getRent();
+
+            //
+            if(gameController.getPlayerController().safeTransferToPlayer(gameController.getActivePlayerId(),amount,gameController.getOwnerId())){
+                //Displays message
+                String message = String.format(readFile(turnMessagesPath,"payRentFromTo"),fromPlayerName,amount,toPlayerName);
+                viewController.showMessage(message);
+
+                //Updates player balances
+                viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
+            } else {
+                //Player can't afford the rent
+                //TODO
+                System.out.println("HER SKAL VI GØRE NOGET");
+
+
+
+
+            }
+
+
 
 
         } else if (gameController.getOwnerId()==-1){
             //If it is vacant - asks if player wants to buy
 
-            if (viewController.buyFieldOrNot(gameController.getActivePlayerId(),gameController.getActivePlayer().getCurrentFieldId())){
+            if (viewController.buyFieldOrNot(gameController.getActivePlayerId(),gameController.getActivePlayer().getPositionOnBoard())){
                 //If he chooses to buy
 
                 //Withdraws money
                 gameController.buyFieldForPlayer();
 
                 //Updates the owner
-                int currentFieldId = gameController.getActivePlayer().getCurrentFieldId();
+                int currentFieldId = gameController.getActivePlayer().getPositionOnBoard();
                 ((Ownable)gameController.getBoardController().getBoard().getFields()[currentFieldId]).setOwnerId(gameController.getActivePlayerId());
             }
 
@@ -118,7 +144,7 @@ public class SystemController {
     }
 
     public void landOnField(){
-        String activeFieldType = gameController.getBoardController().getBoard().getFields()[gameController.getActivePlayer().getCurrentFieldId()].getType();
+        String activeFieldType = gameController.getBoardController().getBoard().getFields()[gameController.getActivePlayer().getPositionOnBoard()].getType();
 
         //Land on field
         switch (activeFieldType){

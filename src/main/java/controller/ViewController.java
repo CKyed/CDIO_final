@@ -271,6 +271,10 @@ public class ViewController {
 
     }
 
+    public void showMessage(String message){
+        gui.showMessage(message);
+    }
+
 
 
 
