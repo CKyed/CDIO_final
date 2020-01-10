@@ -26,8 +26,6 @@ public class ViewController {
         this.fields = fields;
         this.gui = new GUI(fields);
 
-
-
     }
 
     public GUI_Field[] createFields(Board board){
@@ -125,7 +123,7 @@ public class ViewController {
             playerNames[i] = gui.getUserString(playerNameMessage);
 /*
             while (playerNames[i].equals("")||playerNames[i].equals(" ")){
-                System.out.println("Indtast nyt navn"); //TODO GUI-meddelese
+                System.out.println("Indtast nyt navn"); //TODO GUI-meddelese if names are the same
                 playerNames[i] = gui.getUserString("");
             }
 */
@@ -140,9 +138,6 @@ public class ViewController {
                 playerNames[i] = gui.getUserString("");
 
             }
-
-
-
 
             int numberOfLetters = playerNames[i].length();
             /*
@@ -209,8 +204,6 @@ public class ViewController {
 
            this.fields[0].setCar(this.guiPlayers[i],true);
         }
-
-
     }
 
 
@@ -257,8 +250,6 @@ public class ViewController {
                     break;
 
             }
-
-
         }
 
     }

@@ -124,16 +124,17 @@ public class SystemController {
 
                 break;
             case "incomeTax":
-                //TODO: Add correct text message here
+                //TODO: Add correct text message here for incometax
                 boolean choice = viewController.payIncomeTax("Test message");
                 cantAfford = gameController.payIncomeTax(activePlayer, choice);
                 break;
             case "ordinaryTax":
-                //TODO: Add some text message
+                //TODO: Add some text message for ordinarytax
                 cantAfford = gameController.payOrdinaryTax(activePlayer);
                 break;
             case "prison":
-                    //TODO add text-message
+
+                //TODO add text-message for prison
                 gameController.getPlayerController().getPlayers()[activePlayer].setInJail(true);
                 gameController.movePlayer(30,20);
 
