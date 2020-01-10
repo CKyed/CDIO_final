@@ -56,4 +56,12 @@ public class PlayerController {
         return fieldIds;
     }
 
+    public int[] getPlayerBalances(){
+        int[] playerBalances = new int[numberOfPlayers];
+        for (int i =0;i<numberOfPlayers;i++){
+            playerBalances[i] = players[i].getAccountBalance();
+        }
+        return playerBalances;
+    }
+
 }
