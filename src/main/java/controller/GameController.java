@@ -10,12 +10,7 @@ import model.Fields.Prison;
 public class GameController {
     private BoardController boardController;
     private PlayerController playerController;
-    private Player activePlayer;
     private int startBonus = 2000;
-
-
-
-    private int activePlayerId;
     private DiceController diceController;
     private ChanceCardController chanceCardController;
 
@@ -31,13 +26,11 @@ public class GameController {
 
     public void setupPlayers(String[] playerNames){
         this.playerController = new PlayerController(playerNames);
-        activePlayerId =-1;
-        updateActivePlayer();
     }
 
     public int[] rollDice(){
         diceController.roll();
-        int currentFieldId = this.activePlayer.getPositionOnBoard();
+        int currentFieldId = playerController.getActivePlayer().getPositionOnBoard();
         int dieSum = diceController.getSum();
 
         //Moves the players position
@@ -50,9 +43,9 @@ public class GameController {
         int numberOfFields = this.boardController.getBoard().getFields().length;
         //Calculates new field and adds startbonus if player passed start
         int newFieldId = (currentFieldId+dieSum)%numberOfFields;
-        this.activePlayer.setPositionOnBoard(newFieldId);
-        if (currentFieldId+dieSum>numberOfFields && !activePlayer.isInJail()){
-                activePlayer.deposit(startBonus);
+        playerController.getActivePlayer().setPositionOnBoard(newFieldId);
+        if (currentFieldId+dieSum>numberOfFields && !playerController.getActivePlayer().isInJail()){
+                playerController.getActivePlayer().deposit(startBonus);
         }
     }
 
@@ -96,16 +89,12 @@ public class GameController {
         return playerController.safeTransferToPlayer(fromPlayerId,amount,toPlayerId);
     }
 
-    public void setActivePlayer(Player player){
-        this.activePlayer = player;
-    }
-
     public PlayerController getPlayerController() {
         return playerController;
     }
 
     public Player getActivePlayer() {
-        return activePlayer;
+        return playerController.getActivePlayer();
     }
 
     public DiceController getDiceController() {
@@ -113,36 +102,31 @@ public class GameController {
     }
 
     public void updateActivePlayer(){
-        //Updates the activePlayer - only if last diceroll wasn't 2 of the same
-        if(!diceController.isSameValue()){
-            int numberOfPlayers = playerController.getPlayers().length;
-            this.activePlayerId++;
-            this.activePlayerId = this.activePlayerId % numberOfPlayers;
-            this.activePlayer = playerController.getPlayers()[activePlayerId];
+        if (!diceController.isSameValue()){
+            this.playerController.updateActivePlayer();
         }
-
     }
 
     public int getActivePlayerId() {
-        return activePlayerId;
+        return playerController.getActivePlayerId();
     }
 
 
     public int getOwnerId(){
-        int activeFieldId = activePlayer.getPositionOnBoard();
+        int activeFieldId = playerController.getActivePlayer().getPositionOnBoard();
         int ownerId = ((Ownable)this.boardController.getBoard().getFields()[activeFieldId]).getOwnerId();
         return ownerId;
     }
 
     public void buyFieldForPlayer(){
         //Gets price
-        int price = ((Street)boardController.getBoard().getFields()[activePlayer.getPositionOnBoard()]).getPrice();
+        int price = ((Street)boardController.getBoard().getFields()[playerController.getActivePlayer().getPositionOnBoard()]).getPrice();
 
         //Pays
-        safePaymentToBank(activePlayerId,price);
+        safePaymentToBank(playerController.getActivePlayerId(),price);
 
         //Gives ownership to player
-        ((Street)boardController.getBoard().getFields()[activePlayer.getPositionOnBoard()]).setOwnerId(activePlayerId);
+        ((Street)boardController.getBoard().getFields()[playerController.getActivePlayer().getPositionOnBoard()]).setOwnerId(playerController.getActivePlayerId());
 
     }
 
