@@ -139,8 +139,7 @@ public class SystemController {
 
 
 
-
-
+    //What does this getter do here? Can someone please explain later. Ida
     public GameController getGameController() {
         return gameController;
     }
