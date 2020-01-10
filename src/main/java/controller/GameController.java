@@ -69,7 +69,6 @@ public class GameController {
 
     public boolean payOrdinaryTax(int activePlayerId){
         return safePaymentToBank(activePlayerId, ((OrdinaryTax)boardController.getBoard().getFields()[38]).getTax());
-
     }
 
     //the user has chosen either 0 or 1, 0 is 4000 kr and 1 is 10%
@@ -83,8 +82,6 @@ public class GameController {
         }
         return succesfulTransfer; //change later
     }
-
-
 
     public boolean safePaymentToPlayer(int fromPlayerId, int amount, int toPlayerId){
         return playerController.safeTransferToPlayer(fromPlayerId,amount,toPlayerId);
@@ -115,7 +112,6 @@ public class GameController {
             this.activePlayer = playerController.getPlayers()[activePlayerId];
         }
 
-
     }
 
     public int getActivePlayerId() {
@@ -138,8 +134,6 @@ public class GameController {
 
         //Gives ownership to player
         ((Street)boardController.getBoard().getFields()[activePlayer.getCurrentFieldId()]).setOwnerId(activePlayerId);
-
-
 
     }
 
@@ -176,6 +170,7 @@ public class GameController {
 
     public boolean payBail(int activePlayerId){
 
+        return false;
     }
 
 

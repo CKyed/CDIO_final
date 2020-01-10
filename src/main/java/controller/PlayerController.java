@@ -4,7 +4,7 @@ import model.Player;
 public class PlayerController {
     private Player[] players;
     private int numberOfPlayers;
-    private boolean prisonStatus;
+    private boolean prisonStatus=false;
 
     public PlayerController(String[] playerNames){
         //Setup the players with player names and start money
@@ -65,9 +65,7 @@ public class PlayerController {
         return playerBalances;
     }
 
-
-  public boolean prisonStatus(){
-      prisonStatus = true;
+  public boolean getPrisonStatus(){
       return prisonStatus;
   }
 

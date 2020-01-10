@@ -69,7 +69,7 @@ public class SystemController {
         } else if (gameController.getOwnerId()==-1){
             //If it is vacant - asks if player wants to buy
 
-            if (viewController.buyFieldOrNot(gameController.getActivePlayerId())){
+            if (viewController.buyFieldOrNot(gameController.getActivePlayerId(),gameController.getActivePlayer().getCurrentFieldId())){
 
             }
 
@@ -88,7 +88,7 @@ public class SystemController {
         boolean cantAfford=true;
 
         //Land on field
-        switch (activeFieldType){
+        switch (activeFieldType) {
             case "street":
                 playPropertyField();
 
@@ -100,19 +100,17 @@ public class SystemController {
             case "incomeTax":
                 //TODO: Add correct text message here
                 boolean choice = viewController.payIncomeTax("Test message");
-                cantAfford = gameController.payIncomeTax(activePlayer,choice);
+                cantAfford = gameController.payIncomeTax(activePlayer, choice);
                 break;
             case "ordinaryTax":
                 //TODO: Add some text message
                 cantAfford = gameController.payOrdinaryTax(activePlayer);
                 break;
-        }
-
             case "prison":
 
-
-
                 break;
+        }
+
         if(cantAfford==false){
             //TODO: Should handle if the players can't afford to pay
         }
