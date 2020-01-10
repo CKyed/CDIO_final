@@ -71,6 +71,7 @@ public class GameController {
         return safePaymentToBank(activePlayerId, ((OrdinaryTax)boardController.getBoard().getFields()[38]).getTax());
     }
 
+
     //the user has chosen either 0 or 1, 0 is 4000 kr and 1 is 10%
     public boolean payIncomeTax(int activePlayerId, boolean choice){
         boolean succesfulTransfer=true;
@@ -81,6 +82,10 @@ public class GameController {
             //TODO: create method that counts players total value
         }
         return succesfulTransfer; //change later
+    }
+    // The method withdraws bail from class prison from current player
+    public boolean payBail(int activePlayerId){
+        return playerController.safeTransferToBank(activePlayerId,((Prison)boardController.getBoard().getFields()[30]).getBail());
     }
 
     public boolean safePaymentToPlayer(int fromPlayerId, int amount, int toPlayerId){
@@ -168,10 +173,6 @@ public class GameController {
     // if the player is in prison (System controller) then following method:
     // pay bail (1000 kr)
 
-    public boolean payBail(int activePlayerId){
-
-        return false;
-    }
 
 
 

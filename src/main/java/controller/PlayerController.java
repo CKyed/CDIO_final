@@ -24,6 +24,13 @@ public class PlayerController {
         players[playerid].withdraw(amount);
     }
 
+    /**
+     * Checks is player has enough money on account, if yes then returns true
+     * @param playerId
+     * @param amount
+     * @return
+     */
+
     public boolean safeTransferToBank(int playerId,int amount) {
         boolean succes=true;
         if (amount <= players[playerId].getAccountBalance()) {
