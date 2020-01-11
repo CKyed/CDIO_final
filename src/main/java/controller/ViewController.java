@@ -156,8 +156,6 @@ public class ViewController {
     }
     
     public void rollDiceAndMove(int[] faceValues, int sum,int activePlayerId, int oldFieldId){
-        String newTurnMessage = String.format(readFile(turnMessagesPath,"newTurn"),guiPlayers[activePlayerId].getName());
-        gui.showMessage(newTurnMessage);
         gui.setDice(faceValues[0],faceValues[1]);
 
         for (int i =0;i<sum;i++){
@@ -220,7 +218,7 @@ public class ViewController {
                     fields[i].setDescription(fieldSubtexts[i]);
                     if (((Street)board.getFields()[i]).getHouseLevel() < 5){
                         ((GUI_Street)fields[i]).setHouses(((Street)board.getFields()[i]).getHouseLevel());
-                        ((GUI_Street)fields[i]).setHotel(false);
+                        //((GUI_Street)fields[i]).setHotel(false);
 
                     } else{ //if house level is 5
                         ((GUI_Street)fields[i]).setHouses(0);
@@ -283,9 +281,10 @@ public class ViewController {
 
     }
 
-    public boolean chooseToBuyOrSell(){
-        String selection = gui.getUserButtonPressed(readFile(turnMessagesPath,"buyOrSellBeforeTurn"),
-                readFile(turnMessagesPath,"yes"),readFile(turnMessagesPath,"no"));
+    public boolean chooseToBuy(int activePlayerId){
+        String message = String.format(readFile(turnMessagesPath,"buyOrSellBeforeTurn"),guiPlayers[activePlayerId].getName());
+        String selection = gui.getUserButtonPressed(message,
+                readFile(turnMessagesPath,"no"),readFile(turnMessagesPath,"yes"));
         if(selection.equals(readFile(turnMessagesPath,"yes"))){
             return true;
         } else {
@@ -294,10 +293,15 @@ public class ViewController {
     }
 
     public int getWantedNumberOfHouses(int fieldId, int activePlayerId){
-        String message = String.format(readFile(turnMessagesPath,"howManyHouses"),guiPlayers[activePlayerId],fields[fieldId].getTitle());
+        String message = String.format(readFile(turnMessagesPath,"howManyHouses"),guiPlayers[activePlayerId].getName(),fields[fieldId].getTitle());
         String selection = gui.getUserSelection(message,"0","1","2","3","4","5");
         int numberOfHouses = Integer.parseInt(selection);
         return numberOfHouses;
+    }
+
+    public void newTurnMessage(int activePlayerId){
+        String newTurnMessage = String.format(readFile(turnMessagesPath,"newTurn"),guiPlayers[activePlayerId].getName());
+        gui.showMessage(newTurnMessage);
     }
 
 }

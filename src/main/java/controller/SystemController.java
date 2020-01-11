@@ -25,10 +25,14 @@ public class SystemController {
 
         //Plays turns
         while (true){
-            buyOrSellBeforeTurn();
+            //Displays message, showing who's turn it is
+            viewController.newTurnMessage(gameController.getActivePlayerId());
 
+            //If player owns streets, player can choose to buy or sell houses first
+            buyBeforeTurn();
 
-            if(gameController.getActivePlayer().isInJail()){ //If the player is in jail
+            //If the player is in jail
+            if(gameController.getActivePlayer().isInJail()){
 
             } else{ //Otherwise, player rolls dice and plays normal turn
                 playTurn();
@@ -43,19 +47,25 @@ public class SystemController {
         }
     }
 
-    public void buyOrSellBeforeTurn(){
-        //If the player wants to buy or sell houses before his turn
-        if (viewController.chooseToBuyOrSell()){
-            int[] streetsOwnedByPlayer = gameController.getBoardController().getStreetIdsOwnedByPlayer(gameController.getActivePlayerId());
+    public void buyBeforeTurn(){
+        //Gets array of id's of streets that can be built on
+        int[] buildableStreetIds = gameController.getBoardController().getBuildableStreetIds(gameController.getActivePlayerId());
+        
+        //If the player can build and wants to
+        if (buildableStreetIds.length != 0 && viewController.chooseToBuy(gameController.getActivePlayerId())){
             int wantedNumberOfHouses;
-            for (int i=0;i<streetsOwnedByPlayer.length;i++){
-                wantedNumberOfHouses = viewController.getWantedNumberOfHouses(streetsOwnedByPlayer[i],gameController.getActivePlayerId());
+            //Goes through all owned streets and asks for the wanted number of houses
+            for (int i=0;i<buildableStreetIds.length;i++){
+                wantedNumberOfHouses = viewController.getWantedNumberOfHouses(buildableStreetIds[i],gameController.getActivePlayerId());
                 if(wantedNumberOfHouses!=0){
-                    boolean succes = gameController.tryToBuyHouses(streetsOwnedByPlayer[i],wantedNumberOfHouses);
+                    boolean succes = gameController.tryToBuyHouses(buildableStreetIds[i],wantedNumberOfHouses);
                     if (succes){
                         viewController.showMessage(String.format(readFile(turnMessagesPath,"buildingSucceeded"),wantedNumberOfHouses));
+                        viewController.updateOwnerships(gameController.getBoardController().getBoard());
                     } else{
                         viewController.showMessage(String.format(readFile(turnMessagesPath,"notPossibleToBuild"),wantedNumberOfHouses));
+                        //If player asked for something impossible, counter doesn't update
+                        i--;
 
                     }
                 }
@@ -126,6 +136,10 @@ public class SystemController {
             }
 
         } else{//If the player owns it himself
+            String selfOwnedMessage = readFile(turnMessagesPath,"selfOwned");
+            selfOwnedMessage = String.format(selfOwnedMessage,gameController.getActivePlayer().getName(),
+                    gameController.getBoardController().getBoard().getFields()[gameController.getActivePlayer().getPositionOnBoard()].getName());
+            viewController.showMessage(selfOwnedMessage);
 
         }
 
@@ -160,11 +174,14 @@ public class SystemController {
                 break;
             case "prison":
                     //TODO add text-message
-                gameController.getPlayerController().getPlayers()[activePlayer].setInJail(true);
-                gameController.movePlayer(30,20);
-                int oldFieldId = gameController.getActivePlayer().getPositionOnBoard();
-                int virutalFaceValues[] = {10,10};
-                viewController.rollDiceAndMove(virutalFaceValues,20,activePlayer,oldFieldId);
+                //Player can't get out of prison atm, so it is outcommented for testing purposes
+                //Also, player gets in prison when landing on visit, I think - Peter
+
+//                gameController.getPlayerController().getPlayers()[activePlayer].setInJail(true);
+//                gameController.movePlayer(30,20);
+//                int oldFieldId = gameController.getActivePlayer().getPositionOnBoard();
+//                int virutalFaceValues[] = {10,10};
+//                viewController.rollDiceAndMove(virutalFaceValues,20,activePlayer,oldFieldId);
                 break;
         }
 
@@ -172,6 +189,7 @@ public class SystemController {
             //TODO: Should handle if the players can't afford to pay
         }
     }
+
 
 
 }

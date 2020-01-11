@@ -12,3 +12,4 @@ buyOrSellBeforeTurn:Ønsker %s at købe eller sælge huse?
 howManyHouses:Hvor mange huse ønsker %s at købe på %s?
 buildingSucceeded:Det lykkedes at bygge %s huse.
 notPossibleToBuild:Den ønskede udbygning er ikke mulig.
+selfOwned:%s ejer allerede %s.
