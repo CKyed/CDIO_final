@@ -2,9 +2,7 @@ package controller;
 
 import model.Board;
 import model.Fields.*;
-import model.Fields.OwnableFile.Brewery;
-import model.Fields.OwnableFile.Ferry;
-import model.Fields.OwnableFile.Street;
+import model.Fields.OwnableFile.*;
 
 public class BoardController {
     private Board board;
@@ -139,6 +137,20 @@ public class BoardController {
             }
         }
         return buildableStreetIds;
+    }
+
+    public void buildHouses(int fieldId,int numberOfHouses){
+        ((Street)this.board.getFields()[fieldId]).buildHouses(numberOfHouses);
+        updateStreetRent(fieldId);
+    }
+
+    public void updateStreetRent(int fieldId){
+        //Gets the updated rent
+        int houseLevel = ((Street)this.board.getFields()[fieldId]).getHouseLevel();
+        int rent = ((Street)this.board.getFields()[fieldId]).getRentLevels()[houseLevel];
+
+        //Assigns as the actual rent
+        ((Street)this.board.getFields()[fieldId]).setRent(rent);
     }
 
 }

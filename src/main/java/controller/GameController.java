@@ -4,7 +4,7 @@ import model.*;
 import model.Fields.IncomeTax;
 import model.Fields.OrdinaryTax;
 import model.Fields.Ownable;
-import model.Fields.OwnableFile.Street;
+import model.Fields.OwnableFile.*;
 import model.Fields.Prison;
 
 public class GameController {
@@ -153,10 +153,10 @@ public class GameController {
         } else{
             //If the player can afford
             safePaymentToBank(getActivePlayerId(),totalCost);
+            boardController.buildHouses(fieldId,numberOfHouses);
             ((Street)boardController.getBoard().getFields()[fieldId]).buildHouses(numberOfHouses);
             return true;
         }
-
 
     }
 
