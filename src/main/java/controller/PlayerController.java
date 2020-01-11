@@ -9,7 +9,7 @@ public class PlayerController {
     public PlayerController(String[] playerNames){
         //Setup the players with player names and start money
         this.numberOfPlayers = playerNames.length;
-        int startKapital=30000;
+        int startKapital=1000;// 30000 TODO
         players = new Player[numberOfPlayers];
         for (int i=0;i<numberOfPlayers;i++){
             players[i] = new Player(playerNames[i],startKapital);
@@ -50,6 +50,7 @@ public class PlayerController {
             succes=false;
         }
         return succes;
+//        return false; TODO
     }
 
     public Player[] getPlayers() {

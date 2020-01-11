@@ -117,7 +117,9 @@ public class GameController {
         if(!diceController.isSameValue()){
             int numberOfPlayers = playerController.getPlayers().length;
             this.activePlayerId++;
+            // TODO what is the benefit of this statement?
             this.activePlayerId = this.activePlayerId % numberOfPlayers;
+            // TODO why not setPlayers?
             this.activePlayer = playerController.getPlayers()[activePlayerId];
         }
 
@@ -134,16 +136,18 @@ public class GameController {
         return ownerId;
     }
 
-    public void buyFieldForPlayer(){
+    public boolean buyFieldForPlayer(){
         //Gets price
         int price = ((Street)boardController.getBoard().getFields()[activePlayer.getPositionOnBoard()]).getPrice();
 
         //Pays
-        safePaymentToBank(activePlayerId,price);
-
-        //Gives ownership to player
-        ((Street)boardController.getBoard().getFields()[activePlayer.getPositionOnBoard()]).setOwnerId(activePlayerId);
-
+        if (safePaymentToBank(activePlayerId,price)){
+            //Gives ownership to player
+            ((Street)boardController.getBoard().getFields()[activePlayer.getPositionOnBoard()]).setOwnerId(activePlayerId);
+            return true;
+        }else {
+            return false;
+        }
     }
 
     /**

@@ -65,7 +65,8 @@ public class SystemController {
 
         viewController.rollDiceAndMove(faceValues,sum,activePlayerId,oldFieldId);
 
-        landOnField();
+
+        landOnField(oldFieldId + sum);
 
         //Updates the balances of all Players
         viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
@@ -95,6 +96,7 @@ public class SystemController {
                 //Player can't afford the rent
                 //Looser message
                 viewController.looserMessage();
+                viewController. removePlayer( gameController.getActivePlayerId(), fieldId);
 
 
             }
@@ -107,16 +109,20 @@ public class SystemController {
                 //If he chooses to buy
 
                 //Withdraws money
-                gameController.buyFieldForPlayer();
+                // return can pay = true or can't pay = false
+                if (gameController.buyFieldForPlayer()){
+                    //Updates the owner
+                    int currentFieldId = gameController.getActivePlayer().getPositionOnBoard();
+                    ((Ownable)gameController.getBoardController().getBoard().getFields()[currentFieldId]).setOwnerId(gameController.getActivePlayerId());
+                }else {
+                    //Player can't afford paying
+                    //Looser message
+                    viewController.looserMessage();
+                    int fieldId = gameController.getActivePlayer().getPositionOnBoard();
+                    viewController. removePlayer( gameController.getActivePlayerId(), fieldId);
+                }
 
-                //Updates the owner
-                int currentFieldId = gameController.getActivePlayer().getPositionOnBoard();
-                ((Ownable)gameController.getBoardController().getBoard().getFields()[currentFieldId]).setOwnerId(gameController.getActivePlayerId());
             }
-
-
-
-
 
         } else{
             //If the player owns it himself
@@ -125,22 +131,9 @@ public class SystemController {
 
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
-    public void landOnField(){
+    public void landOnField(int fieldId){
         String activeFieldType = gameController.getBoardController().getBoard().getFields()[gameController.getActivePlayer().getPositionOnBoard()].getType();
         int activePlayer = gameController.getActivePlayerId();
         boolean cantAfford=true;
@@ -149,14 +142,8 @@ public class SystemController {
         switch (activeFieldType){
             case "street":
                 playPropertyField();
-
-
-
-
-
                 break;
             case "ferry":
-
                 break;
             case "incomeTax":
                 //TODO: Add correct text message here
@@ -167,16 +154,20 @@ public class SystemController {
                 //TODO: Add some text message
                 cantAfford = gameController.payOrdinaryTax(activePlayer);
                 break;
-            case "prison":
-                    //TODO add text-message
-                gameController.getPlayerController().getPlayers()[activePlayer].setInJail(true);
-                gameController.movePlayer(30,20);
-
-                break;
+//            case "prison":
+//                    //TODO add text-message
+//                gameController.getPlayerController().getPlayers()[activePlayer].setInJail(true);
+//                gameController.movePlayer(30,20);
+//
+//                break;
         }
 
         if(cantAfford==false){
             //TODO: Should handle if the players can't afford to pay
+            //Player can't afford the tax
+            //Looser message
+            viewController.looserMessage();
+            viewController. removePlayer( gameController.getActivePlayerId(), fieldId);
         }
     }
 

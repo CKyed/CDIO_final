@@ -10,7 +10,7 @@ public class IncomeTax extends Field{
     public IncomeTax(String state) {
         super(state);
         //the names of these attributes don't match their real value
-        this.incomeTax = getFieldData(state,"rent");
+        this.incomeTax = getFieldData(state,"price");
         this.percentTax = getFieldData(state,"houseprice");
     }
 

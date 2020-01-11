@@ -6,7 +6,7 @@ public class DiceController {
     private DiceCup diceCup;
     private int[] faceValues;
 
-    private boolean sameValue =false;
+    private boolean sameValue = false;
 
 
     public DiceController(){
@@ -46,6 +46,7 @@ public class DiceController {
 
     public int getSum(){
         return this.diceCup.getDieSum();
+//        return 4;//TODO
     }
 
     public boolean isSameValue() {
