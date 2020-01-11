@@ -54,7 +54,7 @@ public class SystemController {
         //If the player can build and wants to
         if (buildableStreetIds.length != 0 && viewController.chooseToBuy(gameController.getActivePlayerId())){
             int wantedNumberOfHouses;
-            //Goes through all owned streets and asks for the wanted number of houses
+            //Goes through all buildable streets and asks for the wanted number of houses
             for (int i=0;i<buildableStreetIds.length;i++){
                 wantedNumberOfHouses = viewController.getWantedNumberOfHouses(buildableStreetIds[i],gameController.getActivePlayerId());
                 if(wantedNumberOfHouses!=0){
