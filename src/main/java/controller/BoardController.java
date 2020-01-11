@@ -62,4 +62,83 @@ public class BoardController {
         this.board.getFields()[39] = new Street("field22");
     }
 
+    public int[] getBuildableStreetIds(int playerId){
+        //Really complicated method that returns an int[] of the fieldId's where player can build a house
+        //Would be a lot shorter, if we could use arrayList
+        //There might be an easier way
+
+        //First gets array of all seriesIds of streets, that the player owns
+
+        int[] seriesIdsOwnedByPlayer = new int[board.getFields().length];
+        for (int i=0;i<board.getFields().length;i++){
+            //First assumes, that field is not owned by player, by setting seriesId to -1
+            seriesIdsOwnedByPlayer[i]=-1;
+
+            //If it is a street
+            if (board.getFields()[i].getType().equals("street")){
+                //If the player owns it
+                if(((Street)board.getFields()[i]).getOwnerId()==playerId){
+                    seriesIdsOwnedByPlayer[i] = ((Street)board.getFields()[i]).getGroup();
+                }
+
+            }
+        }
+
+        //Makes array of same length as the number of series
+        int[] numberOfCountsForSeries = new int[8];
+        for (int i=0;i<8;i++){
+            numberOfCountsForSeries[i]=0;
+        }
+
+        //loops through the seriesIdsOwnedByPlayer, counting the number of streets in the series, that player owns
+        for (int i=0;i<board.getFields().length;i++){
+            //If the player owns the field
+            if (seriesIdsOwnedByPlayer[i]!=-1){
+                numberOfCountsForSeries[seriesIdsOwnedByPlayer[i]]++;
+            }
+        }
+
+        //Could be done in a better way without hard-coding, but would be more time consuming
+        //Makes array of total number of streets in each series
+        int[] totalNumberOfStreetsInSeries = {2,3,3,3,3,3,3,2};
+
+        for (int i=0;i<totalNumberOfStreetsInSeries.length;i++){
+            //If the player doesn't own all streets in series
+            if (!(numberOfCountsForSeries[i]==totalNumberOfStreetsInSeries[i])){
+                //Goes through seriesIdsOwnedByPlayer and sets id to -1
+                for (int j=0;j<board.getFields().length;j++){
+                    if (board.getFields()[j].getType().equals("street")){
+                        if(((Street)board.getFields()[j]).getGroup()==i){
+                            seriesIdsOwnedByPlayer[j] = -1;
+                        }
+                    }
+
+                }
+            }
+        }
+
+        //seriesIdsOwnedByPlayer now contains numbers !=-1 for any buildable street
+
+        //counts number of buildable streets
+        int numberOfBuildableStreets=0;
+        for (int i=0;i<board.getFields().length;i++){
+            if (seriesIdsOwnedByPlayer[i] != -1){
+                numberOfBuildableStreets++;
+            }
+        }
+
+        //Makes array for buildable streets
+        int[] buildableStreetIds = new int[numberOfBuildableStreets];
+
+        //Same loop as before to fill the buildableStreetIds
+        int counter =0;
+        for (int i=0;i<board.getFields().length;i++){
+            if (seriesIdsOwnedByPlayer[i] != -1){
+                buildableStreetIds[counter]=i;
+                counter++;
+            }
+        }
+        return buildableStreetIds;
+    }
+
 }

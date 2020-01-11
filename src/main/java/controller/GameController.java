@@ -24,6 +24,7 @@ public class GameController {
         return boardController;
     }
 
+
     public int[] rollDice(){
         diceController.roll();
         int currentFieldId = playerController.getActivePlayer().getPositionOnBoard();
@@ -40,6 +41,8 @@ public class GameController {
         //Calculates new field and adds startbonus if player passed start
         int newFieldId = (currentFieldId+dieSum)%numberOfFields;
         playerController.getActivePlayer().setPositionOnBoard(newFieldId);
+
+        //IF player passes start and is not marked as "inJail", player recieves startbonus
         if (currentFieldId+dieSum>numberOfFields && !playerController.getActivePlayer().isInJail()){
                 playerController.getActivePlayer().deposit(startBonus);
         }
@@ -140,6 +143,21 @@ public class GameController {
 
     public void setPlayerController(PlayerController playerController) {
         this.playerController = playerController;
+    }
+
+    public boolean tryToBuyHouses(int fieldId, int numberOfHouses){
+        int totalCost = numberOfHouses*((Street)boardController.getBoard().getFields()[fieldId]).getHousePrice();
+        //If the player can't afford, or more houses can't be built
+        if(totalCost>getActivePlayer().getAccountBalance() ||numberOfHouses + ((Street)boardController.getBoard().getFields()[fieldId]).getHouseLevel()>5){
+            return false;
+        } else{
+            //If the player can afford
+            safePaymentToBank(getActivePlayerId(),totalCost);
+            ((Street)boardController.getBoard().getFields()[fieldId]).buildHouses(numberOfHouses);
+            return true;
+        }
+
+
     }
 
 }
