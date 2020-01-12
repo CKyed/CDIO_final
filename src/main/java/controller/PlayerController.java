@@ -4,6 +4,8 @@ import model.Player;
 public class PlayerController {
     private Player[] players;
     private int numberOfPlayers;
+    private int activePlayerId=0;
+    private Player activePlayer;
 
 
     public PlayerController(String[] playerNames){
@@ -14,6 +16,7 @@ public class PlayerController {
         for (int i=0;i<numberOfPlayers;i++){
             players[i] = new Player(playerNames[i],startKapital);
         }
+        this.activePlayer = players[this.activePlayerId];
     }
 
     public void addMoneyToPlayer(int playerId, int amount){
@@ -59,7 +62,7 @@ public class PlayerController {
     public int[] getFieldIds(){
         int[] fieldIds = new int[numberOfPlayers];
         for (int i =0; i< numberOfPlayers; i++){
-            fieldIds[i] = players[i].getCurrentFieldId();
+            fieldIds[i] = players[i].getPositionOnBoard();
         }
         return fieldIds;
     }
@@ -72,4 +75,22 @@ public class PlayerController {
         return playerBalances;
     }
 
+    public void updateActivePlayer(){
+        //Updates the activePlayer - only if last diceroll wasn't 2 of the same
+            this.activePlayerId++;
+            this.activePlayerId = this.activePlayerId % this.numberOfPlayers;
+            this.activePlayer = players[activePlayerId];
+    }
+
+    public int getActivePlayerId() {
+        return activePlayerId;
+    }
+
+    public Player getActivePlayer() {
+        return activePlayer;
+    }
+
+    public void setActivePlayerId(int activePlayerId){
+        this.activePlayerId = activePlayerId;
+    }
 }

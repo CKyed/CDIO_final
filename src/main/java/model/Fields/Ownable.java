@@ -35,7 +35,7 @@ public abstract class Ownable extends Field {
     }
 
     public int getRent() {
-        return rent;
+        return this.rent;
     }
 
     public boolean isPledged() {

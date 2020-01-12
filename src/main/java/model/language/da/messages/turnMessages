@@ -5,4 +5,11 @@ yes:Ja
 no:Nej
 prison:Du skal desværre i fængsel, god tur
 incometax:Betal indkomstskat, enten 10% eller 4000kr
-ordinarytax:Du skal betale 2000 kr i skat
+payRentFromTo:%s betaler %s i husleje til %s.
+pay4kTax:Betal 4000 kr. i skat
+pay10pct:Betal 10% af dine værdier i skat
+buyOrSellBeforeTurn:Ønsker %s at købe eller sælge huse?
+howManyHouses:Hvor mange huse ønsker %s at købe på %s?
+buildingSucceeded:Det lykkedes at bygge %s huse.
+notPossibleToBuild:Den ønskede udbygning er ikke mulig.
+selfOwned:%s ejer allerede %s.

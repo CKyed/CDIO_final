@@ -4,18 +4,13 @@ import model.*;
 import model.Fields.IncomeTax;
 import model.Fields.OrdinaryTax;
 import model.Fields.Ownable;
-import model.Fields.OwnableFile.Street;
+import model.Fields.OwnableFile.*;
 import model.Fields.Prison;
 
 public class GameController {
     private BoardController boardController;
     private PlayerController playerController;
-    private Player activePlayer;
     private int startBonus = 2000;
-
-
-
-    private int activePlayerId;
     private DiceController diceController;
     private ChanceCardController chanceCardController;
 
@@ -29,15 +24,10 @@ public class GameController {
         return boardController;
     }
 
-    public void setupPlayers(String[] playerNames){
-        this.playerController = new PlayerController(playerNames);
-        activePlayerId =-1;
-        updateActivePlayer();
-    }
 
     public int[] rollDice(){
         diceController.roll();
-        int currentFieldId = this.activePlayer.getCurrentFieldId();
+        int currentFieldId = playerController.getActivePlayer().getPositionOnBoard();
         int dieSum = diceController.getSum();
 
         //Moves the players position
@@ -50,9 +40,11 @@ public class GameController {
         int numberOfFields = this.boardController.getBoard().getFields().length;
         //Calculates new field and adds startbonus if player passed start
         int newFieldId = (currentFieldId+dieSum)%numberOfFields;
-        this.activePlayer.setCurrentFieldId(newFieldId);
-        if (currentFieldId+dieSum>numberOfFields && !activePlayer.isInJail()){
-                activePlayer.deposit(startBonus);
+        playerController.getActivePlayer().setPositionOnBoard(newFieldId);
+
+        //IF player passes start and is not marked as "inJail", player recieves startbonus
+        if (currentFieldId+dieSum>numberOfFields && !playerController.getActivePlayer().isInJail()){
+                playerController.getActivePlayer().deposit(startBonus);
         }
     }
 
@@ -96,16 +88,12 @@ public class GameController {
         return playerController.safeTransferToPlayer(fromPlayerId,amount,toPlayerId);
     }
 
-    public void setActivePlayer(Player player){
-        this.activePlayer = player;
-    }
-
     public PlayerController getPlayerController() {
         return playerController;
     }
 
     public Player getActivePlayer() {
-        return activePlayer;
+        return playerController.getActivePlayer();
     }
 
     public DiceController getDiceController() {
@@ -113,42 +101,37 @@ public class GameController {
     }
 
     public void updateActivePlayer(){
-        //Updates the activePlayer - only if last diceroll wasn't 2 of the same
-        if(!diceController.isSameValue()){
-            int numberOfPlayers = playerController.getPlayers().length;
-            this.activePlayerId++;
-            this.activePlayerId = this.activePlayerId % numberOfPlayers;
-            this.activePlayer = playerController.getPlayers()[activePlayerId];
+        if (!diceController.isSameValue()){
+            this.playerController.updateActivePlayer();
         }
-
     }
 
     public int getActivePlayerId() {
-        return activePlayerId;
+        return playerController.getActivePlayerId();
     }
 
 
     public int getOwnerId(){
-        int activeFieldId = activePlayer.getCurrentFieldId();
+        int activeFieldId = playerController.getActivePlayer().getPositionOnBoard();
         int ownerId = ((Ownable)this.boardController.getBoard().getFields()[activeFieldId]).getOwnerId();
         return ownerId;
     }
 
     public void buyFieldForPlayer(){
         //Gets price
-        int price = ((Street)boardController.getBoard().getFields()[activePlayer.getCurrentFieldId()]).getPrice();
+        int price = ((Street)boardController.getBoard().getFields()[playerController.getActivePlayer().getPositionOnBoard()]).getPrice();
 
         //Pays
-        safePaymentToBank(activePlayerId,price);
+        safePaymentToBank(playerController.getActivePlayerId(),price);
 
         //Gives ownership to player
-        ((Street)boardController.getBoard().getFields()[activePlayer.getCurrentFieldId()]).setOwnerId(activePlayerId);
+        ((Street)boardController.getBoard().getFields()[playerController.getActivePlayer().getPositionOnBoard()]).setOwnerId(playerController.getActivePlayerId());
 
     }
 
     /**
      * Method that can be called when a player lands on the field called Ordinary Tax
-     * @param activePlayerId
+     * @param //activePlayerId
      * @return
      */
 
@@ -158,42 +141,22 @@ public class GameController {
     //}
 
 
+    public void setPlayerController(PlayerController playerController) {
+        this.playerController = playerController;
+    }
 
-    //Make prison field logic:
-    //Step by step:
-    // when a player lands on field no 31 (OR when player picks certain chance card,) the following happens:
-    // - For the rest of the ongoing turn nothing happens
-    // - Next turn he has to pay 1000 kr before rolling dice
-    //
-    // improvements for later:
-    // 1 - The player can choose between paying the bail or try to roll a double
-    // 2 - This choice is avalaible only three turns in a row, otherwise the player is forced to pay
-    // 3 - The player who is imprisoned does not get rent from other players
-    // 4 - The player can use chancecards to get out of Jail
-    //
-    // The following method should: set the current prisonstatus of player to true
-    //  also: return a boolean to tell if player is in prison or not
-    // (maybe also return an int to tell how long the player has been in prison for later use)
-    // if the player is in prison (System controller) then following method:
-    // pay bail (1000 kr)
+    public boolean tryToBuyHouses(int fieldId, int numberOfHouses){
+        int totalCost = numberOfHouses*((Street)boardController.getBoard().getFields()[fieldId]).getHousePrice();
+        //If the player can't afford, or more houses can't be built
+        if(totalCost>getActivePlayer().getAccountBalance() ||numberOfHouses + ((Street)boardController.getBoard().getFields()[fieldId]).getHouseLevel()>5){
+            return false;
+        } else{
+            //If the player can afford and expansion is possible, withdraws money and builds houses
+            safePaymentToBank(getActivePlayerId(),totalCost);
+            boardController.buildHouses(fieldId,numberOfHouses);
+            return true;
+        }
 
-
-
-
-
-    //if isplayerinprison is false then setprisonstatus to true (in Systemcontroller)
-
-
-
-
-
-
-
-
-
-
-
+    }
 
 }
-
-

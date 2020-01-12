@@ -26,6 +26,8 @@ public class ViewController {
         this.fields = fields;
         this.gui = new GUI(fields);
 
+
+
     }
 
     public GUI_Field[] createFields(Board board){
@@ -108,57 +110,45 @@ public class ViewController {
 
     public String[] setupPlayers(){
         gui.showMessage(readFile(setupMessagesPath,"welcome"));
-        gui.showMessage(readFile(setupMessagesPath,"choosePlayerNumber"));
 
-
-        int numberOfPlayers = Integer.parseInt(gui.getUserSelection("","3","4","5","6"));
+        int numberOfPlayers = Integer.parseInt(gui.getUserSelection(readFile(setupMessagesPath,"choosePlayerNumber"),"3","4","5","6"));
 
         String[] playerNames = new String[numberOfPlayers];
 
         this.guiCars = new GUI_Car[numberOfPlayers];
 
         String playerNameMessage;
-        for (int i =0;i<numberOfPlayers;i++) {
+        int i=0;
+        int nameErrors;
+
+        //Loops through all players and asks for names, checking that they are valid
+        while (i<numberOfPlayers) {
+            nameErrors=0;
             playerNameMessage = readFile(setupMessagesPath,"player") + " " + (i + 1) +" " + readFile(setupMessagesPath,"writeName");
             playerNames[i] = gui.getUserString(playerNameMessage);
-/*
-            while (playerNames[i].equals("")||playerNames[i].equals(" ")){
-                System.out.println("Indtast nyt navn"); //TODO GUI-meddelese if names are the same
-                playerNames[i] = gui.getUserString("");
+
+            //If someone else has same name
+            for (int j=0;j<i;j++){
+                if(playerNames[i].equals(playerNames[j])){
+                    nameErrors++;
+                }
             }
-*/
-            while(playerNames[i].isEmpty()){
+
+            //If name is empty or just " "
+            if (playerNames[i].isEmpty() || playerNames[i].equals(" ")){
+                nameErrors++;
+            }
+
+            if (nameErrors==0){
+                //If name is valid, it is next players turn
+                i++;
+            } else{ //else, shows errorMessage
                 gui.showMessage(readFile(setupMessagesPath,"nameError"));
-                playerNames[i] = gui.getUserString("");
             }
-
-            for (int j = 0; j < numberOfPlayers; j++) {
-
-                if (playerNames[i].equals(playerNames[j]) && i != j)
-                playerNames[i] = gui.getUserString("");
-
-            }
-
-            int numberOfLetters = playerNames[i].length();
-            /*
-            for(int j = 0; j<numberOfLetters;j++) {
-               char c = playerNames[i].charAt(j);
-               while
-            }
-
-         */
-            //Spilleren vælger deres bil
-            //this.guiCars[i] = new GUI_Car(Color.BLUE,Color.BLUE,GUI_Car.Type.CAR,GUI_Car.Pattern.FILL);
-
         }
 
-        //tjek om navne er tomme :P
-
-        //tjek om navne er ens
-
         this.guiCars = new GUI_Car[]{new GUI_Car(Color.GREEN, Color.GREEN, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL),
-                new GUI_Car(Color.RED, Color.RED, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL), new GUI_Car(Color.YELLOW, Color.YELLOW, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL), new GUI_Car(Color.WHITE, Color.WHITE, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL), new GUI_Car(Color.BLUE, Color.BLUE, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL), new GUI_Car(Color.BLUE, Color.BLUE, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL)};
-
+                new GUI_Car(Color.RED, Color.RED, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL), new GUI_Car(Color.YELLOW, Color.YELLOW, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL), new GUI_Car(Color.WHITE, Color.WHITE, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL), new GUI_Car(Color.BLUE, Color.BLUE, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL), new GUI_Car(Color.BLACK, Color.BLACK, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL)};
 
         setupGuiPlayers(playerNames);
 
@@ -166,8 +156,6 @@ public class ViewController {
     }
     
     public void rollDiceAndMove(int[] faceValues, int sum,int activePlayerId, int oldFieldId){
-        String newTurnMessage = String.format(readFile(turnMessagesPath,"newTurn"),guiPlayers[activePlayerId].getName());
-        gui.showMessage(newTurnMessage);
         gui.setDice(faceValues[0],faceValues[1]);
 
         for (int i =0;i<sum;i++){
@@ -228,6 +216,18 @@ public class ViewController {
                             + readFile(setupMessagesPath,"rent") +" " + ((Street)board.getFields()[i]).getRent() + "\n"
                     ;
                     fields[i].setDescription(fieldSubtexts[i]);
+                    if (((Street)board.getFields()[i]).getHouseLevel() < 5){
+                        ((GUI_Street)fields[i]).setHouses(((Street)board.getFields()[i]).getHouseLevel());
+                        //((GUI_Street)fields[i]).setHotel(false);
+
+                    } else{ //if house level is 5
+                        ((GUI_Street)fields[i]).setHouses(0);
+                        ((GUI_Street)fields[i]).setHotel(true);
+                    }
+
+
+
+
                     break;
 
                 case ("brew"):
@@ -248,10 +248,8 @@ public class ViewController {
                     ;
                     fields[i].setDescription(fieldSubtexts[i]);
                     break;
-
             }
         }
-
     }
 
     public boolean buyFieldOrNot(int activePlayerId,int fieldId){
@@ -266,7 +264,7 @@ public class ViewController {
     }
 
     public boolean payIncomeTax(String message){
-        String selection = gui.getUserSelection(message,"Betal 4000 i skat","Betal 10% i skat");
+        String selection = gui.getUserSelection(message,readFile(turnMessagesPath,"pay4kTax"),readFile(turnMessagesPath,"pay10pct"));
         if(selection.equals("Betal 4000 i skat")){
             return true;
         }
@@ -274,9 +272,36 @@ public class ViewController {
             return false;
         }
     }
+    public void showMessage(String message){
+        gui.showMessage(message);
+    }
+
 
     public void prisonMessage(){
 
+    }
+
+    public boolean chooseToBuy(int activePlayerId){
+        String message = String.format(readFile(turnMessagesPath,"buyOrSellBeforeTurn"),guiPlayers[activePlayerId].getName());
+        String selection = gui.getUserButtonPressed(message,
+                readFile(turnMessagesPath,"no"),readFile(turnMessagesPath,"yes"));
+        if(selection.equals(readFile(turnMessagesPath,"yes"))){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public int getWantedNumberOfHouses(int fieldId, int activePlayerId){
+        String message = String.format(readFile(turnMessagesPath,"howManyHouses"),guiPlayers[activePlayerId].getName(),fields[fieldId].getTitle());
+        String selection = gui.getUserSelection(message,"0","1","2","3","4","5");
+        int numberOfHouses = Integer.parseInt(selection);
+        return numberOfHouses;
+    }
+
+    public void newTurnMessage(int activePlayerId){
+        String newTurnMessage = String.format(readFile(turnMessagesPath,"newTurn"),guiPlayers[activePlayerId].getName());
+        gui.showMessage(newTurnMessage);
     }
 
 }
