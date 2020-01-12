@@ -172,7 +172,7 @@ public class ViewController {
     public void rollDiceAndMove(int[] faceValues, int sum, int activePlayerId, int oldFieldId) {
         String guiActivePlayerName = guiPlayers[activePlayerId].getName();
 
-        if ((guiActivePlayerName.indexOf( "looser" )) == -1 && counterForWinner != playerNames.length - 1) { // TODO counterForWinner
+        if ((guiActivePlayerName.indexOf( "looser" )) == -1  && counterForWinner != playerNames.length - 1) { // TODO counterForWinner
             // "looser" does not exist in playerName and  there are players on board more than one
             String newTurnMessage = String.format( readFile( turnMessagesPath, "newTurn" ), guiPlayers[activePlayerId].getName() );
             gui.showMessage( newTurnMessage );
@@ -181,7 +181,7 @@ public class ViewController {
             for (int i = 0; i < sum; i++) {
                 teleportPlayerCar( activePlayerId, 1, (oldFieldId + i) % fields.length );
                 try {
-                    Thread.sleep( 200 );
+                    Thread.sleep( 0 ); // TODO 200
                 } catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
                 }
@@ -210,7 +210,7 @@ public class ViewController {
     private void setupGuiPlayers(String[] playerNames) {
         this.guiPlayers = new GUI_Player[playerNames.length];
         for (int i = 0; i < playerNames.length; i++) {
-            this.guiPlayers[i] = new GUI_Player( playerNames[i], 1000, this.guiCars[i] );// TODO 5000
+            this.guiPlayers[i] = new GUI_Player( playerNames[i], 10000, this.guiCars[i] );// TODO 30000
             this.gui.addPlayer( guiPlayers[i] );
 
             this.fields[0].setCar( this.guiPlayers[i], true );
@@ -308,7 +308,12 @@ public class ViewController {
         // When the counterForWinner = playerNames.length-1, so we know that there is one player on board
         counterForWinner++;
         fields[oldFieldId].setCar( guiPlayers[playerId], false );
-        updatePlayerOnBoard( playerId );
+        updateLooserOnBoard( playerId );
+    }
+
+    public void updateLooserOnBoard(int playerId) {
+        guiPlayers[playerId].setName( playerNames[playerId] + " is looser" );
+        guiPlayers[playerId].setBalance(0);
     }
 
     public void findWinner(){
@@ -321,10 +326,8 @@ public class ViewController {
             }
         }
         gui.close();
+        System.exit( 0 );
     }
 
-    public void updatePlayerOnBoard(int playerId) {
-        guiPlayers[playerId].setName( playerNames[playerId] + " is looser" );
-        guiPlayers[playerId].setBalance(0);// TODO doesn't work
-    }
+
 }

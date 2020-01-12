@@ -66,23 +66,28 @@ public class SystemController {
         viewController.rollDiceAndMove(faceValues,sum,activePlayerId,oldFieldId);
 
 
-        landOnField(oldFieldId + sum);
+        if (gameController.getActivePlayer().getAccount().getBalance() > 0){
+            // Check the player's balance, because if the balance = 0
+            // so this player was a looser, therefor we don't need to call landOnField
+            landOnField((oldFieldId + sum) % 40, activePlayerId);// TODO fieldID throw parameter
+        }
+
 
         //Updates the balances of all Players
         viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
 
     }
 
-    public void playPropertyField(){
+    public void playPropertyField(int fieldId, int activePlayerId){
 
 
         if(gameController.getOwnerId()>=0 && gameController.getOwnerId()!= gameController.getActivePlayerId()){
 
             //If the property is owned by someone else
-            int fieldId = gameController.getActivePlayer().getPositionOnBoard();
+//            int fieldId = gameController.getActivePlayer().getPositionOnBoard(); // TODO
             String fromPlayerName = gameController.getActivePlayer().getName();
             String toPlayerName = gameController.getPlayerController().getPlayers()[gameController.getOwnerId()].getName();
-            int amount = ((Ownable)gameController.getBoardController().getBoard().getFields()[fieldId]).getRent();
+            int amount = ((Ownable)gameController.getBoardController().getBoard().getFields()[fieldId]).getRent(); // TODO There is a crash here
 
             //Tries to pay rent
             if(gameController.getPlayerController().safeTransferToPlayer(gameController.getActivePlayerId(),amount,gameController.getOwnerId())){
@@ -95,11 +100,11 @@ public class SystemController {
             } else {
                 //Player can't afford the rent
                 //Looser message
-                viewController.looserMessage();
-                viewController. removePlayer( gameController.getActivePlayerId(), fieldId);
+                looserSituation( fieldId, activePlayerId);
 
 
             }
+
 
 
         } else if (gameController.getOwnerId()==-1){
@@ -115,11 +120,9 @@ public class SystemController {
                     int currentFieldId = gameController.getActivePlayer().getPositionOnBoard();
                     ((Ownable)gameController.getBoardController().getBoard().getFields()[currentFieldId]).setOwnerId(gameController.getActivePlayerId());
                 }else {
-                    //Player can't afford paying
+                    //Player can't afford buying field
                     //Looser message
-                    viewController.looserMessage();
-                    int fieldId = gameController.getActivePlayer().getPositionOnBoard();
-                    viewController. removePlayer( gameController.getActivePlayerId(), fieldId);
+                    looserSituation( fieldId, activePlayerId);
                 }
 
             }
@@ -133,7 +136,7 @@ public class SystemController {
 
     }
 
-    public void landOnField(int fieldId){
+    public void landOnField(int fieldId, int activePlayerId){
         String activeFieldType = gameController.getBoardController().getBoard().getFields()[gameController.getActivePlayer().getPositionOnBoard()].getType();
         int activePlayer = gameController.getActivePlayerId();
         boolean cantAfford=true;
@@ -141,7 +144,7 @@ public class SystemController {
         //Land on field
         switch (activeFieldType){
             case "street":
-                playPropertyField();
+                playPropertyField(fieldId, activePlayerId);
                 break;
             case "ferry":
                 break;
@@ -166,8 +169,7 @@ public class SystemController {
             //TODO: Should handle if the players can't afford to pay
             //Player can't afford the tax
             //Looser message
-            viewController.looserMessage();
-            viewController. removePlayer( gameController.getActivePlayerId(), fieldId);
+            looserSituation(fieldId, activePlayerId);
         }
     }
 
@@ -177,5 +179,13 @@ public class SystemController {
     //What does this getter do here? Can someone please explain later. Ida
     public GameController getGameController() {
         return gameController;
+    }
+
+    // Handel looser situation
+    public void looserSituation(int fieldId, int activePlayerId){
+        gameController.getPlayerController().accountReset(  activePlayerId);
+
+        viewController.looserMessage();
+        viewController. removePlayer( gameController.getActivePlayerId(), fieldId);
     }
 }

@@ -9,7 +9,7 @@ public class PlayerController {
     public PlayerController(String[] playerNames){
         //Setup the players with player names and start money
         this.numberOfPlayers = playerNames.length;
-        int startKapital=1000;// 30000 TODO
+        int startKapital=10000;// TODO 10000
         players = new Player[numberOfPlayers];
         for (int i=0;i<numberOfPlayers;i++){
             players[i] = new Player(playerNames[i],startKapital);
@@ -43,7 +43,8 @@ public class PlayerController {
 
     public boolean safeTransferToPlayer(int fromPlayerId, int amount, int toPlayerId){
         boolean succes = true;
-        if(amount<=players[fromPlayerId].getAccountBalance()){
+        // players[toPlayerId].getAccount().getBalance() != 0 To avoid transfer to the looser
+        if(amount<=players[fromPlayerId].getAccountBalance() && players[toPlayerId].getAccount().getBalance() != 0){
             takeMoneyFromPlayer(fromPlayerId,amount);
             addMoneyToPlayer(toPlayerId,amount);
         } else {
@@ -71,6 +72,10 @@ public class PlayerController {
             playerBalances[i] = players[i].getAccountBalance();
         }
         return playerBalances;
+    }
+
+    public void accountReset(int playerId){
+        players[playerId].getAccount().setBalance( 0 );
     }
 
 }

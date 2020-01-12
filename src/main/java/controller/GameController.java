@@ -113,16 +113,26 @@ public class GameController {
     }
 
     public void updateActivePlayer(){
-        //Updates the activePlayer - only if last diceroll wasn't 2 of the same
-        if(!diceController.isSameValue()){
-            int numberOfPlayers = playerController.getPlayers().length;
-            this.activePlayerId++;
-            // TODO what is the benefit of this statement?
-            this.activePlayerId = this.activePlayerId % numberOfPlayers;
-            // TODO why not setPlayers?
-            this.activePlayer = playerController.getPlayers()[activePlayerId];
+        //Updates the activePlayer - only if last diceroll wasn't 2 of the same // TODO: or when I call looserSituation method in systemController, it makes the balance of player 0
+        if(!diceController.isSameValue() ){ // || activePlayer.getAccount().getBalance() == 0
+            do {
+                int numberOfPlayers = playerController.getPlayers().length;
+                this.activePlayerId++;
+                // TODO what is the benefit of this statement?
+                this.activePlayerId = this.activePlayerId % numberOfPlayers;
+                // TODO why not setPlayers?
+                this.activePlayer = playerController.getPlayers()[activePlayerId];
+            }while (activePlayer.getAccount().getBalance() == 0);
+        }else if (activePlayer.getAccount().getBalance() == 0) {
+            do {
+                int numberOfPlayers = playerController.getPlayers().length;
+                this.activePlayerId++;
+                // TODO what is the benefit of this statement?
+                this.activePlayerId = this.activePlayerId % numberOfPlayers;
+                // TODO why not setPlayers?
+                this.activePlayer = playerController.getPlayers()[activePlayerId];
+            } while (activePlayer.getAccount().getBalance() == 0);
         }
-
     }
 
     public int getActivePlayerId() {
