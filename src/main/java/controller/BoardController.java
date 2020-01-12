@@ -2,7 +2,8 @@ package controller;
 
 import model.Board;
 import model.Fields.*;
-import model.Fields.OwnableFile.*;
+import model.Fields.OwnableFile.Brewery;
+import model.Fields.OwnableFile.Ferry;import model.Fields.OwnableFile.*;
 
 public class BoardController {
     private Board board;
