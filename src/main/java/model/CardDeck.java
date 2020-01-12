@@ -4,8 +4,9 @@ public class CardDeck {
     private ChanceCard[] chanceCards;
 
     //Takes a String array of chance card texts and an int number, and creates the chance card objects.
-    public CardDeck(String[] chanceCardTexts,int numberOfCards){
-        for (int i=0;i<numberOfCards;i++){
+    public CardDeck(String[] chanceCardTexts){
+        this.chanceCards = new ChanceCard[chanceCardTexts.length];
+        for (int i=0;i<chanceCardTexts.length;i++){
             chanceCards[i] = new ChanceCard(chanceCardTexts[i],i);
         }
     }
