@@ -151,10 +151,9 @@ public class GameController {
         if(totalCost>getActivePlayer().getAccountBalance() ||numberOfHouses + ((Street)boardController.getBoard().getFields()[fieldId]).getHouseLevel()>5){
             return false;
         } else{
-            //If the player can afford
+            //If the player can afford and expansion is possible, withdraws money and builds houses
             safePaymentToBank(getActivePlayerId(),totalCost);
             boardController.buildHouses(fieldId,numberOfHouses);
-            ((Street)boardController.getBoard().getFields()[fieldId]).buildHouses(numberOfHouses);
             return true;
         }
 

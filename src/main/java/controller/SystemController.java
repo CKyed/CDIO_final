@@ -10,8 +10,8 @@ public class SystemController {
 
     public SystemController(){
         //Initializes controllers
-        this.gameController = new GameController();
-        this.viewController = new ViewController(this.gameController.getBoardController().getBoard());
+        gameController = new GameController();
+        viewController = new ViewController(gameController.getBoardController().getBoard());
 
         //Setup players with an array of Strings from the viewcontroller
         String[] playerNames = this.viewController.setupPlayers();
