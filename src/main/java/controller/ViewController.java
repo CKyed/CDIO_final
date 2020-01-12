@@ -300,8 +300,14 @@ public class ViewController {
     }
 
     public void newTurnMessage(int activePlayerId){
+        //Resets the text on the ChanceCardField
+        gui.displayChanceCard(readFile(turnMessagesPath,"getLucky"));
         String newTurnMessage = String.format(readFile(turnMessagesPath,"newTurn"),guiPlayers[activePlayerId].getName());
         gui.showMessage(newTurnMessage);
+    }
+
+    public void showChanceCard(String cardText){
+        gui.displayChanceCard(cardText);
     }
 
 }

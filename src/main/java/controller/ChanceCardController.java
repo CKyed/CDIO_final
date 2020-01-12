@@ -19,4 +19,7 @@ public class ChanceCardController {
         this.cardDeck.shuffle();
     }
 
+    public CardDeck getCardDeck() {
+        return cardDeck;
+    }
 }

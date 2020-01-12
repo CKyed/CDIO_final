@@ -1,5 +1,8 @@
 package controller;
+import model.Board;
 import model.Player;
+import model.Fields.*;
+import model.Fields.OwnableFile.Street;
 
 public class PlayerController {
     private Player[] players;
@@ -93,4 +96,35 @@ public class PlayerController {
     public void setActivePlayerId(int activePlayerId){
         this.activePlayerId = activePlayerId;
     }
+
+    public int calculateTotalValue(int playerId, Board board){
+        //Gets accountsBalance
+        int totalValue = players[playerId].getAccountBalance();
+
+        //Adds values from Board
+        for (int i=0;i<board.getFields().length;i++){
+            //If it is a street
+            if (board.getFields()[i].getType().equals("street")){
+                //If player owns it
+                if ( ((Ownable)board.getFields()[i]).getOwnerId()==playerId){
+                    //Adds street-price and price of houses
+                    totalValue += ((Ownable)board.getFields()[i]).getPrice();
+                    totalValue += ((Street)board.getFields()[i]).getHouseLevel()*((Street)board.getFields()[i]).getHousePrice();
+                }
+
+                //If it is a ferry or brewery
+            } else if (board.getFields()[i].getType().equals("ferry") ||board.getFields()[i].getType().equals("brew")){
+                //If player owns it
+                if (((Ownable)board.getFields()[i]).getOwnerId()==playerId){
+                    //Adds price
+                    totalValue += ((Ownable)board.getFields()[i]).getPrice();
+                }
+            }
+
+
+        }
+
+     return totalValue;
+    }
+
 }
