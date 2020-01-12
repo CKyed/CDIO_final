@@ -131,7 +131,7 @@ public class GameController {
 
     /**
      * Method that can be called when a player lands on the field called Ordinary Tax
-     * @param activePlayerId
+     * //@param activePlayerId
      * @return
      */
 
@@ -154,7 +154,6 @@ public class GameController {
             //If the player can afford
             safePaymentToBank(getActivePlayerId(),totalCost);
             boardController.buildHouses(fieldId,numberOfHouses);
-            ((Street)boardController.getBoard().getFields()[fieldId]).buildHouses(numberOfHouses);
             return true;
         }
 
