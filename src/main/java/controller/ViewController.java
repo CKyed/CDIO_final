@@ -54,11 +54,13 @@ public class ViewController {
 
                     case ("street"):
                         guiFields[i] = new GUI_Street();
+
                         fieldSubtexts[i] = readFile(setupMessagesPath,"owner") + " " + readFile(setupMessagesPath,"none") +" \n"
                                 + readFile(setupMessagesPath,"price") +" " + ((Street)board.getFields()[i]).getPrice() + " \n"
                                 + readFile(setupMessagesPath,"housePrice") +" " + ((Street)board.getFields()[i]).getHousePrice() + " \n"
                                 + readFile(setupMessagesPath,"rent") +" " + ((Street)board.getFields()[i]).getRentLevels()[((Street)board.getFields()[i]).getHouseLevel()] + "\n"
                         ;
+
                         break;
                     case ("incomeTax"):
                         guiFields[i] = new GUI_Tax();

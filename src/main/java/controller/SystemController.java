@@ -196,7 +196,7 @@ public class SystemController {
 
     public void landOnField(){
         String activeFieldType = gameController.getBoardController().getBoard().getFields()[gameController.getActivePlayer().getPositionOnBoard()].getType();
-        int activePlayer = gameController.getActivePlayerId();
+        int activePlayerId = gameController.getActivePlayerId();
         boolean cantAfford=true;
 
         //Land on field
@@ -214,19 +214,25 @@ public class SystemController {
             case "incomeTax":
                 //TODO: Add correct text message here
                 boolean choice = viewController.payIncomeTax("Test message");
-                cantAfford = gameController.payIncomeTax(activePlayer, choice);
+                cantAfford = gameController.payIncomeTax(activePlayerId, choice);
                 break;
             case "ordinaryTax":
                 //TODO: Add some text message
-                cantAfford = gameController.payOrdinaryTax(activePlayer);
+                cantAfford = gameController.payOrdinaryTax(activePlayerId);
                 break;
             case "prison":
-                    //TODO add text-message
-                gameController.getPlayerController().getPlayers()[activePlayer].setInJail(true);
+                //Shows message on board
+                viewController.showMessage(String.format(readFile(turnMessagesPath,"goesToJail"),gameController.getActivePlayer().getName()));
+                //Sets player in prison in model-layer
+                gameController.getPlayerController().getPlayers()[activePlayerId].setInJail(true);
+
+                //Moves player in model-layer
                 int oldFieldId = gameController.getActivePlayer().getPositionOnBoard();
                 gameController.movePlayer(30,20);
+
+                //Moves player on screen
                 int virutalFaceValues[] = {10,10};
-                viewController.rollDiceAndMove(virutalFaceValues,20,activePlayer,oldFieldId);
+                viewController.rollDiceAndMove(virutalFaceValues,20,activePlayerId,oldFieldId);
                 break;
             case "chance":
                 playChanceCard();
