@@ -11,6 +11,7 @@ public abstract class Ownable extends Field {
     protected int rent;
     protected boolean isPledged;
     protected int ownerId = -1;
+    protected int group;
 
     public Ownable(String state) {
         super(state);
