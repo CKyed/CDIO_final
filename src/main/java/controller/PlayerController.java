@@ -38,23 +38,21 @@ public class PlayerController {
      */
 
     public boolean safeTransferToBank(int playerId,int amount) {
-        boolean succes=true;
-        if (amount <= players[playerId].getAccountBalance()) {
-            takeMoneyFromPlayer(playerId, amount);
-        } else {
-            succes=false;
+        boolean succes=false;
+        if(amount<=players[playerId].getAccountBalance()) {
+            succes=true;
         }
+        takeMoneyFromPlayer(playerId, amount);
         return succes;
     }
 
     public boolean safeTransferToPlayer(int fromPlayerId, int amount, int toPlayerId){
-        boolean succes = true;
-        if(amount<=players[fromPlayerId].getAccountBalance()){
-            takeMoneyFromPlayer(fromPlayerId,amount);
-            addMoneyToPlayer(toPlayerId,amount);
-        } else {
-            succes=false;
+        boolean succes = false;
+        if(amount<=players[fromPlayerId].getAccountBalance()) {
+            succes=true;
         }
+        takeMoneyFromPlayer(fromPlayerId,amount);
+        addMoneyToPlayer(toPlayerId,amount);
         return succes;
     }
 
