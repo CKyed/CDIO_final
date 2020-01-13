@@ -71,6 +71,10 @@ public class ChanceCardController {
                 message = String.format(message,playerController.getActivePlayer().getName(),playerController.getActivePlayer().getName());
 
                 break;
+            case 29:
+                //moves the player three fields further
+                playerController.getActivePlayer().setPositionOnBoard(playerController.getActivePlayer().getPositionOnBoard()+3);
+                break;
 
         }
         return message;
