@@ -5,10 +5,10 @@ yes:Ja
 no:Nej
 prison:Du skal desværre i fængsel, god tur
 incometax:Betal indkomstskat, enten 10% eller 4000kr
-payRentFromTo:%s betaler %s i husleje til %s.
+payRentFromTo:%s betaler %s i afgift til %s.
 pay4kTax:Betal 4000 kr. i skat
 pay10pct:Betal 10% af dine værdier i skat
-buyOrSellBeforeTurn:Ønsker %s at købe eller sælge huse?
+buyBeforeTurn:Ønsker %s at købe huse?
 howManyHouses:Hvor mange huse ønsker %s at købe på %s?
 buildingSucceeded:Det lykkedes at bygge %s huse.
 notPossibleToBuild:Den ønskede udbygning er ikke mulig.
@@ -18,3 +18,8 @@ qualifiesNot:%s samlede værdier udgør mere end 15000. %s modtager ikke Matador
 landedOnChance:%s er landet på et chancefelt. Læs kortet i midten af brættet.
 getLucky:Prøv lykken
 cantAffordOwnable:%s har ikke råd til at købe %s.
+goesToJail:%s ryger direkte i fængsel og modtager ikke 4000 kr. for at passere start.
+chooseIncomeTaxType:Hvordan ønsker %s at betale indkomstskatten?
+ordTax:%s skal betale 2000 i Ekstraordinær Statsskat.
+playerPayed:%s har betalt %s i indkomstskat.
+ownerInPrison:Ejeren af denne grund er i fængsel, så du skal ikke betale husleje

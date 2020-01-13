@@ -41,7 +41,6 @@ public class SystemController {
             if(gameController.getActivePlayer().isInJail()){
                 boolean success = gameController.payBail(activePlayerId);
                 gameController.getPlayerController().getPlayers()[activePlayerId].setInJail(false);
-
                 if(success == false){
                     //TODO Method for handling loser-condition is called here
                 }
@@ -82,13 +81,8 @@ public class SystemController {
 
                     }
                 }
-
-
             }
-
-
         }
-
     }
 
     public void playTurn(){
@@ -121,19 +115,47 @@ public class SystemController {
             int fieldId = gameController.getActivePlayer().getPositionOnBoard();
             String fromPlayerName = gameController.getActivePlayer().getName();
             String toPlayerName = gameController.getPlayerController().getPlayers()[gameController.getOwnerId()].getName();
-            int amount = ((Ownable)gameController.getBoardController().getBoard().getFields()[fieldId]).getRent();
+            int rent=0;
+
+            //rent is calculated in different ways
+            switch (((Ownable)gameController.getBoardController().getBoard().getFields()[fieldId]).getType()){
+                case "street":
+                case "ferry":
+                    //Gets rent
+                    rent = ((Ownable)gameController.getBoardController().getBoard().getFields()[fieldId]).getRent();
+                break;
+                case "brew":
+                    rent = ((Ownable)gameController.getBoardController().getBoard().getFields()[fieldId]).getRent();
+
+                    //Multiplies by dieSum
+                    rent = rent*gameController.getDiceController().getSum();
+
+                    //Multiplies by number of breweries owned
+                    rent = rent*gameController.getBoardController().getNumberOfOwnablesOwnedInGroup(fieldId);
+                    break;
+            }
+
+
+            //hvis ejeren af feltet er i fængsel, skal man ikke betale noget
+            if(gameController.getPlayerController().getPlayers()[gameController.getOwnerId()].isInJail()){
+            String message = String.format(readFile(turnMessagesPath, "ownerInPrison"));
+            viewController.showMessage(message);
+            //transfers 0 money from player to player
+            gameController.getPlayerController().safeTransferToPlayer(gameController.getActivePlayerId(),0,gameController.getOwnerId());
+                }
 
             //Tries to pay rent
-            if(gameController.getPlayerController().safeTransferToPlayer(gameController.getActivePlayerId(),amount,gameController.getOwnerId())){
+            else if(gameController.getPlayerController().safeTransferToPlayer(gameController.getActivePlayerId(),rent,gameController.getOwnerId())){
+
                 //Displays message
-                String message = String.format(readFile(turnMessagesPath,"payRentFromTo"),fromPlayerName,amount,toPlayerName);
+                String message = String.format(readFile(turnMessagesPath,"payRentFromTo"),fromPlayerName,rent,toPlayerName);
                 viewController.showMessage(message);
 
                 //Updates player balances
                 viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
             } else {
                 //Player can't afford the rent
-                //TODO
+                //TODO: Calls a method that handle looser condition
                 System.out.println("HER SKAL VI GØRE NOGET");
 
             }
@@ -154,6 +176,8 @@ public class SystemController {
 
                     //Updates the owner
                     ((Ownable)gameController.getBoardController().getBoard().getFields()[currentFieldId]).setOwnerId(gameController.getActivePlayerId());
+                    gameController.getBoardController().updateAllRents();
+
                 }
             } else{
                 //If player can't afford it, tells on board
@@ -176,8 +200,8 @@ public class SystemController {
 
     public void landOnField(){
         String activeFieldType = gameController.getBoardController().getBoard().getFields()[gameController.getActivePlayer().getPositionOnBoard()].getType();
-        int activePlayer = gameController.getActivePlayerId();
-        boolean cantAfford=true;
+        int activePlayerId = gameController.getActivePlayerId();
+        boolean canAfford=true;
 
         //Land on field
         switch (activeFieldType){
@@ -187,24 +211,51 @@ public class SystemController {
 
                 break;
             case "ferry":
-
+                playPropertyField();
                 break;
+            case "brew":
+                playPropertyField();
+                break;
+
             case "incomeTax":
-                //TODO: Add correct text message here
-                boolean choice = viewController.payIncomeTax("Test message");
-                cantAfford = gameController.payIncomeTax(activePlayer, choice);
+                //Asks how player wants to pay
+                String incTaxMsg = readFile(turnMessagesPath,"chooseIncomeTaxType");
+                incTaxMsg = String.format(incTaxMsg,gameController.getActivePlayer().getName());
+                boolean choice = viewController.payIncomeTax(incTaxMsg);
+
+                //Pays tax in model-layer
+                int tenPctOfValues = gameController.getPlayerController().tenPctOfValue(activePlayerId,gameController.getBoardController().getBoard());
+                canAfford = gameController.payIncomeTax(activePlayerId, choice, tenPctOfValues);
+
+                //Shows how much player payed, if player chose 10%
+                if (!choice){
+                    String playerPayedMsg = readFile(turnMessagesPath,"playerPayed");
+                    String.format(playerPayedMsg,gameController.getActivePlayer().getName(),tenPctOfValues);
+                    viewController.showMessage(playerPayedMsg);
+                }
                 break;
             case "ordinaryTax":
-                //TODO: Add some text message
-                cantAfford = gameController.payOrdinaryTax(activePlayer);
+                //Shows message telling that player must pay
+                String ordTaxMsg = readFile(turnMessagesPath,"ordTax");
+                ordTaxMsg = String.format(ordTaxMsg,gameController.getActivePlayer().getName());
+                viewController.showMessage(ordTaxMsg);
+
+                //Pays tax in model-layer
+                canAfford = gameController.payOrdinaryTax(activePlayerId);
                 break;
             case "prison":
-                    //TODO add text-message
-                gameController.getPlayerController().getPlayers()[activePlayer].setInJail(true);
+                //Shows message on board
+                viewController.showMessage(String.format(readFile(turnMessagesPath,"goesToJail"),gameController.getActivePlayer().getName()));
+                //Sets player in prison in model-layer
+                gameController.getPlayerController().getPlayers()[activePlayerId].setInJail(true);
+
+                //Moves player in model-layer
                 int oldFieldId = gameController.getActivePlayer().getPositionOnBoard();
                 gameController.movePlayer(30,20);
+
+                //Moves player on screen
                 int virutalFaceValues[] = {10,10};
-                viewController.rollDiceAndMove(virutalFaceValues,20,activePlayer,oldFieldId);
+                viewController.rollDiceAndMove(virutalFaceValues,20,activePlayerId,oldFieldId);
                 break;
             case "chance":
                 playChanceCard();
@@ -212,7 +263,7 @@ public class SystemController {
 
         }
 
-        if(cantAfford==false){
+        if(canAfford==false){
             //TODO: Should handle if the players can't afford to pay
         }
     }
