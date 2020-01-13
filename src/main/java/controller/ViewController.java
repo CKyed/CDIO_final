@@ -27,7 +27,6 @@ public class ViewController {
         this.gui = new GUI(fields);
 
 
-
     }
 
     public GUI_Field[] createFields(Board board){
@@ -38,13 +37,15 @@ public class ViewController {
         int[] fieldColorIDs = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
         Color[] guiFieldColors = {
                 Color.BLUE, Color.RED, Color.CYAN,
-                Color.YELLOW, Color.WHITE, Color.BLACK,
+                Color.YELLOW, Color.WHITE, Color.GRAY,
                 Color.MAGENTA, Color.GRAY, Color.GREEN,
                 Color.PINK, Color.ORANGE, Color.LIGHT_GRAY,
                 Color.DARK_GRAY, Color.darkGray,Color.darkGray
         };
+        //Loops through all fields
         for (int i = 0; i < numberOfFields; i++) {
 
+            //Loops through all colors
             for (int j = 0; j < fieldColorIDs.length; j++) {
                 switch (board.getFields()[i].getType()){
                     case ("start"):
