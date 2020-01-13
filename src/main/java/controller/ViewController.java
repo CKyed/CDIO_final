@@ -271,7 +271,7 @@ public class ViewController {
 
     public boolean payIncomeTax(String message){
         String selection = gui.getUserSelection(message,readFile(turnMessagesPath,"pay4kTax"),readFile(turnMessagesPath,"pay10pct"));
-        if(selection.equals("Betal 4000 i skat")){
+        if(readFile(turnMessagesPath,"pay4kTax").equals(selection)){
             return true;
         }
         else {

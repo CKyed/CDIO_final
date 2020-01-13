@@ -197,7 +197,7 @@ public class SystemController {
     public void landOnField(){
         String activeFieldType = gameController.getBoardController().getBoard().getFields()[gameController.getActivePlayer().getPositionOnBoard()].getType();
         int activePlayerId = gameController.getActivePlayerId();
-        boolean cantAfford=true;
+        boolean canAfford=true;
 
         //Land on field
         switch (activeFieldType){
@@ -212,13 +212,22 @@ public class SystemController {
                 break;
 
             case "incomeTax":
-                //TODO: Add correct text message here
-                boolean choice = viewController.payIncomeTax("Test message");
-                cantAfford = gameController.payIncomeTax(activePlayerId, choice);
+                //Asks how player wants to pay
+                String incTaxMsg = readFile(turnMessagesPath,"chooseIncomeTaxType");
+                incTaxMsg = String.format(incTaxMsg,gameController.getActivePlayer().getName());
+                boolean choice = viewController.payIncomeTax(incTaxMsg);
+
+                //Pays tax in model-layer
+                canAfford = gameController.payIncomeTax(activePlayerId, choice);
                 break;
             case "ordinaryTax":
-                //TODO: Add some text message
-                cantAfford = gameController.payOrdinaryTax(activePlayerId);
+                //Shows message telling that player must pay
+                String ordTaxMsg = readFile(turnMessagesPath,"ordTax");
+                ordTaxMsg = String.format(ordTaxMsg,gameController.getActivePlayer().getName());
+                viewController.showMessage(ordTaxMsg);
+
+                //Pays tax in model-layer
+                canAfford = gameController.payOrdinaryTax(activePlayerId);
                 break;
             case "prison":
                 //Shows message on board
@@ -240,7 +249,7 @@ public class SystemController {
 
         }
 
-        if(cantAfford==false){
+        if(canAfford==false){
             //TODO: Should handle if the players can't afford to pay
         }
     }
