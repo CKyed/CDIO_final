@@ -196,7 +196,6 @@ public class SystemController {
                 String msg = readFile(turnMessagesPath,"cantAffordOwnable");
                 msg = String.format(msg, gameController.getActivePlayer().getName(),gameController.getBoardController().getBoard().getFields()[currentFieldId].getName());
                 viewController.showMessage(msg);
-                looserSituation();
             }
 
 
@@ -243,7 +242,7 @@ public class SystemController {
                 //Shows how much player payed, if player chose 10%
                 if (!choice){
                     String playerPayedMsg = readFile(turnMessagesPath,"playerPayed");
-                    String.format(playerPayedMsg,gameController.getActivePlayer().getName(),tenPctOfValues);
+                    playerPayedMsg = String.format(playerPayedMsg,gameController.getActivePlayer().getName(),tenPctOfValues);
                     viewController.showMessage(playerPayedMsg);
                 }
                 break;

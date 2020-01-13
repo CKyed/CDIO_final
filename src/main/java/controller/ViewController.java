@@ -11,6 +11,7 @@ import gui_main.GUI;
 import model.*;
 import model.Fields.*;
 import model.Fields.OwnableFile.*;
+import org.w3c.dom.css.RGBColor;
 
 import java.awt.*;
 
@@ -32,17 +33,28 @@ public class ViewController {
     }
 
     public GUI_Field[] createFields(Board board){
+        Color mBlue = new Color(49,130,209);
+        Color mOrange = new Color(221,107,32);
+        Color mGreen = new Color(104,211,145);
+        Color mGray = new Color(160,174,192);
+        Color mRed = new Color(229,62,62);
+        Color mWhite = new Color(255,255,255);
+        Color mBrew = new Color(39,103,73);
+        Color mPrison = new Color(113,128,150);
+        Color mBlack = new Color(0,0,0);
+        Color mYellow = new Color(246,224,94);
+        Color mPurple = new Color(151,38,109);
         int numberOfFields = board.getFields().length;
         fieldSubtexts = new String[numberOfFields];
         GUI_Field[] guiFields = new GUI_Field[numberOfFields];
         //typer bliver sat op for at sammenligne med model attributter.
         int[] fieldColorIDs = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
         Color[] guiFieldColors = {
-                Color.BLUE, Color.RED, Color.CYAN,
-                Color.YELLOW, Color.WHITE, Color.GRAY,
-                Color.MAGENTA, Color.GRAY, Color.GREEN,
-                Color.PINK, Color.ORANGE, Color.LIGHT_GRAY,
-                Color.DARK_GRAY, Color.darkGray,Color.darkGray
+                mBlue,mOrange,mGreen,
+                mGray,mRed,mWhite,
+                mYellow,mPurple,mWhite,
+                mPrison,mWhite,mWhite,
+                mBlack,mWhite,mBrew
         };
         //Loops through all fields
         for (int i = 0; i < numberOfFields; i++) {
@@ -103,6 +115,8 @@ public class ViewController {
             for (int j = 0; j < fieldColorIDs.length; j++) {
                 if (fieldColorIDs[j] == board.getFields()[i].getGroup()) {
                     guiFields[i].setBackGroundColor(guiFieldColors[j]);
+                    if (fieldColorIDs[j] == 12)
+                        guiFields[i].setForeGroundColor(mGreen);
                 }
             }
             guiFields[i].setTitle(board.getFields()[i].getName());
@@ -175,7 +189,7 @@ public class ViewController {
             for (int i = 0; i < sum; i++) {
                 teleportPlayerCar( activePlayerId, 1, (oldFieldId + i) % fields.length );
                 try {
-                    Thread.sleep( 0 );
+                    Thread.sleep( 200);
                 } catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
                 }

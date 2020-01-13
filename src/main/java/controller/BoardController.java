@@ -8,6 +8,7 @@ import model.Fields.OwnableFile.*;
 
 public class BoardController {
     private Board board;
+    private int[] totalNumberOfStreetsInSeries;
 
 
     public BoardController(){
@@ -60,6 +61,13 @@ public class BoardController {
         this.board.getFields()[37] = new Street("field21");
         this.board.getFields()[38] = new OrdinaryTax("tax02");
         this.board.getFields()[39] = new Street("field22");
+
+        //gets the total number of streets in each series
+        this.totalNumberOfStreetsInSeries = new int[15];
+        for (int i =0;i<board.getFields().length;i++){
+            //Increments numberOfStreetsInSeries in the right place
+            this.totalNumberOfStreetsInSeries[board.getFields()[i].getGroup()]++;
+        }
     }
 
     public int[] getBuildableStreetIds(int playerId){
@@ -150,6 +158,9 @@ public class BoardController {
         //Gets the updated rent
         int houseLevel = ((Street)this.board.getFields()[fieldId]).getHouseLevel();
         int rent = ((Street)this.board.getFields()[fieldId]).getRentLevels()[houseLevel];
+        if (houseLevel==0 && ownsAllInSeries(fieldId)){
+            rent *=2;
+        }
 
         //Assigns as the actual rent
         ((Street)this.board.getFields()[fieldId]).setRent(rent);
@@ -205,6 +216,15 @@ public class BoardController {
             }
         }
         return numberOfOwnables;
+    }
+
+    public boolean ownsAllInSeries(int fieldId){
+        //Gets number of ownables owned in the group
+        int numberOwned = getNumberOfOwnablesOwnedInGroup(fieldId);
+
+        //Checks if number is the same as totalNumber
+        return numberOwned == totalNumberOfStreetsInSeries[board.getFields()[fieldId].getGroup()];
+
     }
 
 
