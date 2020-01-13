@@ -28,9 +28,12 @@ public class SystemController {
 
     public void play(){
 
-        int activePlayerId = gameController.getActivePlayerId();
+        int activePlayerId;
         //Plays turns
         while (true){
+            //Gets activePlayerID for later use
+            activePlayerId = gameController.getActivePlayerId();
+
             //Displays message, showing who's turn it is
             viewController.newTurnMessage(gameController.getActivePlayerId());
 
@@ -39,6 +42,9 @@ public class SystemController {
 
             //If the player is in jail
             if(gameController.getActivePlayer().isInJail()){
+                //shows that player is in prison
+                viewController.showMessage(String.format(readFile(turnMessagesPath,"playerPaysBail"),gameController.getActivePlayer().getName()));
+
                 boolean success = gameController.payBail(activePlayerId);
                 gameController.getPlayerController().getPlayers()[activePlayerId].setInJail(false);
 
@@ -245,7 +251,7 @@ public class SystemController {
 
                 //Moves player in model-layer
                 int oldFieldId = gameController.getActivePlayer().getPositionOnBoard();
-                gameController.movePlayer(30,20);
+                gameController.movePlayer(oldFieldId,20);
 
                 //Moves player on screen
                 int virutalFaceValues[] = {10,10};

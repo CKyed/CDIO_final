@@ -40,7 +40,7 @@ public class Player {
     }
 
     public boolean isInJail() {
-        return inJail;
+        return this.inJail;
     }
 
     public String getName() {
