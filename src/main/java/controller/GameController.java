@@ -168,8 +168,10 @@ public class GameController {
         return chanceCardController;
     }
 
+
     public String findWinner(){
         int counterForWinner = 0;
+        //Everytime a player looses, the counter goes up by 1
         for (int i = 0; i < playerController.getPlayers().length; i++) {
             if (playerController.getPlayers()[i].getAccount().getBalance() == 0){
                 makeFreeField(i);
@@ -177,6 +179,7 @@ public class GameController {
             }
         }
         String msg = "";
+        //Check if there is one winner left
         if (counterForWinner == playerController.getPlayers().length - 1) {
             for (int i = 0; i <  playerController.getPlayers().length; i++) {
                 if ( playerController.getPlayers()[i].getAccount().getBalance() > 0) {
@@ -188,6 +191,7 @@ public class GameController {
        return msg;
     }
 
+    //Releases all the fields that the looser owns
     public void makeFreeField(int playerIndex){
         for (int i = 0; i < boardController.getBoard().getFields().length ; i++) {
             if (boardController.getBoard().getFields()[i] instanceof Ownable){
