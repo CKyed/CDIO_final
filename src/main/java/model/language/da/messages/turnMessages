@@ -13,3 +13,7 @@ howManyHouses:Hvor mange huse ønsker %s at købe på %s?
 buildingSucceeded:Det lykkedes at bygge %s huse.
 notPossibleToBuild:Den ønskede udbygning er ikke mulig.
 selfOwned:%s ejer allerede %s.
+qualifies:%s samlede værdier udgør ikke mere end 15000. %s modtager Matadorlegatet.
+qualifiesNot:%s samlede værdier udgør mere end 15000. %s modtager ikke Matadorlegatet.
+landedOnChance:%s er landet på et chancefelt. Læs kortet i midten af brættet.
+getLucky:Prøv lykken

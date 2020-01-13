@@ -1,8 +1,11 @@
 package controller;
 
+import model.ChanceCard;
 import model.Fields.Ownable;
 import static controller.PathExpert.*;
 import static controller.TextController.readFile;
+
+
 
 public class SystemController {
     private GameController gameController;
@@ -10,8 +13,8 @@ public class SystemController {
 
     public SystemController(){
         //Initializes controllers
-        gameController = new GameController();
-        viewController = new ViewController(gameController.getBoardController().getBoard());
+        this.gameController = new GameController();
+        this.viewController = new ViewController(gameController.getBoardController().getBoard());
 
         //Setup players with an array of Strings from the viewcontroller
         String[] playerNames = this.viewController.setupPlayers();
@@ -183,12 +186,82 @@ public class SystemController {
 //                int virutalFaceValues[] = {10,10};
 //                viewController.rollDiceAndMove(virutalFaceValues,20,activePlayer,oldFieldId);
                 break;
+            case "chance":
+                playChanceCard();
+                break;
+
         }
 
         if(cantAfford==false){
             //TODO: Should handle if the players can't afford to pay
         }
     }
+
+    public void playChanceCard(){
+        ChanceCard card = gameController.getChanceCardController().getCardDeck().draw();
+        int cardId = card.getId();
+        String cardText = card.getText();
+
+        //Shows chancecard
+        viewController.showChanceCard(cardText);
+
+        //Shows message telling that player landed on Chance
+        String landedOnChanceMsg = readFile(turnMessagesPath,"landedOnChance");
+        landedOnChanceMsg = String.format(landedOnChanceMsg,gameController.getPlayerController().getPlayers()[gameController.getPlayerController().getActivePlayerId()].getName());
+        viewController.showMessage(landedOnChanceMsg);
+
+        //Switches on the chanceCardId
+        switch (cardId){
+            case 1:
+
+                break;
+            case 2:
+                break;
+
+            case 11:
+            case 12:
+                //Deposits 500 to player
+                gameController.getPlayerController().getActivePlayer().getAccount().deposit(500);
+                break;
+            case 13:
+            case 14:
+            case 15:
+            case 16:
+            case 17:
+            case 18:
+            case 19:
+            case 20:
+                //Deposits 1000 to player
+                gameController.getPlayerController().getActivePlayer().getAccount().deposit(1000);
+                break;
+            case 21:
+                //Deposits 3000 to player
+                gameController.getPlayerController().getActivePlayer().getAccount().deposit(3000);
+                break;
+            case 22:
+                //Deposits 200 to player
+                gameController.getPlayerController().getActivePlayer().getAccount().deposit(200);
+                break;
+            case 23:
+                //Calculates if players qualifies ( values >15000 )
+                boolean qualifies = 15000 >= gameController.getPlayerController().calculateTotalValue(gameController.getPlayerController().getActivePlayerId(),gameController.getBoardController().getBoard());
+                String message;
+                if (qualifies){
+                    message = readFile(turnMessagesPath,"qualifies");
+                    //Deposits 40000 to player
+                    gameController.getPlayerController().getActivePlayer().getAccount().deposit(40000);
+                } else{
+                    message = readFile(turnMessagesPath,"qualifiesNot");
+                }
+                message = String.format(message,gameController.getPlayerController().getActivePlayer().getName(),gameController.getPlayerController().getActivePlayer().getName());
+                viewController.showMessage(message);
+                break;
+
+        }
+
+    }
+
+
 
 
 

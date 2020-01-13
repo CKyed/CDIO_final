@@ -10,8 +10,9 @@ import model.Fields.Prison;
 public class GameController {
     private BoardController boardController;
     private PlayerController playerController;
-    private int startBonus = 2000;
+    private int startBonus = 4000;
     private DiceController diceController;
+
     private ChanceCardController chanceCardController;
 
     public GameController(){
@@ -158,5 +159,10 @@ public class GameController {
         }
 
     }
+
+    public ChanceCardController getChanceCardController() {
+        return chanceCardController;
+    }
+
 
 }
