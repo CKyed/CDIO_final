@@ -170,17 +170,20 @@ public class GameController {
 
 
     public String findWinner(){
-        int counterForWinner = 0;
+        int totalLostPlayers = 0;
+
         //Everytime a player looses, the counter goes up by 1
-        for (int i = 0; i < playerController.getPlayers().length; i++) {
-            if (playerController.getPlayers()[i].getAccount().getBalance() == 0){
+       for (int i = 0; i < playerController.getPlayers().length; i++) {
+            if (playerController.getPlayers()[i].isHasPlayerLost()==true){
                 makeFreeField(i);
-                counterForWinner++;
+                totalLostPlayers++;
             }
         }
+
         String msg = "";
+
         //Check if there is one winner left
-        if (counterForWinner == playerController.getPlayers().length - 1) {
+        if (totalLostPlayers == playerController.getPlayers().length - 1) {
             for (int i = 0; i <  playerController.getPlayers().length; i++) {
                 if ( playerController.getPlayers()[i].getAccount().getBalance() > 0) {
                     // "looser" does not exist in winner name
