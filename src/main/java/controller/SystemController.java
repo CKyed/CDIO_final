@@ -39,6 +39,7 @@ public class SystemController {
                 }
 
             } else{
+                //If not in jail, turn starts normally
                 playTurn();
             }
 
