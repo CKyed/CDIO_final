@@ -121,12 +121,30 @@ public class SystemController {
             int fieldId = gameController.getActivePlayer().getPositionOnBoard();
             String fromPlayerName = gameController.getActivePlayer().getName();
             String toPlayerName = gameController.getPlayerController().getPlayers()[gameController.getOwnerId()].getName();
-            int amount = ((Ownable)gameController.getBoardController().getBoard().getFields()[fieldId]).getRent();
+            int rent=0;
+
+            //rent is calculated in different ways
+            switch (((Ownable)gameController.getBoardController().getBoard().getFields()[fieldId]).getType()){
+                case "street":
+                case "ferry":
+                    //Gets rent
+                    rent = ((Ownable)gameController.getBoardController().getBoard().getFields()[fieldId]).getRent();
+                break;
+                case "brew":
+                    rent = ((Ownable)gameController.getBoardController().getBoard().getFields()[fieldId]).getRent();
+
+                    //Multiplies by dieSum
+                    rent = rent*gameController.getDiceController().getSum();
+
+                    //Multiplies by number of breweries owned
+                    rent = rent*gameController.getBoardController().getNumberOfOwnablesOwnedInGroup(fieldId);
+                    break;
+            }
 
             //Tries to pay rent
-            if(gameController.getPlayerController().safeTransferToPlayer(gameController.getActivePlayerId(),amount,gameController.getOwnerId())){
+            if(gameController.getPlayerController().safeTransferToPlayer(gameController.getActivePlayerId(),rent,gameController.getOwnerId())){
                 //Displays message
-                String message = String.format(readFile(turnMessagesPath,"payRentFromTo"),fromPlayerName,amount,toPlayerName);
+                String message = String.format(readFile(turnMessagesPath,"payRentFromTo"),fromPlayerName,rent,toPlayerName);
                 viewController.showMessage(message);
 
                 //Updates player balances
@@ -154,6 +172,8 @@ public class SystemController {
 
                     //Updates the owner
                     ((Ownable)gameController.getBoardController().getBoard().getFields()[currentFieldId]).setOwnerId(gameController.getActivePlayerId());
+                    gameController.getBoardController().updateAllRents();
+
                 }
             } else{
                 //If player can't afford it, tells on board
@@ -183,12 +203,14 @@ public class SystemController {
         switch (activeFieldType){
             case "street":
                 playPropertyField();
-
-
                 break;
             case "ferry":
-
+                playPropertyField();
                 break;
+            case "brew":
+                playPropertyField();
+                break;
+
             case "incomeTax":
                 //TODO: Add correct text message here
                 boolean choice = viewController.payIncomeTax("Test message");
