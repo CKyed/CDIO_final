@@ -112,6 +112,7 @@ public class BoardController {
                             seriesIdsOwnedByPlayer[j] = -1;
                         }
                     }
+
                 }
             }
         }
@@ -152,6 +153,58 @@ public class BoardController {
 
         //Assigns as the actual rent
         ((Street)this.board.getFields()[fieldId]).setRent(rent);
+    }
+
+    public void updateAllRents(){
+        //Updates the rent of all ownables
+        int rent;
+        for (int i=0;i<board.getFields().length;i++){
+            switch (board.getFields()[i].getType()){
+                case "street":
+                    updateStreetRent(i);
+                    break;
+                case "ferry":
+                    //Gets number of ferries owned
+                    int numberOfFerriesOwned = getNumberOfOwnablesOwnedInGroup(i);
+                    // gets actual rent
+                    rent = ((Ferry)board.getFields()[i]).getRentLevels()[numberOfFerriesOwned-1];
+
+                    //sets rent
+                    ((Ownable)board.getFields()[i]).setRent(rent);
+                    break;
+                case "brew":
+                    int numberOfBreweriesOwned = getNumberOfOwnablesOwnedInGroup(i);
+                    rent = ((Brewery)board.getFields()[i]).getRentLevels()[numberOfBreweriesOwned-1];
+                    //sets rent
+                    ((Ownable)board.getFields()[i]).setRent(rent);
+                    break;
+
+            }
+
+
+
+        }
+
+    }
+
+
+
+    public int getNumberOfOwnablesOwnedInGroup(int fieldId){
+        int numberOfOwnables =0;
+
+        //loops through all fields and increments numberOfOwnables if groups and owners match
+        for (int i=0;i<board.getFields().length;i++){
+            //If group is the same
+            if (board.getFields()[fieldId].getGroup()==board.getFields()[i].getGroup()){
+                //If owner is the same
+                if (((Ownable)board.getFields()[fieldId]).getOwnerId()==((Ownable)board.getFields()[i]).getOwnerId()){
+                    numberOfOwnables++;
+                }
+
+
+            }
+        }
+        return numberOfOwnables;
     }
 
 

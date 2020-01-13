@@ -69,17 +69,15 @@ public class GameController {
         return safePaymentToBank(activePlayerId, ((OrdinaryTax)boardController.getBoard().getFields()[38]).getTax());
     }
 
-
     //the user has chosen either 0 or 1, 0 is 4000 kr and 1 is 10%
-    public boolean payIncomeTax(int activePlayerId, boolean choice){
+    public boolean payIncomeTax(int activePlayerId, boolean choice,int tenPctOfValues){
         boolean succesfulTransfer=true;
         if(choice){
             succesfulTransfer = safePaymentToBank(activePlayerId, ((IncomeTax)boardController.getBoard().getFields()[4]).getIncomeTax());
         }
         else{
-            int totalPlayerValue = playerController.calculateTotalValue(activePlayerId,boardController.getBoard());
-            int tax = totalPlayerValue/10;
-            succesfulTransfer = safePaymentToBank(activePlayerId,tax);
+
+            succesfulTransfer = safePaymentToBank(activePlayerId,tenPctOfValues);
         }
         return succesfulTransfer; //change later
     }
@@ -92,6 +90,7 @@ public class GameController {
 
     public boolean safePaymentToPlayer(int fromPlayerId, int amount, int toPlayerId){
         return playerController.safeTransferToPlayer(fromPlayerId,amount,toPlayerId);
+
     }
 
     public PlayerController getPlayerController() {
@@ -125,13 +124,13 @@ public class GameController {
 
     public void buyFieldForPlayer(){
         //Gets price
-        int price = ((Street)boardController.getBoard().getFields()[playerController.getActivePlayer().getPositionOnBoard()]).getPrice();
+        int price = ((Ownable)boardController.getBoard().getFields()[playerController.getActivePlayer().getPositionOnBoard()]).getPrice();
 
         //Pays
         safePaymentToBank(playerController.getActivePlayerId(),price);
 
         //Gives ownership to player
-        ((Street)boardController.getBoard().getFields()[playerController.getActivePlayer().getPositionOnBoard()]).setOwnerId(playerController.getActivePlayerId());
+        ((Ownable)boardController.getBoard().getFields()[playerController.getActivePlayer().getPositionOnBoard()]).setOwnerId(playerController.getActivePlayerId());
 
     }
 

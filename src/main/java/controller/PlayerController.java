@@ -133,4 +133,8 @@ public class PlayerController {
         players[playerId].getAccount().setBalance( 0 );
     }
 
+    public int tenPctOfValue(int playerId, Board board){
+        return calculateTotalValue(playerId, board)/10;
+
+    }
 }
