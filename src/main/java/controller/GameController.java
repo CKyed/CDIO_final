@@ -7,6 +7,9 @@ import model.Fields.Ownable;
 import model.Fields.OwnableFile.*;
 import model.Fields.Prison;
 
+import static controller.PathExpert.endMessagePath;
+import static controller.TextController.readFile;
+
 public class GameController {
     private BoardController boardController;
     private PlayerController playerController;
@@ -165,6 +168,40 @@ public class GameController {
     public ChanceCardController getChanceCardController() {
         return chanceCardController;
     }
+
+    public String findWinner(){
+        int counterForWinner = 0;
+        for (int i = 0; i < playerController.getPlayers().length; i++) {
+            if (playerController.getPlayers()[i].getAccount().getBalance() == 0){
+                makeFreeField(i);
+                counterForWinner++;
+            }
+        }
+        String msg = "";
+        if (counterForWinner == playerController.getPlayers().length - 1) {
+            for (int i = 0; i <  playerController.getPlayers().length; i++) {
+                if ( playerController.getPlayers()[i].getAccount().getBalance() > 0) {
+                    // "looser" does not exist in winner name
+                    msg = playerController.getPlayers()[i].getName();
+                }
+            }
+        }
+       return msg;
+    }
+
+    public void makeFreeField(int playerIndex){
+        for (int i = 0; i < boardController.getBoard().getFields().length ; i++) {
+            if (boardController.getBoard().getFields()[i] instanceof Ownable){
+                if (((Ownable)boardController.getBoard().getFields()[i]).getOwnerId() == playerIndex){
+                    ((Ownable)boardController.getBoard().getFields()[i]).setOwnerId(-1);
+                    //TODO : update view
+                }
+            }
+        }
+
+    }
+
+
 
 
 }

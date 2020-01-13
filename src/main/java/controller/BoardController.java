@@ -112,7 +112,6 @@ public class BoardController {
                             seriesIdsOwnedByPlayer[j] = -1;
                         }
                     }
-
                 }
             }
         }
@@ -154,5 +153,6 @@ public class BoardController {
         //Assigns as the actual rent
         ((Street)this.board.getFields()[fieldId]).setRent(rent);
     }
+
 
 }

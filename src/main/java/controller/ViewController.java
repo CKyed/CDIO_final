@@ -172,14 +172,13 @@ public class ViewController {
             for (int i = 0; i < sum; i++) {
                 teleportPlayerCar( activePlayerId, 1, (oldFieldId + i) % fields.length );
                 try {
-                    Thread.sleep( 200 );
+                    Thread.sleep( 0 );
                 } catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
                 }
             }
         } else if (counterForWinner == guiPlayers.length - 1){
-            // There is one player on board
-            findWinner();
+            // There is one player on board Todo
         }
     }
 
@@ -339,19 +338,11 @@ public class ViewController {
         guiPlayers[playerId].setBalance(0);
     }
 
-    public void findWinner(){
-        if (counterForWinner == guiPlayers.length - 1) {
-            for (int i = 0; i < guiPlayers.length; i++) {
-                if ((guiPlayers[i].getName().indexOf( "tabt" )) == -1) {
-                    // "looser" does not exist in winner name
-                    String msg = String.format( readFile( endMessagePath, "winner" ), guiPlayers[i].getName());
-                    gui.showMessage( msg );
-                }
-            }
-        }
-        gui.close();
-        System.exit( 0 );
-    }
+   public void endGame(String winnerName){
+       gui.showMessage(String.format( readFile( endMessagePath, "winner" ) ,   winnerName ));
+       gui.close();
+       System.exit( 0 );
+   }
 
 
 }
