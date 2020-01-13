@@ -80,6 +80,9 @@ public class ViewController {
                     case ("prison"):
                         guiFields[i] = new GUI_Jail();
                         break;
+                    case ("visit"):
+                        guiFields[i] = new GUI_Jail();
+                        break;
                     case ("ferry"):
                         guiFields[i] = new GUI_Shipping();
                         fieldSubtexts[i] = readFile(setupMessagesPath,"owner") + " " + readFile(setupMessagesPath,"none") +" \n"
