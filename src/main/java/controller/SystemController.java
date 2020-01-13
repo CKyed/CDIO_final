@@ -339,7 +339,7 @@ public class SystemController {
             if (menuSelction.equals(readFile(turnMessagesPath,"buyHouses"))){
                 buyMore = true;
                 while (buyMore){
-                    //gets array of buildable street ids
+                    //gets array of buildable street ids Todo: the error from getBuildableStreetIds, because return length of 0
                     int[] buildableStreetIds = gameController.getBoardController().getBuildableStreetIds(gameController.getActivePlayerId());
 
                     //Gets array of buildable street names
