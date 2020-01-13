@@ -190,8 +190,6 @@ public class ViewController {
                 teleportPlayerCar( activePlayerId, 1, (oldFieldId + i) % fields.length );
                 try {
                     Thread.sleep( 200);
-
-                    //TODO ændre tilbage til 200
                 } catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
                 }
