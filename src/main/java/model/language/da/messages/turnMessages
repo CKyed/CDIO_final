@@ -25,3 +25,10 @@ playerPayed:%s har betalt %s i indkomstskat.
 ownerInPrison:Ejeren af denne grund er i fængsel, så du skal ikke betale husleje
 playerPaysBail:%s er i fængsel og betaler 1000 kr. i bøde for at komme ud.
 getsPrisonCard:%s har modtaget et benådelseskort som han benytter næste gang han kommer i fængsel
+buySell:Køb/salg
+exit:Afslut
+buyHouses:Køb huse
+sellHouses:Sælg huse
+buildHouseWhere:Hvor kunne %s tænke dig at bygge et hus?
+
+

@@ -11,7 +11,7 @@ import gui_main.GUI;
 import model.*;
 import model.Fields.*;
 import model.Fields.OwnableFile.*;
-import org.w3c.dom.css.RGBColor;
+//import org.w3c.dom.css.RGBColor;
 
 import java.awt.*;
 
@@ -183,8 +183,7 @@ public class ViewController {
 
         if ((guiActivePlayerName.indexOf( "tabt" )) == -1  && counterForWinner != guiPlayers.length - 1) {
             // "looser" does not exist in playerName and  there are players on board more than one
-            String newTurnMessage = String.format( readFile( turnMessagesPath, "newTurn" ), guiPlayers[activePlayerId].getName() );
-            gui.showMessage( newTurnMessage );
+
             gui.setDice( faceValues[0], faceValues[1] );
 
             for (int i = 0; i < sum; i++) {
@@ -361,6 +360,14 @@ public class ViewController {
        gui.close();
        System.exit( 0 );
    }
+
+   public String getUserButtonPressed(String msg,String ... options){
+        return gui.getUserButtonPressed(msg,options);
+   }
+
+    public String getUserSelection(String msg,String ... options){
+        return gui.getUserSelection(msg,options);
+    }
 
 
 }
