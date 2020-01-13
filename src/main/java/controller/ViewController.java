@@ -21,6 +21,8 @@ public class ViewController {
     private GUI_Player[] guiPlayers;
     private GUI_Car[] guiCars;
     private String[] fieldSubtexts;
+    private int counterForWinner = 0;
+
 
     public ViewController(Board board) {
         GUI_Field[] fields = createFields(board);
@@ -176,18 +178,24 @@ public class ViewController {
     }
     
     public void rollDiceAndMove(int[] faceValues, int sum,int activePlayerId, int oldFieldId){
-        gui.setDice(faceValues[0],faceValues[1]);
+        String guiActivePlayerName = guiPlayers[activePlayerId].getName();
 
-        for (int i =0;i<sum;i++){
-            teleportPlayerCar(activePlayerId,1,(oldFieldId+i)% fields.length);
-            try
-            {
-                Thread.sleep(200);
+        if ((guiActivePlayerName.indexOf( "tabt" )) == -1  && counterForWinner != guiPlayers.length - 1) {
+            // "looser" does not exist in playerName and  there are players on board more than one
+            String newTurnMessage = String.format( readFile( turnMessagesPath, "newTurn" ), guiPlayers[activePlayerId].getName() );
+            gui.showMessage( newTurnMessage );
+            gui.setDice( faceValues[0], faceValues[1] );
+
+            for (int i = 0; i < sum; i++) {
+                teleportPlayerCar( activePlayerId, 1, (oldFieldId + i) % fields.length );
+                try {
+                    Thread.sleep( 0 );
+                } catch (InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                }
             }
-            catch(InterruptedException ex)
-            {
-                Thread.currentThread().interrupt();
-            }
+        } else if (counterForWinner == guiPlayers.length - 1){
+            // There is one player on board Todo
         }
     }
 
@@ -329,5 +337,29 @@ public class ViewController {
     public void showChanceCard(String cardText){
         gui.displayChanceCard(cardText);
     }
+
+    public void looserMessage(int activePlayerId) {
+        String msg = String.format( readFile( endMessagePath,"loser" ),guiPlayers[activePlayerId].getName());
+        gui.showMessage(msg);
+    }
+
+    public void removeLoser(int playerId, int oldFieldId) {
+        // When the counterForWinner = playerNames.length-1, so we know that there is one player on board
+        counterForWinner++;
+        fields[oldFieldId].setCar( guiPlayers[playerId], false );
+        updateLooserOnBoard( playerId );
+    }
+
+    public void updateLooserOnBoard(int playerId) {
+        guiPlayers[playerId].setName( guiPlayers[playerId].getName() + readFile( endMessagePath, "updateLooserOnBoard" ));
+        guiPlayers[playerId].setBalance(0);
+    }
+
+   public void endGame(String winnerName){
+       gui.showMessage(String.format( readFile( endMessagePath, "winner" ) ,   winnerName ));
+       gui.close();
+       System.exit( 0 );
+   }
+
 
 }

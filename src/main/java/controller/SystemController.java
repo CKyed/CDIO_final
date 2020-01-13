@@ -42,11 +42,19 @@ public class SystemController {
 
             //If the player is in jail
             if(gameController.getActivePlayer().isInJail()){
+                boolean success = true;
                 //shows that player is in prison
                 viewController.showMessage(String.format(readFile(turnMessagesPath,"playerPaysBail"),gameController.getActivePlayer().getName()));
 
-                boolean success = gameController.payBail(activePlayerId);
-                gameController.getPlayerController().getPlayers()[activePlayerId].setInJail(false);
+                //If the player has prison card, the player uses the prisoncard and gets out of jail
+                if(gameController.getPlayerController().getPlayers()[activePlayerId].isPrisonCard()){
+                    gameController.getPlayerController().getPlayers()[activePlayerId].setInJail(false);
+                    gameController.getPlayerController().getPlayers()[activePlayerId].setPrisonCard(false);
+                }else {
+                    //If the player doesn't have a prison card, the player pays the bail and gets out of jail
+                    success = gameController.payBail(activePlayerId);
+                    gameController.getPlayerController().getPlayers()[activePlayerId].setInJail(false);
+                }
                 if(success == false){
                     //TODO Method for handling loser-condition is called here
                 }
@@ -160,6 +168,7 @@ public class SystemController {
                 //Player can't afford the rent
                 //TODO: Calls a method that handle looser condition
                 System.out.println("HER SKAL VI GØRE NOGET");
+                looserSituation();
 
             }
             //If it is vacant - asks if player wants to buy
@@ -268,6 +277,9 @@ public class SystemController {
 
         if(canAfford==false){
             //TODO: Should handle if the players can't afford to pay
+            //Player can't afford the tax
+            //Looser message
+            looserSituation();
         }
     }
 
@@ -299,6 +311,18 @@ public class SystemController {
     }
 
 
+    // Handel looser situation
+    public void looserSituation(){
+        int fieldId = gameController.getActivePlayer().getPositionOnBoard();
+
+        gameController.getPlayerController().accountReset(gameController.getActivePlayerId());
+
+        viewController.looserMessage(gameController.getActivePlayerId());
+        viewController.removeLoser( gameController.getActivePlayerId(), fieldId);
+        if (!gameController.findWinner().isEmpty()){
+            viewController.endGame(gameController.findWinner());
+        }
+    }
 
 
 
