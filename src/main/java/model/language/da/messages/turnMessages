@@ -23,3 +23,4 @@ chooseIncomeTaxType:Hvordan ønsker %s at betale indkomstskatten?
 ordTax:%s skal betale 2000 i Ekstraordinær Statsskat.
 playerPayed:%s har betalt %s i indkomstskat.
 ownerInPrison:Ejeren af denne grund er i fængsel, så du skal ikke betale husleje
+playerPaysBail:%s er i fængsel og betaler 1000 kr. i bøde for at komme ud.
