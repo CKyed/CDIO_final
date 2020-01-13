@@ -285,7 +285,7 @@ public class ViewController {
     }
 
     public boolean chooseToBuy(int activePlayerId){
-        String message = String.format(readFile(turnMessagesPath,"buyOrSellBeforeTurn"),guiPlayers[activePlayerId].getName());
+        String message = String.format(readFile(turnMessagesPath,"buyBeforeTurn"),guiPlayers[activePlayerId].getName());
         String selection = gui.getUserButtonPressed(message,
                 readFile(turnMessagesPath,"no"),readFile(turnMessagesPath,"yes"));
         if(selection.equals(readFile(turnMessagesPath,"yes"))){
