@@ -78,9 +78,12 @@ public class PlayerController {
 
     public void updateActivePlayer(){
         //Updates the activePlayer - only if last diceroll wasn't 2 of the same
+        do {
             this.activePlayerId++;
             this.activePlayerId = this.activePlayerId % this.numberOfPlayers;
             this.activePlayer = players[activePlayerId];
+        }
+        while (this.activePlayer.getAccountBalance()==0);
     }
 
     public int getActivePlayerId() {

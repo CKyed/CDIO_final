@@ -186,8 +186,8 @@ public class SystemController {
             case "prison":
                     //TODO add text-message
                 gameController.getPlayerController().getPlayers()[activePlayer].setInJail(true);
-                gameController.movePlayer(30,20);
                 int oldFieldId = gameController.getActivePlayer().getPositionOnBoard();
+                gameController.movePlayer(30,20);
                 int virutalFaceValues[] = {10,10};
                 viewController.rollDiceAndMove(virutalFaceValues,20,activePlayer,oldFieldId);
                 break;

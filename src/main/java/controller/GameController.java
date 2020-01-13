@@ -44,7 +44,7 @@ public class GameController {
         playerController.getActivePlayer().setPositionOnBoard(newFieldId);
 
         //IF player passes start and is not marked as "inJail", player recieves startbonus
-        if (currentFieldId+dieSum>numberOfFields && !playerController.getActivePlayer().isInJail()){
+        if (currentFieldId+dieSum>(numberOfFields-1) && !playerController.getActivePlayer().isInJail()){
                 playerController.getActivePlayer().deposit(startBonus);
         }
     }
