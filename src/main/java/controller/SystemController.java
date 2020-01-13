@@ -183,12 +183,14 @@ public class SystemController {
         switch (activeFieldType){
             case "street":
                 playPropertyField();
-
-
                 break;
             case "ferry":
-
+                playPropertyField();
                 break;
+            case "brew":
+                playPropertyField();
+                break;
+
             case "incomeTax":
                 //TODO: Add correct text message here
                 boolean choice = viewController.payIncomeTax("Test message");
