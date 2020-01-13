@@ -312,7 +312,12 @@ public class SystemController {
     public void looserSituation(){
         int fieldId = gameController.getActivePlayer().getPositionOnBoard();
 
+
+        //Reset the players account to 0
         gameController.getPlayerController().accountReset(gameController.getActivePlayerId());
+        //Set the the player variale "hasPlayerLost" to true
+        gameController.getPlayerController().getActivePlayer().setHasPlayerLost(true);
+
         viewController.looserMessage(gameController.getActivePlayerId());
         viewController.removeLoser( gameController.getActivePlayerId(), fieldId);
         if (!gameController.findWinner().isEmpty()){
