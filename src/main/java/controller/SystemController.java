@@ -215,54 +215,17 @@ public class SystemController {
         landedOnChanceMsg = String.format(landedOnChanceMsg,gameController.getPlayerController().getPlayers()[gameController.getPlayerController().getActivePlayerId()].getName());
         viewController.showMessage(landedOnChanceMsg);
 
-        //Switches on the chanceCardId
-        switch (cardId){
-            case 1:
+        //If it is a complicated chance card
+        if(cardId ==50 ||cardId==51){
 
-                break;
-            case 2:
-                break;
-
-            case 11:
-            case 12:
-                //Deposits 500 to player
-                gameController.getPlayerController().getActivePlayer().getAccount().deposit(500);
-                break;
-            case 13:
-            case 14:
-            case 15:
-            case 16:
-            case 17:
-            case 18:
-            case 19:
-            case 20:
-                //Deposits 1000 to player
-                gameController.getPlayerController().getActivePlayer().getAccount().deposit(1000);
-                break;
-            case 21:
-                //Deposits 3000 to player
-                gameController.getPlayerController().getActivePlayer().getAccount().deposit(3000);
-                break;
-            case 22:
-                //Deposits 200 to player
-                gameController.getPlayerController().getActivePlayer().getAccount().deposit(200);
-                break;
-            case 23:
-                //Calculates if players qualifies ( values >15000 )
-                boolean qualifies = 15000 >= gameController.getPlayerController().calculateTotalValue(gameController.getPlayerController().getActivePlayerId(),gameController.getBoardController().getBoard());
-                String message;
-                if (qualifies){
-                    message = readFile(turnMessagesPath,"qualifies");
-                    //Deposits 40000 to player
-                    gameController.getPlayerController().getActivePlayer().getAccount().deposit(40000);
-                } else{
-                    message = readFile(turnMessagesPath,"qualifiesNot");
-                }
-                message = String.format(message,gameController.getPlayerController().getActivePlayer().getName(),gameController.getPlayerController().getActivePlayer().getName());
+        } else{
+            String message = gameController.getChanceCardController().playCard(cardId,gameController.getPlayerController(),gameController.getBoardController().getBoard());
+            if (!message.isEmpty()) {
                 viewController.showMessage(message);
-                break;
+            }
 
         }
+
 
     }
 
