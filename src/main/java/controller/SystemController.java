@@ -115,7 +115,25 @@ public class SystemController {
             int fieldId = gameController.getActivePlayer().getPositionOnBoard();
             String fromPlayerName = gameController.getActivePlayer().getName();
             String toPlayerName = gameController.getPlayerController().getPlayers()[gameController.getOwnerId()].getName();
-            int amount = ((Ownable)gameController.getBoardController().getBoard().getFields()[fieldId]).getRent();
+            int rent=0;
+
+            //rent is calculated in different ways
+            switch (((Ownable)gameController.getBoardController().getBoard().getFields()[fieldId]).getType()){
+                case "street":
+                case "ferry":
+                    //Gets rent
+                    rent = ((Ownable)gameController.getBoardController().getBoard().getFields()[fieldId]).getRent();
+                break;
+                case "brew":
+                    rent = ((Ownable)gameController.getBoardController().getBoard().getFields()[fieldId]).getRent();
+
+                    //Multiplies by dieSum
+                    rent = rent*gameController.getDiceController().getSum();
+
+                    //Multiplies by number of breweries owned
+                    rent = rent*gameController.getBoardController().getNumberOfOwnablesOwnedInGroup(fieldId);
+                    break;
+            }
 
 
             //hvis ejeren af feltet er i fængsel, skal man ikke betale noget
@@ -127,7 +145,7 @@ public class SystemController {
             else if(gameController.getPlayerController().safeTransferToPlayer(gameController.getActivePlayerId(),amount,gameController.getOwnerId())){
 
                 //Displays message
-                String message = String.format(readFile(turnMessagesPath,"payRentFromTo"),fromPlayerName,amount,toPlayerName);
+                String message = String.format(readFile(turnMessagesPath,"payRentFromTo"),fromPlayerName,rent,toPlayerName);
                 viewController.showMessage(message);
 
                 //Updates player balances
@@ -155,6 +173,8 @@ public class SystemController {
 
                     //Updates the owner
                     ((Ownable)gameController.getBoardController().getBoard().getFields()[currentFieldId]).setOwnerId(gameController.getActivePlayerId());
+                    gameController.getBoardController().updateAllRents();
+
                 }
             } else{
                 //If player can't afford it, tells on board
@@ -163,12 +183,16 @@ public class SystemController {
                 viewController.showMessage(msg);
             }
 
+
+
         } else{//If the player owns it himself
             String selfOwnedMessage = readFile(turnMessagesPath,"selfOwned");
             selfOwnedMessage = String.format(selfOwnedMessage,gameController.getActivePlayer().getName(),
                     gameController.getBoardController().getBoard().getFields()[gameController.getActivePlayer().getPositionOnBoard()].getName());
             viewController.showMessage(selfOwnedMessage);
+
         }
+
     }
 
     public void landOnField(){
@@ -184,8 +208,12 @@ public class SystemController {
 
                 break;
             case "ferry":
-
+                playPropertyField();
                 break;
+            case "brew":
+                playPropertyField();
+                break;
+
             case "incomeTax":
                 //TODO: Add correct text message here
                 boolean choice = viewController.payIncomeTax("Test message");
