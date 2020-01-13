@@ -133,7 +133,7 @@ public class SystemController {
                 viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
             } else {
                 //Player can't afford the rent
-                //TODO
+                //TODO: Calls a method that handle looser condition
                 System.out.println("HER SKAL VI GØRE NOGET");
 
             }
