@@ -172,7 +172,7 @@ public class ViewController {
             for (int i = 0; i < sum; i++) {
                 teleportPlayerCar( activePlayerId, 1, (oldFieldId + i) % fields.length );
                 try {
-                    Thread.sleep( 0 );//Todo 200
+                    Thread.sleep( 200 );
                 } catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
                 }
@@ -199,7 +199,7 @@ public class ViewController {
     private void setupGuiPlayers(String[] playerNames){
         this.guiPlayers = new GUI_Player[playerNames.length];
         for (int i=0;i<playerNames.length;i++){
-            this.guiPlayers[i] = new GUI_Player(playerNames[i],10000,this.guiCars[i]);//Todo
+            this.guiPlayers[i] = new GUI_Player(playerNames[i],30000,this.guiCars[i]);
             this.gui.addPlayer(guiPlayers[i]);
 
            this.fields[0].setCar(this.guiPlayers[i],true);
