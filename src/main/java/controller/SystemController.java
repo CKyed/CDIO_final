@@ -101,6 +101,9 @@ public class SystemController {
         //Updates players position in view-layer
         viewController.rollDiceAndMove(faceValues,sum,activePlayerId,oldFieldId);
 
+        //Updates player balances in view layer
+        viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
+
         //Does actions on new field
         landOnField();
 
@@ -130,24 +133,36 @@ public class SystemController {
                 viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
             } else {
                 //Player can't afford the rent
-                //TODO
+                //TODO: Calls a method that handle looser condition
                 System.out.println("HER SKAL VI GØRE NOGET");
 
             }
             //If it is vacant - asks if player wants to buy
         } else if (gameController.getOwnerId()==-1){
-            //If it is vacant - asks if player wants to buy
+            //If it is vacant
 
-            //If he chooses to buy
-            if (viewController.buyFieldOrNot(gameController.getActivePlayerId(),gameController.getActivePlayer().getPositionOnBoard())){
+            int currentFieldId = gameController.getActivePlayer().getPositionOnBoard();
 
-                //Withdraws money
-                gameController.buyFieldForPlayer();
+            //If player can afford it
+            if (gameController.getPlayerController().getActivePlayer().getAccountBalance()>=((Ownable)gameController.getBoardController().getBoard().getFields()[currentFieldId]).getPrice()){
 
-                //Updates the owner
-                int currentFieldId = gameController.getActivePlayer().getPositionOnBoard();
-                ((Ownable)gameController.getBoardController().getBoard().getFields()[currentFieldId]).setOwnerId(gameController.getActivePlayerId());
+                //If he chooses to buy
+                if (viewController.buyFieldOrNot(gameController.getActivePlayerId(),gameController.getActivePlayer().getPositionOnBoard())){
+
+                    //Withdraws money
+                    gameController.buyFieldForPlayer();
+
+                    //Updates the owner
+                    ((Ownable)gameController.getBoardController().getBoard().getFields()[currentFieldId]).setOwnerId(gameController.getActivePlayerId());
+                }
+            } else{
+                //If player can't afford it, tells on board
+                String msg = readFile(turnMessagesPath,"cantAffordOwnable");
+                msg = String.format(msg, gameController.getActivePlayer().getName(),gameController.getBoardController().getBoard().getFields()[currentFieldId].getName());
+                viewController.showMessage(msg);
             }
+
+
 
         } else{//If the player owns it himself
             String selfOwnedMessage = readFile(turnMessagesPath,"selfOwned");
@@ -186,8 +201,8 @@ public class SystemController {
             case "prison":
                     //TODO add text-message
                 gameController.getPlayerController().getPlayers()[activePlayer].setInJail(true);
-                gameController.movePlayer(30,20);
                 int oldFieldId = gameController.getActivePlayer().getPositionOnBoard();
+                gameController.movePlayer(30,20);
                 int virutalFaceValues[] = {10,10};
                 viewController.rollDiceAndMove(virutalFaceValues,20,activePlayer,oldFieldId);
                 break;
@@ -215,54 +230,17 @@ public class SystemController {
         landedOnChanceMsg = String.format(landedOnChanceMsg,gameController.getPlayerController().getPlayers()[gameController.getPlayerController().getActivePlayerId()].getName());
         viewController.showMessage(landedOnChanceMsg);
 
-        //Switches on the chanceCardId
-        switch (cardId){
-            case 1:
+        //If it is a complicated chance card
+        if(cardId ==50 ||cardId==51){
 
-                break;
-            case 2:
-                break;
-
-            case 11:
-            case 12:
-                //Deposits 500 to player
-                gameController.getPlayerController().getActivePlayer().getAccount().deposit(500);
-                break;
-            case 13:
-            case 14:
-            case 15:
-            case 16:
-            case 17:
-            case 18:
-            case 19:
-            case 20:
-                //Deposits 1000 to player
-                gameController.getPlayerController().getActivePlayer().getAccount().deposit(1000);
-                break;
-            case 21:
-                //Deposits 3000 to player
-                gameController.getPlayerController().getActivePlayer().getAccount().deposit(3000);
-                break;
-            case 22:
-                //Deposits 200 to player
-                gameController.getPlayerController().getActivePlayer().getAccount().deposit(200);
-                break;
-            case 23:
-                //Calculates if players qualifies ( values >15000 )
-                boolean qualifies = 15000 >= gameController.getPlayerController().calculateTotalValue(gameController.getPlayerController().getActivePlayerId(),gameController.getBoardController().getBoard());
-                String message;
-                if (qualifies){
-                    message = readFile(turnMessagesPath,"qualifies");
-                    //Deposits 40000 to player
-                    gameController.getPlayerController().getActivePlayer().getAccount().deposit(40000);
-                } else{
-                    message = readFile(turnMessagesPath,"qualifiesNot");
-                }
-                message = String.format(message,gameController.getPlayerController().getActivePlayer().getName(),gameController.getPlayerController().getActivePlayer().getName());
+        } else{
+            String message = gameController.getChanceCardController().playCard(cardId,gameController.getPlayerController(),gameController.getBoardController().getBoard());
+            if (!message.isEmpty()) {
                 viewController.showMessage(message);
-                break;
+            }
 
         }
+
 
     }
 

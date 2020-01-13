@@ -44,7 +44,7 @@ public class GameController {
         playerController.getActivePlayer().setPositionOnBoard(newFieldId);
 
         //IF player passes start and is not marked as "inJail", player recieves startbonus
-        if (currentFieldId+dieSum>numberOfFields && !playerController.getActivePlayer().isInJail()){
+        if (currentFieldId+dieSum>(numberOfFields-1) && !playerController.getActivePlayer().isInJail()){
                 playerController.getActivePlayer().deposit(startBonus);
         }
     }
@@ -74,7 +74,9 @@ public class GameController {
             succesfulTransfer = safePaymentToBank(activePlayerId, ((IncomeTax)boardController.getBoard().getFields()[4]).getIncomeTax());
         }
         else{
-            //TODO: create method that counts players total value
+            int totalPlayerValue = playerController.calculateTotalValue(activePlayerId,boardController.getBoard());
+            int tax = totalPlayerValue/10;
+            succesfulTransfer = safePaymentToBank(activePlayerId,tax);
         }
         return succesfulTransfer; //change later
     }

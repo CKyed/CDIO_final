@@ -8,7 +8,7 @@ incometax:Betal indkomstskat, enten 10% eller 4000kr
 payRentFromTo:%s betaler %s i husleje til %s.
 pay4kTax:Betal 4000 kr. i skat
 pay10pct:Betal 10% af dine værdier i skat
-buyOrSellBeforeTurn:Ønsker %s at købe eller sælge huse?
+buyBeforeTurn:Ønsker %s at købe huse?
 howManyHouses:Hvor mange huse ønsker %s at købe på %s?
 buildingSucceeded:Det lykkedes at bygge %s huse.
 notPossibleToBuild:Den ønskede udbygning er ikke mulig.
@@ -17,3 +17,4 @@ qualifies:%s samlede værdier udgør ikke mere end 15000. %s modtager Matadorleg
 qualifiesNot:%s samlede værdier udgør mere end 15000. %s modtager ikke Matadorlegatet.
 landedOnChance:%s er landet på et chancefelt. Læs kortet i midten af brættet.
 getLucky:Prøv lykken
+cantAffordOwnable:%s har ikke råd til at købe %s.

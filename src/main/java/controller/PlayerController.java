@@ -38,23 +38,21 @@ public class PlayerController {
      */
 
     public boolean safeTransferToBank(int playerId,int amount) {
-        boolean succes=true;
-        if (amount <= players[playerId].getAccountBalance()) {
-            takeMoneyFromPlayer(playerId, amount);
-        } else {
-            succes=false;
+        boolean succes=false;
+        if(amount<=players[playerId].getAccountBalance()) {
+            succes=true;
         }
+        takeMoneyFromPlayer(playerId, amount);
         return succes;
     }
 
     public boolean safeTransferToPlayer(int fromPlayerId, int amount, int toPlayerId){
-        boolean succes = true;
-        if(amount<=players[fromPlayerId].getAccountBalance() && players[toPlayerId].isInJail() == false){
-            takeMoneyFromPlayer(fromPlayerId,amount);
-            addMoneyToPlayer(toPlayerId,amount);
-        } else {
-            succes=false;
+        boolean succes = false;
+        if(amount<=players[fromPlayerId].getAccountBalance()) {
+            succes=true;
         }
+        takeMoneyFromPlayer(fromPlayerId,amount);
+        addMoneyToPlayer(toPlayerId,amount);
         return succes;
     }
 
@@ -80,9 +78,12 @@ public class PlayerController {
 
     public void updateActivePlayer(){
         //Updates the activePlayer - only if last diceroll wasn't 2 of the same
+        do {
             this.activePlayerId++;
             this.activePlayerId = this.activePlayerId % this.numberOfPlayers;
             this.activePlayer = players[activePlayerId];
+        }
+        while (this.activePlayer.getAccountBalance()==0);
     }
 
     public int getActivePlayerId() {
