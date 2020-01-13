@@ -15,6 +15,7 @@ public class PlayerController {
         //Setup the players with player names and start money
         this.numberOfPlayers = playerNames.length;
         int startKapital=30000;
+        //TODO ændre til 30000
         players = new Player[numberOfPlayers];
         for (int i=0;i<numberOfPlayers;i++){
             players[i] = new Player(playerNames[i],startKapital);
