@@ -14,7 +14,7 @@ public class PlayerController {
     public PlayerController(String[] playerNames){
         //Setup the players with player names and start money
         this.numberOfPlayers = playerNames.length;
-        int startKapital=30000;
+        int startKapital=10000;//Todo
         players = new Player[numberOfPlayers];
         for (int i=0;i<numberOfPlayers;i++){
             players[i] = new Player(playerNames[i],startKapital);
@@ -126,6 +126,11 @@ public class PlayerController {
         }
 
      return totalValue;
+    }
+
+    // Make loser's account = 0
+    public void accountReset(int playerId){
+        players[playerId].getAccount().setBalance( 0 );
     }
 
 }

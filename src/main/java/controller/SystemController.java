@@ -135,6 +135,7 @@ public class SystemController {
                 //Player can't afford the rent
                 //TODO
                 System.out.println("HER SKAL VI GØRE NOGET");
+                looserSituation();
 
             }
             //If it is vacant - asks if player wants to buy
@@ -160,6 +161,7 @@ public class SystemController {
                 String msg = readFile(turnMessagesPath,"cantAffordOwnable");
                 msg = String.format(msg, gameController.getActivePlayer().getName(),gameController.getBoardController().getBoard().getFields()[currentFieldId].getName());
                 viewController.showMessage(msg);
+                looserSituation();
             }
 
 
@@ -214,6 +216,9 @@ public class SystemController {
 
         if(cantAfford==false){
             //TODO: Should handle if the players can't afford to pay
+            //Player can't afford the tax
+            //Looser message
+            looserSituation();
         }
     }
 
@@ -245,6 +250,15 @@ public class SystemController {
     }
 
 
+    // Handel looser situation
+    public void looserSituation(){
+        int fieldId = gameController.getActivePlayer().getPositionOnBoard();
+
+        gameController.getPlayerController().accountReset(  gameController.getActivePlayerId());
+
+        viewController.looserMessage(gameController.getActivePlayerId());
+        viewController.removeLoser( gameController.getActivePlayerId(), fieldId);
+    }
 
 
 
