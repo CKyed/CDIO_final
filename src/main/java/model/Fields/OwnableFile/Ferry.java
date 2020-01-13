@@ -11,10 +11,6 @@ public class Ferry extends Ownable {
         super(state);
     }
 
-    @Override
-    public void setRent() {
-
-    }
 
     @Override
     public int getGroup() {
@@ -25,4 +21,9 @@ public class Ferry extends Ownable {
     public String getType() {
         return this.type;
     }
+
+    public int getRentLevel() {
+        return rentLevel;
+    }
+
 }

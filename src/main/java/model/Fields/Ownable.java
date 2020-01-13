@@ -7,17 +7,19 @@ import static controller.TextController.getFieldData;
 import static controller.TextController.readFile;
 
 public abstract class Ownable extends Field {
-    private int price;
-    private int rent;
-    private boolean isPledged;
-    private int ownerId = -1;
+    protected int price;
+    protected int rent;
+    protected boolean isPledged;
+    protected int ownerId = -1;
 
     public Ownable(String state) {
         super(state);
         this.price = getFieldData(state,"price");
         this.rent = getFieldData(state,"rent");
     }
-    public abstract void setRent();
+    public void setRent(int rent){
+        this.rent = rent;
+    };
 
 
     public int getOwnerId() {
@@ -32,4 +34,11 @@ public abstract class Ownable extends Field {
         this.ownerId = ownerId;
     }
 
+    public int getRent() {
+        return this.rent;
+    }
+
+    public boolean isPledged() {
+        return isPledged;
+    }
 }
