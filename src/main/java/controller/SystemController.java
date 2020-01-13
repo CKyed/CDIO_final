@@ -135,9 +135,6 @@ public class SystemController {
 
                     //Multiplies by dieSum
                     rent = rent*gameController.getDiceController().getSum();
-
-                    //Multiplies by number of breweries owned
-                    rent = rent*gameController.getBoardController().getNumberOfOwnablesOwnedInGroup(fieldId);
                     break;
             }
 
