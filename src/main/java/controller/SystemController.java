@@ -138,8 +138,12 @@ public class SystemController {
 
             //hvis ejeren af feltet er i fængsel, skal man ikke betale noget
             if(gameController.getPlayerController().getPlayers()[gameController.getOwnerId()].isInJail()){
+            viewController.showMessage(String.format(readFile(turnMessagesPath,"ownerInPrison")));
+            //transfers 0 money from player to player
+            //TODO: tjek her: kan næste linje udelades? -ida
+            gameController.getPlayerController().safeTransferToPlayer(gameController.getActivePlayerId(),0,gameController.getOwnerId())
 
-            }
+                }
 
             //Tries to pay rent
             else if(gameController.getPlayerController().safeTransferToPlayer(gameController.getActivePlayerId(),rent,gameController.getOwnerId())){

@@ -18,3 +18,4 @@ qualifiesNot:%s samlede værdier udgør mere end 15000. %s modtager ikke Matador
 landedOnChance:%s er landet på et chancefelt. Læs kortet i midten af brættet.
 getLucky:Prøv lykken
 cantAffordOwnable:%s har ikke råd til at købe %s.
+ownerInPrison:Ejeren af denne grund er i fængsel, så du skal ikke betale husleje
