@@ -171,6 +171,14 @@ public class BoardController {
 
                     //sets rent
                     ((Ownable)board.getFields()[i]).setRent(rent);
+                    break;
+                case "brew":
+                    int numberOfBreweriesOwned = getNumberOfOwnablesOwnedInGroup(i);
+                    rent = ((Brewery)board.getFields()[i]).getRentLevels()[numberOfBreweriesOwned-1];
+                    //sets rent
+                    ((Ownable)board.getFields()[i]).setRent(rent);
+                    break;
+
             }
 
 
