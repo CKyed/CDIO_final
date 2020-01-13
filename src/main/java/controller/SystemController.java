@@ -196,7 +196,6 @@ public class SystemController {
                 String msg = readFile(turnMessagesPath,"cantAffordOwnable");
                 msg = String.format(msg, gameController.getActivePlayer().getName(),gameController.getBoardController().getBoard().getFields()[currentFieldId].getName());
                 viewController.showMessage(msg);
-                looserSituation();
             }
 
 
