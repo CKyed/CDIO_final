@@ -41,7 +41,6 @@ public class SystemController {
             if(gameController.getActivePlayer().isInJail()){
                 boolean success = gameController.payBail(activePlayerId);
                 gameController.getPlayerController().getPlayers()[activePlayerId].setInJail(false);
-
                 if(success == false){
                     //TODO Method for handling loser-condition is called here
                 }
@@ -122,6 +121,7 @@ public class SystemController {
 
             //Tries to pay rent
             if(gameController.getPlayerController().safeTransferToPlayer(gameController.getActivePlayerId(),amount,gameController.getOwnerId())){
+
                 //Displays message
                 String message = String.format(readFile(turnMessagesPath,"payRentFromTo"),fromPlayerName,amount,toPlayerName);
                 viewController.showMessage(message);

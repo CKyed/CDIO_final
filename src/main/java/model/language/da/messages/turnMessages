@@ -12,7 +12,7 @@ buyOrSellBeforeTurn:Ønsker %s at købe eller sælge huse?
 howManyHouses:Hvor mange huse ønsker %s at købe på %s?
 buildingSucceeded:Det lykkedes at bygge %s huse.
 notPossibleToBuild:Den ønskede udbygning er ikke mulig.
-selfOwned:%s ejer allerede %s.
+selfOwned:%s ejer allerede %s, man kan først bygge huse når man ejer alle grunde af samme farve
 qualifies:%s samlede værdier udgør ikke mere end 15000. %s modtager Matadorlegatet.
 qualifiesNot:%s samlede værdier udgør mere end 15000. %s modtager ikke Matadorlegatet.
 landedOnChance:%s er landet på et chancefelt. Læs kortet i midten af brættet.
