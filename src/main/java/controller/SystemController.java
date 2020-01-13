@@ -242,7 +242,7 @@ public class SystemController {
                 //Shows how much player payed, if player chose 10%
                 if (!choice){
                     String playerPayedMsg = readFile(turnMessagesPath,"playerPayed");
-                    String.format(playerPayedMsg,gameController.getActivePlayer().getName(),tenPctOfValues);
+                    playerPayedMsg = String.format(playerPayedMsg,gameController.getActivePlayer().getName(),tenPctOfValues);
                     viewController.showMessage(playerPayedMsg);
                 }
                 break;
