@@ -47,7 +47,6 @@ public class SystemController {
 
                 boolean success = gameController.payBail(activePlayerId);
                 gameController.getPlayerController().getPlayers()[activePlayerId].setInJail(false);
-
                 if(success == false){
                     //TODO Method for handling loser-condition is called here
                 }
@@ -88,13 +87,8 @@ public class SystemController {
 
                     }
                 }
-
-
             }
-
-
         }
-
     }
 
     public void playTurn(){
@@ -147,8 +141,18 @@ public class SystemController {
                     break;
             }
 
+
+            //hvis ejeren af feltet er i fængsel, skal man ikke betale noget
+            if(gameController.getPlayerController().getPlayers()[gameController.getOwnerId()].isInJail()){
+            String message = String.format(readFile(turnMessagesPath, "ownerInPrison"));
+            viewController.showMessage(message);
+            //transfers 0 money from player to player
+            gameController.getPlayerController().safeTransferToPlayer(gameController.getActivePlayerId(),0,gameController.getOwnerId());
+                }
+
             //Tries to pay rent
-            if(gameController.getPlayerController().safeTransferToPlayer(gameController.getActivePlayerId(),rent,gameController.getOwnerId())){
+            else if(gameController.getPlayerController().safeTransferToPlayer(gameController.getActivePlayerId(),rent,gameController.getOwnerId())){
+
                 //Displays message
                 String message = String.format(readFile(turnMessagesPath,"payRentFromTo"),fromPlayerName,rent,toPlayerName);
                 viewController.showMessage(message);
@@ -209,6 +213,8 @@ public class SystemController {
         switch (activeFieldType){
             case "street":
                 playPropertyField();
+
+
                 break;
             case "ferry":
                 playPropertyField();

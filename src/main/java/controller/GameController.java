@@ -87,6 +87,7 @@ public class GameController {
 
     public boolean safePaymentToPlayer(int fromPlayerId, int amount, int toPlayerId){
         return playerController.safeTransferToPlayer(fromPlayerId,amount,toPlayerId);
+
     }
 
     public PlayerController getPlayerController() {
