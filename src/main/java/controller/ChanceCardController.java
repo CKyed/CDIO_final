@@ -75,6 +75,10 @@ public class ChanceCardController {
                 //moves the player three fields further
                 playerController.getActivePlayer().setPositionOnBoard(playerController.getActivePlayer().getPositionOnBoard()+3);
                 break;
+            case 30:
+            case 31:
+                playerController.getActivePlayer().setPositionOnBoard(playerController.getActivePlayer().getPositionOnBoard()-3);
+                break;
 
         }
         return message;
