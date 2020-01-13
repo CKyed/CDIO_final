@@ -71,7 +71,10 @@ public class ChanceCardController {
                 message = String.format(message,playerController.getActivePlayer().getName(),playerController.getActivePlayer().getName());
 
                 break;
-
+            case 41:
+            case 42:
+                playerController.getActivePlayer().setPrisonCard(true);
+                break;
         }
         return message;
 
