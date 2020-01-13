@@ -1,8 +1,5 @@
 package controller;
-import model.Board;
 import model.Player;
-import model.Fields.*;
-import model.Fields.OwnableFile.Street;
 
 public class PlayerController {
     private Player[] players;
@@ -49,7 +46,8 @@ public class PlayerController {
 
     public boolean safeTransferToPlayer(int fromPlayerId, int amount, int toPlayerId){
         boolean succes = true;
-        if(amount<=players[fromPlayerId].getAccountBalance()){
+        // players[toPlayerId].getAccount().getBalance() != 0 To avoid transfer to the looser
+        if(amount<=players[fromPlayerId].getAccountBalance() && players[toPlayerId].getAccount().getBalance() != 0){
             takeMoneyFromPlayer(fromPlayerId,amount);
             addMoneyToPlayer(toPlayerId,amount);
         } else {
@@ -125,6 +123,10 @@ public class PlayerController {
         }
 
      return totalValue;
+    }
+
+    public void accountReset(int playerId){
+        players[playerId].getAccount().setBalance( 0 );
     }
 
 }

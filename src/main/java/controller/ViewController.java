@@ -20,11 +20,14 @@ public class ViewController {
     private GUI_Player[] guiPlayers;
     private GUI_Car[] guiCars;
     private String[] fieldSubtexts;
+    private String[] playerNames;
+    private int counterForWinner = 0;
+
 
     public ViewController(Board board) {
-        GUI_Field[] fields = createFields(board);
+        GUI_Field[] fields = createFields( board );
         this.fields = fields;
-        this.gui = new GUI(fields);
+        this.gui = new GUI( fields );
 
 
 
@@ -80,9 +83,6 @@ public class ViewController {
                     case ("prison"):
                         guiFields[i] = new GUI_Jail();
                         break;
-                    case ("visit"):
-                        guiFields[i] = new GUI_Jail();
-                        break;
                     case ("ferry"):
                         guiFields[i] = new GUI_Shipping();
                         fieldSubtexts[i] = readFile(setupMessagesPath,"owner") + " " + readFile(setupMessagesPath,"none") +" \n"
@@ -114,7 +114,8 @@ public class ViewController {
     public String[] setupPlayers(){
         gui.showMessage(readFile(setupMessagesPath,"welcome"));
 
-        int numberOfPlayers = Integer.parseInt(gui.getUserSelection(readFile(setupMessagesPath,"choosePlayerNumber"),"3","4","5","6"));
+
+        int numberOfPlayers = Integer.parseInt(gui.getUserSelection("","3","4","5","6"));
 
         String[] playerNames = new String[numberOfPlayers];
 
@@ -161,16 +162,26 @@ public class ViewController {
     public void rollDiceAndMove(int[] faceValues, int sum,int activePlayerId, int oldFieldId){
         gui.setDice(faceValues[0],faceValues[1]);
 
-        for (int i =0;i<sum;i++){
-            teleportPlayerCar(activePlayerId,1,(oldFieldId+i)% fields.length);
-            try
-            {
-                Thread.sleep(200);
+    public void rollDiceAndMove(int[] faceValues, int sum, int activePlayerId, int oldFieldId) {
+        String guiActivePlayerName = guiPlayers[activePlayerId].getName();
+
+        if ((guiActivePlayerName.indexOf( "tabt" )) == -1  && counterForWinner != playerNames.length - 1) {
+            // "looser" does not exist in playerName and  there are players on board more than one
+            String newTurnMessage = String.format( readFile( turnMessagesPath, "newTurn" ), guiPlayers[activePlayerId].getName() );
+            gui.showMessage( newTurnMessage );
+            gui.setDice( faceValues[0], faceValues[1] );
+
+            for (int i = 0; i < sum; i++) {
+                teleportPlayerCar( activePlayerId, 1, (oldFieldId + i) % fields.length );
+                try {
+                    Thread.sleep( 200 );
+                } catch (InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                }
             }
-            catch(InterruptedException ex)
-            {
-                Thread.currentThread().interrupt();
-            }
+        } else if (counterForWinner == playerNames.length - 1){
+            // There is one player on board
+            findWinner();
         }
     }
 
@@ -195,6 +206,8 @@ public class ViewController {
 
            this.fields[0].setCar(this.guiPlayers[i],true);
         }
+
+
     }
 
 
@@ -251,8 +264,12 @@ public class ViewController {
                     ;
                     fields[i].setDescription(fieldSubtexts[i]);
                     break;
+
             }
+
+
         }
+
     }
 
     public boolean buyFieldOrNot(int activePlayerId,int fieldId){
@@ -312,5 +329,37 @@ public class ViewController {
     public void showChanceCard(String cardText){
         gui.displayChanceCard(cardText);
     }
+
+    public void looserMessage(int activePlayerId) {
+        String msg = String.format( readFile( endMessagePath,"loser" ),playerNames[activePlayerId]);
+        gui.showMessage(msg);
+    }
+
+    public void removeLoser(int playerId, int oldFieldId) {
+        // When the counterForWinner = playerNames.length-1, so we know that there is one player on board
+        counterForWinner++;
+        fields[oldFieldId].setCar( guiPlayers[playerId], false );
+        updateLooserOnBoard( playerId );
+    }
+
+    public void updateLooserOnBoard(int playerId) {
+        guiPlayers[playerId].setName( playerNames[playerId] + readFile( endMessagePath, "updateLooserOnBoard" ));
+        guiPlayers[playerId].setBalance(0);
+    }
+
+    public void findWinner(){
+        if (counterForWinner == playerNames.length - 1) {
+            for (int i = 0; i < playerNames.length; i++) {
+                if ((guiPlayers[i].getName().indexOf( "tabt" )) == -1) {
+                    // "looser" does not exist in winner name
+                    String msg = String.format( readFile( endMessagePath, "winner" ), guiPlayers[i].getName());
+                    gui.showMessage( msg );
+                }
+            }
+        }
+        gui.close();
+        System.exit( 0 );
+    }
+
 
 }

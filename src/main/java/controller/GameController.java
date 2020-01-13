@@ -12,7 +12,6 @@ public class GameController {
     private PlayerController playerController;
     private int startBonus = 4000;
     private DiceController diceController;
-
     private ChanceCardController chanceCardController;
 
     public GameController(){
@@ -25,6 +24,11 @@ public class GameController {
         return boardController;
     }
 
+    public void setupPlayers(String[] playerNames){
+        this.playerController = new PlayerController(playerNames);
+        activePlayerId =-1;
+        updateActivePlayer();
+    }
 
     public int[] rollDice(){
         diceController.roll();
@@ -105,6 +109,7 @@ public class GameController {
         if (!diceController.isSameValue()){
             this.playerController.updateActivePlayer();
         }
+
     }
 
     public int getActivePlayerId() {
@@ -113,26 +118,28 @@ public class GameController {
 
 
     public int getOwnerId(){
-        int activeFieldId = playerController.getActivePlayer().getPositionOnBoard();
+        int activeFieldId = activePlayer.getPositionOnBoard();
         int ownerId = ((Ownable)this.boardController.getBoard().getFields()[activeFieldId]).getOwnerId();
         return ownerId;
     }
 
     public void buyFieldForPlayer(){
         //Gets price
-        int price = ((Street)boardController.getBoard().getFields()[playerController.getActivePlayer().getPositionOnBoard()]).getPrice();
+        int price = ((Street)boardController.getBoard().getFields()[activePlayer.getPositionOnBoard()]).getPrice();
 
         //Pays
-        safePaymentToBank(playerController.getActivePlayerId(),price);
-
-        //Gives ownership to player
-        ((Street)boardController.getBoard().getFields()[playerController.getActivePlayer().getPositionOnBoard()]).setOwnerId(playerController.getActivePlayerId());
-
+        if (safePaymentToBank(activePlayerId,price)){
+            //Gives ownership to player
+            ((Street)boardController.getBoard().getFields()[activePlayer.getPositionOnBoard()]).setOwnerId(activePlayerId);
+            return true;
+        }else {
+            return false;
+        }
     }
 
     /**
      * Method that can be called when a player lands on the field called Ordinary Tax
-     * @param //activePlayerId
+     * @param activePlayerId
      * @return
      */
 

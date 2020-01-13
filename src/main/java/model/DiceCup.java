@@ -40,6 +40,7 @@ public class DiceCup {
           dieSum += this.dice[i].getFaceValue();
         }
         return dieSum;
+//        return 4;//Todo
     }
 
     public int[] getFaceValues() {

@@ -5,8 +5,6 @@ import model.Fields.Ownable;
 import static controller.PathExpert.*;
 import static controller.TextController.readFile;
 
-
-
 public class SystemController {
     private GameController gameController;
     private ViewController viewController;
@@ -14,9 +12,7 @@ public class SystemController {
 
 
     public SystemController(){
-        //Initializes controllers
         this.gameController = new GameController();
-        this.viewController = new ViewController(gameController.getBoardController().getBoard());
 
         //Setup players with an array of Strings from the viewcontroller
         String[] playerNames = this.viewController.setupPlayers();
@@ -105,6 +101,13 @@ public class SystemController {
         //Does actions on new field
         landOnField();
 
+//        if (gameController.getActivePlayer().getAccount().getBalance() > 0){
+//            // Check the player's balance, because if the balance = 0
+//            // so this player was a looser, therefor we don't need to call landOnField
+//            landOnField((oldFieldId + sum) % 40, activePlayerId);// TODO fieldID throw parameter
+//        } TODO check for for working
+
+
         //Updates the balances of all Players
         viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
 
@@ -130,8 +133,9 @@ public class SystemController {
                 viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
             } else {
                 //Player can't afford the rent
-                //TODO
-                System.out.println("HER SKAL VI GØRE NOGET");
+                //Looser message
+                looserSituation( fieldId, activePlayerId);
+
 
             }
             //If it is vacant - asks if player wants to buy
@@ -140,14 +144,19 @@ public class SystemController {
 
             //If he chooses to buy
             if (viewController.buyFieldOrNot(gameController.getActivePlayerId(),gameController.getActivePlayer().getPositionOnBoard())){
+                //If he chooses to buy
 
                 //Withdraws money
-                gameController.buyFieldForPlayer();
-
-                //Updates the owner
-                int currentFieldId = gameController.getActivePlayer().getPositionOnBoard();
-                ((Ownable)gameController.getBoardController().getBoard().getFields()[currentFieldId]).setOwnerId(gameController.getActivePlayerId());
-            }
+                // return can pay = true or can't pay = false
+                if (gameController.buyFieldForPlayer()){
+                    //Updates the owner
+                    int currentFieldId = gameController.getActivePlayer().getPositionOnBoard();
+                    ((Ownable)gameController.getBoardController().getBoard().getFields()[currentFieldId]).setOwnerId(gameController.getActivePlayerId());
+                }else {
+                    //Player can't afford buying field
+                    //Looser message
+                    looserSituation( fieldId, activePlayerId);
+                }
 
         } else{//If the player owns it himself
             String selfOwnedMessage = readFile(turnMessagesPath,"selfOwned");
@@ -199,6 +208,9 @@ public class SystemController {
 
         if(cantAfford==false){
             //TODO: Should handle if the players can't afford to pay
+            //Player can't afford the tax
+            //Looser message
+            looserSituation(fieldId, activePlayerId);
         }
     }
 
@@ -270,4 +282,12 @@ public class SystemController {
 
 
 
+
+    // Handel looser situation
+    public void looserSituation(int fieldId, int activePlayerId){
+        gameController.getPlayerController().accountReset(  activePlayerId);
+
+        viewController.looserMessage(activePlayerId);
+        viewController.removeLoser( gameController.getActivePlayerId(), fieldId);
+    }
 }

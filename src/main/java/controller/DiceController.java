@@ -6,7 +6,7 @@ public class DiceController {
     private DiceCup diceCup;
     private int[] faceValues;
 
-    private boolean sameValue =false;
+    private boolean sameValue = false;
 
 
     public DiceController(){
