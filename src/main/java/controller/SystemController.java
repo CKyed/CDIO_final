@@ -142,7 +142,7 @@ public class SystemController {
             viewController.showMessage(message);
             //transfers 0 money from player to player
             //TODO: tjek her: kan næste linje udelades? -ida
-            gameController.getPlayerController().safeTransferToPlayer(gameController.getActivePlayerId(),0,gameController.getOwnerId())
+            gameController.getPlayerController().safeTransferToPlayer(gameController.getActivePlayerId(),0,gameController.getOwnerId());
 
                 }
 
