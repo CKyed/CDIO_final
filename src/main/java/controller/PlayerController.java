@@ -49,7 +49,7 @@ public class PlayerController {
 
     public boolean safeTransferToPlayer(int fromPlayerId, int amount, int toPlayerId){
         boolean succes = true;
-        if(amount<=players[fromPlayerId].getAccountBalance()){
+        if(amount<=players[fromPlayerId].getAccountBalance() && players[toPlayerId].isInJail() == false){
             takeMoneyFromPlayer(fromPlayerId,amount);
             addMoneyToPlayer(toPlayerId,amount);
         } else {
