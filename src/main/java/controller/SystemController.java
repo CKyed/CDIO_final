@@ -13,6 +13,7 @@ public class SystemController {
 
     public SystemController(){
         this.gameController = new GameController();
+        this.viewController = new ViewController( gameController.getBoardController().getBoard() );
 
         //Setup players with an array of Strings from the viewcontroller
         String[] playerNames = this.viewController.setupPlayers();
@@ -113,59 +114,60 @@ public class SystemController {
 
     }
 
-    public void playPropertyField(){
+    public void playPropertyField() {
 
         //If the property is owned by someone else
-        if(gameController.getOwnerId()>=0 && gameController.getOwnerId()!= gameController.getActivePlayerId()){
+        if (gameController.getOwnerId() >= 0 && gameController.getOwnerId() != gameController.getActivePlayerId()) {
             //Gets data
             int fieldId = gameController.getActivePlayer().getPositionOnBoard();
             String fromPlayerName = gameController.getActivePlayer().getName();
             String toPlayerName = gameController.getPlayerController().getPlayers()[gameController.getOwnerId()].getName();
-            int amount = ((Ownable)gameController.getBoardController().getBoard().getFields()[fieldId]).getRent();
+            int amount = ((Ownable) gameController.getBoardController().getBoard().getFields()[fieldId]).getRent();
 
             //Tries to pay rent
-            if(gameController.getPlayerController().safeTransferToPlayer(gameController.getActivePlayerId(),amount,gameController.getOwnerId())){
+            if (gameController.getPlayerController().safeTransferToPlayer( gameController.getActivePlayerId(), amount, gameController.getOwnerId() )) {
                 //Displays message
-                String message = String.format(readFile(turnMessagesPath,"payRentFromTo"),fromPlayerName,amount,toPlayerName);
-                viewController.showMessage(message);
+                String message = String.format( readFile( turnMessagesPath, "payRentFromTo" ), fromPlayerName, amount, toPlayerName );
+                viewController.showMessage( message );
 
                 //Updates player balances
-                viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
+                viewController.updatePlayerBalances( gameController.getPlayerController().getPlayerBalances() );
             } else {
                 //Player can't afford the rent
                 //Looser message
-                looserSituation( fieldId, activePlayerId);
+                looserSituation();
 
 
             }
             //If it is vacant - asks if player wants to buy
-        } else if (gameController.getOwnerId()==-1){
+        } else if (gameController.getOwnerId() == -1) {
             //If it is vacant - asks if player wants to buy
 
             //If he chooses to buy
-            if (viewController.buyFieldOrNot(gameController.getActivePlayerId(),gameController.getActivePlayer().getPositionOnBoard())){
+            if (viewController.buyFieldOrNot( gameController.getActivePlayerId(), gameController.getActivePlayer().getPositionOnBoard() )) {
                 //If he chooses to buy
 
                 //Withdraws money
                 // return can pay = true or can't pay = false
-                if (gameController.buyFieldForPlayer()){
+                if (gameController.buyFieldForPlayer()) {
                     //Updates the owner
                     int currentFieldId = gameController.getActivePlayer().getPositionOnBoard();
-                    ((Ownable)gameController.getBoardController().getBoard().getFields()[currentFieldId]).setOwnerId(gameController.getActivePlayerId());
-                }else {
+                    ((Ownable) gameController.getBoardController().getBoard().getFields()[currentFieldId]).setOwnerId( gameController.getActivePlayerId() );
+                } else {
                     //Player can't afford buying field
                     //Looser message
-                    looserSituation( fieldId, activePlayerId);
+                    looserSituation( );
                 }
 
-        } else{//If the player owns it himself
-            String selfOwnedMessage = readFile(turnMessagesPath,"selfOwned");
-            selfOwnedMessage = String.format(selfOwnedMessage,gameController.getActivePlayer().getName(),
-                    gameController.getBoardController().getBoard().getFields()[gameController.getActivePlayer().getPositionOnBoard()].getName());
-            viewController.showMessage(selfOwnedMessage);
+            } else {//If the player owns it himself
+                String selfOwnedMessage = readFile( turnMessagesPath, "selfOwned" );
+                selfOwnedMessage = String.format( selfOwnedMessage, gameController.getActivePlayer().getName(),
+                        gameController.getBoardController().getBoard().getFields()[gameController.getActivePlayer().getPositionOnBoard()].getName() );
+                viewController.showMessage( selfOwnedMessage );
+
+            }
 
         }
-
     }
 
     public void landOnField(){
@@ -210,7 +212,7 @@ public class SystemController {
             //TODO: Should handle if the players can't afford to pay
             //Player can't afford the tax
             //Looser message
-            looserSituation(fieldId, activePlayerId);
+            looserSituation();
         }
     }
 
@@ -284,10 +286,11 @@ public class SystemController {
 
 
     // Handel looser situation
-    public void looserSituation(int fieldId, int activePlayerId){
-        gameController.getPlayerController().accountReset(  activePlayerId);
+    public void looserSituation(){
+        int fieldId = gameController.getActivePlayer().getPositionOnBoard();
 
-        viewController.looserMessage(activePlayerId);
+        gameController.getPlayerController().accountReset(gameController.getActivePlayerId());
+        viewController.looserMessage(fieldId);
         viewController.removeLoser( gameController.getActivePlayerId(), fieldId);
     }
 }

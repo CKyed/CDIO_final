@@ -1,5 +1,8 @@
 package controller;
-import model.Player;
+import model.*;
+import model.Fields.*;
+import model.Fields.OwnableFile.*;
+
 
 public class PlayerController {
     private Player[] players;
@@ -130,3 +133,4 @@ public class PlayerController {
     }
 
 }
+

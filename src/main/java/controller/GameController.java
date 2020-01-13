@@ -26,7 +26,6 @@ public class GameController {
 
     public void setupPlayers(String[] playerNames){
         this.playerController = new PlayerController(playerNames);
-        activePlayerId =-1;
         updateActivePlayer();
     }
 
@@ -118,19 +117,19 @@ public class GameController {
 
 
     public int getOwnerId(){
-        int activeFieldId = activePlayer.getPositionOnBoard();
+        int activeFieldId = playerController.getActivePlayer().getPositionOnBoard();
         int ownerId = ((Ownable)this.boardController.getBoard().getFields()[activeFieldId]).getOwnerId();
         return ownerId;
     }
 
-    public void buyFieldForPlayer(){
+    public boolean buyFieldForPlayer(){
         //Gets price
-        int price = ((Street)boardController.getBoard().getFields()[activePlayer.getPositionOnBoard()]).getPrice();
+        int price = ((Street)boardController.getBoard().getFields()[playerController.getActivePlayer().getPositionOnBoard()]).getPrice();
 
         //Pays
-        if (safePaymentToBank(activePlayerId,price)){
+        if (safePaymentToBank(playerController.getActivePlayerId(),price)){
             //Gives ownership to player
-            ((Street)boardController.getBoard().getFields()[activePlayer.getPositionOnBoard()]).setOwnerId(activePlayerId);
+            ((Street)boardController.getBoard().getFields()[playerController.getActivePlayer().getPositionOnBoard()]).setOwnerId(playerController.getActivePlayerId());
             return true;
         }else {
             return false;
@@ -139,7 +138,7 @@ public class GameController {
 
     /**
      * Method that can be called when a player lands on the field called Ordinary Tax
-     * @param activePlayerId
+     * @param
      * @return
      */
 

@@ -16,7 +16,7 @@ public class BoardController {
     }
 
     public Board getBoard() {
-        return board;
+        return this.board;
     }
 
     public void setup(){
