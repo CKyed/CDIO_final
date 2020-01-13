@@ -25,9 +25,10 @@ public class ViewController {
 
 
     public ViewController(Board board) {
+        Color bgcolor = new Color(151,90,22);
         GUI_Field[] fields = createFields(board);
         this.fields = fields;
-        this.gui = new GUI(fields);
+        this.gui = new GUI(fields,bgcolor);
 
 
     }
