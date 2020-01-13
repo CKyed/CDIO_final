@@ -81,13 +81,8 @@ public class SystemController {
 
                     }
                 }
-
-
             }
-
-
         }
-
     }
 
     public void playTurn(){
@@ -122,8 +117,14 @@ public class SystemController {
             String toPlayerName = gameController.getPlayerController().getPlayers()[gameController.getOwnerId()].getName();
             int amount = ((Ownable)gameController.getBoardController().getBoard().getFields()[fieldId]).getRent();
 
+
+            //hvis ejeren af feltet er i fængsel, skal man ikke betale noget
+            if(gameController.getPlayerController().getPlayers()[gameController.getOwnerId()].isInJail()){
+
+            }
+
             //Tries to pay rent
-            if(gameController.getPlayerController().safeTransferToPlayer(gameController.getActivePlayerId(),amount,gameController.getOwnerId())){
+            else if(gameController.getPlayerController().safeTransferToPlayer(gameController.getActivePlayerId(),amount,gameController.getOwnerId())){
 
                 //Displays message
                 String message = String.format(readFile(turnMessagesPath,"payRentFromTo"),fromPlayerName,amount,toPlayerName);
@@ -162,16 +163,12 @@ public class SystemController {
                 viewController.showMessage(msg);
             }
 
-
-
         } else{//If the player owns it himself
             String selfOwnedMessage = readFile(turnMessagesPath,"selfOwned");
             selfOwnedMessage = String.format(selfOwnedMessage,gameController.getActivePlayer().getName(),
                     gameController.getBoardController().getBoard().getFields()[gameController.getActivePlayer().getPositionOnBoard()].getName());
             viewController.showMessage(selfOwnedMessage);
-
         }
-
     }
 
     public void landOnField(){
