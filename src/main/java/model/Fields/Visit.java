@@ -1,7 +1,7 @@
 package model.Fields;
 
 public class Visit  extends Field {
-    private String type = "prison";
+    private String type = "visit";
     private int group = 9;
     public Visit(String state) {
         super(state);
