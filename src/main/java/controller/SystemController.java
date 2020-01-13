@@ -10,6 +10,8 @@ import static controller.TextController.readFile;
 public class SystemController {
     private GameController gameController;
     private ViewController viewController;
+    private int numberOfPlayers;
+
 
     public SystemController(){
         //Initializes controllers
@@ -26,6 +28,7 @@ public class SystemController {
 
     public void play(){
 
+        int activePlayerId;
         //Plays turns
         while (true){
             //Displays message, showing who's turn it is
@@ -36,8 +39,15 @@ public class SystemController {
 
             //If the player is in jail
             if(gameController.getActivePlayer().isInJail()){
+                boolean success = gameController.payBail(activePlayerId);
+                gameController.getPlayerController().getPlayers()[activePlayerId].setInJail(false);
 
-            } else{ //Otherwise, player rolls dice and plays normal turn
+                if(success == false){
+                    //TODO Method for handling loser-condition is called here
+                }
+
+            } else{
+                //If not in jail, turn starts normally
                 playTurn();
             }
 
@@ -53,7 +63,7 @@ public class SystemController {
     public void buyBeforeTurn(){
         //Gets array of id's of streets that can be built on
         int[] buildableStreetIds = gameController.getBoardController().getBuildableStreetIds(gameController.getActivePlayerId());
-        
+
         //If the player can build and wants to
         if (buildableStreetIds.length != 0 && viewController.chooseToBuy(gameController.getActivePlayerId())){
             int wantedNumberOfHouses;
@@ -126,6 +136,7 @@ public class SystemController {
             }
             //If it is vacant - asks if player wants to buy
         } else if (gameController.getOwnerId()==-1){
+            //If it is vacant - asks if player wants to buy
 
             //If he chooses to buy
             if (viewController.buyFieldOrNot(gameController.getActivePlayerId(),gameController.getActivePlayer().getPositionOnBoard())){
@@ -159,9 +170,6 @@ public class SystemController {
                 playPropertyField();
 
 
-
-
-
                 break;
             case "ferry":
 
@@ -177,14 +185,11 @@ public class SystemController {
                 break;
             case "prison":
                     //TODO add text-message
-                //Player can't get out of prison atm, so it is outcommented for testing purposes
-                //Also, player gets in prison when landing on visit, I think - Peter
-
-//                gameController.getPlayerController().getPlayers()[activePlayer].setInJail(true);
-//                gameController.movePlayer(30,20);
-//                int oldFieldId = gameController.getActivePlayer().getPositionOnBoard();
-//                int virutalFaceValues[] = {10,10};
-//                viewController.rollDiceAndMove(virutalFaceValues,20,activePlayer,oldFieldId);
+                gameController.getPlayerController().getPlayers()[activePlayer].setInJail(true);
+                gameController.movePlayer(30,20);
+                int oldFieldId = gameController.getActivePlayer().getCurrentFieldId();
+                int virutalFaceValues[] = {10,10};
+                viewController.rollDiceAndMove(virutalFaceValues,20,activePlayer,oldFieldId);
                 break;
             case "chance":
                 playChanceCard();
