@@ -17,3 +17,4 @@ qualifies:%s samlede værdier udgør ikke mere end 15000. %s modtager Matadorleg
 qualifiesNot:%s samlede værdier udgør mere end 15000. %s modtager ikke Matadorlegatet.
 landedOnChance:%s er landet på et chancefelt. Læs kortet i midten af brættet.
 getLucky:Prøv lykken
+cantAffordOwnable:%s har ikke råd til at købe %s.

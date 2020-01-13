@@ -102,6 +102,9 @@ public class SystemController {
         //Updates players position in view-layer
         viewController.rollDiceAndMove(faceValues,sum,activePlayerId,oldFieldId);
 
+        //Updates player balances in view layer
+        viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
+
         //Does actions on new field
         landOnField();
 
@@ -136,18 +139,30 @@ public class SystemController {
             }
             //If it is vacant - asks if player wants to buy
         } else if (gameController.getOwnerId()==-1){
-            //If it is vacant - asks if player wants to buy
+            //If it is vacant
 
-            //If he chooses to buy
-            if (viewController.buyFieldOrNot(gameController.getActivePlayerId(),gameController.getActivePlayer().getPositionOnBoard())){
+            int currentFieldId = gameController.getActivePlayer().getPositionOnBoard();
 
-                //Withdraws money
-                gameController.buyFieldForPlayer();
+            //If player can afford it
+            if (gameController.getPlayerController().getActivePlayer().getAccountBalance()>=((Ownable)gameController.getBoardController().getBoard().getFields()[currentFieldId]).getPrice()){
 
-                //Updates the owner
-                int currentFieldId = gameController.getActivePlayer().getPositionOnBoard();
-                ((Ownable)gameController.getBoardController().getBoard().getFields()[currentFieldId]).setOwnerId(gameController.getActivePlayerId());
+                //If he chooses to buy
+                if (viewController.buyFieldOrNot(gameController.getActivePlayerId(),gameController.getActivePlayer().getPositionOnBoard())){
+
+                    //Withdraws money
+                    gameController.buyFieldForPlayer();
+
+                    //Updates the owner
+                    ((Ownable)gameController.getBoardController().getBoard().getFields()[currentFieldId]).setOwnerId(gameController.getActivePlayerId());
+                }
+            } else{
+                //If player can't afford it, tells on board
+                String msg = readFile(turnMessagesPath,"cantAffordOwnable");
+                msg = String.format(msg, gameController.getActivePlayer().getName(),gameController.getBoardController().getBoard().getFields()[currentFieldId].getName());
+                viewController.showMessage(msg);
             }
+
+
 
         } else{//If the player owns it himself
             String selfOwnedMessage = readFile(turnMessagesPath,"selfOwned");
