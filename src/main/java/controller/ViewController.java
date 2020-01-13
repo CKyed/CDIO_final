@@ -29,7 +29,7 @@ public class ViewController {
         GUI_Field[] fields = createFields( board );
         this.fields = fields;
         this.gui = new GUI( fields );
-        // TODO 29 - 31
+
 
     }
 
@@ -128,7 +128,7 @@ public class ViewController {
             playerNames[i] = gui.getUserString( playerNameMessage );
 /*
             while (playerNames[i].equals("")||playerNames[i].equals(" ")){
-                System.out.println("Indtast nyt navn"); //TODO GUI-meddelese
+                System.out.println("Indtast nyt navn");
                 playerNames[i] = gui.getUserString("");
             }
 */
@@ -136,7 +136,7 @@ public class ViewController {
                 gui.showMessage( readFile( setupMessagesPath, "nameError" ) );
                 playerNames[i] = gui.getUserString( "" );
             }
-            // TODO i+1
+
             for (int j = 0; j < numberOfPlayers; j++) {
                 if (playerNames[i].equals( playerNames[j] ) && i != j)
                     playerNames[i] = gui.getUserString( "" );
@@ -172,7 +172,7 @@ public class ViewController {
     public void rollDiceAndMove(int[] faceValues, int sum, int activePlayerId, int oldFieldId) {
         String guiActivePlayerName = guiPlayers[activePlayerId].getName();
 
-        if ((guiActivePlayerName.indexOf( "looser" )) == -1  && counterForWinner != playerNames.length - 1) { // TODO counterForWinner
+        if ((guiActivePlayerName.indexOf( "tabt" )) == -1  && counterForWinner != playerNames.length - 1) {
             // "looser" does not exist in playerName and  there are players on board more than one
             String newTurnMessage = String.format( readFile( turnMessagesPath, "newTurn" ), guiPlayers[activePlayerId].getName() );
             gui.showMessage( newTurnMessage );
@@ -181,7 +181,7 @@ public class ViewController {
             for (int i = 0; i < sum; i++) {
                 teleportPlayerCar( activePlayerId, 1, (oldFieldId + i) % fields.length );
                 try {
-                    Thread.sleep( 0 ); // TODO 200
+                    Thread.sleep( 200 );
                 } catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
                 }
@@ -210,7 +210,7 @@ public class ViewController {
     private void setupGuiPlayers(String[] playerNames) {
         this.guiPlayers = new GUI_Player[playerNames.length];
         for (int i = 0; i < playerNames.length; i++) {
-            this.guiPlayers[i] = new GUI_Player( playerNames[i], 10000, this.guiCars[i] );// TODO 30000
+            this.guiPlayers[i] = new GUI_Player( playerNames[i], 30000, this.guiCars[i] );
             this.gui.addPlayer( guiPlayers[i] );
 
             this.fields[0].setCar( this.guiPlayers[i], true );
@@ -299,12 +299,12 @@ public class ViewController {
 
     }
 
-    public void looserMessage() {
-        gui.showMessage( "Looser" ); //TODO taber besked med spilelrens navn
+    public void looserMessage(int activePlayerId) {
+        String msg = String.format( readFile( endMessagePath,"loser" ),playerNames[activePlayerId]);
+        gui.showMessage(msg);
     }
 
-    //TODO Metode til at fjerne spiller efter de har tabt
-    public void removePlayer(int playerId, int oldFieldId) {
+    public void removeLoser(int playerId, int oldFieldId) {
         // When the counterForWinner = playerNames.length-1, so we know that there is one player on board
         counterForWinner++;
         fields[oldFieldId].setCar( guiPlayers[playerId], false );
@@ -312,16 +312,17 @@ public class ViewController {
     }
 
     public void updateLooserOnBoard(int playerId) {
-        guiPlayers[playerId].setName( playerNames[playerId] + " is looser" );
+        guiPlayers[playerId].setName( playerNames[playerId] + readFile( endMessagePath, "updateLooserOnBoard" ));
         guiPlayers[playerId].setBalance(0);
     }
 
     public void findWinner(){
         if (counterForWinner == playerNames.length - 1) {
             for (int i = 0; i < playerNames.length; i++) {
-                if ((guiPlayers[i].getName().indexOf( "looser" )) == -1) {
+                if ((guiPlayers[i].getName().indexOf( "tabt" )) == -1) {
                     // "looser" does not exist in winner name
-                    gui.showMessage( "The winner is " + guiPlayers[i].getName() );
+                    String msg = String.format( readFile( endMessagePath, "winner" ), guiPlayers[i].getName());
+                    gui.showMessage( msg );
                 }
             }
         }

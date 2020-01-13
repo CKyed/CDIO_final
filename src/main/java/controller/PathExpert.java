@@ -8,6 +8,7 @@ public class PathExpert {
     public static final String setupMessagesPath   = "language/" + language +"/messages/setupMessages";
     public static final String turnMessagesPath   = "language/" + language +"/messages/turnMessages";
     public static final String chanceCardPath   = "language/" + language +"/chanceCardTexts";
+    public static final String endMessagePath   = "language/" + language +"/messages/endGameMessages";
 
     public static void setSprog(String sprog) {
         language = sprog;

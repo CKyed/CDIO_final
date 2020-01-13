@@ -185,7 +185,7 @@ public class SystemController {
     public void looserSituation(int fieldId, int activePlayerId){
         gameController.getPlayerController().accountReset(  activePlayerId);
 
-        viewController.looserMessage();
-        viewController. removePlayer( gameController.getActivePlayerId(), fieldId);
+        viewController.looserMessage(activePlayerId);
+        viewController.removeLoser( gameController.getActivePlayerId(), fieldId);
     }
 }

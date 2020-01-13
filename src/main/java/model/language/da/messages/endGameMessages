@@ -1,0 +1,3 @@
+loser:%s har ikke flere penge, og er ude af spillet.
+winner:Vinderen er %s.
+updateLooserOnBoard: har tabt
