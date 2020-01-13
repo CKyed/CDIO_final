@@ -54,11 +54,13 @@ public class ViewController {
 
                     case ("street"):
                         guiFields[i] = new GUI_Street();
+
                         fieldSubtexts[i] = readFile(setupMessagesPath,"owner") + " " + readFile(setupMessagesPath,"none") +" \n"
                                 + readFile(setupMessagesPath,"price") +" " + ((Street)board.getFields()[i]).getPrice() + " \n"
                                 + readFile(setupMessagesPath,"housePrice") +" " + ((Street)board.getFields()[i]).getHousePrice() + " \n"
                                 + readFile(setupMessagesPath,"rent") +" " + ((Street)board.getFields()[i]).getRentLevels()[((Street)board.getFields()[i]).getHouseLevel()] + "\n"
                         ;
+
                         break;
                     case ("incomeTax"):
                         guiFields[i] = new GUI_Tax();
@@ -269,7 +271,7 @@ public class ViewController {
 
     public boolean payIncomeTax(String message){
         String selection = gui.getUserSelection(message,readFile(turnMessagesPath,"pay4kTax"),readFile(turnMessagesPath,"pay10pct"));
-        if(selection.equals("Betal 4000 i skat")){
+        if(readFile(turnMessagesPath,"pay4kTax").equals(selection)){
             return true;
         }
         else {

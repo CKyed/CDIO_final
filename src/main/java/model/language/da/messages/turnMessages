@@ -12,10 +12,14 @@ buyBeforeTurn:Ønsker %s at købe huse?
 howManyHouses:Hvor mange huse ønsker %s at købe på %s?
 buildingSucceeded:Det lykkedes at bygge %s huse.
 notPossibleToBuild:Den ønskede udbygning er ikke mulig.
-selfOwned:%s ejer allerede %s, man kan først bygge huse når man ejer alle grunde af samme farve
+selfOwned:%s ejer allerede %s.
 qualifies:%s samlede værdier udgør ikke mere end 15000. %s modtager Matadorlegatet.
 qualifiesNot:%s samlede værdier udgør mere end 15000. %s modtager ikke Matadorlegatet.
 landedOnChance:%s er landet på et chancefelt. Læs kortet i midten af brættet.
 getLucky:Prøv lykken
 cantAffordOwnable:%s har ikke råd til at købe %s.
+goesToJail:%s ryger direkte i fængsel og modtager ikke 4000 kr. for at passere start.
+chooseIncomeTaxType:Hvordan ønsker %s at betale indkomstskatten?
+ordTax:%s skal betale 2000 i Ekstraordinær Statsskat.
+playerPayed:%s har betalt %s i indkomstskat.
 ownerInPrison:Ejeren af denne grund er i fængsel, så du skal ikke betale husleje

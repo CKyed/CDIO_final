@@ -200,8 +200,8 @@ public class SystemController {
 
     public void landOnField(){
         String activeFieldType = gameController.getBoardController().getBoard().getFields()[gameController.getActivePlayer().getPositionOnBoard()].getType();
-        int activePlayer = gameController.getActivePlayerId();
-        boolean cantAfford=true;
+        int activePlayerId = gameController.getActivePlayerId();
+        boolean canAfford=true;
 
         //Land on field
         switch (activeFieldType){
@@ -218,21 +218,44 @@ public class SystemController {
                 break;
 
             case "incomeTax":
-                //TODO: Add correct text message here
-                boolean choice = viewController.payIncomeTax("Test message");
-                cantAfford = gameController.payIncomeTax(activePlayer, choice);
+                //Asks how player wants to pay
+                String incTaxMsg = readFile(turnMessagesPath,"chooseIncomeTaxType");
+                incTaxMsg = String.format(incTaxMsg,gameController.getActivePlayer().getName());
+                boolean choice = viewController.payIncomeTax(incTaxMsg);
+
+                //Pays tax in model-layer
+                int tenPctOfValues = gameController.getPlayerController().tenPctOfValue(activePlayerId,gameController.getBoardController().getBoard());
+                canAfford = gameController.payIncomeTax(activePlayerId, choice, tenPctOfValues);
+
+                //Shows how much player payed, if player chose 10%
+                if (!choice){
+                    String playerPayedMsg = readFile(turnMessagesPath,"playerPayed");
+                    String.format(playerPayedMsg,gameController.getActivePlayer().getName(),tenPctOfValues);
+                    viewController.showMessage(playerPayedMsg);
+                }
                 break;
             case "ordinaryTax":
-                //TODO: Add some text message
-                cantAfford = gameController.payOrdinaryTax(activePlayer);
+                //Shows message telling that player must pay
+                String ordTaxMsg = readFile(turnMessagesPath,"ordTax");
+                ordTaxMsg = String.format(ordTaxMsg,gameController.getActivePlayer().getName());
+                viewController.showMessage(ordTaxMsg);
+
+                //Pays tax in model-layer
+                canAfford = gameController.payOrdinaryTax(activePlayerId);
                 break;
             case "prison":
-                    //TODO add text-message
-                gameController.getPlayerController().getPlayers()[activePlayer].setInJail(true);
+                //Shows message on board
+                viewController.showMessage(String.format(readFile(turnMessagesPath,"goesToJail"),gameController.getActivePlayer().getName()));
+                //Sets player in prison in model-layer
+                gameController.getPlayerController().getPlayers()[activePlayerId].setInJail(true);
+
+                //Moves player in model-layer
                 int oldFieldId = gameController.getActivePlayer().getPositionOnBoard();
                 gameController.movePlayer(30,20);
+
+                //Moves player on screen
                 int virutalFaceValues[] = {10,10};
-                viewController.rollDiceAndMove(virutalFaceValues,20,activePlayer,oldFieldId);
+                viewController.rollDiceAndMove(virutalFaceValues,20,activePlayerId,oldFieldId);
                 break;
             case "chance":
                 playChanceCard();
@@ -240,7 +263,7 @@ public class SystemController {
 
         }
 
-        if(cantAfford==false){
+        if(canAfford==false){
             //TODO: Should handle if the players can't afford to pay
         }
     }
