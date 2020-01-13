@@ -218,7 +218,15 @@ public class SystemController {
                 boolean choice = viewController.payIncomeTax(incTaxMsg);
 
                 //Pays tax in model-layer
-                canAfford = gameController.payIncomeTax(activePlayerId, choice);
+                int tenPctOfValues = gameController.getPlayerController().tenPctOfValue(activePlayerId,gameController.getBoardController().getBoard());
+                canAfford = gameController.payIncomeTax(activePlayerId, choice, tenPctOfValues);
+
+                //Shows how much player payed, if player chose 10%
+                if (!choice){
+                    String playerPayedMsg = readFile(turnMessagesPath,"playerPayed");
+                    String.format(playerPayedMsg,gameController.getActivePlayer().getName(),tenPctOfValues);
+                    viewController.showMessage(playerPayedMsg);
+                }
                 break;
             case "ordinaryTax":
                 //Shows message telling that player must pay

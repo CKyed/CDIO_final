@@ -21,3 +21,4 @@ cantAffordOwnable:%s har ikke råd til at købe %s.
 goesToJail:%s ryger direkte i fængsel og modtager ikke 4000 kr. for at passere start.
 chooseIncomeTaxType:Hvordan ønsker %s at betale indkomstskatten?
 ordTax:%s skal betale 2000 i Ekstraordinær Statsskat.
+playerPayed:%s har betalt %s i indkomstskat.
