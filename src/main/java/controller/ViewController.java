@@ -189,7 +189,7 @@ public class ViewController {
             for (int i = 0; i < sum; i++) {
                 teleportPlayerCar( activePlayerId, 1, (oldFieldId + i) % fields.length );
                 try {
-                    Thread.sleep( 200);
+                    Thread.sleep( 0);//TOdo
                 } catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
                 }
@@ -197,6 +197,10 @@ public class ViewController {
         } else if (counterForWinner == guiPlayers.length - 1){
             // There is one player on board Todo
         }
+    }
+
+    public void rollDiceInPrison(int[] faceValues){
+        gui.setDice( faceValues[0], faceValues[1] );
     }
 
     public void teleportPlayerCar(int playerId, int dieRoll, int oldFieldId){

@@ -45,7 +45,8 @@ public class DiceController {
     }
 
     public int getSum(){
-        return this.diceCup.getDieSum();
+//        return this.diceCup.getDieSum(); Todo
+        return 30;
     }
 
     public boolean isSameValue() {

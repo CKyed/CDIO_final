@@ -34,5 +34,4 @@ buildingSucceeded:Det lykkedes at bygge et hus!
 cantSellHouse:%s kan ikke sælge nogen huse i øjeblikket.
 sellHouseWhere:Hvor kunne %s tænke sig at sælge et hus?
 sellingSucceded:Det lykkedes at sælge et hus!
-
-
+askWhichChoice:%s har 3 muligheder for at går ud fra fængsel

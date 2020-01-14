@@ -103,7 +103,7 @@ public class PlayerController {
             this.activePlayerId = this.activePlayerId % this.numberOfPlayers;
             this.activePlayer = players[activePlayerId];
         }
-        while (this.activePlayer.getAccountBalance()==0);
+        while (this.activePlayer.getAccountBalance()==0);//Todo < 0
     }
 
     public int getActivePlayerId() {
