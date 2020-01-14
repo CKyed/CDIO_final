@@ -44,7 +44,7 @@ public class GameController {
 
     public void movePlayer(int currentFieldId, int dieSum){
         int numberOfFields = this.boardController.getBoard().getFields().length;
-        //Calculates new field and adds startbonus if player passed start
+        //Calculates new field
         int newFieldId = (currentFieldId+dieSum)%numberOfFields;
         playerController.getActivePlayer().setPositionOnBoard(newFieldId);
 
@@ -52,6 +52,13 @@ public class GameController {
         if (currentFieldId+dieSum>(numberOfFields-1) && !playerController.getActivePlayer().isInJail()){
                 playerController.getActivePlayer().deposit(startBonus);
         }
+    }
+
+    public void movePlayerNoStartBonus(int currentFieldId, int dieSum){
+        int numberOfFields = this.boardController.getBoard().getFields().length;
+        //Calculates new field and adds startbonus if player passed start
+        int newFieldId = (currentFieldId+dieSum)%numberOfFields;
+        playerController.getActivePlayer().setPositionOnBoard(newFieldId);
     }
 
 
