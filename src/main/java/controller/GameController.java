@@ -35,6 +35,7 @@ public class GameController {
         movePlayer(currentFieldId,dieSum);
 
         return diceController.getFaceValues();
+
     }
 
     public void movePlayer(int currentFieldId, int dieSum){
@@ -103,7 +104,7 @@ public class GameController {
     }
 
     public void updateActivePlayer(){
-        if (!diceController.isSameValue()){
+        if (!diceController.isSameValue() || playerController.getActivePlayer().isInJail()){
             this.playerController.updateActivePlayer();
         }
     }
