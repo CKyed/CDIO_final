@@ -287,6 +287,9 @@ public class SystemController {
         boolean couldPay = false;
 
         while (stillHasOptions) {
+            //Shows message that player must sell something
+            viewController.showMessage(String.format(readFile(endMessagePath,"hasToSell"),gameController.getPlayerController().getPlayers()[playerId].getName(),owesAmount));
+
             //Possible to sell houses
             sellHouses(playerId);
             //Possible to pawn ownables
