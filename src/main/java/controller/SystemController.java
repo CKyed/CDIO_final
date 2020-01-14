@@ -20,7 +20,7 @@ public class SystemController {
 
         //Setup players with an array of Strings from the viewcontroller
         String[] playerNames = this.viewController.setupPlayers();
-        gameController.setPlayerController( new PlayerController(new String[]{"M"} ) );// playerNames
+        gameController.setPlayerController( new PlayerController( playerNames) );//   new String[]{"M"}
 
         //Plays game
         play();
@@ -44,24 +44,42 @@ public class SystemController {
             boolean isInJail = gameController.getActivePlayer().isInJail();
             while (isInJail) {
                 String askWhichChoice = String.format( readFile( turnMessagesPath, "askWhichChoice" ), gameController.getActivePlayer().getName() );
-                String[] jailChoices = {"Betal 1000 kr", "Kast terning", "losladelskortet"};
+                String[] jailChoices = {"Betal 1000 kr", "Kast Terning", "losladelskortet"};
                 askWhichChoice = viewController.getUserSelection( askWhichChoice, jailChoices );
 
                 if (askWhichChoice.equals( "Betal 1000 kr" )) {
                     gameController.getActivePlayer().withdraw( 1000 );
-                    gameController.getActivePlayer().setInJail( false );
+                    gameController.getPlayerController().getPlayers()[activePlayerId].setInJail( false );
                     isInJail = false;
-                } else if (askWhichChoice.equals( "Kast terning" )) {
+                } else if (askWhichChoice.equals( "Kast Terning" )) {
 
-                    int [] faceValues = gameController.rollDice();
+                    // Todo How can I roll the dice and get the facesValue???
+                    gameController.getDiceController().roll();
+                    int [] faceValues = gameController.getDiceController().getFaceValues();
                     viewController.rollDiceInPrison( faceValues );
+                    int fieldId = gameController.getActivePlayer().getPositionOnBoard();
 
                     if (!gameController.getDiceController().isSameValue()) {
-                        faceValues = gameController.rollDice();
+                        gameController.movePlayer(fieldId, faceValues[0] + faceValues[1]);
+                        //Updates players position in view-layer
+                        viewController.rollDiceAndMove( faceValues, faceValues[0] + faceValues[1], activePlayerId,fieldId);
+
+                        gameController.getDiceController().roll();
+                        faceValues = gameController.getDiceController().getFaceValues();
                         viewController.rollDiceInPrison( faceValues );
 
                         if (!gameController.getDiceController().isSameValue()) {
-                            gameController.getActivePlayer().setInJail( false );
+                            gameController.movePlayer(fieldId, faceValues[0] + faceValues[1]);
+                            //Updates players position in view-layer
+                            viewController.rollDiceAndMove( faceValues, faceValues[0] + faceValues[1], activePlayerId,fieldId);
+                            gameController.getPlayerController().getPlayers()[activePlayerId].setInJail( false );
+
+                            //Gives the turn to the next player
+                            gameController.updateActivePlayer();
+                            isInJail = false;
+                        }else {
+                            //Gives the turn to the next player
+                            gameController.updateActivePlayer();
                             isInJail = false;
                         }
 
@@ -265,6 +283,7 @@ public class SystemController {
                 break;
             case "prison":
                 //Shows message on board
+
                 viewController.showMessage( String.format( readFile( turnMessagesPath, "goesToJail" ), gameController.getActivePlayer().getName() ) );
                 //Sets player in prison in model-layer
                 gameController.getPlayerController().getPlayers()[activePlayerId].setInJail( true );
