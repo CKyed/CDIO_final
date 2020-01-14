@@ -186,10 +186,22 @@ public class GameController {
             case 32:
             numberOfFieldstoBeMoved=chanceSum(playerController.getActivePlayer().getPositionOnBoard(),11);
                  break;
-            case 33:
+            case 35:
                 
                 break;
-            //Here we make switch-case
+            case 36:
+
+                break;
+            case 37:
+
+                break;
+            case 39:
+
+                break;
+            case 40:
+
+                break;
+
 
 
 
