@@ -306,7 +306,7 @@ public class SystemController {
             int virutalFaceValues[] = {10,10};
             viewController.rollDiceAndMove(virutalFaceValues,sum,playerId,oldPos);
             //viewController.teleportPlayerCar(playerId,30,oldPos);
-
+            landOnField();
 
             //here we call switch case and related methods from gamecontroller
 
