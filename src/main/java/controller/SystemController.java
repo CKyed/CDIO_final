@@ -169,7 +169,7 @@ public class SystemController {
             } else {
                 //Player can't afford the rent
                 //TODO: Calls a method that handle looser condition
-                System.out.println("HER SKAL VI GØRE NOGET");
+
                 looserSituation();
 
             }
@@ -309,10 +309,21 @@ public class SystemController {
         }
     }
 
-    // Handel looser situation
+    public void playerBankruptcy(int activePlayerId,int cerditorId){
+        boolean couldPay = false;
+        //This method should give the option for a player to sell out before it allows the player to loose.
+        //The player should be able to sell houses and pledge properties
+        //The method should know who the creditor is
+        //The methoud should maybe have a boolean that indicates if the player could pay or if he lost.
+
+        if(!couldPay){
+            looserSituation();
+        }
+    }
+
+    //Deals if has lost
     public void looserSituation(){
         int fieldId = gameController.getActivePlayer().getPositionOnBoard();
-
 
         //Reset the players account to 0
         gameController.getPlayerController().accountReset(gameController.getActivePlayerId());
@@ -433,18 +444,9 @@ public class SystemController {
 
                 }
 
-
-
             } else{
                 buyOrSellMore = false;
             }
         }
-
-
-
-
     }
-
-
-
 }
