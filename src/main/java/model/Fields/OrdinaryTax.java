@@ -8,7 +8,7 @@ public class OrdinaryTax extends Field{
 
     public OrdinaryTax(String state) {
         super(state);
-        this.tax = getFieldData(state,"rent");
+        this.tax = getFieldData(state,"price");
 
     }
 

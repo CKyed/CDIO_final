@@ -128,6 +128,11 @@ public class PlayerController {
      return totalValue;
     }
 
+    // Make loser's account = 0
+    public void accountReset(int playerId){
+        players[playerId].getAccount().setBalance( 0 );
+    }
+
     public int tenPctOfValue(int playerId, Board board){
         return calculateTotalValue(playerId, board)/10;
 

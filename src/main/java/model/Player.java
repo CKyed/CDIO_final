@@ -5,6 +5,8 @@ public class Player {
     private Account account;
     private boolean inJail;
     private int positionOnBoard =0;
+    private boolean prisonCard = false;
+    private boolean hasPlayerLost = false;
 
     public Player(String name, int startKapital){
         this.account = new Account(startKapital);
@@ -40,7 +42,7 @@ public class Player {
     }
 
     public boolean isInJail() {
-        return inJail;
+        return this.inJail;
     }
 
     public String getName() {
@@ -49,6 +51,22 @@ public class Player {
 
     public void setInJail(boolean inJail) {
         this.inJail = inJail;
+    }
+
+    public boolean isPrisonCard() {
+        return prisonCard;
+    }
+
+    public void setPrisonCard(boolean prisonCard) {
+        this.prisonCard = prisonCard;
+    }
+
+    public boolean isHasPlayerLost() {
+        return hasPlayerLost;
+    }
+
+    public void setHasPlayerLost(boolean hasPlayerLost) {
+        this.hasPlayerLost = hasPlayerLost;
     }
 }
 
