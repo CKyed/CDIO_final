@@ -5,6 +5,7 @@ public class Player {
     private Account account;
     private boolean inJail;
     private int positionOnBoard =0;
+    private int ownsAmount = 0;
     private boolean prisonCard = false;
     private boolean hasPlayerLost = false;
 
@@ -67,6 +68,14 @@ public class Player {
 
     public void setHasPlayerLost(boolean hasPlayerLost) {
         this.hasPlayerLost = hasPlayerLost;
+    }
+
+    public int getOwnsAmount() {
+        return ownsAmount;
+    }
+
+    public void setOwnsAmount(int ownsAmount) {
+        this.ownsAmount = ownsAmount;
     }
 }
 

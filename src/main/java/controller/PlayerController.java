@@ -38,21 +38,41 @@ public class PlayerController {
      */
 
     public boolean safeTransferToBank(int playerId,int amount) {
-        boolean succes=false;
-        if(amount<=players[playerId].getAccountBalance()) {
+        boolean succes;
+        int playerBalance = players[playerId].getAccountBalance();
+        //If the player can afford
+        if(amount<=playerBalance) {
+            takeMoneyFromPlayer(playerId, amount);
             succes=true;
+        //If the player cant afford
+        } else{
+            //Takes the remaining money he has left and pays it too the bank
+            takeMoneyFromPlayer(playerId,amount-(amount-playerBalance));
+            //Saves in the player how much he owes
+            players[playerId].setOwnsAmount(amount-playerBalance);
+            succes=false;
         }
-        takeMoneyFromPlayer(playerId, amount);
         return succes;
     }
 
     public boolean safeTransferToPlayer(int fromPlayerId, int amount, int toPlayerId){
-        boolean succes = false;
-        if(amount<=players[fromPlayerId].getAccountBalance()) {
+        boolean succes ;
+        int playerBalance = players[fromPlayerId].getAccountBalance();
+        //If the player can afford
+        if(amount<=playerBalance) {
+            takeMoneyFromPlayer(fromPlayerId,amount);
+            addMoneyToPlayer(toPlayerId,amount);
             succes=true;
+        //If the player can't afford
+        }else{
+            //Takes the remaining money he has left and pays it too the player
+            takeMoneyFromPlayer(fromPlayerId,amount-(amount-playerBalance));
+            addMoneyToPlayer(toPlayerId,amount-(amount-playerBalance));
+            //Saves in the player how much he owes
+            players[fromPlayerId].setOwnsAmount(amount-playerBalance);
+            succes=false;
         }
-        takeMoneyFromPlayer(fromPlayerId,amount);
-        addMoneyToPlayer(toPlayerId,amount);
+
         return succes;
     }
 

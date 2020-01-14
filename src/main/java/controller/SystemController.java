@@ -148,7 +148,6 @@ public class SystemController {
                     break;
             }
 
-
             //hvis ejeren af feltet er i fængsel, skal man ikke betale noget
             if(gameController.getPlayerController().getPlayers()[gameController.getOwnerId()].isInJail()){
             String message = String.format(readFile(turnMessagesPath, "ownerInPrison"));
@@ -168,10 +167,9 @@ public class SystemController {
                 viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
             } else {
                 //Player can't afford the rent
-                //TODO: Calls a method that handle looser condition
-
-                looserSituation();
-
+                //The player pays whatever he owes to the player and his account balance will be in the negatives
+                gameController.getPlayerController().safeTransferToPlayer(gameController.getActivePlayerId(),rent,gameController.getOwnerId());
+                playerBankruptcy();
             }
             //If it is vacant - asks if player wants to buy
         } else if (gameController.getOwnerId()==-1){
@@ -309,7 +307,8 @@ public class SystemController {
         }
     }
 
-    public void playerBankruptcy(int activePlayerId,int cerditorId){
+    public void playerBankruptcy(){
+        int activePlayerId = gameController.getActivePlayerId();
         boolean couldPay = false;
         //This method should give the option for a player to sell out before it allows the player to loose.
         //The player should be able to sell houses and pledge properties
