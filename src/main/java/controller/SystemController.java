@@ -20,7 +20,8 @@ public class SystemController {
 
         //Setup players with an array of Strings from the viewcontroller
         String[] playerNames = this.viewController.setupPlayers();
-        gameController.setPlayerController(new PlayerController(playerNames));
+        gameController.setPlayerController(new PlayerController(new String[]{"Mohamad"}));
+        //gameController.setPlayerController(new PlayerController(playerNames));
 
         //Plays game
         play();
@@ -370,7 +371,7 @@ public class SystemController {
                         }
 
                         //If player chose to build on a street
-                        if (selectedStreetId < buildableStreetIds[buildableStreetIds.length - 1]) {
+                        if (selectedStreetId <= buildableStreetIds[buildableStreetIds.length - 1]) {
                             if (gameController.tryToBuyHouses(selectedStreetId, 1))
                                 viewController.showMessage(readFile(turnMessagesPath, "buildingSucceeded"));
                             else  //Service errormessage
