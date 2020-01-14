@@ -213,4 +213,28 @@ public class GameController {
             }
         }
     }
+
+    public void pawnStreet(int playerId,int fieldId){
+        //Deposits money
+        int amount = ((Ownable)boardController.getBoard().getFields()[fieldId]).getPrice()/2;
+        playerController.getPlayers()[playerId].deposit(amount);
+
+        //changes pawn status
+        ((Ownable)boardController.getBoard().getFields()[fieldId]).setPledged(true);
+    }
+
+    public void unpawnStreet(int playerId,int fieldId){
+        //Withdraws money
+        int amount = ((Ownable)boardController.getBoard().getFields()[fieldId]).getPrice()/2;
+        amount = (int)(amount*1.1);
+
+        //Checks that player can afford it
+        if (!playerController.safeTransferToBank(playerId,amount)){
+            System.out.println("FEJl i pawnStreet()-metoden. Spilleren har ikke råd");
+        }
+
+        //changes pawn status
+        ((Ownable)boardController.getBoard().getFields()[fieldId]).setPledged(false);
+    }
+
 }

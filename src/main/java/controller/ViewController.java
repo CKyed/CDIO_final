@@ -253,9 +253,12 @@ public class ViewController {
                         ((GUI_Street)fields[i]).setHotel(true);
                     }
 
-
-
-
+                    //Adds "pawned" if it is pawned
+                    if (((Ownable)board.getFields()[i]).isPledged()){
+                        fields[i].setSubText(readFile(setupMessagesPath,"pawned"));
+                    } else{
+                        fields[i].setSubText(readFile(setupMessagesPath,""));
+                    }
                     break;
 
                 case ("brew"):
@@ -265,6 +268,13 @@ public class ViewController {
                             + readFile(setupMessagesPath,"price") +" " + ((Brewery)board.getFields()[i]).getPrice() + "<br>"
                             + readFile(setupMessagesPath,"rent") +" " + ((Brewery)board.getFields()[i]).getRent() + "<br>";
                     fields[i].setDescription(fieldSubtexts[i]);
+
+                    //Adds "pawned" if it is pawned
+                    if (((Ownable)board.getFields()[i]).isPledged()){
+                        fields[i].setSubText(readFile(setupMessagesPath,"pawned"));
+                    } else{
+                        fields[i].setSubText(readFile(setupMessagesPath,""));
+                    }
                     break;
 
                 case ("ferry"):
@@ -275,6 +285,14 @@ public class ViewController {
                             + readFile(setupMessagesPath,"rent") +" " + ((Ferry)board.getFields()[i]).getRent() + "<br>"
                     ;
                     fields[i].setDescription(fieldSubtexts[i]);
+
+
+                    //Adds "pawned" if it is pawned
+                    if (((Ownable)board.getFields()[i]).isPledged()){
+                        fields[i].setSubText(readFile(setupMessagesPath,"pawned"));
+                    } else{
+                        fields[i].setSubText(readFile(setupMessagesPath,""));
+                    }
                     break;
             }
         }

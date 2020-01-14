@@ -232,31 +232,41 @@ public class BoardController {
         return isStreet && hasAllInseries && notHouse0 && evenBuild;
     }
 
-    public int[] getPawnableOrUnpawnableStreetIds(int playerId, boolean pawnable){
+    public int[] getPawnableOrUnpawnableStreetIds(int playerId, boolean pawnable, int playerBalance){
         //pawnable==true means get pawnableStreetIds
         //pawnable==false means get unpawnableStreetIds
 
         //initializing
         boolean owned;
         boolean correctPawnStatus;
+        boolean noHousesBuilt;
+        boolean canAfford;
         int numberOfPawnables=0;
         boolean[] streetsPawnable = new boolean[board.getFields().length];
 
         //runs through all fields and saves their pawnable-boolean in streetsPawnable (array)
         for (int i = 0; i <board.getFields().length ; i++) {
             streetsPawnable[i] = false;
+            noHousesBuilt =true;
             owned = false;
             correctPawnStatus = false;
-            //If it is a street
-            if (board.getFields()[i].getType()=="street"){
+            canAfford = true;
+            //If it is an ownable
+            if (board.getFields()[i].getType()=="street" || board.getFields()[i].getType()=="ferry" || board.getFields()[i].getType()=="brew"){
                 owned = ((Ownable)board.getFields()[i]).getOwnerId()==playerId;
+                canAfford = playerBalance >= (int)((((Ownable)board.getFields()[i]).getPrice()/2)*1.1);
+
+                //only checks if houses are built, if it is a street
+                if (board.getFields()[i].getType()=="street"){
+                    noHousesBuilt = ((Street)board.getFields()[i]).getHouseLevel()==0;
+                }
 
                 //If the pawning-status of the ownable is the same as the pawnable variable, correctPawnStatus==false
                 //If the pawning-status of the ownable is the different from the pawnable variable, correctPawnStatus==true
                 correctPawnStatus = ! (((Ownable) board.getFields()[i]).isPledged() == pawnable);
             }
-            //If it is owned and not already pawned
-            if (owned && correctPawnStatus){
+            //If it is owned and not already pawned and player can afford
+            if (owned && correctPawnStatus && noHousesBuilt && canAfford){
                 //increments number of pawnables
                 numberOfPawnables++;
                 streetsPawnable[i] = true;
