@@ -49,7 +49,7 @@ public class PlayerController {
             //Takes the remaining money he has left and pays it too the bank
             takeMoneyFromPlayer(playerId,amount-(amount-playerBalance));
             //Saves in the player how much he owes
-            players[playerId].setOwnsAmount(amount-playerBalance);
+            players[playerId].setOwesAmount(amount-playerBalance);
             succes=false;
         }
         return succes;
@@ -69,7 +69,7 @@ public class PlayerController {
             takeMoneyFromPlayer(fromPlayerId,amount-(amount-playerBalance));
             addMoneyToPlayer(toPlayerId,amount-(amount-playerBalance));
             //Saves in the player how much he owes
-            players[fromPlayerId].setOwnsAmount(amount-playerBalance);
+            players[fromPlayerId].setOwesAmount(amount-playerBalance);
             succes=false;
         }
 
@@ -118,7 +118,7 @@ public class PlayerController {
         this.activePlayerId = activePlayerId;
     }
 
-    public int calculateTotalValue(int playerId, Board board){
+    public int calculateTotalValue(int playerId, Board board){//TODO kan gøres lidt smartere omkring linje 134 osv.
         //Gets accountsBalance
         int totalValue = players[playerId].getAccountBalance();
 
@@ -129,7 +129,11 @@ public class PlayerController {
                 //If player owns it
                 if ( ((Ownable)board.getFields()[i]).getOwnerId()==playerId){
                     //Adds street-price and price of houses
-                    totalValue += ((Ownable)board.getFields()[i]).getPrice();
+                    if (((Ownable)board.getFields()[i]).isPledged()){
+                        totalValue += ((Ownable)board.getFields()[i]).getPrice()/2;
+                    } else{
+                        totalValue += ((Ownable)board.getFields()[i]).getPrice();
+                    }
                     totalValue += ((Street)board.getFields()[i]).getHouseLevel()*((Street)board.getFields()[i]).getHousePrice();
                 }
 
@@ -138,7 +142,11 @@ public class PlayerController {
                 //If player owns it
                 if (((Ownable)board.getFields()[i]).getOwnerId()==playerId){
                     //Adds price
-                    totalValue += ((Ownable)board.getFields()[i]).getPrice();
+                    if (((Ownable)board.getFields()[i]).isPledged()){
+                        totalValue += ((Ownable)board.getFields()[i]).getPrice()/2;
+                    } else{
+                        totalValue += ((Ownable)board.getFields()[i]).getPrice();
+                    }
                 }
             }
 

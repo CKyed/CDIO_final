@@ -58,7 +58,7 @@ public class SystemController {
                     gameController.getPlayerController().getPlayers()[activePlayerId].setInJail(false);
                 }
                 if(success == false){
-                    playerBankruptcy();
+                    playerBankruptcy(gameController.getActivePlayerId());
                 }
 
             } else{
@@ -167,7 +167,7 @@ public class SystemController {
                 viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
             } else {
                 //Player can't afford the rent
-                playerBankruptcy();
+                playerBankruptcy(gameController.getActivePlayerId());
             }
             //If it is vacant - asks if player wants to buy
         } else if (gameController.getOwnerId()==-1){
@@ -274,7 +274,7 @@ public class SystemController {
         }
 
         if(canAfford==false){
-            playerBankruptcy();
+            playerBankruptcy(gameController.getActivePlayerId());
         }
     }
 
@@ -302,18 +302,22 @@ public class SystemController {
         }
     }
 
-    public void playerBankruptcy(){
-        int activePlayerId = gameController.getActivePlayerId();
-        int owesAmount = gameController.getActivePlayer().getOwnsAmount();
+    public void playerBankruptcy(int playerId){
+        int owesAmount = gameController.getActivePlayer().getOwesAmount();
         int owesTo = gameController.getOwnerId();
-        boolean couldPay = false;
+        boolean couldNotPay = gameController.getBoardController().getSellableStreetIds(playerId).length==0 &&
+                gameController.getBoardController().getSellableStreetIds(playerId).length==0;
+
+        while (!couldNotPay){
+            boolean couldPay = false;
+        }
 
         //This method should give the option for a player to sell out before it allows the player to loose.
         //The player should be able to sell houses and pledge properties
         //The method should know who the creditor is
         //The methoud should maybe have a boolean that indicates if the player could pay or if he lost.
 
-        if(!couldPay){
+        if(couldNotPay){
             looserSituation();
         }
     }

@@ -5,7 +5,6 @@ public class Player {
     private Account account;
     private boolean inJail;
     private int positionOnBoard =0;
-    private int ownsAmount = 0;
     private boolean prisonCard = false;
     private boolean hasPlayerLost = false;
 
@@ -70,12 +69,12 @@ public class Player {
         this.hasPlayerLost = hasPlayerLost;
     }
 
-    public int getOwnsAmount() {
-        return ownsAmount;
+    public int getOwesAmount() {
+        return this.account.getOwesAmount();
     }
 
-    public void setOwnsAmount(int ownsAmount) {
-        this.ownsAmount = ownsAmount;
+    public void setOwesAmount(int owesAmount) {
+        this.getAccount().setOwesAmount(owesAmount);
     }
 }
 
