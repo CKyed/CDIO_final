@@ -58,7 +58,7 @@ public class SystemController {
                     gameController.getPlayerController().getPlayers()[activePlayerId].setInJail(false);
                 }
                 if(success == false){
-                    //TODO Method for handling loser-condition is called here
+                    playerBankruptcy();
                 }
 
             } else{
@@ -167,8 +167,6 @@ public class SystemController {
                 viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
             } else {
                 //Player can't afford the rent
-                //The player pays whatever he owes to the player and his account balance will be in the negatives
-                gameController.getPlayerController().safeTransferToPlayer(gameController.getActivePlayerId(),rent,gameController.getOwnerId());
                 playerBankruptcy();
             }
             //If it is vacant - asks if player wants to buy
@@ -276,10 +274,7 @@ public class SystemController {
         }
 
         if(canAfford==false){
-            //TODO: Should handle if the players can't afford to pay
-            //Player can't afford the tax
-            //Looser message
-            looserSituation();
+            playerBankruptcy();
         }
     }
 

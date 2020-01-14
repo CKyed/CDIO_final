@@ -70,7 +70,7 @@ public class GameController {
         return safePaymentToBank(activePlayerId, ((OrdinaryTax)boardController.getBoard().getFields()[38]).getTax());
     }
 
-    //the user has chosen either 0 or 1, 0 is 4000 kr and 1 is 10%
+    //the user has chosen either 0 or 1, 0 is 4000 kr and 1 is 10% of total player value
     public boolean payIncomeTax(int activePlayerId, boolean choice,int tenPctOfValues){
         boolean succesfulTransfer=true;
         if(choice){
