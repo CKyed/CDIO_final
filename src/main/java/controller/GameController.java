@@ -184,25 +184,23 @@ public class GameController {
        // newpos = getFieldData(state,"id");
         switch(chancekortID) {
             case 32:
-            numberOfFieldstoBeMoved=chanceSum(playerController.getActivePlayer().getPositionOnBoard(),11);
-                 break;
+                numberOfFieldstoBeMoved=chanceSum(playerController.getActivePlayer().getPositionOnBoard(),11);
+                break;
             case 35:
-                
+                numberOfFieldstoBeMoved=chanceSum(playerController.getActivePlayer().getPositionOnBoard(),15);
                 break;
             case 36:
-
+                numberOfFieldstoBeMoved=chanceSum(playerController.getActivePlayer().getPositionOnBoard(),24);
                 break;
             case 37:
-
+                numberOfFieldstoBeMoved=chanceSum(playerController.getActivePlayer().getPositionOnBoard(),32);
                 break;
             case 39:
-
+                numberOfFieldstoBeMoved=chanceSum(playerController.getActivePlayer().getPositionOnBoard(),19);
                 break;
             case 40:
-
+                numberOfFieldstoBeMoved=chanceSum(playerController.getActivePlayer().getPositionOnBoard(),39);
                 break;
-
-
 
 
 
