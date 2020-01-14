@@ -360,25 +360,28 @@ public class SystemController {
                         String askWhichStreet = String.format(readFile(turnMessagesPath, "buildHouseWhere"), gameController.getActivePlayer().getName());
 
                         selectedStreet = viewController.getUserSelection(askWhichStreet, buildableStreetNames);
-                        for (int i = 0; i < buildableStreetNames.length; i++) {
+                        for (int i = 0; i < buildableStreetIds.length; i++) {
                             if (selectedStreet.equals(buildableStreetNames[i])) {
                                 selectedStreetId = buildableStreetIds[i];
+                            } else if (selectedStreet.equals(readFile(turnMessagesPath,"exit"))){
+                                //If player chose "exit"
+                                buyMore = false;
                             }
                         }
 
-                        if (selectedStreetId == buildableStreetIds[buildableStreetIds.length - 1]) {
-                            //If player chose "exit"
-                            buyMore = false;
-
-                        } else { //If player selected a street to build a house on
-
+                        //If player chose to build on a street
+                        if (selectedStreetId < buildableStreetIds[buildableStreetIds.length - 1]) {
                             if (gameController.tryToBuyHouses(selectedStreetId, 1))
                                 viewController.showMessage(readFile(turnMessagesPath, "buildingSucceeded"));
-                             else  //Service errormessage
+                            else  //Service errormessage
                                 viewController.showMessage("HOV - SPILLEREN BURDE KUNNE BYGGE HUSET");
 
                         }
+
                     }
+                    //Updates balances and ownerships
+                    viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
+                    viewController.updateOwnerships(gameController.getBoardController().getBoard());
                 }// while(buyMore)
 
                 //If player wants to sell houses
@@ -407,22 +410,26 @@ public class SystemController {
 
                         //Asks where player wants to sell
                         selectedStreet = viewController.getUserSelection(askWhichStreet, sellableStreetNames);
-                        for (int i = 0; i < sellableStreetNames.length; i++) {
+                        for (int i = 0; i < sellableStreetIds.length; i++) {
                             if (selectedStreet.equals(sellableStreetNames[i])) {
                                 selectedStreetId = sellableStreetIds[i];
+                            } else if (selectedStreet.equals(readFile(turnMessagesPath,"exit"))){
+                                //If player chose "exit"
+                                sellMore = false;
                             }
                         }
 
 
-                        if (selectedStreetId == sellableStreetIds[sellableStreetIds.length - 1]) {
-                            //If player chose "exit"
-                            sellMore = false;
-
-                        } else { //If player selected a street to sell a house on
+                        if (selectedStreetId < sellableStreetIds[sellableStreetIds.length - 1]) {
+                            //If player selected a street to sell a house on
                             gameController.sellHouses(selectedStreetId, 1);
                             viewController.showMessage(readFile(turnMessagesPath, "sellingSucceded"));
                         }
+
                     }
+                    //Updates balances and ownerships
+                    viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
+                    viewController.updateOwnerships(gameController.getBoardController().getBoard());
 
                 }
 
@@ -431,8 +438,6 @@ public class SystemController {
             } else{
                 buyOrSellMore = false;
             }
-
-
         }
 
 
