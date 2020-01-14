@@ -77,7 +77,7 @@ public class SystemController {
 
     public void buyBeforeTurn(){
         //Gets array of id's of streets that can be built on
-        int[] buildableStreetIds = gameController.getBoardController().getBuildableStreetIds(gameController.getActivePlayerId());
+        int[] buildableStreetIds = gameController.getBoardController().getBuildableStreetIds(gameController.getActivePlayerId(),gameController.getActivePlayer().getAccountBalance());
 
         //If the player can build and wants to
         if (buildableStreetIds.length != 0 && viewController.chooseToBuy(gameController.getActivePlayerId())){
@@ -147,6 +147,7 @@ public class SystemController {
                     rent = rent*gameController.getDiceController().getSum();
                     break;
             }
+
 
             //hvis ejeren af feltet er i fængsel, skal man ikke betale noget
             if(gameController.getPlayerController().getPlayers()[gameController.getOwnerId()].isInJail()){
@@ -319,6 +320,7 @@ public class SystemController {
     public void looserSituation(){
         int fieldId = gameController.getActivePlayer().getPositionOnBoard();
 
+
         //Reset the players account to 0
         gameController.getPlayerController().accountReset(gameController.getActivePlayerId());
         //Set the the player variale "hasPlayerLost" to true
@@ -346,7 +348,7 @@ public class SystemController {
                 buyMore = true;
                 while (buyMore){
                     //gets array of buildable street ids
-                    int[] buildableStreetIds = gameController.getBoardController().getBuildableStreetIds(gameController.getActivePlayerId());
+                    int[] buildableStreetIds = gameController.getBoardController().getBuildableStreetIds(gameController.getActivePlayerId(),gameController.getActivePlayer().getAccountBalance());
 
                     if (buildableStreetIds.length==0){ //If player cant build anything
                         //Shows message, that payer cant buy
@@ -365,24 +367,26 @@ public class SystemController {
                         String askWhichStreet = String.format(readFile(turnMessagesPath, "buildHouseWhere"), gameController.getActivePlayer().getName());
 
                         selectedStreet = viewController.getUserSelection(askWhichStreet, buildableStreetNames);
-                        for (int i = 0; i < buildableStreetIds.length; i++) {
-                            if (selectedStreet.equals(buildableStreetNames[i])) {
-                                selectedStreetId = buildableStreetIds[i];
-                            } else if (selectedStreet.equals(readFile(turnMessagesPath,"exit"))){
-                                //If player chose "exit"
-                                buyMore = false;
+                        if (selectedStreet.equals(readFile(turnMessagesPath,"exit"))) {
+                            //If player chose "exit"
+                            selectedStreetId = -1;
+                            buyMore = false;
+                        }else {
+                            for (int i = 0; i < buildableStreetIds.length; i++) {
+                              if (selectedStreet.equals(buildableStreetNames[i])){
+                                    selectedStreetId = buildableStreetIds[i];
+                                }
                             }
                         }
 
+
                         //If player chose to build on a street
-                        if (selectedStreetId < buildableStreetIds[buildableStreetIds.length - 1]) {
+                        if (selectedStreetId != -1){
                             if (gameController.tryToBuyHouses(selectedStreetId, 1))
                                 viewController.showMessage(readFile(turnMessagesPath, "buildingSucceeded"));
                             else  //Service errormessage
                                 viewController.showMessage("HOV - SPILLEREN BURDE KUNNE BYGGE HUSET");
-
                         }
-
                     }
                     //Updates balances and ownerships
                     viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
@@ -415,32 +419,42 @@ public class SystemController {
 
                         //Asks where player wants to sell
                         selectedStreet = viewController.getUserSelection(askWhichStreet, sellableStreetNames);
-                        for (int i = 0; i < sellableStreetIds.length; i++) {
-                            if (selectedStreet.equals(sellableStreetNames[i])) {
+                        if (selectedStreet.equals(readFile(turnMessagesPath,"exit"))) {
+                            //If player chose "exit"
+                            sellMore = false;
+                            selectedStreetId=-1;
+                        } else {
+                            for (int i = 0; i < sellableStreetIds.length; i++) {
                                 selectedStreetId = sellableStreetIds[i];
-                            } else if (selectedStreet.equals(readFile(turnMessagesPath,"exit"))){
-                                //If player chose "exit"
-                                sellMore = false;
                             }
                         }
-
-
-                        if (selectedStreetId < sellableStreetIds[sellableStreetIds.length - 1]) {
-                            //If player selected a street to sell a house on
+                        if (selectedStreetId != -1){
                             gameController.sellHouses(selectedStreetId, 1);
                             viewController.showMessage(readFile(turnMessagesPath, "sellingSucceded"));
+
                         }
 
+
                     }
+
                     //Updates balances and ownerships
                     viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
                     viewController.updateOwnerships(gameController.getBoardController().getBoard());
+                    }
+                //Updates balances and ownerships
+                viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
+                viewController.updateOwnerships(gameController.getBoardController().getBoard());
 
-                }
-
-            } else{
+                } else{
                 buyOrSellMore = false;
             }
         }
+
+
+
+
     }
+
+
+
 }

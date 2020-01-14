@@ -10,9 +10,10 @@ public class Brewery extends Ownable {
     private int[] rentLevels;
     public Brewery(String state) {
         super(state);
-        rentLevels = new int[2];
+        rentLevels = new int[3];
         rentLevels[0] = this.rent;
-        rentLevels[1] = 2*this.rent;
+        rentLevels[1] = this.rent;
+        rentLevels[2] = 2*this.rent;
     }
 
 
