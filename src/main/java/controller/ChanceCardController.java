@@ -77,6 +77,7 @@ public class ChanceCardController {
                 playerController.getActivePlayer().setPrisonCard(true);
                 message = String.format(readFile(turnMessagesPath,"getsPrisonCard"),playerController.getActivePlayer().getName());
                 break;
+                /*
             case 29:
                 //moves the player three fields further
                 playerController.getActivePlayer().setPositionOnBoard(playerController.getActivePlayer().getPositionOnBoard()+3);
@@ -85,6 +86,8 @@ public class ChanceCardController {
             case 31:
                 playerController.getActivePlayer().setPositionOnBoard(playerController.getActivePlayer().getPositionOnBoard()-3);
                 break;
+
+                 */
 
         }
         return message;
