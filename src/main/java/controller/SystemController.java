@@ -20,7 +20,7 @@ public class SystemController {
 
         //Setup players with an array of Strings from the viewcontroller
         String[] playerNames = this.viewController.setupPlayers();
-        gameController.setPlayerController( new PlayerController( playerNames) );//   new String[]{"M"}
+        gameController.setPlayerController( new PlayerController( new String[]{"M"}) );//   new String[]{"M"}
 
         //Plays game
         play();
@@ -53,23 +53,20 @@ public class SystemController {
                     isInJail = false;
                 } else if (askWhichChoice.equals( "Kast Terning" )) {
 
-                    // Todo How can I roll the dice and get the facesValue???
-                    gameController.getDiceController().roll();
-                    int [] faceValues = gameController.getDiceController().getFaceValues();
+                    int fieldId = gameController.getActivePlayer().getPositionOnBoard(); //PositionOnBoard = 10
+                    // Todo: I have a problem with rollDice method
+                    int [] faceValues = gameController.rollDice(); // PositionOnBoard = 25
                     viewController.rollDiceInPrison( faceValues );
-                    int fieldId = gameController.getActivePlayer().getPositionOnBoard();
 
                     if (!gameController.getDiceController().isSameValue()) {
-                        gameController.movePlayer(fieldId, faceValues[0] + faceValues[1]);
                         //Updates players position in view-layer
                         viewController.rollDiceAndMove( faceValues, faceValues[0] + faceValues[1], activePlayerId,fieldId);
 
-                        gameController.getDiceController().roll();
-                        faceValues = gameController.getDiceController().getFaceValues();
+                        fieldId = gameController.getActivePlayer().getPositionOnBoard();
+                        faceValues = gameController.rollDice();
                         viewController.rollDiceInPrison( faceValues );
 
                         if (!gameController.getDiceController().isSameValue()) {
-                            gameController.movePlayer(fieldId, faceValues[0] + faceValues[1]);
                             //Updates players position in view-layer
                             viewController.rollDiceAndMove( faceValues, faceValues[0] + faceValues[1], activePlayerId,fieldId);
                             gameController.getPlayerController().getPlayers()[activePlayerId].setInJail( false );
