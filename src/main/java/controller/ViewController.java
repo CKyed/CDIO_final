@@ -253,9 +253,6 @@ public class ViewController {
                         ((GUI_Street)fields[i]).setHotel(true);
                     }
 
-
-
-
                     break;
 
                 case ("brew"):

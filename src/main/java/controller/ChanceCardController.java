@@ -12,8 +12,10 @@ public class ChanceCardController {
     public ChanceCardController(){
         String[] cardTexts = new String[45];
         for (int i =0;i<45;i++){
-//            if (i >= 0 && i <=10 || i >= 24 && i <=26) //removes unwanted cardID's
+//            if (i >= 0 && i <=10 || i >= 24 && i <=26 || i>= 27 && i<=40){ //removes unwanted cardID's
+//                cardTexts[i] = null;
 //                continue;
+//            }
             cardTexts[i] = readFile(chanceCardPath,"card"+i);
         }
 

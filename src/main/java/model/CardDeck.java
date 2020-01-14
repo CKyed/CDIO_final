@@ -19,7 +19,7 @@ public class CardDeck {
         chanceCards[b] = cardA;
     }
 
-    //Shuffels the chance card deck
+    //Shuffles the chance card deck
     public void shuffle(){
         for (int i=0; i<1000; i++ ){
             int a= (int) (Math.random()*chanceCards.length);
@@ -31,10 +31,12 @@ public class CardDeck {
     //Draws the card in the top, and after that puts it in the bottom
     public ChanceCard draw(){
         ChanceCard upper= chanceCards[0];
-        for (int i=0; i<chanceCards.length-1;i++){
-            chanceCards[i] =chanceCards [i+1];
+
+        for (int i = 0; i < chanceCards.length - 1; i++) {
+            chanceCards[i] = chanceCards[i + 1];
         }
-        chanceCards[chanceCards.length-1]=upper;
+        chanceCards[chanceCards.length - 1] = upper;
+
         return upper;
     }
 
