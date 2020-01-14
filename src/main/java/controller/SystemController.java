@@ -20,7 +20,7 @@ public class SystemController {
 
         //Setup players with an array of Strings from the viewcontroller
         String[] playerNames = this.viewController.setupPlayers();
-        gameController.setPlayerController( new PlayerController( playerNames));//new String[]{"mo"}  Todo
+        gameController.setPlayerController( new PlayerController(new String[]{"M"} ) );// playerNames
 
         //Plays game
         play();
@@ -40,35 +40,43 @@ public class SystemController {
             if (selection.equals( readFile( turnMessagesPath, "buySell" ) )) {
                 buyOrSellBeforeTurn();
             }
-
-
             //If the player is in jail
             boolean isInJail = gameController.getActivePlayer().isInJail();
             while (isInJail) {
                 String askWhichChoice = String.format( readFile( turnMessagesPath, "askWhichChoice" ), gameController.getActivePlayer().getName() );
                 String[] jailChoices = {"Betal 1000 kr", "Kast terning", "losladelskortet"};
                 askWhichChoice = viewController.getUserSelection( askWhichChoice, jailChoices );
+
                 if (askWhichChoice.equals( "Betal 1000 kr" )) {
                     gameController.getActivePlayer().withdraw( 1000 );
                     gameController.getActivePlayer().setInJail( false );
                     isInJail = false;
                 } else if (askWhichChoice.equals( "Kast terning" )) {
-                    int[] rollDice = gameController.rollDice();
-                    viewController.rollDiceInPrison( rollDice );
-                    if (gameController.getDiceController().isSameValue()) {
-                         rollDice = gameController.rollDice();
-                        viewController.rollDiceInPrison( rollDice );
-                        if (gameController.getDiceController().isSameValue()) {
+
+                    int [] faceValues = gameController.rollDice();
+                    viewController.rollDiceInPrison( faceValues );
+
+                    if (!gameController.getDiceController().isSameValue()) {
+                        faceValues = gameController.rollDice();
+                        viewController.rollDiceInPrison( faceValues );
+
+                        if (!gameController.getDiceController().isSameValue()) {
                             gameController.getActivePlayer().setInJail( false );
                             isInJail = false;
                         }
-                    }else{
+
+                    } else
                         isInJail = false;
+
+                } else {
+                    // If the player has prison card, the player uses the prisoncard and gets out of jail
+                    if (gameController.getPlayerController().getPlayers()[activePlayerId].isPrisonCard()) {
+                        gameController.getPlayerController().getPlayers()[activePlayerId].setInJail( false );
+                        gameController.getPlayerController().getPlayers()[activePlayerId].setPrisonCard( false );
                     }
-
-                } else {// losladelskortet
-
                 }
+
+
 //                boolean success = true;
 //                //shows that player is in prison
 //                viewController.showMessage( String.format( readFile( turnMessagesPath, "playerPaysBail" ), gameController.getActivePlayer().getName() ) );
@@ -85,10 +93,10 @@ public class SystemController {
 //                if (success == false) {
 //                    playerBankruptcy();
 //                }
-            }
-            if (!isInJail) {
+            }//while
+            if (!gameController.getActivePlayer().isInJail()) {
                 //If not in jail, turn starts normally
-                playTurn();
+                playTurn();// Todo oldfieldid = 0
             }
 
             //Updates the balances and ownerships of all Players
@@ -109,6 +117,7 @@ public class SystemController {
         //Gets dieRoll and updates players position in model-layer
         int[] faceValues = gameController.rollDice();
         int sum = gameController.getDiceController().getSum();
+
 
         //Updates players position in view-layer
         viewController.rollDiceAndMove( faceValues, sum, activePlayerId, oldFieldId );
@@ -263,7 +272,6 @@ public class SystemController {
                 //Moves player in model-layer
                 int oldFieldId = gameController.getActivePlayer().getPositionOnBoard();
                 gameController.movePlayer( oldFieldId, 20 );
-
                 //Moves player on screen
                 int virutalFaceValues[] = {10, 10};
                 viewController.rollDiceAndMove( virutalFaceValues, 20, activePlayerId, oldFieldId );

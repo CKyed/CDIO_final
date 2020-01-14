@@ -200,6 +200,8 @@ public class ViewController {
     }
 
     public void rollDiceInPrison(int[] faceValues){
+//        gui.getUserButtonPressed("", "rollDice");
+        getUserButtonPressed( "" ,"rollDice" );
         gui.setDice( faceValues[0], faceValues[1] );
     }
 
