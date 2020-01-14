@@ -258,6 +258,8 @@ public class BoardController {
             //If it is an ownable
             if (board.getFields()[i].getType()=="street" || board.getFields()[i].getType()=="ferry" || board.getFields()[i].getType()=="brew"){
                 owned = ((Ownable)board.getFields()[i]).getOwnerId()==playerId;
+                //Only changes canAfford if we are looking for unPawning -not pawnning
+                if (!pawnable)
                 canAfford = playerBalance >= (int)((((Ownable)board.getFields()[i]).getPrice()/2)*1.1);
 
                 //only checks if houses are built, if it is a street
