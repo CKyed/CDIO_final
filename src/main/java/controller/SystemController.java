@@ -300,6 +300,12 @@ public class SystemController {
 
         //If it is a chancecard that includes movement on the board
         if(cardId <= 27 && cardId >= 40){
+            int sum = gameController.newPos(card.getId());
+            int oldPos = gameController.getPlayerController().getActivePlayer().getPositionOnBoard();
+            int playerId =gameController.getActivePlayerId();
+            viewController.teleportPlayerCar(playerId,sum,oldPos);
+
+
             //here we call switch case and related methods from gamecontroller
 
 

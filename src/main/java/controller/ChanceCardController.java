@@ -12,20 +12,19 @@ public class ChanceCardController {
     public ChanceCardController(){
         String[] cardTexts = new String[45];
         for (int i =0;i<45;i++){
-//            if (i >= 0 && i <=10 || i >= 24 && i <=26 || i>= 27 && i<=40){ //removes unwanted cardID's
-//                cardTexts[i] = null;
-//                continue;
-//            }
             cardTexts[i] = readFile(chanceCardPath,"card"+i);
         }
 
         this.cardDeck = new CardDeck(cardTexts);
-        this.cardDeck.shuffle();
+        this.cardDeck.swap(0,32);
+       // this.cardDeck.shuffle();
     }
 
     public CardDeck getCardDeck() {
         return cardDeck;
     }
+
+
 
     public String playCard(int cardId,PlayerController playerController, Board board){
         String message ="";

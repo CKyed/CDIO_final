@@ -7,7 +7,9 @@ import model.Fields.Ownable;
 import model.Fields.OwnableFile.*;
 import model.Fields.Prison;
 
+import static controller.PathExpert.chanceCardPath;
 import static controller.PathExpert.endMessagePath;
+import static controller.TextController.getFieldData;
 import static controller.TextController.readFile;
 
 public class GameController {
@@ -178,11 +180,22 @@ public class GameController {
     }
 
     public int newPos(int chancekortID){
-        //Here we make switch-case
+        int numberOfFieldstoBeMoved = 0;
+       // newpos = getFieldData(state,"id");
+        switch(chancekortID) {
+            case 32:
+            numberOfFieldstoBeMoved=chanceSum(playerController.getActivePlayer().getPositionOnBoard(),11);
+                 break;
+            case 33:
+                
+                break;
+            //Here we make switch-case
 
 
 
-        return 1; //todo fix return
+
+        }
+        return numberOfFieldstoBeMoved;
     }
 
     public String findWinner(){
