@@ -16,8 +16,8 @@ public class ChanceCardController {
         }
 
         this.cardDeck = new CardDeck(cardTexts);
-        this.cardDeck.swap(0,35);
-       // this.cardDeck.shuffle();
+        this.cardDeck.swap(0,35); //TODO: denne linje er kun til test
+       // this.cardDeck.shuffle(); //TODO skal afkommenteres
     }
 
     public CardDeck getCardDeck() {

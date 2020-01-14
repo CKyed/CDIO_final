@@ -302,19 +302,17 @@ public class SystemController {
 
         //If it is a chancecard that includes movement on the board
         if(cardId >= 30 && cardId <= 31){
-            gameController.movePlayer(oldPos,37);
+            gameController.movePlayerNoStartBonus(oldPos,37);
             viewController.teleportPlayerCar(playerId,37,oldPos);
+            landOnField();
         }
 
         else if(cardId >= 32 && cardId <= 40 || cardId==27 || cardId==28){
             gameController.movePlayer(oldPos,sum);
             int virutalFaceValues[] = {10,10};
             viewController.rollDiceAndMove(virutalFaceValues,sum,playerId,oldPos);
-
             landOnField();
-
             //here we call switch case and related methods from gamecontroller
-
 
         } else{
             String message = gameController.getChanceCardController().playCard(cardId,gameController.getPlayerController(),gameController.getBoardController().getBoard());
@@ -322,7 +320,9 @@ public class SystemController {
                 viewController.showMessage(message);
             }
         }
+
     }
+
 
     // Handel looser situation
     public void looserSituation(){
