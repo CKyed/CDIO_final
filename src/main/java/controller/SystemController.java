@@ -288,6 +288,9 @@ public class SystemController {
         ChanceCard card = gameController.getChanceCardController().getCardDeck().draw();
         int cardId = card.getId();
         String cardText = card.getText();
+        int sum = gameController.newPos(card.getId());
+        int oldPos = gameController.getPlayerController().getActivePlayer().getPositionOnBoard();
+        int playerId =gameController.getActivePlayerId();
 
         //Shows chancecard
         viewController.showChanceCard(cardText);
@@ -298,14 +301,15 @@ public class SystemController {
         viewController.showMessage(landedOnChanceMsg);
 
         //If it is a chancecard that includes movement on the board
-        if(cardId >= 27 && cardId <= 40){
-            int sum = gameController.newPos(card.getId());
-            int oldPos = gameController.getPlayerController().getActivePlayer().getPositionOnBoard();
-            int playerId =gameController.getActivePlayerId();
+        if(cardId >= 30 && cardId <= 31){
+            viewController.teleportPlayerCar(playerId,37,oldPos);
+        }
+
+        else if(cardId >= 32 && cardId <= 40 || cardId==27 || cardId==28){
             gameController.movePlayer(oldPos,sum);
             int virutalFaceValues[] = {10,10};
             viewController.rollDiceAndMove(virutalFaceValues,sum,playerId,oldPos);
-            //viewController.teleportPlayerCar(playerId,30,oldPos);
+
             landOnField();
 
             //here we call switch case and related methods from gamecontroller
