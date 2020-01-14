@@ -298,7 +298,7 @@ public class SystemController {
         viewController.showMessage(landedOnChanceMsg);
 
         //If it is a chancecard that includes movement on the board
-        if(cardId >= 32 && cardId <= 40){
+        if(cardId >= 27 && cardId <= 40){
             int sum = gameController.newPos(card.getId());
             int oldPos = gameController.getPlayerController().getActivePlayer().getPositionOnBoard();
             int playerId =gameController.getActivePlayerId();

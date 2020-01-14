@@ -173,9 +173,8 @@ public class GameController {
     public int chanceSum(int oldPos, int newPos){
         int chancesum = newPos - oldPos;
         if(oldPos>newPos){
-            chancesum =+ 40;
+            chancesum = chancesum + 40;
         }
-
         return chancesum;
     }
 
@@ -183,6 +182,10 @@ public class GameController {
         int numberOfFieldstoBeMoved = 0;
        // newpos = getFieldData(state,"id");
         switch(chancekortID) {
+            case 27:
+            case 28:
+                numberOfFieldstoBeMoved=chanceSum(playerController.getActivePlayer().getPositionOnBoard(),0);
+                break;
             case 32:
                 numberOfFieldstoBeMoved=chanceSum(playerController.getActivePlayer().getPositionOnBoard(),11);
                 break;
