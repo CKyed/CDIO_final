@@ -275,24 +275,68 @@ public class SystemController {
         }
     }
 
-    public void playerBankruptcy(int playerId){
+    public void playerBankruptcy(int playerId) {
         int owesAmount = gameController.getActivePlayer().getOwesAmount();
-        int owesTo = gameController.getOwnerId();
-        boolean couldNotPay = gameController.getBoardController().getSellableStreetIds(playerId).length==0 &&
-                gameController.getBoardController().getSellableStreetIds(playerId).length==0;
+        int playerBalance = gameController.getPlayerController().getPlayers()[playerId].getAccountBalance();
+        int creditorId = gameController.getPlayerController().getPlayers()[playerId].getAccount().getCreditorId();
 
-        while (!couldNotPay){
-            boolean couldPay = false;
+
+        //
+        boolean stillHasOptions = gameController.getBoardController().getSellableStreetIds(playerId).length != 0 ||
+                gameController.getBoardController().getPawnableOrUnpawnableStreetIds(playerId, true, 0).length != 0;
+        boolean couldPay = false;
+
+        while (stillHasOptions) {
+            //Possible to sell houses
+            sellHouses(playerId);
+            //Possible to pawn ownables
+            pawnStreets(playerId);
+
+            //updates player balance and owed amount
+            owesAmount = gameController.getActivePlayer().getOwesAmount();
+            playerBalance = gameController.getPlayerController().getPlayers()[playerId].getAccountBalance();
+
+            //If player can now pay
+            if (playerBalance >= owesAmount) {
+                if (gameController.getPlayerController().getPlayers()[playerId].getAccount().getCreditorId() == -1) {
+                    //If player owes money to the bank - player pays debt
+                    gameController.safePaymentToBank(playerId, owesAmount);
+                    couldPay = true;
+                } else {
+                    //If player owes money to a player
+                    gameController.safePaymentToPlayer(playerId, owesAmount, creditorId);
+                    couldPay = true;
+
+                }
+                //If player still can't pay
+            } else {
+                // player pays what he has left to bank
+                if (gameController.getPlayerController().getPlayers()[playerId].getAccount().getCreditorId() == -1) {
+                    gameController.safePaymentToBank(playerId, owesAmount);
+                    couldPay = false;
+                } else {
+                    // player pays what he has left to other player
+                    gameController.safePaymentToPlayer(playerId, owesAmount, creditorId);
+                    couldPay = false;
+
+                }
+            }
+
+            //Sets true, if player still can pawn or sell
+            stillHasOptions = gameController.getBoardController().getSellableStreetIds(playerId).length != 0 ||
+                    gameController.getBoardController().getPawnableOrUnpawnableStreetIds(playerId, true, 0).length != 0;
+
+            //Tells player to sell more
+            if (stillHasOptions) {
+                viewController.showMessage(String.format(readFile(turnMessagesPath, "needsToSell"), gameController.getPlayerController().getPlayers()[playerId].getName()));
+            }
+
         }
-
-        //This method should give the option for a player to sell out before it allows the player to loose.
-        //The player should be able to sell houses and pledge properties
-        //The method should know who the creditor is
-        //The methoud should maybe have a boolean that indicates if the player could pay or if he lost.
-
-        if(couldNotPay){
+        if (!couldPay) {
+            //Handles the loser situation
             looserSituation();
         }
+
     }
 
     //Deals if has lost
@@ -322,7 +366,7 @@ public class SystemController {
                 buyHouses();
 
             } else if (menuSelction.equals(readFile(turnMessagesPath,"sellHouses"))){//If player wants to sell houses
-                sellHouses();
+                sellHouses(gameController.getActivePlayerId());
             } else if (menuSelction.equals(readFile(turnMessagesPath,"pawnOrUnpawn"))){//If player wants to pawn streets
                     pawnOrUnPawnStreets();
             } else{
@@ -386,17 +430,17 @@ public class SystemController {
         }// while(buyMore)
     }
 
-    public void sellHouses(){
+    public void sellHouses(int playerId){
         boolean sellMore = true;
         int selectedStreetId =-1;
         String selectedStreet;
         while (sellMore){
             //gets array of street ids where player can sell houses
-            int[] sellableStreetIds = gameController.getBoardController().getSellableStreetIds(gameController.getActivePlayerId());
+            int[] sellableStreetIds = gameController.getBoardController().getSellableStreetIds(playerId);
 
             if (sellableStreetIds.length==0){ //If player cant sell any houses
                 //Shows message, that payer cant sell
-                viewController.showMessage(String.format(readFile(turnMessagesPath,"cantSellHouse"),gameController.getActivePlayer().getName()));
+                viewController.showMessage(String.format(readFile(turnMessagesPath,"cantSellHouse"),gameController.getPlayerController().getPlayers()[playerId].getName()));
                 sellMore = false;
 
             } else { //If player can sell houses
@@ -408,7 +452,7 @@ public class SystemController {
 
                 //gives the exit option
                 sellableStreetNames[sellableStreetIds.length] = readFile(turnMessagesPath, "exit");
-                String askWhichStreet = String.format(readFile(turnMessagesPath, "sellHouseWhere"), gameController.getActivePlayer().getName());
+                String askWhichStreet = String.format(readFile(turnMessagesPath, "sellHouseWhere"), gameController.getPlayerController().getPlayers()[playerId].getName());
 
                 //Asks where player wants to sell
                 selectedStreet = viewController.getUserSelection(askWhichStreet, sellableStreetNames);
@@ -422,7 +466,7 @@ public class SystemController {
                     }
                 }
                 if (selectedStreetId != -1){
-                    gameController.sellHouses(selectedStreetId, 1);
+                    gameController.sellHouses(selectedStreetId, 1, playerId);
                     viewController.showMessage(readFile(turnMessagesPath, "sellingSucceded"));
 
                 }

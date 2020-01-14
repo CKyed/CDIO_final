@@ -50,6 +50,8 @@ public class PlayerController {
             takeMoneyFromPlayer(playerId,amount-(amount-playerBalance));
             //Saves in the player how much he owes
             players[playerId].setOwesAmount(amount-playerBalance);
+            //Marks bank as creditor
+            players[playerId].getAccount().setCreditorId(-1);
             succes=false;
         }
         return succes;
@@ -70,6 +72,8 @@ public class PlayerController {
             addMoneyToPlayer(toPlayerId,amount-(amount-playerBalance));
             //Saves in the player how much he owes
             players[fromPlayerId].setOwesAmount(amount-playerBalance);
+            //Marks toPlayer as creditor
+            players[fromPlayerId].getAccount().setCreditorId(toPlayerId);
             succes=false;
         }
 
@@ -103,7 +107,7 @@ public class PlayerController {
             this.activePlayerId = this.activePlayerId % this.numberOfPlayers;
             this.activePlayer = players[activePlayerId];
         }
-        while (this.activePlayer.getAccountBalance()==0);
+        while (this.activePlayer.isHasPlayerLost());
     }
 
     public int getActivePlayerId() {

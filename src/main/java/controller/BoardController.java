@@ -75,7 +75,7 @@ public class BoardController {
         int counter =0;
        //Loops through all fields, checking if they are buildable
         for (int i=0;i<board.getFields().length;i++){
-            buildableArray[i] = isBuildable(i,playerBalance);
+            buildableArray[i] = isBuildable(i,playerBalance, playerId);
             if (buildableArray[i])
                 counter++;
 
@@ -98,7 +98,7 @@ public class BoardController {
         int counter =0;
         //Loops through all fields, checking if they are buildable
         for (int i=0;i<board.getFields().length;i++){
-            sellableArray[i] = isHouseSellable(i);
+            sellableArray[i] = isHouseSellable(i,playerId);
             if (sellableArray[i])
                 counter++;
 
@@ -198,26 +198,29 @@ public class BoardController {
 
     }
 
-    public boolean isBuildable(int fieldId, int playerBalance){
+    public boolean isBuildable(int fieldId, int playerBalance, int playerId){
         boolean isStreet = board.getFields()[fieldId].getType().equals("street");
         boolean hasAllInseries = false;
         boolean notHotelLevel= false;
         boolean canAfford= false;
+        boolean correctOwner = false;
         boolean evenBuild= false;
 
         if (isStreet) {
             hasAllInseries = ownsAllInSeries(fieldId);
             notHotelLevel = ((Street) board.getFields()[fieldId]).getHouseLevel() != 5;
             canAfford = ((Street) board.getFields()[fieldId]).getHousePrice() <= playerBalance;
+            correctOwner = ((Street) board.getFields()[fieldId]).getOwnerId() == playerId;
             evenBuild = true; // TODO implementer metode, der tjekker even build. Gerne som kan genbruges til sellableStreetIds
         }
 
         //Only returns true, if all 5 conditions are satisfied
-        return isStreet && hasAllInseries && notHotelLevel && canAfford && evenBuild;
+        return isStreet && hasAllInseries && notHotelLevel && canAfford && evenBuild && correctOwner;
     }
 
-    public boolean isHouseSellable(int fieldId){
+    public boolean isHouseSellable(int fieldId, int playerId){
         boolean isStreet = board.getFields()[fieldId].getType().equals("street");
+        boolean correctOwner = false;
         boolean hasAllInseries = false;
         boolean notHouse0 = false;
         boolean evenBuild= false;
@@ -225,11 +228,12 @@ public class BoardController {
         if (isStreet) {
             hasAllInseries = ownsAllInSeries(fieldId);
             notHouse0 = ((Street) board.getFields()[fieldId]).getHouseLevel() != 0;
+            correctOwner = ((Street) board.getFields()[fieldId]).getOwnerId() == playerId;
             evenBuild = true; // TODO implementer metode, der tjekker even build. Gerne som kan genbruges til sellableStreetIds
         }
 
         //Only returns true, if all 5 conditions are satisfied
-        return isStreet && hasAllInseries && notHouse0 && evenBuild;
+        return isStreet && hasAllInseries && notHouse0 && evenBuild && correctOwner;
     }
 
     public int[] getPawnableOrUnpawnableStreetIds(int playerId, boolean pawnable, int playerBalance){

@@ -39,5 +39,6 @@ pawn:Pansæt
 unpawn:Ophæv pansætning
 noPawningPossible:Der er ingen grunde at pantsætte.
 noUnpawningPossible:Der er pantsætninger, det er muligt at ophæve.
+needsToSell:%s er nødt til at sælge eller pantsætte noget mere.
 
 

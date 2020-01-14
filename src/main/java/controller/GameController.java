@@ -165,9 +165,9 @@ public class GameController {
 
     }
 
-    public void sellHouses(int fieldId, int numberOfHouses){
+    public void sellHouses(int fieldId, int numberOfHouses, int playerId){
         int totalGain = numberOfHouses*((Street)boardController.getBoard().getFields()[fieldId]).getHousePrice()/2;
-        playerController.getActivePlayer().deposit(totalGain);
+        playerController.getPlayers()[playerId].deposit(totalGain);
         boardController.sellHouses(fieldId,numberOfHouses);
 
     }
