@@ -1,3 +1,4 @@
+import controller.ChanceCardController;
 import controller.SystemController;
 import model.DiceCup;
 import model.Die;

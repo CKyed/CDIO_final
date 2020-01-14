@@ -174,11 +174,14 @@ public class GameController {
         if(oldPos>newPos){
             chancesum += 40;
         }
+
+        return 1; //todo fix return
     }
 
     public int newPos(int chancekortID){
 
 
+        return 1; //todo fix return
     }
 
     public String findWinner(){
