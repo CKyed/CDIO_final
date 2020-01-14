@@ -75,31 +75,6 @@ public class SystemController {
         }
     }
 
-    public void buyBeforeTurn(){
-        //Gets array of id's of streets that can be built on
-        int[] buildableStreetIds = gameController.getBoardController().getBuildableStreetIds(gameController.getActivePlayerId(),gameController.getActivePlayer().getAccountBalance());
-
-        //If the player can build and wants to
-        if (buildableStreetIds.length != 0 && viewController.chooseToBuy(gameController.getActivePlayerId())){
-            int wantedNumberOfHouses;
-            //Goes through all buildable streets and asks for the wanted number of houses
-            for (int i=0;i<buildableStreetIds.length;i++){
-                wantedNumberOfHouses = viewController.getWantedNumberOfHouses(buildableStreetIds[i],gameController.getActivePlayerId());
-                if(wantedNumberOfHouses!=0){
-                    boolean succes = gameController.tryToBuyHouses(buildableStreetIds[i],wantedNumberOfHouses);
-                    if (succes){
-                        viewController.showMessage(String.format(readFile(turnMessagesPath,"buildingSucceeded"),wantedNumberOfHouses));
-                        viewController.updateOwnerships(gameController.getBoardController().getBoard());
-                    } else{
-                        viewController.showMessage(String.format(readFile(turnMessagesPath,"notPossibleToBuild"),wantedNumberOfHouses));
-                        //If player asked for something impossible, counter doesn't update
-                        i--;
-
-                    }
-                }
-            }
-        }
-    }
 
     public void playTurn(){
         int activePlayerId = gameController.getActivePlayerId();
