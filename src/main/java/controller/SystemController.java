@@ -287,8 +287,10 @@ public class SystemController {
         landedOnChanceMsg = String.format(landedOnChanceMsg,gameController.getPlayerController().getPlayers()[gameController.getPlayerController().getActivePlayerId()].getName());
         viewController.showMessage(landedOnChanceMsg);
 
-        //If it is a complicated chance card
-        if(cardId ==50 ||cardId==51){
+        //If it is a chancecard that includes movement on the board
+        if(cardId <= 27 && cardId >= 40){
+            //here we call switch case and related methods from gamecontroller
+
 
         } else{
             String message = gameController.getChanceCardController().playCard(cardId,gameController.getPlayerController(),gameController.getBoardController().getBoard());

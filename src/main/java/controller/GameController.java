@@ -165,5 +165,16 @@ public class GameController {
         return chanceCardController;
     }
 
+    public int chanceSum(int oldPos, int newPos){
+        int chancesum = newPos - oldPos;
+        if(oldPos>newPos){
+            chancesum += 40;
+        }
+    }
+
+    public int newPos(int chancekortID){
+
+
+    }
 
 }
