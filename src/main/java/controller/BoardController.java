@@ -211,7 +211,7 @@ public class BoardController {
             notHotelLevel = ((Street) board.getFields()[fieldId]).getHouseLevel() != 5;
             canAfford = ((Street) board.getFields()[fieldId]).getHousePrice() <= playerBalance;
             correctOwner = ((Street) board.getFields()[fieldId]).getOwnerId() == playerId;
-            evenBuild = true; // TODO implementer metode, der tjekker even build. Gerne som kan genbruges til sellableStreetIds
+            evenBuild = evenBuild(fieldId,1);
         }
 
         //Only returns true, if all 5 conditions are satisfied
@@ -229,7 +229,7 @@ public class BoardController {
             hasAllInseries = ownsAllInSeries(fieldId);
             notHouse0 = ((Street) board.getFields()[fieldId]).getHouseLevel() != 0;
             correctOwner = ((Street) board.getFields()[fieldId]).getOwnerId() == playerId;
-            evenBuild = true; // TODO implementer metode, der tjekker even build. Gerne som kan genbruges til sellableStreetIds
+            evenBuild = evenBuild(fieldId,-1);
         }
 
         //Only returns true, if all 5 conditions are satisfied
@@ -293,6 +293,45 @@ public class BoardController {
 
         return pawnableOrUnpawnableStreetIds;
     }
+
+    public boolean evenBuild(int fieldId, int houseIncrement){
+        //Returns true if the increment in number of houses is allowed
+        boolean allowed = true;
+
+        //Makes an array same length as number of streets in the group
+        int streetGroup = board.getFields()[fieldId].getGroup();
+        int[] houseLevelsInGroup = new int[totalNumberOfStreetsInSeries[streetGroup]];
+
+        int counter =0;
+
+        //Loops through all fields
+        for (int i = 0; i < board.getFields().length; i++) {
+
+            if (board.getFields()[i].getGroup()==streetGroup){ //If it is correct group
+                //Gets house level
+                houseLevelsInGroup[counter] = ((Street) board.getFields()[fieldId]).getHouseLevel();
+                if (fieldId==i){ //If it is the field called in the method, adds increment
+                    houseLevelsInGroup[counter] += houseIncrement;
+                }
+                counter++;
+            }
+        }
+
+        //houseLevelsInGroup now contains houselevels for the desired build
+        //build is not allowed, if the difference between any two houseLevels is greater than 1
+
+        int houseLevelDiff;
+        for (int i = 0; i < houseLevelsInGroup.length; i++) {
+            for (int j = 0; j < houseLevelsInGroup.length; j++) {
+                houseLevelDiff = Math.abs(houseLevelsInGroup[i]-houseLevelsInGroup[j]);
+                if(houseLevelDiff>1)
+                    allowed=false;
+            }
+        }
+
+        return allowed;
+    }
+
 
 
 }
