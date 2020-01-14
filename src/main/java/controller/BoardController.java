@@ -205,6 +205,7 @@ public class BoardController {
         boolean canAfford= false;
         boolean correctOwner = false;
         boolean evenBuild= false;
+        boolean notPawned = false;
 
         if (isStreet) {
             hasAllInseries = ownsAllInSeries(fieldId);
@@ -212,10 +213,11 @@ public class BoardController {
             canAfford = ((Street) board.getFields()[fieldId]).getHousePrice() <= playerBalance;
             correctOwner = ((Street) board.getFields()[fieldId]).getOwnerId() == playerId;
             evenBuild = evenBuild(fieldId,1);
+            notPawned = !((Street) board.getFields()[fieldId]).isPledged();
         }
 
         //Only returns true, if all 5 conditions are satisfied
-        return isStreet && hasAllInseries && notHotelLevel && canAfford && evenBuild && correctOwner;
+        return isStreet && hasAllInseries && notHotelLevel && canAfford && evenBuild && correctOwner && notPawned;
     }
 
     public boolean isHouseSellable(int fieldId, int playerId){
@@ -309,7 +311,7 @@ public class BoardController {
 
             if (board.getFields()[i].getGroup()==streetGroup){ //If it is correct group
                 //Gets house level
-                houseLevelsInGroup[counter] = ((Street) board.getFields()[fieldId]).getHouseLevel();
+                houseLevelsInGroup[counter] = ((Street) board.getFields()[i]).getHouseLevel();
                 if (fieldId==i){ //If it is the field called in the method, adds increment
                     houseLevelsInGroup[counter] += houseIncrement;
                 }
