@@ -189,7 +189,7 @@ public class ViewController {
             for (int i = 0; i < sum; i++) {
                 teleportPlayerCar( activePlayerId, 1, (oldFieldId + i) % fields.length );
                 try {
-                    Thread.sleep( 200);
+                    Thread.sleep( 1);
                 } catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
                 }

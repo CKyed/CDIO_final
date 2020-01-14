@@ -1,5 +1,6 @@
 package controller;
 
+//import com.sun.javafx.sg.prism.NGAmbientLight;
 import model.*;
 import model.Fields.IncomeTax;
 import model.Fields.OrdinaryTax;
@@ -161,6 +162,13 @@ public class GameController {
             boardController.buildHouses(fieldId,numberOfHouses);
             return true;
         }
+
+    }
+
+    public void sellHouses(int fieldId, int numberOfHouses){
+        int totalGain = numberOfHouses*((Street)boardController.getBoard().getFields()[fieldId]).getHousePrice()/2;
+        playerController.getActivePlayer().deposit(totalGain);
+        boardController.sellHouses(fieldId,numberOfHouses);
 
     }
 
