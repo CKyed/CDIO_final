@@ -302,6 +302,7 @@ public class SystemController {
 
         //If it is a chancecard that includes movement on the board
         if(cardId >= 30 && cardId <= 31){
+            gameController.movePlayer(oldPos,37);
             viewController.teleportPlayerCar(playerId,37,oldPos);
         }
 
