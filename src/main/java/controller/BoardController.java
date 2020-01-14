@@ -70,84 +70,52 @@ public class BoardController {
         }
     }
 
-    public int[] getBuildableStreetIds(int playerId){
-        //Really complicated method that returns an int[] of the fieldId's where player can build a house
-        //Would be a lot shorter, if we could use arrayList
-        //There might be an easier way
-
-        //First gets array of all seriesIds of streets, that the player owns
-
-        int[] seriesIdsOwnedByPlayer = new int[board.getFields().length];
-        for (int i=0;i<board.getFields().length;i++){
-            //First assumes, that field is not owned by player, by setting seriesId to -1
-            seriesIdsOwnedByPlayer[i]=-1;
-
-            //If it is a street
-            if (board.getFields()[i].getType().equals("street")){
-                //If the player owns it
-                if(((Street)board.getFields()[i]).getOwnerId()==playerId){
-                    seriesIdsOwnedByPlayer[i] = ((Street)board.getFields()[i]).getGroup();
-                }
-
-            }
-        }
-
-        //Makes array of same length as the number of series
-        int[] numberOfCountsForSeries = new int[8];
-        for (int i=0;i<8;i++){
-            numberOfCountsForSeries[i]=0;
-        }
-
-        //loops through the seriesIdsOwnedByPlayer, counting the number of streets in the series, that player owns
-        for (int i=0;i<board.getFields().length;i++){
-            //If the player owns the field
-            if (seriesIdsOwnedByPlayer[i]!=-1){
-                numberOfCountsForSeries[seriesIdsOwnedByPlayer[i]]++;
-            }
-        }
-
-        //Could be done in a better way without hard-coding, but would be more time consuming
-        //Makes array of total number of streets in each series
-        int[] totalNumberOfStreetsInSeries = {2,3,3,3,3,3,3,2};
-
-        for (int i=0;i<totalNumberOfStreetsInSeries.length;i++){
-            //If the player doesn't own all streets in series
-            if (!(numberOfCountsForSeries[i]==totalNumberOfStreetsInSeries[i])){
-                //Goes through seriesIdsOwnedByPlayer and sets id to -1
-                for (int j=0;j<board.getFields().length;j++){
-                    if (board.getFields()[j].getType().equals("street")){
-                        if(((Street)board.getFields()[j]).getGroup()==i){
-                            seriesIdsOwnedByPlayer[j] = -1;
-                        }
-                    }
-
-                }
-            }
-        }
-
-        //seriesIdsOwnedByPlayer now contains numbers !=-1 for any buildable street
-
-        //counts number of buildable streets
-        int numberOfBuildableStreets=0;
-        for (int i=0;i<board.getFields().length;i++){
-            if (seriesIdsOwnedByPlayer[i] != -1){
-                numberOfBuildableStreets++;
-            }
-        }
-
-        //Makes array for buildable streets
-        int[] buildableStreetIds = new int[numberOfBuildableStreets];
-
-        //Same loop as before to fill the buildableStreetIds
+    public int[] getBuildableStreetIds(int playerId, int playerBalance){
+        boolean[] buildableArray = new boolean[board.getFields().length];
         int counter =0;
+       //Loops through all fields, checking if they are buildable
         for (int i=0;i<board.getFields().length;i++){
-            if (seriesIdsOwnedByPlayer[i] != -1){
-                buildableStreetIds[counter]=i;
+            buildableArray[i] = isBuildable(i,playerBalance);
+            if (buildableArray[i])
                 counter++;
-            }
+
         }
-        return buildableStreetIds;
+        //Makes array of size counter for the ids
+        int[] buildAbleStreetIds=new int[counter];
+
+        counter =0;
+        for (int i = 0; i < board.getFields().length; i++) {
+            if (buildableArray[i])
+                buildAbleStreetIds[counter++] = i;
+
+        }
+
+        return buildAbleStreetIds;
     }
+
+    public int[] getSellableStreetIds(int playerId){
+        boolean[] sellableArray = new boolean[board.getFields().length];
+        int counter =0;
+        //Loops through all fields, checking if they are buildable
+        for (int i=0;i<board.getFields().length;i++){
+            sellableArray[i] = isHouseSellable(i);
+            if (sellableArray[i])
+                counter++;
+
+        }
+        //Makes array of size counter for the ids
+        int[] sellAbleStreetIds=new int[counter];
+
+        counter =0;
+        for (int i = 0; i < board.getFields().length; i++) {
+            if (sellableArray[i])
+                sellAbleStreetIds[counter++] = i;
+
+        }
+
+        return sellAbleStreetIds;
+    }
+
 
     public void buildHouses(int fieldId,int numberOfHouses){
         ((Street)this.board.getFields()[fieldId]).buildHouses(numberOfHouses);
@@ -183,14 +151,14 @@ public class BoardController {
                     //Gets number of ferries owned
                     int numberOfFerriesOwned = getNumberOfOwnablesOwnedInGroup(i);
                     // gets actual rent
-                    rent = ((Ferry)board.getFields()[i]).getRentLevels()[numberOfFerriesOwned-1];
+                    rent = ((Ferry)board.getFields()[i]).getRentLevels()[numberOfFerriesOwned];//TODO her stod -1 vi tjekker lige
 
                     //sets rent
                     ((Ownable)board.getFields()[i]).setRent(rent);
                     break;
                 case "brew":
                     int numberOfBreweriesOwned = getNumberOfOwnablesOwnedInGroup(i);
-                    rent = ((Brewery)board.getFields()[i]).getRentLevels()[numberOfBreweriesOwned-1];
+                    rent = ((Brewery)board.getFields()[i]).getRentLevels()[numberOfBreweriesOwned];
                     //sets rent
                     ((Ownable)board.getFields()[i]).setRent(rent);
                     break;
@@ -213,7 +181,7 @@ public class BoardController {
             //If group is the same
             if (board.getFields()[fieldId].getGroup()==board.getFields()[i].getGroup()){
                 //If owner is the same
-                if (((Ownable)board.getFields()[fieldId]).getOwnerId()==((Ownable)board.getFields()[i]).getOwnerId()){
+                if (((Ownable)board.getFields()[fieldId]).getOwnerId()==((Ownable)board.getFields()[i]).getOwnerId() && ((Ownable)board.getFields()[i]).getOwnerId() != -1){
                     numberOfOwnables++;
                 }
             }
@@ -230,10 +198,94 @@ public class BoardController {
 
     }
 
-    public int[] getSellableStreetIds(int playerId){
+    public boolean isBuildable(int fieldId, int playerBalance){
+        boolean isStreet = board.getFields()[fieldId].getType().equals("street");
+        boolean hasAllInseries = false;
+        boolean notHotelLevel= false;
+        boolean canAfford= false;
+        boolean evenBuild= false;
 
+        if (isStreet) {
+            hasAllInseries = ownsAllInSeries(fieldId);
+            notHotelLevel = ((Street) board.getFields()[fieldId]).getHouseLevel() != 5;
+            canAfford = ((Street) board.getFields()[fieldId]).getHousePrice() <= playerBalance;
+            evenBuild = true; // TODO implementer metode, der tjekker even build. Gerne som kan genbruges til sellableStreetIds
+        }
 
-        return new int[0];
+        //Only returns true, if all 5 conditions are satisfied
+        return isStreet && hasAllInseries && notHotelLevel && canAfford && evenBuild;
+    }
+
+    public boolean isHouseSellable(int fieldId){
+        boolean isStreet = board.getFields()[fieldId].getType().equals("street");
+        boolean hasAllInseries = false;
+        boolean notHouse0 = false;
+        boolean evenBuild= false;
+
+        if (isStreet) {
+            hasAllInseries = ownsAllInSeries(fieldId);
+            notHouse0 = ((Street) board.getFields()[fieldId]).getHouseLevel() != 0;
+            evenBuild = true; // TODO implementer metode, der tjekker even build. Gerne som kan genbruges til sellableStreetIds
+        }
+
+        //Only returns true, if all 5 conditions are satisfied
+        return isStreet && hasAllInseries && notHouse0 && evenBuild;
+    }
+
+    public int[] getPawnableOrUnpawnableStreetIds(int playerId, boolean pawnable, int playerBalance){
+        //pawnable==true means get pawnableStreetIds
+        //pawnable==false means get unpawnableStreetIds
+
+        //initializing
+        boolean owned;
+        boolean correctPawnStatus;
+        boolean noHousesBuilt;
+        boolean canAfford;
+        int numberOfPawnables=0;
+        boolean[] streetsPawnable = new boolean[board.getFields().length];
+
+        //runs through all fields and saves their pawnable-boolean in streetsPawnable (array)
+        for (int i = 0; i <board.getFields().length ; i++) {
+            streetsPawnable[i] = false;
+            noHousesBuilt =true;
+            owned = false;
+            correctPawnStatus = false;
+            canAfford = true;
+            //If it is an ownable
+            if (board.getFields()[i].getType()=="street" || board.getFields()[i].getType()=="ferry" || board.getFields()[i].getType()=="brew"){
+                owned = ((Ownable)board.getFields()[i]).getOwnerId()==playerId;
+                canAfford = playerBalance >= (int)((((Ownable)board.getFields()[i]).getPrice()/2)*1.1);
+
+                //only checks if houses are built, if it is a street
+                if (board.getFields()[i].getType()=="street"){
+                    noHousesBuilt = ((Street)board.getFields()[i]).getHouseLevel()==0;
+                }
+
+                //If the pawning-status of the ownable is the same as the pawnable variable, correctPawnStatus==false
+                //If the pawning-status of the ownable is the different from the pawnable variable, correctPawnStatus==true
+                correctPawnStatus = ! (((Ownable) board.getFields()[i]).isPledged() == pawnable);
+            }
+            //If it is owned and not already pawned and player can afford
+            if (owned && correctPawnStatus && noHousesBuilt && canAfford){
+                //increments number of pawnables
+                numberOfPawnables++;
+                streetsPawnable[i] = true;
+            }
+        }
+
+        //initializes array of corrct size
+        int[] pawnableOrUnpawnableStreetIds = new int[numberOfPawnables];
+        int counter =0;
+
+        //Puts the correct ids in the pawnableStreetIds array
+        for (int i = 0; i < board.getFields().length; i++) {
+            if (streetsPawnable[i]){
+                pawnableOrUnpawnableStreetIds[counter] = i;
+                counter++;
+            }
+        }
+
+        return pawnableOrUnpawnableStreetIds;
     }
 
 

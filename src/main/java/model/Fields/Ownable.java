@@ -42,4 +42,8 @@ public abstract class Ownable extends Field {
     public boolean isPledged() {
         return isPledged;
     }
+
+    public void setPledged(boolean pledged){
+        this.isPledged = pledged;
+    }
 }
