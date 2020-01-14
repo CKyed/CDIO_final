@@ -16,6 +16,7 @@ import model.Fields.OwnableFile.*;
 import java.awt.*;
 
 public class ViewController {
+    private String[] colorsPicked = {"null","null","null","null","null","null"};
     private GUI gui;
     private GUI_Field[] fields;
     private GUI_Player[] guiPlayers;
@@ -24,13 +25,24 @@ public class ViewController {
     private int counterForWinner = 0;
 
 
+
+
     public ViewController(Board board) {
         Color bgcolor = new Color(151,90,22);
         GUI_Field[] fields = createFields(board);
         this.fields = fields;
         this.gui = new GUI(fields,bgcolor);
-
-
+        //All  256 combinations are initially set to false (this is used in manuallyCreateGuiPlayer())
+        boolean[][][][] combinationsPicked = new boolean[4][4][4][4];
+        for ( int i = 0; i < combinationsPicked.length; i++ ) {
+            for ( int j = 0; j < combinationsPicked[i].length; j++ ) {
+                for ( int k = 0; k < combinationsPicked[i][j].length; k++ ) {
+                    for ( int l = 0; l < combinationsPicked[i][j][k].length; l++ ) {
+                        combinationsPicked[i][j][k][l] = false;
+                    }
+                }
+            }
+        }
     }
 
     public GUI_Field[] createFields(Board board){
@@ -131,15 +143,102 @@ public class ViewController {
         return guiFields;
     }
 
+    private void manuallyCreateGuiPlayer(GUI_Player player, String playerName){
+        /**
+         * The manuallyCreateGuiPlayer method is a recursion function
+         * that lets the player pick colors, type and pattern of his vehicle
+         * thereafter if checks if his preferred combination matches with a
+         * previously picked combination. if it doesn't, then his choice will
+         * be stored in the combinationsPicked array
+         */
+        //User will check for unique combination later.
+        boolean uniqueCombination = false;
+
+        //The choices are initiated with default values to avoid nullPointers (Testing)
+        GUI_Car.Type guiCarChoice = GUI_Car.Type.TRACTOR;
+        Color guiPrimaryColorChoice = new Color(112,142,33);
+        Color guiSecondaryColorChoice = new Color(112,142,33);
+        GUI_Car.Pattern guiPatternChoice = GUI_Car.Pattern.FILL;
+
+        //CarTypeOptions
+        String[] cars = {"car", "racecar", "tractor", "ufo"};
+        GUI_Car.Type[] guiCars = {
+                GUI_Car.Type.CAR,
+                GUI_Car.Type.RACECAR,
+                GUI_Car.Type.TRACTOR,
+                GUI_Car.Type.UFO};
+
+        //CarPrimaryColorOptions
+        String[] primaryColors = {"red","blue","green","yellow"};
+        Color[] guiPrimaryColors = {
+                new Color(245,101,101),
+                new Color(99,179,237),
+                new Color(104,143,51),
+                new Color(250,240,137)};
+
+        //CarSecondaryColorOptions
+        String[] secondaryColors = {"red","blue","green","yellow"};
+        Color[] guiSecondaryColors = {
+                new Color(245,101,101),
+                new Color(99,179,237),
+                new Color(104,143,51),
+                new Color(250,240,137)};
+
+        //CarPatternOptions
+        String[] patterns = {"checkered","gradient","fill","zebra"};
+        GUI_Car.Pattern[] guiPatterns = {
+                GUI_Car.Pattern.CHECKERED,
+                GUI_Car.Pattern.HORIZONTAL_GRADIANT,
+                GUI_Car.Pattern.FILL,
+                GUI_Car.Pattern.ZEBRA};
+
+        //The player picks his vehicel
+        String carChoice = gui.getUserButtonPressed(playerName + " Please pick a vehicel","car","racecar","tractor","ufo");
+        for ( int i = 0; i < cars.length; i++ ) {
+            if (carChoice == cars[i]) {
+                guiCarChoice = guiCars[i];
+            }
+        }
+
+        //The player picks his primary color
+        String primaryColorChoice = gui.getUserButtonPressed(playerName + "Please pick a primary color","red","blue","green","black");
+        for ( int i = 0; i < primaryColors.length; i++ ) {
+            if (primaryColorChoice == primaryColors[i]) {
+                guiPrimaryColorChoice = guiPrimaryColors[i];
+            }
+        }
+
+        //The player picks his secondary color
+        String secondaryColorChoice = gui.getUserButtonPressed(playerName + "Please pick a secondary color","red","blue","green","black");
+        for ( int i = 0; i < primaryColors.length; i++ ) {
+            if (secondaryColorChoice == secondaryColors[i]) {
+                guiSecondaryColorChoice = guiSecondaryColors[i];
+            }
+        }
+    }
+    private void theStaticCars(){
+        /**
+         * This method just automatically creates some different cars for the players.
+         * the player will have no choice to make his own car.
+         */
+        this.guiCars = new GUI_Car[]{
+                new GUI_Car(Color.GREEN, Color.GREEN, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL),
+                new GUI_Car(Color.RED, Color.RED, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL),
+                new GUI_Car(Color.YELLOW, Color.YELLOW, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL),
+                new GUI_Car(Color.WHITE, Color.WHITE, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL),
+                new GUI_Car(Color.BLUE, Color.BLUE, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL),
+                new GUI_Car(Color.BLACK, Color.BLACK, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL)};
+    }
+
     public String[] setupPlayers(){
+        /**
+         * This method is central for the game, it creates all the players that
+         * you see on the board.
+         */
         gui.showMessage(readFile(setupMessagesPath,"welcome"));
-
         int numberOfPlayers = Integer.parseInt(gui.getUserSelection(readFile(setupMessagesPath,"choosePlayerNumber"),"3","4","5","6"));
-
         String[] playerNames = new String[numberOfPlayers];
-
-        this.guiCars = new GUI_Car[numberOfPlayers];
-
+        //theStaticCars();
         String playerNameMessage;
         int i=0;
         int nameErrors;
@@ -170,8 +269,7 @@ public class ViewController {
             }
         }
 
-        this.guiCars = new GUI_Car[]{new GUI_Car(Color.GREEN, Color.GREEN, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL),
-                new GUI_Car(Color.RED, Color.RED, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL), new GUI_Car(Color.YELLOW, Color.YELLOW, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL), new GUI_Car(Color.WHITE, Color.WHITE, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL), new GUI_Car(Color.BLUE, Color.BLUE, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL), new GUI_Car(Color.BLACK, Color.BLACK, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL)};
+
 
         setupGuiPlayers(playerNames);
 
@@ -215,7 +313,10 @@ public class ViewController {
     private void setupGuiPlayers(String[] playerNames){
         this.guiPlayers = new GUI_Player[playerNames.length];
         for (int i=0;i<playerNames.length;i++){
-            this.guiPlayers[i] = new GUI_Player(playerNames[i],30000,this.guiCars[i]);
+            //Static car
+            //this.guiPlayers[i] = new GUI_Player(playerNames[i],30000,this.guiCars[i]);
+            //Pick your own car
+            manuallyCreateGuiPlayer(this.guiPlayers[i],playerNames[i]);
             this.gui.addPlayer(guiPlayers[i]);
 
            this.fields[0].setCar(this.guiPlayers[i],true);
