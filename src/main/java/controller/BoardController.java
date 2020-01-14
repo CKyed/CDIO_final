@@ -230,8 +230,52 @@ public class BoardController {
 
         //Only returns true, if all 5 conditions are satisfied
         return isStreet && hasAllInseries && notHouse0 && evenBuild;
+    }
 
+    public int[] getPawnableOrUnpawnableStreetIds(int playerId, boolean pawnable){
+        //pawnable==true means get pawnableStreetIds
+        //pawnable==false means get unpawnableStreetIds
 
+        //initializing
+        boolean owned;
+        boolean correctPawnStatus;
+        int numberOfPawnables=0;
+        boolean[] streetsPawnable = new boolean[board.getFields().length];
+
+        //runs through all fields and saves their pawnable-boolean in streetsPawnable (array)
+        for (int i = 0; i <board.getFields().length ; i++) {
+            streetsPawnable[i] = false;
+            owned = false;
+            correctPawnStatus = false;
+            //If it is a street
+            if (board.getFields()[i].getType()=="street"){
+                owned = ((Ownable)board.getFields()[i]).getOwnerId()==playerId;
+
+                //If the pawning-status of the ownable is the same as the pawnable variable, correctPawnStatus==false
+                //If the pawning-status of the ownable is the different from the pawnable variable, correctPawnStatus==true
+                correctPawnStatus = ! (((Ownable) board.getFields()[i]).isPledged() == pawnable);
+            }
+            //If it is owned and not already pawned
+            if (owned && correctPawnStatus){
+                //increments number of pawnables
+                numberOfPawnables++;
+                streetsPawnable[i] = true;
+            }
+        }
+
+        //initializes array of corrct size
+        int[] pawnableOrUnpawnableStreetIds = new int[numberOfPawnables];
+        int counter =0;
+
+        //Puts the correct ids in the pawnableStreetIds array
+        for (int i = 0; i < board.getFields().length; i++) {
+            if (streetsPawnable[i]){
+                pawnableOrUnpawnableStreetIds[counter] = i;
+                counter++;
+            }
+        }
+
+        return pawnableOrUnpawnableStreetIds;
     }
 
 

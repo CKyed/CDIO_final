@@ -34,5 +34,9 @@ buildingSucceeded:Det lykkedes at bygge et hus!
 cantSellHouse:%s kan ikke sælge nogen huse i øjeblikket.
 sellHouseWhere:Hvor kunne %s tænke sig at sælge et hus?
 sellingSucceded:Det lykkedes at sælge et hus!
+pawnOrUnpawn:Pansæt/Ophæv pansætning
+pawn:Pansæt
+unpawn:Ophæv pansætning
+noPawningPossible:Der er ingen grunde at pantsætte.
 
 

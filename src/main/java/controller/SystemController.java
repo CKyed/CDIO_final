@@ -5,13 +5,10 @@ import model.Fields.Ownable;
 import static controller.PathExpert.*;
 import static controller.TextController.readFile;
 
-
-
 public class SystemController {
     private GameController gameController;
     private ViewController viewController;
     private int numberOfPlayers;
-
 
     public SystemController(){
         //Initializes controllers
@@ -312,24 +309,22 @@ public class SystemController {
         boolean buyOrSellMore = true;
         while(buyOrSellMore){
             String menuSelction = viewController.getUserButtonPressed("",readFile(turnMessagesPath
-                    ,"buyHouses"),readFile(turnMessagesPath,"sellHouses"),readFile(turnMessagesPath,"exit"));
+                    ,"buyHouses"),readFile(turnMessagesPath,"sellHouses"),readFile(turnMessagesPath,"exit"),readFile(turnMessagesPath,"pawn"));
 
             if (menuSelction.equals(readFile(turnMessagesPath,"buyHouses"))){//If player wants to buy houses
                 buyHouses();
 
             } else if (menuSelction.equals(readFile(turnMessagesPath,"sellHouses"))){//If player wants to sell houses
                 sellHouses();
-                } else{
+                } else if (menuSelction.equals(readFile(turnMessagesPath,"pawnOrUnpawn"))){//If player wants to pawn streets
+                    pawnOrUnPawnStreets();
+            } else{
                 //Updates balances and ownerships
                 viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
                 viewController.updateOwnerships(gameController.getBoardController().getBoard());
                 buyOrSellMore = false;
             }
         }
-
-
-
-
     }
 
     public void buyHouses(){
@@ -431,6 +426,67 @@ public class SystemController {
         }
     }
 
+    public void pawnOrUnPawnStreets(){
+        boolean done = false;
+        String selection;
+        while (!done){
+            selection = viewController.getUserButtonPressed("",readFile(turnMessagesPath,"pawn"),readFile(turnMessagesPath,"unpawn"),readFile(turnMessagesPath,"exit"));
+            if (selection.equals(readFile(turnMessagesPath,"pawn"))){
+                pawnStreets();
+            } else if (selection.equals(readFile(turnMessagesPath,"unpawn"))){
+                unpawnStreets();
+            } else {
+                done = true;
+            }
+        }
+    }
+
+    public void pawnStreets(){
+        //Gets array of pawnable streets for player
+        int[] pawnableStreetIds = gameController.getBoardController().getPawnableOrUnpawnableStreetIds(gameController.getActivePlayerId(),true);
+
+        if (pawnableStreetIds.length==0){
+            //If the array was empty
+            viewController.showMessage(readFile(turnMessagesPath,"noPawningPossible"));
+        } else {
+            //If there are possible pawnings
+            String[] possibleStreetNames = new String[pawnableStreetIds.length+1];
+
+            //Creates array of names for possible streets
+            for (int i = 0; i < possibleStreetNames.length; i++) {
+                //Sets the name of the street in possibleStreetNames
+                possibleStreetNames[i]=gameController.getBoardController().getBoard().getFields()[pawnableStreetIds[i]].getName();
+            }
+            //Sets the last element to "exit"
+            possibleStreetNames[possibleStreetNames.length-1] = readFile(turnMessagesPath,"exit");
+
+            //Asks which street player wants to pawn
+            String selectedStreetName = viewController.getUserButtonPressed("",possibleStreetNames);
+            int selectedStreetId;
+
+            //If the player did not choose exit
+            if (!selectedStreetName.equals(readFile(turnMessagesPath,"exit"))){
+
+                //Goes through all streetNames and finds the correct id
+                for (int i = 0; i < pawnableStreetIds.length; i++) {
+                    if (selectedStreetName.equals(possibleStreetNames[i])){
+                        selectedStreetId = pawnableStreetIds[i];
+                    }
+                }
+            }
+            //TODO pawn the street
+
+
+        }
+
+
+
+    }
+
+    public void unpawnStreets(){
+        //Gets array of unpawnable streets for player
+        int[] pawnableStreetIds = gameController.getBoardController().getPawnableOrUnpawnableStreetIds(gameController.getActivePlayerId(),false);
+    }
 
 
 }
