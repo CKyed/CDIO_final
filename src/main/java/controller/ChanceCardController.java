@@ -71,7 +71,12 @@ public class ChanceCardController {
                 message = String.format(message,playerController.getActivePlayer().getName(),playerController.getActivePlayer().getName());
 
                 break;
-
+            case 41:
+            case 42:
+                //Gives the player the "get out of prison" card
+                playerController.getActivePlayer().setPrisonCard(true);
+                message = String.format(readFile(turnMessagesPath,"getsPrisonCard"),playerController.getActivePlayer().getName());
+                break;
         }
         return message;
 
