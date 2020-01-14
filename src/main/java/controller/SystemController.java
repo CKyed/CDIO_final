@@ -277,7 +277,10 @@ public class SystemController {
 
     public void playerBankruptcy(){
         int activePlayerId = gameController.getActivePlayerId();
+        int owesAmount = gameController.getActivePlayer().getOwnsAmount();
+        int owesTo = gameController.getOwnerId();
         boolean couldPay = false;
+
         //This method should give the option for a player to sell out before it allows the player to loose.
         //The player should be able to sell houses and pledge properties
         //The method should know who the creditor is
