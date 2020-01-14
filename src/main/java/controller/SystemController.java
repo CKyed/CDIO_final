@@ -336,70 +336,108 @@ public class SystemController {
             String menuSelction = viewController.getUserButtonPressed("",readFile(turnMessagesPath
                     ,"buyHouses"),readFile(turnMessagesPath,"sellHouses"),readFile(turnMessagesPath,"exit"));
 
+            //If player wants to buy houses
             if (menuSelction.equals(readFile(turnMessagesPath,"buyHouses"))){
                 buyMore = true;
                 while (buyMore){
                     //gets array of buildable street ids
                     int[] buildableStreetIds = gameController.getBoardController().getBuildableStreetIds(gameController.getActivePlayerId());
 
-                    //Gets array of buildable street names
-                    String[] buildableStreetNames = new String[buildableStreetIds.length+1];
-                    for (int i = 0; i < buildableStreetIds.length; i++) {
-                        buildableStreetNames[i] = gameController.getBoardController().getBoard().getFields()[buildableStreetIds[i]].getName();
-                    }
-
-                    //gives the exit option
-                    buildableStreetNames[buildableStreetIds.length] = readFile(turnMessagesPath,"exit");
-                    String askWhichStreet =String.format(readFile(turnMessagesPath,"buildHouseWhere"),gameController.getActivePlayer().getName()) ;
-
-                    selectedStreet = viewController.getUserSelection(askWhichStreet,buildableStreetNames);
-                    for (int i = 0; i <buildableStreetNames.length ; i++) {
-                        if (selectedStreet.equals(buildableStreetNames[i])){
-                            selectedStreetId = buildableStreetIds[i];
-                        }
-                    }
-
-                    if (selectedStreetId == buildableStreetIds[buildableStreetIds.length-1]){
+                    if (buildableStreetIds.length==0){ //If player cant build anything
+                        //Shows message, that payer cant buy
+                        viewController.showMessage(String.format(readFile(turnMessagesPath,"cantBuild"),gameController.getActivePlayer().getName()));
                         buyMore = false;
+
+                    } else { //If player can build somewhere
+                        //Gets array of buildable street names
+                        String[] buildableStreetNames = new String[buildableStreetIds.length + 1];
+                        for (int i = 0; i < buildableStreetIds.length; i++) {
+                            buildableStreetNames[i] = gameController.getBoardController().getBoard().getFields()[buildableStreetIds[i]].getName();
+                        }
+
+                        //gives the exit option
+                        buildableStreetNames[buildableStreetIds.length] = readFile(turnMessagesPath, "exit");
+                        String askWhichStreet = String.format(readFile(turnMessagesPath, "buildHouseWhere"), gameController.getActivePlayer().getName());
+
+                        selectedStreet = viewController.getUserSelection(askWhichStreet, buildableStreetNames);
+                        for (int i = 0; i < buildableStreetIds.length; i++) {
+                            if (selectedStreet.equals(buildableStreetNames[i])) {
+                                selectedStreetId = buildableStreetIds[i];
+                            } else if (selectedStreet.equals(readFile(turnMessagesPath,"exit"))){
+                                //If player chose "exit"
+                                buyMore = false;
+                            }
+                        }
+
+                        //If player chose to build on a street
+                        if (selectedStreetId < buildableStreetIds[buildableStreetIds.length - 1]) {
+                            if (gameController.tryToBuyHouses(selectedStreetId, 1))
+                                viewController.showMessage(readFile(turnMessagesPath, "buildingSucceeded"));
+                            else  //Service errormessage
+                                viewController.showMessage("HOV - SPILLEREN BURDE KUNNE BYGGE HUSET");
+
+                        }
+
                     }
+                    //Updates balances and ownerships
+                    viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
+                    viewController.updateOwnerships(gameController.getBoardController().getBoard());
+                }// while(buyMore)
 
-                }
-
-
-
+                //If player wants to sell houses
             } else if (menuSelction.equals(readFile(turnMessagesPath,"sellHouses"))){
                 sellMore = true;
+
                 while (sellMore){
-                    //gets array of buildable street ids
-                    int[] buildableStreetIds = gameController.getBoardController().getBuildableStreetIds(gameController.getActivePlayerId());
+                    //gets array of street ids where player can sell houses
+                    int[] sellableStreetIds = gameController.getBoardController().getSellableStreetIds(gameController.getActivePlayerId());
 
-                    //Gets array of buildable street names
-                    String[] buildableStreetNames = new String[buildableStreetIds.length+1];
-                    for (int i = 0; i < buildableStreetIds.length; i++) {
-                        buildableStreetNames[i] = gameController.getBoardController().getBoard().getFields()[buildableStreetIds[i]].getName();
-                    }
-
-                    //gives the exit option
-                    buildableStreetNames[buildableStreetIds.length] = readFile(turnMessagesPath,"exit");
-                    String askWhichStreet =String.format(readFile(turnMessagesPath,"buildHouseWhere"),gameController.getActivePlayer().getName()) ;
-
-                    selectedStreet = viewController.getUserSelection(askWhichStreet,buildableStreetNames);
-                    for (int i = 0; i <buildableStreetNames.length ; i++) {
-                        if (selectedStreet.equals(buildableStreetNames[i])){
-                            selectedStreetId = buildableStreetIds[i];
-                        }
-                    }
-
-                    if (selectedStreetId == buildableStreetIds[buildableStreetIds.length-1]){
+                    if (sellableStreetIds.length==0){ //If player cant sell any houses
+                        //Shows message, that payer cant sell
+                        viewController.showMessage(String.format(readFile(turnMessagesPath,"cantSellHouse"),gameController.getActivePlayer().getName()));
                         sellMore = false;
+
+                    } else { //If player can sell houses
+                        //Gets array of "sellable" street names
+                        String[] sellableStreetNames = new String[sellableStreetIds.length + 1];
+                        for (int i = 0; i < sellableStreetIds.length; i++) {
+                            sellableStreetNames[i] = gameController.getBoardController().getBoard().getFields()[sellableStreetIds[i]].getName();
+                        }
+
+                        //gives the exit option
+                        sellableStreetNames[sellableStreetIds.length] = readFile(turnMessagesPath, "exit");
+                        String askWhichStreet = String.format(readFile(turnMessagesPath, "sellHouseWhere"), gameController.getActivePlayer().getName());
+
+                        //Asks where player wants to sell
+                        selectedStreet = viewController.getUserSelection(askWhichStreet, sellableStreetNames);
+                        for (int i = 0; i < sellableStreetIds.length; i++) {
+                            if (selectedStreet.equals(sellableStreetNames[i])) {
+                                selectedStreetId = sellableStreetIds[i];
+                            } else if (selectedStreet.equals(readFile(turnMessagesPath,"exit"))){
+                                //If player chose "exit"
+                                sellMore = false;
+                            }
+                        }
+
+
+                        if (selectedStreetId < sellableStreetIds[sellableStreetIds.length - 1]) {
+                            //If player selected a street to sell a house on
+                            gameController.sellHouses(selectedStreetId, 1);
+                            viewController.showMessage(readFile(turnMessagesPath, "sellingSucceded"));
+                        }
+
                     }
+                    //Updates balances and ownerships
+                    viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
+                    viewController.updateOwnerships(gameController.getBoardController().getBoard());
 
                 }
+
+
+
             } else{
                 buyOrSellMore = false;
             }
-
-
         }
 
 

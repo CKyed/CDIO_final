@@ -154,6 +154,11 @@ public class BoardController {
         updateStreetRent(fieldId);
     }
 
+    public void sellHouses(int fieldId,int numberOfHouses){
+        ((Street)this.board.getFields()[fieldId]).removeHouses(numberOfHouses);
+        updateStreetRent(fieldId);
+    }
+
     public void updateStreetRent(int fieldId){
         //Gets the updated rent
         int houseLevel = ((Street)this.board.getFields()[fieldId]).getHouseLevel();
@@ -211,8 +216,6 @@ public class BoardController {
                 if (((Ownable)board.getFields()[fieldId]).getOwnerId()==((Ownable)board.getFields()[i]).getOwnerId()){
                     numberOfOwnables++;
                 }
-
-
             }
         }
         return numberOfOwnables;
@@ -225,6 +228,12 @@ public class BoardController {
         //Checks if number is the same as totalNumber
         return numberOwned == totalNumberOfStreetsInSeries[board.getFields()[fieldId].getGroup()];
 
+    }
+
+    public int[] getSellableStreetIds(int playerId){
+
+
+        return new int[0];
     }
 
 
