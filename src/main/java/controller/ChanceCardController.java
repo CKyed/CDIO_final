@@ -23,8 +23,6 @@ public class ChanceCardController {
         return cardDeck;
     }
 
-
-
     public String playCard(int cardId,PlayerController playerController, Board board){
         String message ="";
 
@@ -72,6 +70,12 @@ public class ChanceCardController {
                 }
                 message = String.format(message,playerController.getActivePlayer().getName(),playerController.getActivePlayer().getName());
 
+                break;
+            case 41:
+            case 42:
+                //Gives the player the "get out of prison" card
+                playerController.getActivePlayer().setPrisonCard(true);
+                message = String.format(readFile(turnMessagesPath,"getsPrisonCard"),playerController.getActivePlayer().getName());
                 break;
             case 29:
                 //moves the player three fields further

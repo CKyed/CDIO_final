@@ -7,6 +7,9 @@ import model.Fields.Ownable;
 import model.Fields.OwnableFile.*;
 import model.Fields.Prison;
 
+import static controller.PathExpert.endMessagePath;
+import static controller.TextController.readFile;
+
 public class GameController {
     private BoardController boardController;
     private PlayerController playerController;
@@ -35,6 +38,7 @@ public class GameController {
         movePlayer(currentFieldId,dieSum);
 
         return diceController.getFaceValues();
+
     }
 
     public void movePlayer(int currentFieldId, int dieSum){
@@ -103,7 +107,7 @@ public class GameController {
     }
 
     public void updateActivePlayer(){
-        if (!diceController.isSameValue()){
+        if (!diceController.isSameValue() || playerController.getActivePlayer().isInJail()){
             this.playerController.updateActivePlayer();
         }
     }
@@ -176,5 +180,46 @@ public class GameController {
 
 
     }
+
+    public String findWinner(){
+        int totalLostPlayers = 0;
+
+        //Everytime a player looses, the counter goes up by 1
+       for (int i = 0; i < playerController.getPlayers().length; i++) {
+            if (playerController.getPlayers()[i].isHasPlayerLost()==true){
+                makeFreeField(i);
+                totalLostPlayers++;
+            }
+        }
+
+        String msg = "";
+
+        //Check if there is one winner left
+        if (totalLostPlayers == playerController.getPlayers().length - 1) {
+            for (int i = 0; i <  playerController.getPlayers().length; i++) {
+                if ( playerController.getPlayers()[i].getAccount().getBalance() > 0) {
+                    // "looser" does not exist in winner name
+                    msg = playerController.getPlayers()[i].getName();
+                }
+            }
+        }
+       return msg;
+    }
+
+    //Releases all the fields that the looser owns
+    public void makeFreeField(int playerIndex){
+        for (int i = 0; i < boardController.getBoard().getFields().length ; i++) {
+            if (boardController.getBoard().getFields()[i] instanceof Ownable){
+                if (((Ownable)boardController.getBoard().getFields()[i]).getOwnerId() == playerIndex){
+                    ((Ownable)boardController.getBoard().getFields()[i]).setOwnerId(-1);
+                    //TODO : update view
+                }
+            }
+        }
+
+    }
+
+
+
 
 }

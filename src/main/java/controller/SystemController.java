@@ -34,19 +34,29 @@ public class SystemController {
             //Gets activePlayerID for later use
             activePlayerId = gameController.getActivePlayerId();
 
-            //Displays message, showing who's turn it is
-            viewController.newTurnMessage(gameController.getActivePlayerId());
+            //Asks player to proceed or buy/sell
+            String newTurnMessage = String.format( readFile( turnMessagesPath, "newTurn" ), gameController.getActivePlayer().getName() );
+            String selection = viewController.getUserButtonPressed(newTurnMessage,readFile(turnMessagesPath,"buySell"),"OK");
+            if (selection.equals(readFile(turnMessagesPath,"buySell"))){
+                buyOrSellBeforeTurn();
+            }
 
-            //If player owns streets, player can choose to buy or sell houses first
-            buyBeforeTurn();
 
             //If the player is in jail
             if(gameController.getActivePlayer().isInJail()){
+                boolean success = true;
                 //shows that player is in prison
                 viewController.showMessage(String.format(readFile(turnMessagesPath,"playerPaysBail"),gameController.getActivePlayer().getName()));
 
-                boolean success = gameController.payBail(activePlayerId);
-                gameController.getPlayerController().getPlayers()[activePlayerId].setInJail(false);
+                //If the player has prison card, the player uses the prisoncard and gets out of jail
+                if(gameController.getPlayerController().getPlayers()[activePlayerId].isPrisonCard()){
+                    gameController.getPlayerController().getPlayers()[activePlayerId].setInJail(false);
+                    gameController.getPlayerController().getPlayers()[activePlayerId].setPrisonCard(false);
+                }else {
+                    //If the player doesn't have a prison card, the player pays the bail and gets out of jail
+                    success = gameController.payBail(activePlayerId);
+                    gameController.getPlayerController().getPlayers()[activePlayerId].setInJail(false);
+                }
                 if(success == false){
                     //TODO Method for handling loser-condition is called here
                 }
@@ -135,9 +145,6 @@ public class SystemController {
 
                     //Multiplies by dieSum
                     rent = rent*gameController.getDiceController().getSum();
-
-                    //Multiplies by number of breweries owned
-                    rent = rent*gameController.getBoardController().getNumberOfOwnablesOwnedInGroup(fieldId);
                     break;
             }
 
@@ -163,6 +170,7 @@ public class SystemController {
                 //Player can't afford the rent
                 //TODO: Calls a method that handle looser condition
                 System.out.println("HER SKAL VI GØRE NOGET");
+                looserSituation();
 
             }
             //If it is vacant - asks if player wants to buy
@@ -236,7 +244,7 @@ public class SystemController {
                 //Shows how much player payed, if player chose 10%
                 if (!choice){
                     String playerPayedMsg = readFile(turnMessagesPath,"playerPayed");
-                    String.format(playerPayedMsg,gameController.getActivePlayer().getName(),tenPctOfValues);
+                    playerPayedMsg = String.format(playerPayedMsg,gameController.getActivePlayer().getName(),tenPctOfValues);
                     viewController.showMessage(playerPayedMsg);
                 }
                 break;
@@ -271,6 +279,9 @@ public class SystemController {
 
         if(canAfford==false){
             //TODO: Should handle if the players can't afford to pay
+            //Player can't afford the tax
+            //Looser message
+            looserSituation();
         }
     }
 
@@ -297,12 +308,106 @@ public class SystemController {
             if (!message.isEmpty()) {
                 viewController.showMessage(message);
             }
+        }
+    }
+
+    // Handel looser situation
+    public void looserSituation(){
+        int fieldId = gameController.getActivePlayer().getPositionOnBoard();
+
+
+        //Reset the players account to 0
+        gameController.getPlayerController().accountReset(gameController.getActivePlayerId());
+        //Set the the player variale "hasPlayerLost" to true
+        gameController.getPlayerController().getActivePlayer().setHasPlayerLost(true);
+
+        viewController.looserMessage(gameController.getActivePlayerId());
+        viewController.removeLoser( gameController.getActivePlayerId(), fieldId);
+        if (!gameController.findWinner().isEmpty()){
+            viewController.endGame(gameController.findWinner());
+        }
+    }
+
+    public void buyOrSellBeforeTurn(){
+        boolean buyOrSellMore = true;
+        boolean buyMore;
+        boolean sellMore;
+        String selectedStreet;
+        int selectedStreetId=0;
+        while(buyOrSellMore){
+            String menuSelction = viewController.getUserButtonPressed("",readFile(turnMessagesPath
+                    ,"buyHouses"),readFile(turnMessagesPath,"sellHouses"),readFile(turnMessagesPath,"exit"));
+
+            if (menuSelction.equals(readFile(turnMessagesPath,"buyHouses"))){
+                buyMore = true;
+                while (buyMore){
+                    //gets array of buildable street ids
+                    int[] buildableStreetIds = gameController.getBoardController().getBuildableStreetIds(gameController.getActivePlayerId());
+
+                    //Gets array of buildable street names
+                    String[] buildableStreetNames = new String[buildableStreetIds.length+1];
+                    for (int i = 0; i < buildableStreetIds.length; i++) {
+                        buildableStreetNames[i] = gameController.getBoardController().getBoard().getFields()[buildableStreetIds[i]].getName();
+                    }
+
+                    //gives the exit option
+                    buildableStreetNames[buildableStreetIds.length] = readFile(turnMessagesPath,"exit");
+                    String askWhichStreet =String.format(readFile(turnMessagesPath,"buildHouseWhere"),gameController.getActivePlayer().getName()) ;
+
+                    selectedStreet = viewController.getUserSelection(askWhichStreet,buildableStreetNames);
+                    for (int i = 0; i <buildableStreetNames.length ; i++) {
+                        if (selectedStreet.equals(buildableStreetNames[i])){
+                            selectedStreetId = buildableStreetIds[i];
+                        }
+                    }
+
+                    if (selectedStreetId == buildableStreetIds[buildableStreetIds.length-1]){
+                        buyMore = false;
+                    }
+
+                }
+
+
+
+            } else if (menuSelction.equals(readFile(turnMessagesPath,"sellHouses"))){
+                sellMore = true;
+                while (sellMore){
+                    //gets array of buildable street ids
+                    int[] buildableStreetIds = gameController.getBoardController().getBuildableStreetIds(gameController.getActivePlayerId());
+
+                    //Gets array of buildable street names
+                    String[] buildableStreetNames = new String[buildableStreetIds.length+1];
+                    for (int i = 0; i < buildableStreetIds.length; i++) {
+                        buildableStreetNames[i] = gameController.getBoardController().getBoard().getFields()[buildableStreetIds[i]].getName();
+                    }
+
+                    //gives the exit option
+                    buildableStreetNames[buildableStreetIds.length] = readFile(turnMessagesPath,"exit");
+                    String askWhichStreet =String.format(readFile(turnMessagesPath,"buildHouseWhere"),gameController.getActivePlayer().getName()) ;
+
+                    selectedStreet = viewController.getUserSelection(askWhichStreet,buildableStreetNames);
+                    for (int i = 0; i <buildableStreetNames.length ; i++) {
+                        if (selectedStreet.equals(buildableStreetNames[i])){
+                            selectedStreetId = buildableStreetIds[i];
+                        }
+                    }
+
+                    if (selectedStreetId == buildableStreetIds[buildableStreetIds.length-1]){
+                        sellMore = false;
+                    }
+
+                }
+            } else{
+                buyOrSellMore = false;
+            }
+
 
         }
 
+
+
+
     }
-
-
 
 
 
