@@ -142,7 +142,6 @@ public class SystemController {
                 break;
                 case "brew":
                     rent = ((Ownable)gameController.getBoardController().getBoard().getFields()[fieldId]).getRent();
-
                     //Multiplies by dieSum
                     rent = rent*gameController.getDiceController().getSum();
                     break;
@@ -299,11 +298,14 @@ public class SystemController {
         viewController.showMessage(landedOnChanceMsg);
 
         //If it is a chancecard that includes movement on the board
-        if(cardId <= 27 && cardId >= 40){
+        if(cardId >= 32 && cardId <= 40){
             int sum = gameController.newPos(card.getId());
             int oldPos = gameController.getPlayerController().getActivePlayer().getPositionOnBoard();
             int playerId =gameController.getActivePlayerId();
-            viewController.teleportPlayerCar(playerId,sum,oldPos);
+            gameController.movePlayer(oldPos,sum);
+            int virutalFaceValues[] = {10,10};
+            viewController.rollDiceAndMove(virutalFaceValues,sum,playerId,oldPos);
+            //viewController.teleportPlayerCar(playerId,30,oldPos);
 
 
             //here we call switch case and related methods from gamecontroller

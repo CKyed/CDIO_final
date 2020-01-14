@@ -173,10 +173,10 @@ public class GameController {
     public int chanceSum(int oldPos, int newPos){
         int chancesum = newPos - oldPos;
         if(oldPos>newPos){
-            chancesum += 40;
+            chancesum =+ 40;
         }
 
-        return 1; //todo fix return
+        return chancesum;
     }
 
     public int newPos(int chancekortID){

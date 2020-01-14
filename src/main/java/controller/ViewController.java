@@ -184,6 +184,7 @@ public class ViewController {
         if ((guiActivePlayerName.indexOf( "tabt" )) == -1  && counterForWinner != guiPlayers.length - 1) {
             // "looser" does not exist in playerName and  there are players on board more than one
 
+
             gui.setDice( faceValues[0], faceValues[1] );
 
             for (int i = 0; i < sum; i++) {
