@@ -46,11 +46,21 @@ public class SystemController {
             boolean InJailTurn = gameController.getActivePlayer().isInJail();
             while (InJailTurn) {
                 // Check first if player already roll dice twice so player should pay 1000
-                if (gameController.getActivePlayer().getRollDiceInPrison() == 3) {
-                    viewController.getUserButtonPressed( readFile( turnMessagesPath, "payPrisonLastTry"), "Pay 1000" );
-                    gameController.getActivePlayer().withdraw( 1000 );
-                    gameController.getPlayerController().getPlayers()[activePlayerId].setInJail( false );
-                    InJailTurn = false;
+                if (gameController.getActivePlayer().getRollDiceInPrison() == 2) {
+                    gameController.getDiceController().roll();
+                    // first roll in prison
+                    faceValues = gameController.getDiceController().getFaceValues();
+                    viewController.rollDiceInPrison( faceValues );
+                    if (faceValues[0] != faceValues[1]) { //rolls to different on the last try and are forced to pay
+                        viewController.getUserButtonPressed( readFile( turnMessagesPath, "payPrisonLastTry"), "Pay 1000" );
+                        gameController.getActivePlayer().withdraw( 1000 );
+                        gameController.getPlayerController().getPlayers()[activePlayerId].setInJail( false );
+                        InJailTurn = false;
+                    }else { //rolls 2 same on the last try
+                        gameController.getPlayerController().getPlayers()[activePlayerId].setInJail( false );
+                        playTurn( faceValues,oldFieldId );
+                    }
+
                 } else {
                     // Give to player choices to choice
                     String askWhichChoice = String.format( readFile( turnMessagesPath, "askWhichChoice" ), gameController.getActivePlayer().getName() );
@@ -62,8 +72,8 @@ public class SystemController {
                         gameController.getActivePlayer().withdraw( 1000 );
                         gameController.getPlayerController().getPlayers()[activePlayerId].setInJail( false );
                         InJailTurn = false;
+
                     } else if (askWhichChoice.equals( "Kast Terning" )) { // second choice
-                        int fieldId = gameController.getActivePlayer().getPositionOnBoard();
                         gameController.getDiceController().roll();
                         // first roll in prison
                         faceValues = gameController.getDiceController().getFaceValues();
@@ -106,7 +116,7 @@ public class SystemController {
 //                    playerBankruptcy();
 //                }
             }//while
-            if (!gameController.getActivePlayer().isInJail()) {
+            if (!gameController.getActivePlayer().isInJail() ) {
                 //If not in jail, turn starts normally
                 faceValues = gameController.rollDice();
                 playTurn( faceValues, oldFieldId );
