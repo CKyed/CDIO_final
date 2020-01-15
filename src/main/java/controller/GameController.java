@@ -230,7 +230,6 @@ public class GameController {
         //Everytime a player looses, the counter goes up by 1
        for (int i = 0; i < playerController.getPlayers().length; i++) {
             if (playerController.getPlayers()[i].isHasPlayerLost()==true){
-                makeFreeField(i);
                 totalLostPlayers++;
             }
         }
@@ -249,14 +248,14 @@ public class GameController {
        return msg;
     }
 
-    //Releases all the fields that the looser owns
+    //Releases all the fields that the looser owns and make them pledged false
     //This method might need to be deleted in because of new bankruptcy rules
     public void makeFreeField(int playerIndex){
         for (int i = 0; i < boardController.getBoard().getFields().length ; i++) {
             if (boardController.getBoard().getFields()[i] instanceof Ownable){
                 if (((Ownable)boardController.getBoard().getFields()[i]).getOwnerId() == playerIndex){
                     ((Ownable)boardController.getBoard().getFields()[i]).setOwnerId(-1);
-                    //TODO : update view
+                    ((Ownable)boardController.getBoard().getFields()[i]).setPledged(false);
                 }
             }
         }
