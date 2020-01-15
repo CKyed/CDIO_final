@@ -257,7 +257,7 @@ public class BoardController {
         //initializing
         boolean owned;
         boolean correctPawnStatus;
-        boolean noHousesBuilt;
+        boolean noHousesBuiltInSeries;
         boolean canAfford;
         int numberOfPawnables=0;
         boolean[] streetsPawnable = new boolean[board.getFields().length];
@@ -265,7 +265,7 @@ public class BoardController {
         //runs through all fields and saves their pawnable-boolean in streetsPawnable (array)
         for (int i = 0; i <board.getFields().length ; i++) {
             streetsPawnable[i] = false;
-            noHousesBuilt =true;
+            noHousesBuiltInSeries =true;
             owned = false;
             correctPawnStatus = false;
             canAfford = true;
@@ -278,7 +278,7 @@ public class BoardController {
 
                 //only checks if houses are built, if it is a street
                 if (board.getFields()[i].getType()=="street"){
-                    noHousesBuilt = ((Street)board.getFields()[i]).getHouseLevel()==0;
+                    noHousesBuiltInSeries = noHousesBuiltInSeries(i);
                 }
 
                 //If the pawning-status of the ownable is the same as the pawnable variable, correctPawnStatus==false
@@ -286,7 +286,7 @@ public class BoardController {
                 correctPawnStatus = ! (((Ownable) board.getFields()[i]).isPledged() == pawnable);
             }
             //If it is owned and not already pawned and player can afford
-            if (owned && correctPawnStatus && noHousesBuilt && canAfford){
+            if (owned && correctPawnStatus && noHousesBuiltInSeries && canAfford){
                 //increments number of pawnables
                 numberOfPawnables++;
                 streetsPawnable[i] = true;
@@ -346,6 +346,25 @@ public class BoardController {
         return allowed;
     }
 
+
+    public boolean noHousesBuiltInSeries(int fieldId){
+        int groupId = board.getFields()[fieldId].getGroup();
+        int errors =0;
+        for (int i = 0; i < board.getFields().length; i++) {
+            //If it is street
+            if (board.getFields()[i].getType().equals("street")){
+                //If it is in correct group
+                if (board.getFields()[i].getGroup()==groupId){
+                    //If house level is not 0, it is an error
+                    if (((Street)board.getFields()[i]).getHouseLevel() !=0){
+                        errors++;
+                    }
+                }
+            }
+        }
+        //Returns true if there were no errors
+        return errors==0;
+    }
 
 
 }
