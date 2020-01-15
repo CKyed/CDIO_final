@@ -181,12 +181,12 @@ public class ViewController {
                 new Color(250,240,137)};
 
         //CarSecondaryColorOptions
-        String[] secondaryColors = {"red","blue","black","white"};
+        String[] secondaryColors = {"red","blue","gray","black"};
         Color[] guiSecondaryColors = {
                 new Color(155,44,44),
                 new Color(42,67,101),
-                new Color(0,0,0),
-                new Color(255,255,255 )};
+                new Color(160,174,192),
+                new Color(26,32,44 )};
 
         //CarPatternOptions
         String[] patterns = {"checkered","gradient","fill","zebra"};
