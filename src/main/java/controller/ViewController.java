@@ -70,10 +70,10 @@ public class ViewController {
                     case ("street"):
                         guiFields[i] = new GUI_Street();
 
-                        fieldSubtexts[i] = readFile(setupMessagesPath,"owner") + " " + readFile(setupMessagesPath,"none") +" \n"
-                                + readFile(setupMessagesPath,"price") +" " + ((Street)board.getFields()[i]).getPrice() + " \n"
-                                + readFile(setupMessagesPath,"housePrice") +" " + ((Street)board.getFields()[i]).getHousePrice() + " \n"
-                                + readFile(setupMessagesPath,"rent") +" " + ((Street)board.getFields()[i]).getRentLevels()[((Street)board.getFields()[i]).getHouseLevel()] + "\n"
+                        fieldSubtexts[i] = "<h2>" + readFile(setupMessagesPath,"owner") + " " + readFile(setupMessagesPath,"none") +"<br>"
+                                + readFile(setupMessagesPath,"price") +" " + ((Street)board.getFields()[i]).getPrice() + "<br>"
+                                + readFile(setupMessagesPath,"housePrice") +" " + ((Street)board.getFields()[i]).getHousePrice() + "<br>"
+                                + readFile(setupMessagesPath,"rent") +" " + ((Street)board.getFields()[i]).getRentLevels()[((Street)board.getFields()[i]).getHouseLevel()] + "<br>"
                         ;
 
                         break;
@@ -90,9 +90,9 @@ public class ViewController {
                         break;
                     case ("brew"):
                         guiFields[i] = new GUI_Brewery();
-                        fieldSubtexts[i] = readFile(setupMessagesPath,"owner") + " " + readFile(setupMessagesPath,"none") +" \n"
-                                + readFile(setupMessagesPath,"price") +" " + ((Brewery)board.getFields()[i]).getPrice() + " \n"
-                                + readFile(setupMessagesPath,"rent") +" " + ((Brewery)board.getFields()[i]).getRent() + "\n";
+                        fieldSubtexts[i] = "<h2>" + readFile(setupMessagesPath,"owner") + " " + readFile(setupMessagesPath,"none") +"<br>"
+                                + readFile(setupMessagesPath,"price") +" " + ((Brewery)board.getFields()[i]).getPrice() + "<br>"
+                                + readFile(setupMessagesPath,"rent") +" " + ((Brewery)board.getFields()[i]).getRent() + "<br>";
 
                         break;
                     case ("prison"):
@@ -103,9 +103,9 @@ public class ViewController {
                         break;
                     case ("ferry"):
                         guiFields[i] = new GUI_Shipping();
-                        fieldSubtexts[i] = readFile(setupMessagesPath,"owner") + " " + readFile(setupMessagesPath,"none") +" \n"
-                                + readFile(setupMessagesPath,"price") +" " + ((Ferry)board.getFields()[i]).getPrice() + " \n"
-                                + readFile(setupMessagesPath,"rent") +" " + ((Ferry)board.getFields()[i]).getRent() + "\n"
+                        fieldSubtexts[i] = "<h2>" + readFile(setupMessagesPath,"owner") + " " + readFile(setupMessagesPath,"none") +"<br>"
+                                + readFile(setupMessagesPath,"price") +" " + ((Ferry)board.getFields()[i]).getPrice() + "<br>"
+                                + readFile(setupMessagesPath,"rent") +" " + ((Ferry)board.getFields()[i]).getRent() + "<br>"
                         ;
                         break;
                     case ("parking"):
@@ -184,7 +184,6 @@ public class ViewController {
         if ((guiActivePlayerName.indexOf( "tabt" )) == -1  && counterForWinner != guiPlayers.length - 1) {
             // "looser" does not exist in playerName and  there are players on board more than one
 
-
             gui.setDice( faceValues[0], faceValues[1] );
 
             for (int i = 0; i < sum; i++) {
@@ -239,10 +238,10 @@ public class ViewController {
                 case ("street"):
                     ownerId = ((Ownable)board.getFields()[i]).getOwnerId();
                     if (ownerId>=0)
-                    fieldSubtexts[i] = readFile(setupMessagesPath,"owner") + " " + guiPlayers[ownerId].getName()  +" \n"
-                            + readFile(setupMessagesPath,"price") +" " + ((Street)board.getFields()[i]).getPrice() + " \n"
-                            + readFile(setupMessagesPath,"housePrice") +" " + ((Street)board.getFields()[i]).getHousePrice() + " \n"
-                            + readFile(setupMessagesPath,"rent") +" " + ((Street)board.getFields()[i]).getRent() + "\n"
+                    fieldSubtexts[i] = "<h2>" + readFile(setupMessagesPath,"owner") + " " + guiPlayers[ownerId].getName()  +"<br>"
+                            + readFile(setupMessagesPath,"price") +" " + ((Street)board.getFields()[i]).getPrice() + "<br>"
+                            + readFile(setupMessagesPath,"housePrice") +" " + ((Street)board.getFields()[i]).getHousePrice() + "<br>"
+                            + readFile(setupMessagesPath,"rent") +" " + ((Street)board.getFields()[i]).getRent() + "<br>"
                     ;
                     fields[i].setDescription(fieldSubtexts[i]);
                     if (((Street)board.getFields()[i]).getHouseLevel() < 5){
@@ -254,25 +253,46 @@ public class ViewController {
                         ((GUI_Street)fields[i]).setHotel(true);
                     }
 
+                    //Adds "pawned" if it is pawned
+                    if (((Ownable)board.getFields()[i]).isPledged()){
+                        fields[i].setSubText(readFile(setupMessagesPath,"pawned"));
+                    } else{
+                        fields[i].setSubText(readFile(setupMessagesPath,""));
+                    }
                     break;
 
                 case ("brew"):
                     ownerId = ((Ownable)board.getFields()[i]).getOwnerId();
                     if (ownerId>=0)
-                    fieldSubtexts[i] = readFile(setupMessagesPath,"owner") + " " + guiPlayers[ownerId].getName() +" \n"
-                            + readFile(setupMessagesPath,"price") +" " + ((Brewery)board.getFields()[i]).getPrice() + " \n"
-                            + readFile(setupMessagesPath,"rent") +" " + ((Brewery)board.getFields()[i]).getRent() + "\n";
+                    fieldSubtexts[i] = "<h2>" +readFile(setupMessagesPath,"owner") + " " + guiPlayers[ownerId].getName() +"<br>>"
+                            + readFile(setupMessagesPath,"price") +" " + ((Brewery)board.getFields()[i]).getPrice() + "<br>"
+                            + readFile(setupMessagesPath,"rent") +" " + ((Brewery)board.getFields()[i]).getRent() + "<br>";
                     fields[i].setDescription(fieldSubtexts[i]);
+
+                    //Adds "pawned" if it is pawned
+                    if (((Ownable)board.getFields()[i]).isPledged()){
+                        fields[i].setSubText(readFile(setupMessagesPath,"pawned"));
+                    } else{
+                        fields[i].setSubText(readFile(setupMessagesPath,""));
+                    }
                     break;
 
                 case ("ferry"):
                     ownerId = ((Ownable)board.getFields()[i]).getOwnerId();
                     if (ownerId>=0)
-                    fieldSubtexts[i] = readFile(setupMessagesPath,"owner") + " " + guiPlayers[ownerId].getName() +" \n"
-                            + readFile(setupMessagesPath,"price") +" " + ((Ferry)board.getFields()[i]).getPrice() + " \n"
-                            + readFile(setupMessagesPath,"rent") +" " + ((Ferry)board.getFields()[i]).getRent() + "\n"
+                    fieldSubtexts[i] = "<h2>" + readFile(setupMessagesPath,"owner") + " " + guiPlayers[ownerId].getName() +"<br>"
+                            + readFile(setupMessagesPath,"price") +" " + ((Ferry)board.getFields()[i]).getPrice() + "<br>"
+                            + readFile(setupMessagesPath,"rent") +" " + ((Ferry)board.getFields()[i]).getRent() + "<br>"
                     ;
                     fields[i].setDescription(fieldSubtexts[i]);
+
+
+                    //Adds "pawned" if it is pawned
+                    if (((Ownable)board.getFields()[i]).isPledged()){
+                        fields[i].setSubText(readFile(setupMessagesPath,"pawned"));
+                    } else{
+                        fields[i].setSubText(readFile(setupMessagesPath,""));
+                    }
                     break;
             }
         }

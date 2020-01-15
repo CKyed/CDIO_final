@@ -68,5 +68,13 @@ public class Player {
     public void setHasPlayerLost(boolean hasPlayerLost) {
         this.hasPlayerLost = hasPlayerLost;
     }
+
+    public int getOwesAmount() {
+        return this.account.getOwesAmount();
+    }
+
+    public void setOwesAmount(int owesAmount) {
+        this.getAccount().setOwesAmount(owesAmount);
+    }
 }
 
