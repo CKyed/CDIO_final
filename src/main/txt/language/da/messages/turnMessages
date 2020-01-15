@@ -39,3 +39,13 @@ payToPrison:Betal 1000 kr for at komme ud
 rollDiceInPrison:Kast Terning
 release'scard:løsladelskortet
 payPrisonLastTry:Du har haft 3 Betal 1000 kr for at komme ud
+pawnWhere:Hvilken grund kunne %s tænke sig at pantsætte?
+pawnOrUnpawn:Pansæt/Ophæv pansætning
+pawn:Pansæt
+unpawn:Ophæv pansætning
+noPawningPossible:Der er ingen grunde at pantsætte.
+noUnpawningPossible:Der er pantsætninger, det er muligt at ophæve.
+needsToSell:%s er nødt til at sælge eller pantsætte noget mere.
+freeOfDebt:%s er nu gældsfri.
+
+

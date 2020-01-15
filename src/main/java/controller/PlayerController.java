@@ -49,7 +49,9 @@ public class PlayerController {
             //Takes the remaining money he has left and pays it too the bank
             takeMoneyFromPlayer(playerId,amount-(amount-playerBalance));
             //Saves in the player how much he owes
-            players[playerId].setOwnsAmount(amount-playerBalance);
+            players[playerId].setOwesAmount(amount-playerBalance);
+            //Marks bank as creditor
+            players[playerId].getAccount().setCreditorId(-1);
             succes=false;
         }
         return succes;
@@ -69,7 +71,9 @@ public class PlayerController {
             takeMoneyFromPlayer(fromPlayerId,amount-(amount-playerBalance));
             addMoneyToPlayer(toPlayerId,amount-(amount-playerBalance));
             //Saves in the player how much he owes
-            players[fromPlayerId].setOwnsAmount(amount-playerBalance);
+            players[fromPlayerId].setOwesAmount(amount-playerBalance);
+            //Marks toPlayer as creditor
+            players[fromPlayerId].getAccount().setCreditorId(toPlayerId);
             succes=false;
         }
 
@@ -79,6 +83,7 @@ public class PlayerController {
     public Player[] getPlayers() {
         return players;
     }
+
 
     public int[] getFieldIds(){
         int[] fieldIds = new int[numberOfPlayers];
@@ -103,7 +108,7 @@ public class PlayerController {
             this.activePlayerId = this.activePlayerId % this.numberOfPlayers;
             this.activePlayer = players[activePlayerId];
         }
-        while (this.activePlayer.getAccountBalance()==0);//Todo < 0
+        while (this.activePlayer.isHasPlayerLost());
     }
 
     public int getActivePlayerId() {
@@ -118,7 +123,7 @@ public class PlayerController {
         this.activePlayerId = activePlayerId;
     }
 
-    public int calculateTotalValue(int playerId, Board board){
+    public int calculateTotalValue(int playerId, Board board){//TODO kan gøres lidt smartere omkring linje 134 osv.
         //Gets accountsBalance
         int totalValue = players[playerId].getAccountBalance();
 
@@ -129,7 +134,11 @@ public class PlayerController {
                 //If player owns it
                 if ( ((Ownable)board.getFields()[i]).getOwnerId()==playerId){
                     //Adds street-price and price of houses
-                    totalValue += ((Ownable)board.getFields()[i]).getPrice();
+                    if (((Ownable)board.getFields()[i]).isPledged()){
+                        totalValue += ((Ownable)board.getFields()[i]).getPrice()/2;
+                    } else{
+                        totalValue += ((Ownable)board.getFields()[i]).getPrice();
+                    }
                     totalValue += ((Street)board.getFields()[i]).getHouseLevel()*((Street)board.getFields()[i]).getHousePrice();
                 }
 
@@ -138,7 +147,11 @@ public class PlayerController {
                 //If player owns it
                 if (((Ownable)board.getFields()[i]).getOwnerId()==playerId){
                     //Adds price
-                    totalValue += ((Ownable)board.getFields()[i]).getPrice();
+                    if (((Ownable)board.getFields()[i]).isPledged()){
+                        totalValue += ((Ownable)board.getFields()[i]).getPrice()/2;
+                    } else{
+                        totalValue += ((Ownable)board.getFields()[i]).getPrice();
+                    }
                 }
             }
 
@@ -157,4 +170,37 @@ public class PlayerController {
         return calculateTotalValue(playerId, board)/10;
 
     }
+
+    public boolean tryToPayDebt(int playerId){
+        //Initializes
+        int creditorId = players[playerId].getAccount().getCreditorId();
+        int owedAmount = players[playerId].getAccount().getOwesAmount();
+        int accountBalance = players[playerId].getAccount().getBalance();
+        boolean succes=true;
+
+        if (accountBalance>=owedAmount){//If player can pay off whole debt
+            if (creditorId ==-1){ //If player owes bank money
+                safeTransferToBank(playerId,owedAmount);
+                players[playerId].getAccount().setOwesAmount(0);
+            } else{ //if player owes player money
+                safeTransferToPlayer(playerId,owedAmount,creditorId);
+                players[playerId].getAccount().setOwesAmount(0);
+            }
+            succes= true;
+
+        } else if (accountBalance < owedAmount){ //if player cant pay off whole debt
+            if (creditorId ==-1){ //If player owes bank money
+                players[playerId].getAccount().setOwesAmount(owedAmount-accountBalance);
+                safeTransferToBank(playerId,accountBalance);
+
+            } else{ //if player owes player money
+                players[playerId].getAccount().setOwesAmount(owedAmount-accountBalance);
+                safeTransferToPlayer(playerId,accountBalance,creditorId);
+            }
+
+            succes= false;
+        }
+        return succes;
+    }
+
 }

@@ -39,6 +39,7 @@ public class GameController {
         movePlayer(currentFieldId,dieSum);
 
         return diceController.getFaceValues();
+
     }
 
     public void movePlayer(int currentFieldId, int dieSum){
@@ -51,6 +52,13 @@ public class GameController {
         if (currentFieldId+dieSum>(numberOfFields-1) && !playerController.getActivePlayer().isInJail()){
                 playerController.getActivePlayer().deposit(startBonus);
         }
+    }
+
+    public void movePlayerNoStartBonus(int currentFieldId, int dieSum){
+        int numberOfFields = this.boardController.getBoard().getFields().length;
+        //Calculates new field and adds startbonus if player passed start
+        int newFieldId = (currentFieldId+dieSum)%numberOfFields;
+        playerController.getActivePlayer().setPositionOnBoard(newFieldId);
     }
 
 
@@ -107,7 +115,7 @@ public class GameController {
     }
 
     public void updateActivePlayer(){
-        if (!diceController.isSameValue() || getActivePlayer().isInJail()){
+        if (!diceController.isSameValue() || playerController.getActivePlayer().isInJail()){
             this.playerController.updateActivePlayer();
         }
     }
@@ -165,9 +173,9 @@ public class GameController {
 
     }
 
-    public void sellHouses(int fieldId, int numberOfHouses){
+    public void sellHouses(int fieldId, int numberOfHouses, int playerId){
         int totalGain = numberOfHouses*((Street)boardController.getBoard().getFields()[fieldId]).getHousePrice()/2;
-        playerController.getActivePlayer().deposit(totalGain);
+        playerController.getPlayers()[playerId].deposit(totalGain);
         boardController.sellHouses(fieldId,numberOfHouses);
 
     }
@@ -176,6 +184,47 @@ public class GameController {
         return chanceCardController;
     }
 
+    public int chanceSum(int oldPos, int newPos){
+        int chancesum = newPos - oldPos;
+        if(oldPos>newPos){
+            chancesum = chancesum + 40;
+        }
+        return chancesum;
+    }
+
+    public int newPos(int chancekortID){
+        int numberOfFieldstoBeMoved = 0;
+
+        switch(chancekortID) {
+            case 15:
+            case 16:
+                numberOfFieldstoBeMoved=chanceSum(playerController.getActivePlayer().getPositionOnBoard(),0);
+                break;
+            case 17:
+                numberOfFieldstoBeMoved= 3;
+                break;
+            case 18:
+                numberOfFieldstoBeMoved=chanceSum(playerController.getActivePlayer().getPositionOnBoard(),11);
+                break;
+            case 19:
+                numberOfFieldstoBeMoved=chanceSum(playerController.getActivePlayer().getPositionOnBoard(),15);
+                break;
+            case 20:
+                numberOfFieldstoBeMoved=chanceSum(playerController.getActivePlayer().getPositionOnBoard(),24);
+                break;
+            case 21:
+                numberOfFieldstoBeMoved=chanceSum(playerController.getActivePlayer().getPositionOnBoard(),32);
+                break;
+            case 22:
+                numberOfFieldstoBeMoved=chanceSum(playerController.getActivePlayer().getPositionOnBoard(),19);
+                break;
+            case 23:
+                numberOfFieldstoBeMoved=chanceSum(playerController.getActivePlayer().getPositionOnBoard(),39);
+                break;
+
+        }
+        return numberOfFieldstoBeMoved;
+    }
 
     public String findWinner(){
         int totalLostPlayers = 0;
@@ -203,6 +252,7 @@ public class GameController {
     }
 
     //Releases all the fields that the looser owns
+    //This method might need to be deleted in because of new bankruptcy rules
     public void makeFreeField(int playerIndex){
         for (int i = 0; i < boardController.getBoard().getFields().length ; i++) {
             if (boardController.getBoard().getFields()[i] instanceof Ownable){
@@ -213,4 +263,28 @@ public class GameController {
             }
         }
     }
+
+    public void pawnStreet(int playerId,int fieldId){
+        //Deposits money
+        int amount = ((Ownable)boardController.getBoard().getFields()[fieldId]).getPrice()/2;
+        playerController.getPlayers()[playerId].deposit(amount);
+
+        //changes pawn status
+        ((Ownable)boardController.getBoard().getFields()[fieldId]).setPledged(true);
+    }
+
+    public void unpawnStreet(int playerId,int fieldId){
+        //Withdraws money
+        int amount = ((Ownable)boardController.getBoard().getFields()[fieldId]).getPrice()/2;
+        amount = (int)(amount*1.1);
+
+        //Checks that player can afford it
+        if (!playerController.safeTransferToBank(playerId,amount)){
+            System.out.println("FEJl i pawnStreet()-metoden. Spilleren har ikke råd");
+        }
+
+        //changes pawn status
+        ((Ownable)boardController.getBoard().getFields()[fieldId]).setPledged(false);
+    }
+
 }
