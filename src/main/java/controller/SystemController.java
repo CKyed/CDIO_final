@@ -281,59 +281,40 @@ public class SystemController {
         int creditorId = gameController.getPlayerController().getPlayers()[playerId].getAccount().getCreditorId();
 
 
+        // Updates balances on view
+        viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
+
+
         //stillHasOptions tells if player can still sell or pawn more
         boolean stillHasOptions = true;
         //couldPay tells if player saved himself or not
         boolean couldPay = false;
 
-        while (stillHasOptions) {
+        while (stillHasOptions && !couldPay) {
+            //Updates player balances in view
+            viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
+
             //Shows message that player must sell something
-            viewController.showMessage(String.format(readFile(endMessagePath,"hasToSell"),gameController.getPlayerController().getPlayers()[playerId].getName(),owesAmount));
+            viewController.showMessage(String.format(readFile(endMessagePath,"hasToSell"),gameController.getPlayerController().getPlayers()[playerId].getName(),gameController.getPlayerController().getPlayers()[playerId].getAccount().getOwesAmount()));
 
             //Possible to sell houses
             sellHouses(playerId);
             //Possible to pawn ownables
             pawnStreets(playerId);
 
-            //Tries to pay debt
-            gameController.getPlayerController().tryToPayDebt(playerId);
+            //Updates player balances in view
+            viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
 
-            //updates player balance and owed amount
-            owesAmount = gameController.getActivePlayer().getOwesAmount();
-            playerBalance = gameController.getPlayerController().getPlayers()[playerId].getAccountBalance();
 
-            //If player can now pay
-            if (playerBalance >= owesAmount) {
-                if (gameController.getPlayerController().getPlayers()[playerId].getAccount().getCreditorId() == -1) {
-                    //If player owes money to the bank - player pays debt
-                    gameController.safePaymentToBank(playerId, owesAmount);
-                    couldPay = true;
-                } else {
-                    //If player owes money to a player
-                    gameController.safePaymentToPlayer(playerId, owesAmount, creditorId);
-                    couldPay = true;
-
-                }
-                //If player still can't pay
-            } else {
-                // player pays what he has left to bank
-                if (gameController.getPlayerController().getPlayers()[playerId].getAccount().getCreditorId() == -1) {
-                    gameController.safePaymentToBank(playerId, owesAmount);
-                    couldPay = false;
-                } else {
-                    // player pays what he has left to other player
-                    gameController.safePaymentToPlayer(playerId, owesAmount, creditorId);
-                    couldPay = false;
-
-                }
-            }
+            //Pays debt again
+            couldPay = gameController.getPlayerController().tryToPayDebt(playerId);
 
             //Sets true, if player still can pawn or sell
             stillHasOptions = gameController.getBoardController().getSellableStreetIds(playerId).length != 0 ||
                     gameController.getBoardController().getPawnableOrUnpawnableStreetIds(playerId, true, 0).length != 0;
 
             //Tells player to sell more
-            if (stillHasOptions) {
+            if (stillHasOptions && !couldPay) {
                 viewController.showMessage(String.format(readFile(turnMessagesPath, "needsToSell"), gameController.getPlayerController().getPlayers()[playerId].getName()));
             }
 
@@ -341,6 +322,9 @@ public class SystemController {
         if (!couldPay) {
             //Handles the loser situation
             looserSituation();
+        } else{
+            //Tells that player is free of debt
+            viewController.showMessage(String.format(readFile(turnMessagesPath,"freeOfDebt"),gameController.getPlayerController().getPlayers()[playerId].getName()));
         }
 
     }
@@ -499,48 +483,57 @@ public class SystemController {
     }
 
     public void pawnStreets(int playerId){
+        boolean pawnMore = true;
+        int [] pawnableStreetIds;
+        int selectedStreetId;
 
-        //Gets array of pawnable streets for player
-        int[] pawnableStreetIds = gameController.getBoardController().getPawnableOrUnpawnableStreetIds(gameController.getActivePlayerId(),
-                true,gameController.getPlayerController().getPlayers()[playerId].getAccountBalance());
+        while (pawnMore){
 
-        if (pawnableStreetIds.length==0){
-            //If the array was empty
-            viewController.showMessage(readFile(turnMessagesPath,"noPawningPossible"));
-        } else {
-            //If there are possible pawnings
-            String[] possibleStreetNames = new String[pawnableStreetIds.length+1];
+            //Gets array of pawnable streets for player
+            pawnableStreetIds = gameController.getBoardController().getPawnableOrUnpawnableStreetIds(gameController.getActivePlayerId(),
+                    true,gameController.getPlayerController().getPlayers()[playerId].getAccountBalance());
 
-            //Creates array of names for possible streets
-            for (int i = 0; i < pawnableStreetIds.length; i++) {
-                //Sets the name of the street in possibleStreetNames
-                possibleStreetNames[i]=gameController.getBoardController().getBoard().getFields()[pawnableStreetIds[i]].getName();
-            }
-            //Sets the last element to "exit"
-            possibleStreetNames[possibleStreetNames.length-1] = readFile(turnMessagesPath,"exit");
+            if (pawnableStreetIds.length==0){
+                //If the array was empty
+                viewController.showMessage(readFile(turnMessagesPath,"noPawningPossible"));
+                pawnMore = false;
+            } else {
+                //If there are possible pawnings
+                String[] possibleStreetNames = new String[pawnableStreetIds.length+1];
 
-            //Asks which street player wants to pawn
-            String selectedStreetName = viewController.getUserSelection(String.format(readFile(turnMessagesPath,"pawnWhere"),gameController.getPlayerController().getPlayers()[playerId].getName()),possibleStreetNames);
-            int selectedStreetId=0;
-
-            //If the player did not choose exit
-            if (!selectedStreetName.equals(readFile(turnMessagesPath,"exit"))){
-
-                //Goes through all streetNames and finds the correct id
+                //Creates array of names for possible streets
                 for (int i = 0; i < pawnableStreetIds.length; i++) {
-                    if (selectedStreetName.equals(possibleStreetNames[i])){
-                        selectedStreetId = pawnableStreetIds[i];
+                    //Sets the name of the street in possibleStreetNames
+                    possibleStreetNames[i]=gameController.getBoardController().getBoard().getFields()[pawnableStreetIds[i]].getName();
+                }
+                //Sets the last element to "exit"
+                possibleStreetNames[possibleStreetNames.length-1] = readFile(turnMessagesPath,"exit");
+
+                //Asks which street player wants to pawn
+                String selectedStreetName = viewController.getUserSelection(String.format(readFile(turnMessagesPath,"pawnWhere"),gameController.getPlayerController().getPlayers()[playerId].getName()),possibleStreetNames);
+                selectedStreetId=0;
+
+                //If the player did not choose exit
+                if (!selectedStreetName.equals(readFile(turnMessagesPath,"exit"))){
+
+                    //Goes through all streetNames and finds the correct id
+                    for (int i = 0; i < pawnableStreetIds.length; i++) {
+                        if (selectedStreetName.equals(possibleStreetNames[i])){
+                            selectedStreetId = pawnableStreetIds[i];
+                        }
                     }
+
+                    //Pawns in the model layer
+                    gameController.pawnStreet(playerId,selectedStreetId);
+                } else{ //If player chose exit
+                    pawnMore=false;
                 }
 
-                //Pawns in the model layer
-                gameController.pawnStreet(playerId,selectedStreetId);
+
+                //Updates view layer
+                viewController.updateOwnerships(gameController.getBoardController().getBoard());
+                viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
             }
-
-
-            //Updates view layer
-            viewController.updateOwnerships(gameController.getBoardController().getBoard());
-            viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
         }
     }
 
