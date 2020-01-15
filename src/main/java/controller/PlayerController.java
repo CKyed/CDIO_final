@@ -174,7 +174,7 @@ public class PlayerController {
         //Initializes
         int creditorId = players[playerId].getAccount().getCreditorId();
         int owedAmount = players[playerId].getAccount().getOwesAmount();
-        int accountBalance = players[playerId].getAccount().getOwesAmount();
+        int accountBalance = players[playerId].getAccount().getBalance();
         boolean succes=true;
 
         if (accountBalance>=owedAmount){//If player can pay off whole debt
