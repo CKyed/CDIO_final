@@ -34,11 +34,13 @@ buildingSucceeded:Det lykkedes at bygge et hus!
 cantSellHouse:%s kan ikke sælge nogen huse i øjeblikket.
 sellHouseWhere:Hvor kunne %s tænke sig at sælge et hus?
 sellingSucceded:Det lykkedes at sælge et hus!
+pawnWhere:Hvilken grund kunne %s tænke sig at pantsætte?
 pawnOrUnpawn:Pansæt/Ophæv pansætning
 pawn:Pansæt
 unpawn:Ophæv pansætning
 noPawningPossible:Der er ingen grunde at pantsætte.
 noUnpawningPossible:Der er pantsætninger, det er muligt at ophæve.
 needsToSell:%s er nødt til at sælge eller pantsætte noget mere.
+freeOfDebt:%s er nu gældsfri.
 
 

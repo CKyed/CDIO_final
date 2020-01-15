@@ -169,4 +169,37 @@ public class PlayerController {
         return calculateTotalValue(playerId, board)/10;
 
     }
+
+    public boolean tryToPayDebt(int playerId){
+        //Initializes
+        int creditorId = players[playerId].getAccount().getCreditorId();
+        int owedAmount = players[playerId].getAccount().getOwesAmount();
+        int accountBalance = players[playerId].getAccount().getBalance();
+        boolean succes=true;
+
+        if (accountBalance>=owedAmount){//If player can pay off whole debt
+            if (creditorId ==-1){ //If player owes bank money
+                safeTransferToBank(playerId,owedAmount);
+                players[playerId].getAccount().setOwesAmount(0);
+            } else{ //if player owes player money
+                safeTransferToPlayer(playerId,owedAmount,creditorId);
+                players[playerId].getAccount().setOwesAmount(0);
+            }
+            succes= true;
+
+        } else if (accountBalance < owedAmount){ //if player cant pay off whole debt
+            if (creditorId ==-1){ //If player owes bank money
+                players[playerId].getAccount().setOwesAmount(owedAmount-accountBalance);
+                safeTransferToBank(playerId,accountBalance);
+
+            } else{ //if player owes player money
+                players[playerId].getAccount().setOwesAmount(owedAmount-accountBalance);
+                safeTransferToPlayer(playerId,accountBalance,creditorId);
+            }
+
+            succes= false;
+        }
+        return succes;
+    }
+
 }
