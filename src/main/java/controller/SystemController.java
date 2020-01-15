@@ -258,6 +258,9 @@ public class SystemController {
         ChanceCard card = gameController.getChanceCardController().getCardDeck().draw();
         int cardId = card.getId();
         String cardText = card.getText();
+        int sum = gameController.newPos(card.getId());
+        int oldPos = gameController.getPlayerController().getActivePlayer().getPositionOnBoard();
+        int playerId =gameController.getActivePlayerId();
 
         //Shows chancecard
         viewController.showChanceCard(cardText);
@@ -267,8 +270,24 @@ public class SystemController {
         landedOnChanceMsg = String.format(landedOnChanceMsg,gameController.getPlayerController().getPlayers()[gameController.getPlayerController().getActivePlayerId()].getName());
         viewController.showMessage(landedOnChanceMsg);
 
-        //If it is a complicated chance card
-        if(cardId ==50 ||cardId==51){
+
+
+
+
+        //If it is a chancecard that includes movement on the board
+        if(cardId >= 30 && cardId <= 31){
+            gameController.movePlayerNoStartBonus(oldPos,37);
+            viewController.teleportPlayerCar(playerId,37,oldPos);
+            landOnField();
+        }
+
+        else if(cardId >= 32 && cardId <= 40 || cardId==27 || cardId==28){
+            gameController.movePlayer(oldPos,sum);
+            int virutalFaceValues[] = {10,10};
+            viewController.rollDiceAndMove(virutalFaceValues,sum,playerId,oldPos);
+            viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
+            landOnField();
+            //here we call switch case and related methods from gamecontroller
 
         } else{
             String message = gameController.getChanceCardController().playCard(cardId,gameController.getPlayerController(),gameController.getBoardController().getBoard());
@@ -276,6 +295,8 @@ public class SystemController {
                 viewController.showMessage(message);
             }
         }
+
+
     }
 
     public void playerBankruptcy(int playerId) {
