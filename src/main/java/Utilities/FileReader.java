@@ -1,5 +1,6 @@
 package Utilities;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 import static Utilities.PathExpert.*;
 
@@ -9,7 +10,7 @@ public class FileReader {
     public static String readFile(String file, String keyword){
         try {
             String line;
-            BufferedReader reader = new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream(file)));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream(file), StandardCharsets.UTF_8));
 
             while ((line = reader.readLine()) != null)
             {
