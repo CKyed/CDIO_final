@@ -321,7 +321,7 @@ public class SystemController {
         }
         if (!couldPay) {
             //Handles the loser situation
-            looserSituation();
+            looserSituation(playerId);
         } else{
             //Tells that player is free of debt
             viewController.showMessage(String.format(readFile(turnMessagesPath,"freeOfDebt"),gameController.getPlayerController().getPlayers()[playerId].getName()));
@@ -330,17 +330,23 @@ public class SystemController {
     }
 
     //Deals if has lost
-    public void looserSituation(){
+    public void looserSituation(int playerId){
         int fieldId = gameController.getActivePlayer().getPositionOnBoard();
-
 
         //Reset the players account to 0
         gameController.getPlayerController().accountReset(gameController.getActivePlayerId());
         //Set the the player variale "hasPlayerLost" to true
         gameController.getPlayerController().getActivePlayer().setHasPlayerLost(true);
+        //Releases all the players properties in both model and view
+        for (int i = 0; i < gameController.getPlayerController().getPlayers().length; i++) {
+            if (gameController.getPlayerController().getPlayers()[i].isHasPlayerLost()==true){
+                viewController.updateOwnerships(gameController.getBoardController().getBoard());
+                gameController.makeFreeField(i);
+            }
+        }
 
         viewController.looserMessage(gameController.getActivePlayerId());
-        viewController.removeLoser( gameController.getActivePlayerId(), fieldId);
+        viewController.removeLoser(playerId, fieldId);
         if (!gameController.findWinner().isEmpty()){
             viewController.endGame(gameController.findWinner());
         }
