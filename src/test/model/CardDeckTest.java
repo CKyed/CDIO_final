@@ -17,8 +17,10 @@ public String[] testCardTexts = {"test","test","test","test","test","test","test
         //Tests that cards are randomly shuffled
         CardDeck deck = new CardDeck(testCardTexts);
         int[] occurences = new int[testCardTexts.length];
+        int numberOfCards = testCardTexts.length;
+        int numberOfDraws = 10000;
 
-        for (int i = 0; i < 10000 ; i++) {
+        for (int i = 0; i < numberOfDraws ; i++) {
             //Shuffles deck
             deck.shuffle();
 
@@ -27,7 +29,7 @@ public String[] testCardTexts = {"test","test","test","test","test","test","test
         }
 
         for (int i = 0; i < testCardTexts.length; i++) {
-            assertTrue(occurences[i]<240 && occurences[i]> 160);
+            assertTrue(occurences[i]<(numberOfDraws/numberOfCards)+50 && occurences[i]> (numberOfDraws/numberOfCards)-50);
         }
 
     }
