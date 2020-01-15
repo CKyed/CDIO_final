@@ -144,7 +144,7 @@ public class ViewController {
         return guiFields;
     }
 
-    private GUI_Player manuallyCreateGuiPlayer(GUI_Player player, String playerName){
+    private GUI_Player manuallyCreateGuiPlayer(String playerName){
         /**
          * The manuallyCreateGuiPlayer method is a recursion function
          * that lets the player pick colors, type and pattern of his vehicle
@@ -152,14 +152,17 @@ public class ViewController {
          * previously picked combination. if it doesn't, then his choice will
          * be stored in the combinationsPicked array
          */
+        //This is the player that we will create
+        GUI_Player player;
+
         //User will check for unique combination later.
         int playerCombination[] = {0,0,0,0}; //new int[4]
 
         //The choices are initiated with default values to avoid nullPointers (Testing)
-        GUI_Car.Type guiCarChoice = null;
-        Color guiPrimaryColorChoice = null;
-        Color guiSecondaryColorChoice = null;
-        GUI_Car.Pattern guiPatternChoice = null;
+        GUI_Car.Type guiCarChoice = GUI_Car.Type.TRACTOR;
+        Color guiPrimaryColorChoice = Color.BLACK;
+        Color guiSecondaryColorChoice = Color.WHITE;
+        GUI_Car.Pattern guiPatternChoice = GUI_Car.Pattern.DIAGONAL_DUAL_COLOR;
 
         //CarTypeOptions
         String[] cars = {"car", "racecar", "tractor", "ufo"};
@@ -178,12 +181,12 @@ public class ViewController {
                 new Color(250,240,137)};
 
         //CarSecondaryColorOptions
-        String[] secondaryColors = {"red","blue","green","yellow"};
+        String[] secondaryColors = {"red","blue","black","white"};
         Color[] guiSecondaryColors = {
-                new Color(245,101,101),
-                new Color(99,179,237),
-                new Color(104,143,51),
-                new Color(250,240,137)};
+                new Color(155,44,44),
+                new Color(42,67,101),
+                new Color(0,0,0),
+                new Color(255,255,255 )};
 
         //CarPatternOptions
         String[] patterns = {"checkered","gradient","fill","zebra"};
@@ -244,7 +247,7 @@ public class ViewController {
         //The program checks if the players combination is unique
         if (this.combinationsPicked[playerCombination[0]][playerCombination[1]][playerCombination[2]][playerCombination[3]] == false){
             gui.showMessage("Some one else has the same try something else");
-            manuallyCreateGuiPlayer(player,playerName);
+            return manuallyCreateGuiPlayer(playerName);
         }
         else{
             this.combinationsPicked[playerCombination[0]][playerCombination[1]][playerCombination[2]][playerCombination[3]] = false;
@@ -354,7 +357,7 @@ public class ViewController {
             //Static car
             //this.guiPlayers[i] = new GUI_Player(playerNames[i],30000,this.guiCars[i]);
             //Pick your own car
-            guiPlayers[i] = manuallyCreateGuiPlayer(this.guiPlayers[i],playerNames[i]);
+            guiPlayers[i] = manuallyCreateGuiPlayer(playerNames[i]);
             this.gui.addPlayer(this.guiPlayers[i]);
 
            this.fields[0].setCar(this.guiPlayers[i],true);
