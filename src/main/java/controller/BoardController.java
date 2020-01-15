@@ -174,14 +174,26 @@ public class BoardController {
 
 
     public int getNumberOfOwnablesOwnedInGroup(int fieldId){
+        //Gets number of ownables in group, that is owned by the owner of the fieldId-field
+        //Only returns true, if no ownables are pawned
+
         int numberOfOwnables =0;
+        boolean correctOwner;
+        boolean notBank;
+        boolean notPawned;
+
 
         //loops through all fields and increments numberOfOwnables if groups and owners match
         for (int i=0;i<board.getFields().length;i++){
             //If group is the same
             if (board.getFields()[fieldId].getGroup()==board.getFields()[i].getGroup()){
-                //If owner is the same
-                if (((Ownable)board.getFields()[fieldId]).getOwnerId()==((Ownable)board.getFields()[i]).getOwnerId() && ((Ownable)board.getFields()[i]).getOwnerId() != -1){
+                //Gets all three booleans
+                correctOwner = ((Ownable)board.getFields()[fieldId]).getOwnerId()==((Ownable)board.getFields()[i]).getOwnerId();
+                notBank = ((Ownable)board.getFields()[i]).getOwnerId() != -1;
+                notPawned = !((Ownable)board.getFields()[i]).isPledged();
+
+                //Only increments numberOfOwnables if all three are true
+                if (correctOwner && notBank && notPawned) {
                     numberOfOwnables++;
                 }
             }
@@ -190,7 +202,7 @@ public class BoardController {
     }
 
     public boolean ownsAllInSeries(int fieldId){
-        //Gets number of ownables owned in the group
+        //Gets number of ownables owned in the group - only the ones that are not pawned
         int numberOwned = getNumberOfOwnablesOwnedInGroup(fieldId);
 
         //Checks if number is the same as totalNumber
