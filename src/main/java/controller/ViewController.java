@@ -1,6 +1,6 @@
 package controller;
-import static controller.PathExpert.*;
-import static controller.TextController.readFile;
+import static Utilities.PathExpert.*;
+import static Utilities.FileReader.readFile;
 
 import gui_fields.*;
 import gui_fields.GUI_Field;

@@ -8,9 +8,6 @@ import model.Fields.Ownable;
 import model.Fields.OwnableFile.*;
 import model.Fields.Prison;
 
-import static controller.PathExpert.endMessagePath;
-import static controller.TextController.readFile;
-
 public class GameController {
     private BoardController boardController;
     private PlayerController playerController;

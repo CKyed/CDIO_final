@@ -1,5 +1,5 @@
 package model.Fields;
-import static controller.TextController.*;
+import static Utilities.FileReader.*;
 
 public class OrdinaryTax extends Field{
     private int group = 11;

@@ -1,4 +1,4 @@
-package controller;
+package Utilities;
 
 public class PathExpert {
     private static String language = "da";

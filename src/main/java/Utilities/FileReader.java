@@ -1,11 +1,10 @@
-package controller;
+package Utilities;
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 
-import static controller.PathExpert.*;
+import static Utilities.PathExpert.*;
 
 
-public class TextController {
+public class FileReader {
 
     public static String readFile(String file, String keyword){
         try {

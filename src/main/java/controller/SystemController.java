@@ -2,8 +2,8 @@ package controller;
 
 import model.ChanceCard;
 import model.Fields.Ownable;
-import static controller.PathExpert.*;
-import static controller.TextController.readFile;
+import static Utilities.PathExpert.*;
+import static Utilities.FileReader.readFile;
 
 public class SystemController {
     private GameController gameController;
