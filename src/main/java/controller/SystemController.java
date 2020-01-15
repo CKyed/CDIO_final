@@ -281,16 +281,22 @@ public class SystemController {
         int creditorId = gameController.getPlayerController().getPlayers()[playerId].getAccount().getCreditorId();
 
 
-        //
-        boolean stillHasOptions = gameController.getBoardController().getSellableStreetIds(playerId).length != 0 ||
-                gameController.getBoardController().getPawnableOrUnpawnableStreetIds(playerId, true, 0).length != 0;
+        //stillHasOptions tells if player can still sell or pawn more
+        boolean stillHasOptions = true;
+        //couldPay tells if player saved himself or not
         boolean couldPay = false;
 
         while (stillHasOptions) {
+            //Shows message that player must sell something
+            viewController.showMessage(String.format(readFile(endMessagePath,"hasToSell"),gameController.getPlayerController().getPlayers()[playerId].getName(),owesAmount));
+
             //Possible to sell houses
             sellHouses(playerId);
             //Possible to pawn ownables
             pawnStreets(playerId);
+
+            //Tries to pay debt
+            gameController.getPlayerController().tryToPayDebt(playerId);
 
             //updates player balance and owed amount
             owesAmount = gameController.getActivePlayer().getOwesAmount();
@@ -493,6 +499,7 @@ public class SystemController {
     }
 
     public void pawnStreets(int playerId){
+
         //Gets array of pawnable streets for player
         int[] pawnableStreetIds = gameController.getBoardController().getPawnableOrUnpawnableStreetIds(gameController.getActivePlayerId(),
                 true,gameController.getPlayerController().getPlayers()[playerId].getAccountBalance());
@@ -513,7 +520,7 @@ public class SystemController {
             possibleStreetNames[possibleStreetNames.length-1] = readFile(turnMessagesPath,"exit");
 
             //Asks which street player wants to pawn
-            String selectedStreetName = viewController.getUserSelection("",possibleStreetNames);
+            String selectedStreetName = viewController.getUserSelection(String.format(readFile(turnMessagesPath,"pawnWhere"),gameController.getPlayerController().getPlayers()[playerId].getName()),possibleStreetNames);
             int selectedStreetId=0;
 
             //If the player did not choose exit
