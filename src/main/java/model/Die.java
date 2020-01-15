@@ -18,7 +18,7 @@ public class Die {
     }
 
     public int getFaceValue(){
-        return faceValue;
+        return this.faceValue;
     }
 
     public void setFaceValue(int y){

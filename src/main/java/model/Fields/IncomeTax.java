@@ -1,6 +1,6 @@
 package model.Fields;
 
-import static controller.TextController.getFieldData;
+import static Utilities.FileReader.getFieldData;
 
 public class IncomeTax extends Field{
     private int group = 11;

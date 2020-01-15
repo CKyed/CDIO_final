@@ -2,13 +2,16 @@ package controller;
 
 import model.ChanceCard;
 import model.Fields.Ownable;
-import static controller.PathExpert.*;
-import static controller.TextController.readFile;
+import static Utilities.PathExpert.*;
+import static Utilities.FileReader.readFile;
+
+
 
 public class SystemController {
     private GameController gameController;
     private ViewController viewController;
     private int numberOfPlayers;
+
 
     public SystemController(){
         //Initializes controllers
@@ -255,6 +258,9 @@ public class SystemController {
         ChanceCard card = gameController.getChanceCardController().getCardDeck().draw();
         int cardId = card.getId();
         String cardText = card.getText();
+        int sum = gameController.newPos(card.getId());
+        int oldPos = gameController.getPlayerController().getActivePlayer().getPositionOnBoard();
+        int playerId =gameController.getActivePlayerId();
 
         //Shows chancecard
         viewController.showChanceCard(cardText);
@@ -264,14 +270,26 @@ public class SystemController {
         landedOnChanceMsg = String.format(landedOnChanceMsg,gameController.getPlayerController().getPlayers()[gameController.getPlayerController().getActivePlayerId()].getName());
         viewController.showMessage(landedOnChanceMsg);
 
-        //If it is a complicated chance card
-        if(cardId ==50 ||cardId==51){
-
-        } else{
+        if (cardId <15){ //If it is a simple chancecard, where player recieves money
+            //Plays card in method in model layer
             String message = gameController.getChanceCardController().playCard(cardId,gameController.getPlayerController(),gameController.getBoardController().getBoard());
             if (!message.isEmpty()) {
                 viewController.showMessage(message);
             }
+        } else if (cardId >14 && cardId <24 ){ //If it is about simple movement
+            //Moves in model layer
+            gameController.movePlayer(oldPos,sum);
+            int virutalFaceValues[] = {10,10};
+            //Updates view
+            viewController.rollDiceAndMove(virutalFaceValues,sum,playerId,oldPos);
+            viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
+            //PLays turn on new field
+            landOnField();
+
+        } else if (cardId>23 && cardId<26) { //If it is backwards movement
+            gameController.movePlayerNoStartBonus(oldPos, 37);
+            viewController.teleportPlayerCar(playerId, 37, oldPos);
+            landOnField();
         }
     }
 
@@ -462,7 +480,7 @@ public class SystemController {
                         if (selectedStreet.equals(sellableStreetNames[i])){
                             selectedStreetId = sellableStreetIds[i];
                         }
-                        
+
                     }
                 }
                 if (selectedStreetId != -1){
