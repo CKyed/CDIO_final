@@ -452,7 +452,11 @@ public class SystemController {
                     selectedStreetId=-1;
                 } else {
                     for (int i = 0; i < sellableStreetIds.length; i++) {
-                        selectedStreetId = sellableStreetIds[i];
+                        //If it is the street name, that player selected
+                        if (selectedStreet.equals(sellableStreetNames[i])){
+                            selectedStreetId = sellableStreetIds[i];
+                        }
+                        
                     }
                 }
                 if (selectedStreetId != -1){
