@@ -18,6 +18,7 @@ public class GameController {
     private PlayerController playerController;
     private int startBonus = 4000;
     private DiceController diceController;
+
     private ChanceCardController chanceCardController;
 
     public GameController(){
@@ -45,7 +46,7 @@ public class GameController {
 
     public void movePlayer(int currentFieldId, int dieSum){
         int numberOfFields = this.boardController.getBoard().getFields().length;
-        //Calculates new field
+        //Calculates new field and adds startbonus if player passed start
         int newFieldId = (currentFieldId+dieSum)%numberOfFields;
         playerController.getActivePlayer().setPositionOnBoard(newFieldId);
 

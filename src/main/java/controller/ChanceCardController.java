@@ -1,9 +1,8 @@
 package controller;
 
 import model.*;
-import static controller.PathExpert.*;
-import static controller.TextController.getFieldData;
-import static controller.TextController.readFile;
+import static Utilities.PathExpert.*;
+import static Utilities.FileReader.readFile;
 
 public class ChanceCardController {
     private CardDeck cardDeck;
