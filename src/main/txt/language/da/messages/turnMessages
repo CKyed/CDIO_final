@@ -39,8 +39,9 @@ pawnOrUnpawn:Pansæt/Ophæv pansætning
 pawn:Pansæt
 unpawn:Ophæv pansætning
 noPawningPossible:Der er ingen grunde at pantsætte.
-noUnpawningPossible:Der er pantsætninger, det er muligt at ophæve.
+noUnpawningPossible:Der er ingen pantsætninger, det er muligt at ophæve.
 needsToSell:%s er nødt til at sælge eller pantsætte noget mere.
 freeOfDebt:%s er nu gældsfri.
+pawnedNorent:%s er pantsat, og der skal derfor ikke betales afgift.
 
 

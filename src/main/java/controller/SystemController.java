@@ -102,11 +102,20 @@ public class SystemController {
 
         //If the property is owned by someone else
         if(gameController.getOwnerId()>=0 && gameController.getOwnerId()!= gameController.getActivePlayerId()){
+
             //Gets data
             int fieldId = gameController.getActivePlayer().getPositionOnBoard();
+
+            //If it is pawned, no rent is paid
+            if (((Ownable)gameController.getBoardController().getBoard().getFields()[fieldId]).isPledged()){
+                viewController.showMessage();
+            }
+
             String fromPlayerName = gameController.getActivePlayer().getName();
             String toPlayerName = gameController.getPlayerController().getPlayers()[gameController.getOwnerId()].getName();
             int rent=0;
+
+
 
             //rent is calculated in different ways
             switch (((Ownable)gameController.getBoardController().getBoard().getFields()[fieldId]).getType()){
