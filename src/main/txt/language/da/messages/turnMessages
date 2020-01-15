@@ -1,0 +1,46 @@
+newTurn:Det er %s's tur.
+landedOn:%s er landet på
+buyField?:Ønsker %s at købe %s?
+yes:Ja
+no:Nej
+prison:Du skal desværre i fængsel, god tur
+incometax:Betal indkomstskat, enten 10% eller 4000kr
+payRentFromTo:%s betaler %s i afgift til %s.
+pay4kTax:Betal 4000 kr. i skat
+pay10pct:Betal 10% af dine værdier i skat
+buyBeforeTurn:Ønsker %s at købe huse?
+howManyHouses:Hvor mange huse ønsker %s at købe på %s?
+notPossibleToBuild:Den ønskede udbygning er ikke mulig.
+selfOwned:%s ejer allerede %s.
+qualifies:%s samlede værdier udgør ikke mere end 15000. %s modtager Matadorlegatet.
+qualifiesNot:%s samlede værdier udgør mere end 15000. %s modtager ikke Matadorlegatet.
+landedOnChance:%s er landet på et chancefelt. Læs kortet i midten af brættet.
+getLucky:Prøv lykken
+cantAffordOwnable:%s har ikke råd til at købe %s.
+goesToJail:%s ryger direkte i fængsel og modtager ikke 4000 kr. for at passere start.
+chooseIncomeTaxType:Hvordan ønsker %s at betale indkomstskatten?
+ordTax:%s skal betale 2000 i Ekstraordinær Statsskat.
+playerPayed:%s har betalt %s i indkomstskat.
+ownerInPrison:Ejeren af denne grund er i fængsel, så du skal ikke betale husleje
+playerPaysBail:%s er i fængsel og betaler 1000 kr. i bøde for at komme ud.
+getsPrisonCard:%s har modtaget et benådelseskort som han benytter næste gang han kommer i fængsel
+buySell:Køb/salg
+exit:Afslut
+buyHouses:Køb huse
+sellHouses:Sælg huse
+buildHouseWhere:Hvor kunne %s tænke sig at bygge et hus?
+cantBuild:%s kan ikke bygge nogen huse i øjeblikket.
+buildingSucceeded:Det lykkedes at bygge et hus!
+cantSellHouse:%s kan ikke sælge nogen huse i øjeblikket.
+sellHouseWhere:Hvor kunne %s tænke sig at sælge et hus?
+sellingSucceded:Det lykkedes at sælge et hus!
+pawnWhere:Hvilken grund kunne %s tænke sig at pantsætte?
+pawnOrUnpawn:Pansæt/Ophæv pansætning
+pawn:Pansæt
+unpawn:Ophæv pansætning
+noPawningPossible:Der er ingen grunde at pantsætte.
+noUnpawningPossible:Der er pantsætninger, det er muligt at ophæve.
+needsToSell:%s er nødt til at sælge eller pantsætte noget mere.
+freeOfDebt:%s er nu gældsfri.
+
+

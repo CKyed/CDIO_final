@@ -1,11 +1,15 @@
 package controller;
 
+//import com.sun.javafx.sg.prism.NGAmbientLight;
 import model.*;
 import model.Fields.IncomeTax;
 import model.Fields.OrdinaryTax;
 import model.Fields.Ownable;
 import model.Fields.OwnableFile.*;
 import model.Fields.Prison;
+
+import static controller.PathExpert.endMessagePath;
+import static controller.TextController.readFile;
 
 public class GameController {
     private BoardController boardController;
@@ -66,17 +70,15 @@ public class GameController {
         return safePaymentToBank(activePlayerId, ((OrdinaryTax)boardController.getBoard().getFields()[38]).getTax());
     }
 
-
-    //the user has chosen either 0 or 1, 0 is 4000 kr and 1 is 10%
-    public boolean payIncomeTax(int activePlayerId, boolean choice){
+    //the user has chosen either 0 or 1, 0 is 4000 kr and 1 is 10% of total player value
+    public boolean payIncomeTax(int activePlayerId, boolean choice,int tenPctOfValues){
         boolean succesfulTransfer=true;
         if(choice){
             succesfulTransfer = safePaymentToBank(activePlayerId, ((IncomeTax)boardController.getBoard().getFields()[4]).getIncomeTax());
         }
         else{
-            int totalPlayerValue = playerController.calculateTotalValue(activePlayerId,boardController.getBoard());
-            int tax = totalPlayerValue/10;
-            succesfulTransfer = safePaymentToBank(activePlayerId,tax);
+
+            succesfulTransfer = safePaymentToBank(activePlayerId,tenPctOfValues);
         }
         return succesfulTransfer; //change later
     }
@@ -89,6 +91,7 @@ public class GameController {
 
     public boolean safePaymentToPlayer(int fromPlayerId, int amount, int toPlayerId){
         return playerController.safeTransferToPlayer(fromPlayerId,amount,toPlayerId);
+
     }
 
     public PlayerController getPlayerController() {
@@ -122,13 +125,13 @@ public class GameController {
 
     public void buyFieldForPlayer(){
         //Gets price
-        int price = ((Street)boardController.getBoard().getFields()[playerController.getActivePlayer().getPositionOnBoard()]).getPrice();
+        int price = ((Ownable)boardController.getBoard().getFields()[playerController.getActivePlayer().getPositionOnBoard()]).getPrice();
 
         //Pays
         safePaymentToBank(playerController.getActivePlayerId(),price);
 
         //Gives ownership to player
-        ((Street)boardController.getBoard().getFields()[playerController.getActivePlayer().getPositionOnBoard()]).setOwnerId(playerController.getActivePlayerId());
+        ((Ownable)boardController.getBoard().getFields()[playerController.getActivePlayer().getPositionOnBoard()]).setOwnerId(playerController.getActivePlayerId());
 
     }
 
@@ -162,9 +165,77 @@ public class GameController {
 
     }
 
+    public void sellHouses(int fieldId, int numberOfHouses, int playerId){
+        int totalGain = numberOfHouses*((Street)boardController.getBoard().getFields()[fieldId]).getHousePrice()/2;
+        playerController.getPlayers()[playerId].deposit(totalGain);
+        boardController.sellHouses(fieldId,numberOfHouses);
+
+    }
+
     public ChanceCardController getChanceCardController() {
         return chanceCardController;
     }
 
+
+    public String findWinner(){
+        int totalLostPlayers = 0;
+
+        //Everytime a player looses, the counter goes up by 1
+       for (int i = 0; i < playerController.getPlayers().length; i++) {
+            if (playerController.getPlayers()[i].isHasPlayerLost()==true){
+                makeFreeField(i);
+                totalLostPlayers++;
+            }
+        }
+
+        String msg = "";
+
+        //Check if there is one winner left
+        if (totalLostPlayers == playerController.getPlayers().length - 1) {
+            for (int i = 0; i <  playerController.getPlayers().length; i++) {
+                if ( playerController.getPlayers()[i].getAccount().getBalance() > 0) {
+                    // "looser" does not exist in winner name
+                    msg = playerController.getPlayers()[i].getName();
+                }
+            }
+        }
+       return msg;
+    }
+
+    //Releases all the fields that the looser owns
+    //This method might need to be deleted in because of new bankruptcy rules
+    public void makeFreeField(int playerIndex){
+        for (int i = 0; i < boardController.getBoard().getFields().length ; i++) {
+            if (boardController.getBoard().getFields()[i] instanceof Ownable){
+                if (((Ownable)boardController.getBoard().getFields()[i]).getOwnerId() == playerIndex){
+                    ((Ownable)boardController.getBoard().getFields()[i]).setOwnerId(-1);
+                    //TODO : update view
+                }
+            }
+        }
+    }
+
+    public void pawnStreet(int playerId,int fieldId){
+        //Deposits money
+        int amount = ((Ownable)boardController.getBoard().getFields()[fieldId]).getPrice()/2;
+        playerController.getPlayers()[playerId].deposit(amount);
+
+        //changes pawn status
+        ((Ownable)boardController.getBoard().getFields()[fieldId]).setPledged(true);
+    }
+
+    public void unpawnStreet(int playerId,int fieldId){
+        //Withdraws money
+        int amount = ((Ownable)boardController.getBoard().getFields()[fieldId]).getPrice()/2;
+        amount = (int)(amount*1.1);
+
+        //Checks that player can afford it
+        if (!playerController.safeTransferToBank(playerId,amount)){
+            System.out.println("FEJl i pawnStreet()-metoden. Spilleren har ikke råd");
+        }
+
+        //changes pawn status
+        ((Ownable)boardController.getBoard().getFields()[fieldId]).setPledged(false);
+    }
 
 }

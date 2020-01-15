@@ -11,6 +11,7 @@ import gui_main.GUI;
 import model.*;
 import model.Fields.*;
 import model.Fields.OwnableFile.*;
+//import org.w3c.dom.css.RGBColor;
 
 import java.awt.*;
 
@@ -20,31 +21,46 @@ public class ViewController {
     private GUI_Player[] guiPlayers;
     private GUI_Car[] guiCars;
     private String[] fieldSubtexts;
+    private int counterForWinner = 0;
+
 
     public ViewController(Board board) {
+        Color bgcolor = new Color(151,90,22);
         GUI_Field[] fields = createFields(board);
         this.fields = fields;
-        this.gui = new GUI(fields);
-
+        this.gui = new GUI(fields,bgcolor);
 
 
     }
 
     public GUI_Field[] createFields(Board board){
+        Color mBlue = new Color(49,130,209);
+        Color mOrange = new Color(221,107,32);
+        Color mGreen = new Color(104,211,145);
+        Color mGray = new Color(160,174,192);
+        Color mRed = new Color(229,62,62);
+        Color mWhite = new Color(255,255,255);
+        Color mBrew = new Color(39,103,73);
+        Color mPrison = new Color(113,128,150);
+        Color mBlack = new Color(0,0,0);
+        Color mYellow = new Color(246,224,94);
+        Color mPurple = new Color(151,38,109);
         int numberOfFields = board.getFields().length;
         fieldSubtexts = new String[numberOfFields];
         GUI_Field[] guiFields = new GUI_Field[numberOfFields];
         //typer bliver sat op for at sammenligne med model attributter.
         int[] fieldColorIDs = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
         Color[] guiFieldColors = {
-                Color.BLUE, Color.RED, Color.CYAN,
-                Color.YELLOW, Color.WHITE, Color.BLACK,
-                Color.MAGENTA, Color.GRAY, Color.GREEN,
-                Color.PINK, Color.ORANGE, Color.LIGHT_GRAY,
-                Color.DARK_GRAY, Color.darkGray,Color.darkGray
+                mBlue,mOrange,mGreen,
+                mGray,mRed,mWhite,
+                mYellow,mPurple,mWhite,
+                mPrison,mWhite,mWhite,
+                mBlack,mWhite,mBrew
         };
+        //Loops through all fields
         for (int i = 0; i < numberOfFields; i++) {
 
+            //Loops through all colors
             for (int j = 0; j < fieldColorIDs.length; j++) {
                 switch (board.getFields()[i].getType()){
                     case ("start"):
@@ -53,11 +69,13 @@ public class ViewController {
 
                     case ("street"):
                         guiFields[i] = new GUI_Street();
-                        fieldSubtexts[i] = readFile(setupMessagesPath,"owner") + " " + readFile(setupMessagesPath,"none") +" \n"
-                                + readFile(setupMessagesPath,"price") +" " + ((Street)board.getFields()[i]).getPrice() + " \n"
-                                + readFile(setupMessagesPath,"housePrice") +" " + ((Street)board.getFields()[i]).getHousePrice() + " \n"
-                                + readFile(setupMessagesPath,"rent") +" " + ((Street)board.getFields()[i]).getRentLevels()[((Street)board.getFields()[i]).getHouseLevel()] + "\n"
+
+                        fieldSubtexts[i] = "<h2>" + readFile(setupMessagesPath,"owner") + " " + readFile(setupMessagesPath,"none") +"<br>"
+                                + readFile(setupMessagesPath,"price") +" " + ((Street)board.getFields()[i]).getPrice() + "<br>"
+                                + readFile(setupMessagesPath,"housePrice") +" " + ((Street)board.getFields()[i]).getHousePrice() + "<br>"
+                                + readFile(setupMessagesPath,"rent") +" " + ((Street)board.getFields()[i]).getRentLevels()[((Street)board.getFields()[i]).getHouseLevel()] + "<br>"
                         ;
+
                         break;
                     case ("incomeTax"):
                         guiFields[i] = new GUI_Tax();
@@ -72,9 +90,9 @@ public class ViewController {
                         break;
                     case ("brew"):
                         guiFields[i] = new GUI_Brewery();
-                        fieldSubtexts[i] = readFile(setupMessagesPath,"owner") + " " + readFile(setupMessagesPath,"none") +" \n"
-                                + readFile(setupMessagesPath,"price") +" " + ((Brewery)board.getFields()[i]).getPrice() + " \n"
-                                + readFile(setupMessagesPath,"rent") +" " + ((Brewery)board.getFields()[i]).getRent() + "\n";
+                        fieldSubtexts[i] = "<h2>" + readFile(setupMessagesPath,"owner") + " " + readFile(setupMessagesPath,"none") +"<br>"
+                                + readFile(setupMessagesPath,"price") +" " + ((Brewery)board.getFields()[i]).getPrice() + "<br>"
+                                + readFile(setupMessagesPath,"rent") +" " + ((Brewery)board.getFields()[i]).getRent() + "<br>";
 
                         break;
                     case ("prison"):
@@ -85,9 +103,9 @@ public class ViewController {
                         break;
                     case ("ferry"):
                         guiFields[i] = new GUI_Shipping();
-                        fieldSubtexts[i] = readFile(setupMessagesPath,"owner") + " " + readFile(setupMessagesPath,"none") +" \n"
-                                + readFile(setupMessagesPath,"price") +" " + ((Ferry)board.getFields()[i]).getPrice() + " \n"
-                                + readFile(setupMessagesPath,"rent") +" " + ((Ferry)board.getFields()[i]).getRent() + "\n"
+                        fieldSubtexts[i] = "<h2>" + readFile(setupMessagesPath,"owner") + " " + readFile(setupMessagesPath,"none") +"<br>"
+                                + readFile(setupMessagesPath,"price") +" " + ((Ferry)board.getFields()[i]).getPrice() + "<br>"
+                                + readFile(setupMessagesPath,"rent") +" " + ((Ferry)board.getFields()[i]).getRent() + "<br>"
                         ;
                         break;
                     case ("parking"):
@@ -98,6 +116,8 @@ public class ViewController {
             for (int j = 0; j < fieldColorIDs.length; j++) {
                 if (fieldColorIDs[j] == board.getFields()[i].getGroup()) {
                     guiFields[i].setBackGroundColor(guiFieldColors[j]);
+                    if (fieldColorIDs[j] == 12)
+                        guiFields[i].setForeGroundColor(mGreen);
                 }
             }
             guiFields[i].setTitle(board.getFields()[i].getName());
@@ -159,18 +179,23 @@ public class ViewController {
     }
     
     public void rollDiceAndMove(int[] faceValues, int sum,int activePlayerId, int oldFieldId){
-        gui.setDice(faceValues[0],faceValues[1]);
+        String guiActivePlayerName = guiPlayers[activePlayerId].getName();
 
-        for (int i =0;i<sum;i++){
-            teleportPlayerCar(activePlayerId,1,(oldFieldId+i)% fields.length);
-            try
-            {
-                Thread.sleep(200);
+        if ((guiActivePlayerName.indexOf( "tabt" )) == -1  && counterForWinner != guiPlayers.length - 1) {
+            // "looser" does not exist in playerName and  there are players on board more than one
+
+            gui.setDice( faceValues[0], faceValues[1] );
+
+            for (int i = 0; i < sum; i++) {
+                teleportPlayerCar( activePlayerId, 1, (oldFieldId + i) % fields.length );
+                try {
+                    Thread.sleep( 200);
+                } catch (InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                }
             }
-            catch(InterruptedException ex)
-            {
-                Thread.currentThread().interrupt();
-            }
+        } else if (counterForWinner == guiPlayers.length - 1){
+            // There is one player on board Todo
         }
     }
 
@@ -213,10 +238,10 @@ public class ViewController {
                 case ("street"):
                     ownerId = ((Ownable)board.getFields()[i]).getOwnerId();
                     if (ownerId>=0)
-                    fieldSubtexts[i] = readFile(setupMessagesPath,"owner") + " " + guiPlayers[ownerId].getName()  +" \n"
-                            + readFile(setupMessagesPath,"price") +" " + ((Street)board.getFields()[i]).getPrice() + " \n"
-                            + readFile(setupMessagesPath,"housePrice") +" " + ((Street)board.getFields()[i]).getHousePrice() + " \n"
-                            + readFile(setupMessagesPath,"rent") +" " + ((Street)board.getFields()[i]).getRent() + "\n"
+                    fieldSubtexts[i] = "<h2>" + readFile(setupMessagesPath,"owner") + " " + guiPlayers[ownerId].getName()  +"<br>"
+                            + readFile(setupMessagesPath,"price") +" " + ((Street)board.getFields()[i]).getPrice() + "<br>"
+                            + readFile(setupMessagesPath,"housePrice") +" " + ((Street)board.getFields()[i]).getHousePrice() + "<br>"
+                            + readFile(setupMessagesPath,"rent") +" " + ((Street)board.getFields()[i]).getRent() + "<br>"
                     ;
                     fields[i].setDescription(fieldSubtexts[i]);
                     if (((Street)board.getFields()[i]).getHouseLevel() < 5){
@@ -228,28 +253,46 @@ public class ViewController {
                         ((GUI_Street)fields[i]).setHotel(true);
                     }
 
-
-
-
+                    //Adds "pawned" if it is pawned
+                    if (((Ownable)board.getFields()[i]).isPledged()){
+                        fields[i].setSubText(readFile(setupMessagesPath,"pawned"));
+                    } else{
+                        fields[i].setSubText(readFile(setupMessagesPath,""));
+                    }
                     break;
 
                 case ("brew"):
                     ownerId = ((Ownable)board.getFields()[i]).getOwnerId();
                     if (ownerId>=0)
-                    fieldSubtexts[i] = readFile(setupMessagesPath,"owner") + " " + guiPlayers[ownerId].getName() +" \n"
-                            + readFile(setupMessagesPath,"price") +" " + ((Brewery)board.getFields()[i]).getPrice() + " \n"
-                            + readFile(setupMessagesPath,"rent") +" " + ((Brewery)board.getFields()[i]).getRent() + "\n";
+                    fieldSubtexts[i] = "<h2>" +readFile(setupMessagesPath,"owner") + " " + guiPlayers[ownerId].getName() +"<br>>"
+                            + readFile(setupMessagesPath,"price") +" " + ((Brewery)board.getFields()[i]).getPrice() + "<br>"
+                            + readFile(setupMessagesPath,"rent") +" " + ((Brewery)board.getFields()[i]).getRent() + "<br>";
                     fields[i].setDescription(fieldSubtexts[i]);
+
+                    //Adds "pawned" if it is pawned
+                    if (((Ownable)board.getFields()[i]).isPledged()){
+                        fields[i].setSubText(readFile(setupMessagesPath,"pawned"));
+                    } else{
+                        fields[i].setSubText(readFile(setupMessagesPath,""));
+                    }
                     break;
 
                 case ("ferry"):
                     ownerId = ((Ownable)board.getFields()[i]).getOwnerId();
                     if (ownerId>=0)
-                    fieldSubtexts[i] = readFile(setupMessagesPath,"owner") + " " + guiPlayers[ownerId].getName() +" \n"
-                            + readFile(setupMessagesPath,"price") +" " + ((Ferry)board.getFields()[i]).getPrice() + " \n"
-                            + readFile(setupMessagesPath,"rent") +" " + ((Ferry)board.getFields()[i]).getRent() + "\n"
+                    fieldSubtexts[i] = "<h2>" + readFile(setupMessagesPath,"owner") + " " + guiPlayers[ownerId].getName() +"<br>"
+                            + readFile(setupMessagesPath,"price") +" " + ((Ferry)board.getFields()[i]).getPrice() + "<br>"
+                            + readFile(setupMessagesPath,"rent") +" " + ((Ferry)board.getFields()[i]).getRent() + "<br>"
                     ;
                     fields[i].setDescription(fieldSubtexts[i]);
+
+
+                    //Adds "pawned" if it is pawned
+                    if (((Ownable)board.getFields()[i]).isPledged()){
+                        fields[i].setSubText(readFile(setupMessagesPath,"pawned"));
+                    } else{
+                        fields[i].setSubText(readFile(setupMessagesPath,""));
+                    }
                     break;
             }
         }
@@ -268,7 +311,7 @@ public class ViewController {
 
     public boolean payIncomeTax(String message){
         String selection = gui.getUserSelection(message,readFile(turnMessagesPath,"pay4kTax"),readFile(turnMessagesPath,"pay10pct"));
-        if(selection.equals("Betal 4000 i skat")){
+        if(readFile(turnMessagesPath,"pay4kTax").equals(selection)){
             return true;
         }
         else {
@@ -285,7 +328,7 @@ public class ViewController {
     }
 
     public boolean chooseToBuy(int activePlayerId){
-        String message = String.format(readFile(turnMessagesPath,"buyOrSellBeforeTurn"),guiPlayers[activePlayerId].getName());
+        String message = String.format(readFile(turnMessagesPath,"buyBeforeTurn"),guiPlayers[activePlayerId].getName());
         String selection = gui.getUserButtonPressed(message,
                 readFile(turnMessagesPath,"no"),readFile(turnMessagesPath,"yes"));
         if(selection.equals(readFile(turnMessagesPath,"yes"))){
@@ -312,5 +355,37 @@ public class ViewController {
     public void showChanceCard(String cardText){
         gui.displayChanceCard(cardText);
     }
+
+    public void looserMessage(int activePlayerId) {
+        String msg = String.format( readFile( endMessagePath,"loser" ),guiPlayers[activePlayerId].getName());
+        gui.showMessage(msg);
+    }
+
+    public void removeLoser(int playerId, int oldFieldId) {
+        // When the counterForWinner = playerNames.length-1, so we know that there is one player on board
+        counterForWinner++;
+        fields[oldFieldId].setCar( guiPlayers[playerId], false );
+        updateLooserOnBoard( playerId );
+    }
+
+    public void updateLooserOnBoard(int playerId) {
+        guiPlayers[playerId].setName( guiPlayers[playerId].getName() + readFile( endMessagePath, "updateLooserOnBoard" ));
+        guiPlayers[playerId].setBalance(0);
+    }
+
+   public void endGame(String winnerName){
+       gui.showMessage(String.format( readFile( endMessagePath, "winner" ) ,   winnerName ));
+       gui.close();
+       System.exit( 0 );
+   }
+
+   public String getUserButtonPressed(String msg,String ... options){
+        return gui.getUserButtonPressed(msg,options);
+   }
+
+    public String getUserSelection(String msg,String ... options){
+        return gui.getUserSelection(msg,options);
+    }
+
 
 }
