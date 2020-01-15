@@ -255,7 +255,6 @@ public class GameController {
                 if (((Ownable)boardController.getBoard().getFields()[i]).getOwnerId() == playerIndex){
                     ((Ownable)boardController.getBoard().getFields()[i]).setOwnerId(-1);
                     ((Ownable)boardController.getBoard().getFields()[i]).setPledged(false);
-                    //TODO : update view
                 }
             }
         }
