@@ -5,10 +5,13 @@ import model.Fields.Ownable;
 import static controller.PathExpert.*;
 import static controller.TextController.readFile;
 
+
+
 public class SystemController {
     private GameController gameController;
     private ViewController viewController;
     private int numberOfPlayers;
+
 
     public SystemController(){
         //Initializes controllers
@@ -456,7 +459,7 @@ public class SystemController {
                         if (selectedStreet.equals(sellableStreetNames[i])){
                             selectedStreetId = sellableStreetIds[i];
                         }
-                        
+
                     }
                 }
                 if (selectedStreetId != -1){
