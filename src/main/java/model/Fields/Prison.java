@@ -1,6 +1,6 @@
 package model.Fields;
 
-import static controller.TextController.getFieldData;
+import static Utilities.FileReader.getFieldData;
 
 public class Prison  extends Field{
     private String type = "prison";

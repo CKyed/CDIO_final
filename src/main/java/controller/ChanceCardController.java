@@ -1,23 +1,21 @@
 package controller;
 
 import model.*;
-import static controller.PathExpert.*;
-import static controller.TextController.getFieldData;
-import static controller.TextController.readFile;
+import static Utilities.PathExpert.*;
+import static Utilities.FileReader.readFile;
 
 public class ChanceCardController {
     private CardDeck cardDeck;
 
 
     public ChanceCardController(){
-        String[] cardTexts = new String[45];
-        for (int i =0;i<45;i++){
+        String[] cardTexts = new String[26];
+        for (int i =0;i<26;i++){
             cardTexts[i] = readFile(chanceCardPath,"card"+i);
         }
 
         this.cardDeck = new CardDeck(cardTexts);
-        this.cardDeck.swap(0,35); //TODO: denne linje er kun til test
-       // this.cardDeck.shuffle(); //TODO skal afkommenteres
+        this.cardDeck.shuffle();
     }
 
     public CardDeck getCardDeck() {
@@ -31,37 +29,31 @@ public class ChanceCardController {
 
         //Switches on the chanceCardId
         switch (cardId){
+            case 0:
             case 1:
-
-                break;
-            case 2:
-                break;
-
-            case 11:
-            case 12:
                 //Deposits 500 to player
                 playerController.getActivePlayer().getAccount().deposit(500);
                 break;
-            case 13:
-            case 14:
-            case 15:
-            case 16:
-            case 17:
-            case 18:
-            case 19:
-            case 20:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
                 //Deposits 1000 to player
                 playerController.getActivePlayer().getAccount().deposit(1000);
                 break;
-            case 21:
+            case 10:
                 //Deposits 3000 to player
                 playerController.getActivePlayer().getAccount().deposit(3000);
                 break;
-            case 22:
+            case 11:
                 //Deposits 200 to player
                 playerController.getActivePlayer().getAccount().deposit(200);
                 break;
-            case 23:
+            case 12:
                 //Calculates if players qualifies ( values >15000 )
                 boolean qualifies = 15000 >= playerController.calculateTotalValue(playerController.getActivePlayerId(),board);
                 if (qualifies){
@@ -74,23 +66,12 @@ public class ChanceCardController {
                 message = String.format(message,playerController.getActivePlayer().getName(),playerController.getActivePlayer().getName());
 
                 break;
-            case 41:
-            case 42:
+            case 13:
+            case 14:
                 //Gives the player the "get out of prison" card
                 playerController.getActivePlayer().setPrisonCard(true);
                 message = String.format(readFile(turnMessagesPath,"getsPrisonCard"),playerController.getActivePlayer().getName());
                 break;
-                /*
-            case 29:
-                //moves the player three fields further
-                playerController.getActivePlayer().setPositionOnBoard(playerController.getActivePlayer().getPositionOnBoard()+3);
-                break;
-            case 30:
-            case 31:
-                playerController.getActivePlayer().setPositionOnBoard(playerController.getActivePlayer().getPositionOnBoard()-3);
-                break;
-
-                 */
 
         }
         return message;

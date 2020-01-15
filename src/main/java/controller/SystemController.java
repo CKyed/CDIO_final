@@ -2,8 +2,8 @@ package controller;
 
 import model.ChanceCard;
 import model.Fields.Ownable;
-import static controller.PathExpert.*;
-import static controller.TextController.readFile;
+import static Utilities.PathExpert.*;
+import static Utilities.FileReader.readFile;
 
 
 
@@ -270,33 +270,27 @@ public class SystemController {
         landedOnChanceMsg = String.format(landedOnChanceMsg,gameController.getPlayerController().getPlayers()[gameController.getPlayerController().getActivePlayerId()].getName());
         viewController.showMessage(landedOnChanceMsg);
 
-
-
-
-
-        //If it is a chancecard that includes movement on the board
-        if(cardId >= 30 && cardId <= 31){
-            gameController.movePlayerNoStartBonus(oldPos,37);
-            viewController.teleportPlayerCar(playerId,37,oldPos);
-            landOnField();
-        }
-
-        else if(cardId >= 32 && cardId <= 40 || cardId==27 || cardId==28){
-            gameController.movePlayer(oldPos,sum);
-            int virutalFaceValues[] = {10,10};
-            viewController.rollDiceAndMove(virutalFaceValues,sum,playerId,oldPos);
-            viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
-            landOnField();
-            //here we call switch case and related methods from gamecontroller
-
-        } else{
+        if (cardId <15){ //If it is a simple chancecard, where player recieves money
+            //Plays card in method in model layer
             String message = gameController.getChanceCardController().playCard(cardId,gameController.getPlayerController(),gameController.getBoardController().getBoard());
             if (!message.isEmpty()) {
                 viewController.showMessage(message);
             }
+        } else if (cardId >14 && cardId <24 ){ //If it is about simple movement
+            //Moves in model layer
+            gameController.movePlayer(oldPos,sum);
+            int virutalFaceValues[] = {10,10};
+            //Updates view
+            viewController.rollDiceAndMove(virutalFaceValues,sum,playerId,oldPos);
+            viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
+            //PLays turn on new field
+            landOnField();
+
+        } else if (cardId>23 && cardId<26) { //If it is backwards movement
+            gameController.movePlayerNoStartBonus(oldPos, 37);
+            viewController.teleportPlayerCar(playerId, 37, oldPos);
+            landOnField();
         }
-
-
     }
 
     public void playerBankruptcy(int playerId) {

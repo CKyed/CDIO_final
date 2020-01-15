@@ -1,10 +1,6 @@
 package model.Fields;
 
-import model.Player;
-
-import static controller.PathExpert.fieldAttributesPath;
-import static controller.TextController.getFieldData;
-import static controller.TextController.readFile;
+import static Utilities.FileReader.getFieldData;
 
 public abstract class Ownable extends Field {
     protected int price;
