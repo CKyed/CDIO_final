@@ -270,6 +270,10 @@ public class SystemController {
         landedOnChanceMsg = String.format(landedOnChanceMsg,gameController.getPlayerController().getPlayers()[gameController.getPlayerController().getActivePlayerId()].getName());
         viewController.showMessage(landedOnChanceMsg);
 
+
+
+
+
         //If it is a chancecard that includes movement on the board
         if(cardId >= 30 && cardId <= 31){
             gameController.movePlayerNoStartBonus(oldPos,37);
@@ -281,6 +285,7 @@ public class SystemController {
             gameController.movePlayer(oldPos,sum);
             int virutalFaceValues[] = {10,10};
             viewController.rollDiceAndMove(virutalFaceValues,sum,playerId,oldPos);
+            viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
             landOnField();
             //here we call switch case and related methods from gamecontroller
 
@@ -290,6 +295,8 @@ public class SystemController {
                 viewController.showMessage(message);
             }
         }
+
+
     }
 
     public void playerBankruptcy(int playerId) {
