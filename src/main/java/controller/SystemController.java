@@ -102,53 +102,62 @@ public class SystemController {
 
         //If the property is owned by someone else
         if(gameController.getOwnerId()>=0 && gameController.getOwnerId()!= gameController.getActivePlayerId()){
+
             //Gets data
             int fieldId = gameController.getActivePlayer().getPositionOnBoard();
-            String fromPlayerName = gameController.getActivePlayer().getName();
-            String toPlayerName = gameController.getPlayerController().getPlayers()[gameController.getOwnerId()].getName();
-            int rent=0;
 
-            //rent is calculated in different ways
-            switch (((Ownable)gameController.getBoardController().getBoard().getFields()[fieldId]).getType()){
-                case "street":
-                case "ferry":
-                    //Gets rent
-                    rent = ((Ownable)gameController.getBoardController().getBoard().getFields()[fieldId]).getRent();
-                break;
-                case "brew":
-                    rent = ((Ownable)gameController.getBoardController().getBoard().getFields()[fieldId]).getRent();
+            //If it is pawned, no rent is paid
+            if (((Ownable)gameController.getBoardController().getBoard().getFields()[fieldId]).isPledged()){
+                //Tells players that no rent is paid
+                viewController.showMessage(String.format(readFile(turnMessagesPath,"pawnedNorent"),gameController.getBoardController().getBoard().getFields()[fieldId].getName()));
 
-                    //Multiplies by dieSum
-                    rent = rent*gameController.getDiceController().getSum();
-                    break;
-            }
+            } else { //If it is not pawned - rent must be paid
 
+                String fromPlayerName = gameController.getActivePlayer().getName();
+                String toPlayerName = gameController.getPlayerController().getPlayers()[gameController.getOwnerId()].getName();
+                int rent=0;
 
-            //hvis ejeren af feltet er i fængsel, skal man ikke betale noget
-            if(gameController.getPlayerController().getPlayers()[gameController.getOwnerId()].isInJail()){
-            String message = String.format(readFile(turnMessagesPath, "ownerInPrison"));
-            viewController.showMessage(message);
-            //transfers 0 money from player to player
-            gameController.getPlayerController().safeTransferToPlayer(gameController.getActivePlayerId(),0,gameController.getOwnerId());
+                //rent is calculated in different ways
+                switch ((gameController.getBoardController().getBoard().getFields()[fieldId]).getType()){
+                    case "street":
+                    case "ferry":
+                        //Gets rent
+                        rent = ((Ownable)gameController.getBoardController().getBoard().getFields()[fieldId]).getRent();
+                        break;
+                    case "brew":
+                        rent = ((Ownable)gameController.getBoardController().getBoard().getFields()[fieldId]).getRent();
+
+                        //Multiplies by dieSum
+                        rent = rent*gameController.getDiceController().getSum();
+                        break;
                 }
 
-            //Tries to pay rent
-            else if(gameController.getPlayerController().safeTransferToPlayer(gameController.getActivePlayerId(),rent,gameController.getOwnerId())){
+                //hvis ejeren af feltet er i fængsel, skal man ikke betale noget
+                if(gameController.getPlayerController().getPlayers()[gameController.getOwnerId()].isInJail()){
+                    String message = String.format(readFile(turnMessagesPath, "ownerInPrison"));
+                    viewController.showMessage(message);
+                    //transfers 0 money from player to player
+                    gameController.getPlayerController().safeTransferToPlayer(gameController.getActivePlayerId(),0,gameController.getOwnerId());
+                }
 
-                //Displays message
-                String message = String.format(readFile(turnMessagesPath,"payRentFromTo"),fromPlayerName,rent,toPlayerName);
-                viewController.showMessage(message);
+                //Tries to pay rent
+                else if(gameController.getPlayerController().safeTransferToPlayer(gameController.getActivePlayerId(),rent,gameController.getOwnerId())){
 
-                //Updates player balances
-                viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
-            } else {
-                //Player can't afford the rent
-                playerBankruptcy(gameController.getActivePlayerId());
+                    //Displays message
+                    String message = String.format(readFile(turnMessagesPath,"payRentFromTo"),fromPlayerName,rent,toPlayerName);
+                    viewController.showMessage(message);
+
+                    //Updates player balances
+                    viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
+                } else {
+                    //Player can't afford the rent
+                    playerBankruptcy(gameController.getActivePlayerId());
+                }
             }
-            //If it is vacant - asks if player wants to buy
-        } else if (gameController.getOwnerId()==-1){
-            //If it is vacant
 
+
+
+        } else if (gameController.getOwnerId()==-1){//If it is vacant - asks if player wants to buy
             int currentFieldId = gameController.getActivePlayer().getPositionOnBoard();
 
             //If player can afford it
