@@ -107,7 +107,7 @@ public class GameController {
     }
 
     public void updateActivePlayer(){
-        if (!diceController.isSameValue()){
+        if (!diceController.isSameValue() || getActivePlayer().isInJail()){
             this.playerController.updateActivePlayer();
         }
     }

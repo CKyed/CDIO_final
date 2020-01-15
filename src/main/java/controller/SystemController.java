@@ -20,7 +20,7 @@ public class SystemController {
 
         //Setup players with an array of Strings from the viewcontroller
         String[] playerNames = this.viewController.setupPlayers();
-        gameController.setPlayerController( new PlayerController( new String[]{"M"}) );//   new String[]{"M"}
+        gameController.setPlayerController( new PlayerController( playerNames ) );//   new String[]{"M"}
 
         //Plays game
         play();
@@ -29,8 +29,10 @@ public class SystemController {
     public void play() {
 
         int activePlayerId;
+        int[] faceValues;
         //Plays turns
         while (true) {
+            int oldFieldId = gameController.getActivePlayer().getPositionOnBoard();
             //Gets activePlayerID for later use
             activePlayerId = gameController.getActivePlayerId();
 
@@ -41,54 +43,49 @@ public class SystemController {
                 buyOrSellBeforeTurn();
             }
             //If the player is in jail
-            boolean isInJail = gameController.getActivePlayer().isInJail();
-            while (isInJail) {
-                String askWhichChoice = String.format( readFile( turnMessagesPath, "askWhichChoice" ), gameController.getActivePlayer().getName() );
-                String[] jailChoices = {"Betal 1000 kr", "Kast Terning", "losladelskortet"};
-                askWhichChoice = viewController.getUserSelection( askWhichChoice, jailChoices );
-
-                if (askWhichChoice.equals( "Betal 1000 kr" )) {
+            boolean InJailTurn = gameController.getActivePlayer().isInJail();
+            while (InJailTurn) {
+                // Check first if player already roll dice twice so player should pay 1000
+                if (gameController.getActivePlayer().getRollDiceInPrison() == 3) {
+                    viewController.getUserButtonPressed( readFile( turnMessagesPath, "payPrisonLastTry"), "Pay 1000" );
                     gameController.getActivePlayer().withdraw( 1000 );
                     gameController.getPlayerController().getPlayers()[activePlayerId].setInJail( false );
-                    isInJail = false;
-                } else if (askWhichChoice.equals( "Kast Terning" )) {
-
-                    int fieldId = gameController.getActivePlayer().getPositionOnBoard(); //PositionOnBoard = 10
-                    // Todo: I have a problem with rollDice method
-                    int [] faceValues = gameController.rollDice(); // PositionOnBoard = 25
-                    viewController.rollDiceInPrison( faceValues );
-
-                    if (!gameController.getDiceController().isSameValue()) {
-                        //Updates players position in view-layer
-                        viewController.rollDiceAndMove( faceValues, faceValues[0] + faceValues[1], activePlayerId,fieldId);
-
-                        fieldId = gameController.getActivePlayer().getPositionOnBoard();
-                        faceValues = gameController.rollDice();
-                        viewController.rollDiceInPrison( faceValues );
-
-                        if (!gameController.getDiceController().isSameValue()) {
-                            //Updates players position in view-layer
-                            viewController.rollDiceAndMove( faceValues, faceValues[0] + faceValues[1], activePlayerId,fieldId);
-                            gameController.getPlayerController().getPlayers()[activePlayerId].setInJail( false );
-
-                            //Gives the turn to the next player
-                            gameController.updateActivePlayer();
-                            isInJail = false;
-                        }else {
-                            //Gives the turn to the next player
-                            gameController.updateActivePlayer();
-                            isInJail = false;
-                        }
-
-                    } else
-                        isInJail = false;
-
+                    InJailTurn = false;
                 } else {
-                    // If the player has prison card, the player uses the prisoncard and gets out of jail
-                    if (gameController.getPlayerController().getPlayers()[activePlayerId].isPrisonCard()) {
+                    // Give to player choices to choice
+                    String askWhichChoice = String.format( readFile( turnMessagesPath, "askWhichChoice" ), gameController.getActivePlayer().getName() );
+                    String[] jailChoices = {readFile( turnMessagesPath, "payToPrison" ), readFile( turnMessagesPath, "rollDiceInPrison" ), readFile( turnMessagesPath, "release'scard" )};
+                    askWhichChoice = viewController.getUserSelection( askWhichChoice, jailChoices );
+
+
+                    if (askWhichChoice.equals( "Betal 1000 kr for at komme ud" )) { // first choice
+                        gameController.getActivePlayer().withdraw( 1000 );
                         gameController.getPlayerController().getPlayers()[activePlayerId].setInJail( false );
-                        gameController.getPlayerController().getPlayers()[activePlayerId].setPrisonCard( false );
+                        InJailTurn = false;
+                    } else if (askWhichChoice.equals( "Kast Terning" )) { // second choice
+                        int fieldId = gameController.getActivePlayer().getPositionOnBoard();
+                        gameController.getDiceController().roll();
+                        // first roll in prison
+                        faceValues = gameController.getDiceController().getFaceValues();
+                        viewController.rollDiceInPrison( faceValues );
+                        // roll dice in prison, and dice are not equal
+                        if (!gameController.getDiceController().isSameValue()) {
+                            gameController.getActivePlayer().setRollDiceInPrison( (gameController.getActivePlayer().getRollDiceInPrison() == 0) ? 1 : gameController.getActivePlayer().getRollDiceInPrison()+1 );
+                        }
+                        // dice are equal
+                        if (gameController.getDiceController().isSameValue()) {
+                            gameController.getPlayerController().getPlayers()[activePlayerId].setInJail( false );
+                            playTurn( faceValues, oldFieldId);
+                        }
+                        InJailTurn = false;
+                    } else { // Third choice
+                        // If the player has prison card, the player uses the prisoncard and gets out of jail
+                        if (gameController.getPlayerController().getPlayers()[activePlayerId].isPrisonCard()) {
+                            gameController.getPlayerController().getPlayers()[activePlayerId].setInJail( false );
+                            gameController.getPlayerController().getPlayers()[activePlayerId].setPrisonCard( false );
+                        }
                     }
+
                 }
 
 
@@ -111,7 +108,8 @@ public class SystemController {
             }//while
             if (!gameController.getActivePlayer().isInJail()) {
                 //If not in jail, turn starts normally
-                playTurn();// Todo oldfieldid = 0
+                faceValues = gameController.rollDice();
+                playTurn( faceValues, oldFieldId );
             }
 
             //Updates the balances and ownerships of all Players
@@ -125,13 +123,11 @@ public class SystemController {
     }
 
 
-    public void playTurn() {
+    public void playTurn(int[] faceValues, int oldFieldId) {
         int activePlayerId = gameController.getActivePlayerId();
-        int oldFieldId = gameController.getActivePlayer().getPositionOnBoard();
 
         //Gets dieRoll and updates players position in model-layer
-        int[] faceValues = gameController.rollDice();
-        int sum = gameController.getDiceController().getSum();
+        int sum = faceValues[0] + faceValues[1];
 
 
         //Updates players position in view-layer
