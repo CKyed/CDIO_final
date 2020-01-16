@@ -154,8 +154,6 @@ public class PlayerController {
                     }
                 }
             }
-
-
         }
 
      return totalValue;
