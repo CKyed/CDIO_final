@@ -106,6 +106,7 @@ public class SystemController {
                         if (gameController.getPlayerController().getPlayers()[activePlayerId].isPrisonCard()) {
                             gameController.getPlayerController().getPlayers()[activePlayerId].setInJail( false );
                             gameController.getPlayerController().getPlayers()[activePlayerId].setPrisonCard( false );
+                            InJailTurn = false;
                         }
 //
                 }
