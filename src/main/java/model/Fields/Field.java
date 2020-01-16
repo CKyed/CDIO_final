@@ -17,8 +17,8 @@ public abstract class Field {
         this.description = readFile(descriptionMessagesPath,state);
     }
 
-    public abstract int getGroup();
-    public abstract String getType();
+    public abstract int getGroup(); //TODO lav attribut group her, som de andre kan nedarve
+    public abstract String getType(); //TODO lav attribut group her, som de andre kan nedarve
 
     public String getName() {
         return this.name;
