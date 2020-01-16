@@ -1,49 +1,79 @@
-start:Start
+start: Start
+carpark: Parking
+visit: In prison / Visiting
+prison: Go directly to jail
+chance01: Try your luck
+chance02: Try your luck
+chance03: Try your luck
+chance04: Try your luck
+chance05: Try your luck
+chance06: Try your luck
+tax01: Income tax
+tax02: Exceptional state tax
+brew01: Tuborg Squash
+brew02: Coca Cola
+ferry01: Helsingør - Helsingborg
+ferry02: Mols Line
+ferry03: Goats - Rostock
+ferry04: Rødby - Puttgarden
+field01: Rødovrevej
+field02: Hvidovrevej
+field03: Roskildevej
+field04: Valby Langgade
+field05: Allégade
+field06: Frederiksberg Alle
+field07: Bülowsvej
+field08: Gl. King's Road
+field09: Bernstorffsvej
+field10: Hellerupvej
+field11: beach road
+field12: triangle
+field13: Østerbrogade
+field14: Grønningen
+field15: broad Street
+field16: Kgs. Nytorv
+field17: East Street
+field18: Amagertorv
+field19: Vimmelskaftet
+field20: Nygade
+field21: Frederiksberggade
+field22: Town square
+ 
 
-carpark:Parkering
-
-visit:I fængsel/På besøg
-
-prison:Gå direkte i fængsel
-
-chance01:Prøv lykken
-chance02:Prøv lykken
-chance03:Prøv lykken
-chance04:Prøv lykken
-chance05:Prøv lykken
-chance06:Prøv lykken
 
 
-tax01:Indkomstskat
-tax02:Ekstraordinær statsskat
 
-brew01:Tuborg Squash
-brew02:Coca Cola
 
-ferry01:Helsingør - Helsingborg
-ferry02:Mols-Linien
-ferry03:Gedser - Rostock
-ferry04:Rødby - Puttgarden
 
-field01:Rødovrevej
-field02:Hvidovrevej
-field03:Roskildevej
-field04:Valby Langgade
-field05:Allégade
-field06:Frederiksberg Allé
-field07:Bülowsvej
-field08:Gl. Kongevej
-field09:Bernstorffsvej
-field10:Hellerupvej
-field11:Strandvejen
-field12:Trianglen
-field13:Østerbrogade
-field14:Grønningen
-field15:Bredgade
-field16:Kgs. Nytorv
-field17:Østergade
-field18:Amagertorv
-field19:Vimmelskaftet
-field20:Nygade
-field21:Frederiksberggade
-field22:Rådhuspladsen
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
