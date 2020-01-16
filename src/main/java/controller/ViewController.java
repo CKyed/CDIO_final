@@ -331,15 +331,11 @@ public class ViewController {
                     Thread.currentThread().interrupt();
                 }
             }
-        } else if (counterForWinner == guiPlayers.length - 1){
-            // There is one player on board Todo
         }
     }
 
-    //TODO beskeden her er hardcoded, det skal ændres
     public void rollDiceInPrison(int[] faceValues){
-//        gui.getUserButtonPressed("", "rollDice");
-        getUserButtonPressed( "" ,"rollDice" );
+        getUserButtonPressed( "" ,readFile(turnMessagesPath, "rollDice"));
         gui.setDice( faceValues[0], faceValues[1] );
     }
 
@@ -487,11 +483,6 @@ public class ViewController {
     }
     public void showMessage(String message){
         gui.showMessage(message);
-    }
-
-
-    public void prisonMessage(){
-//TODO slet
     }
 
     public boolean chooseToBuy(int activePlayerId){

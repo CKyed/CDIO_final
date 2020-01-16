@@ -123,7 +123,7 @@ public class PlayerController {
         this.activePlayerId = activePlayerId;
     }
 
-    public int calculateTotalValue(int playerId, Board board){//TODO kan gøres lidt smartere omkring linje 134 osv.
+    public int calculateTotalValue(int playerId, Board board){
         //Gets accountsBalance
         int totalValue = players[playerId].getAccountBalance();
 
