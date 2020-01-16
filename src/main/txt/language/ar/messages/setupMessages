@@ -1,0 +1,12 @@
+welcome: مرحبًا بك في لعبة matador التي طورتها المجموعة 20.
+choosePlayerNumber: حدد عدد اللاعبين.
+player: لاعب
+writeName: اكتب اسمك
+nameError: يجب ألا يكون الاسمان متشابهين وغير فارغين!
+owner: المالك:
+none: لا
+price: السعر:
+housePrice: أسعار المنازل:
+rent: الإيجار:
+tax: الضرائب:
+pawned: تعهد
