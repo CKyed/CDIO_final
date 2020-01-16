@@ -485,31 +485,6 @@ public class ViewController {
         gui.showMessage(message);
     }
 
-    public boolean chooseToBuy(int activePlayerId){
-        String message = String.format(readFile(turnMessagesPath,"buyBeforeTurn"),guiPlayers[activePlayerId].getName());
-        String selection = gui.getUserButtonPressed(message,
-                readFile(turnMessagesPath,"no"),readFile(turnMessagesPath,"yes"));
-        if(selection.equals(readFile(turnMessagesPath,"yes"))){
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public int getWantedNumberOfHouses(int fieldId, int activePlayerId){
-        String message = String.format(readFile(turnMessagesPath,"howManyHouses"),guiPlayers[activePlayerId].getName(),fields[fieldId].getTitle());
-        String selection = gui.getUserSelection(message,"0","1","2","3","4","5");
-        int numberOfHouses = Integer.parseInt(selection);
-        return numberOfHouses;
-    }
-
-    public void newTurnMessage(int activePlayerId){
-        //Resets the text on the ChanceCardField
-        gui.displayChanceCard(readFile(turnMessagesPath,"getLucky"));
-        String newTurnMessage = String.format(readFile(turnMessagesPath,"newTurn"),guiPlayers[activePlayerId].getName());
-        gui.showMessage(newTurnMessage);
-    }
-
     public void showChanceCard(String cardText){
         gui.displayChanceCard(cardText);
     }
