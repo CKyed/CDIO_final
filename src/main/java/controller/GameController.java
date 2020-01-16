@@ -251,7 +251,7 @@ public class GameController {
 
     //Releases all the fields that the looser owns and make them pledged false
     //This method might need to be deleted in because of new bankruptcy rules
-    public void makeFieldFree(int playerIndex){
+    public void makeFieldsFree(int playerIndex){
         for (int i = 0; i < boardController.getBoard().getFields().length ; i++) {
             if (boardController.getBoard().getFields()[i] instanceof Ownable){
                 if (((Ownable)boardController.getBoard().getFields()[i]).getOwnerId() == playerIndex){
