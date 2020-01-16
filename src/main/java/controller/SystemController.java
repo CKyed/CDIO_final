@@ -493,6 +493,7 @@ public class SystemController {
 
 
                 //If player chose to build on a street
+                //TODO refakturer evt indre loop, da else statement er overflødig
                 if (selectedStreetId != -1){
                     if (gameController.tryToBuyHouses(selectedStreetId, 1))
                         viewController.showMessage(readFile(turnMessagesPath, "buildingSucceeded"));
