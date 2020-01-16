@@ -310,8 +310,6 @@ public class ViewController {
             }
         }
 
-
-
         setupGuiPlayers(playerNames);
 
         return playerNames;
@@ -333,9 +331,12 @@ public class ViewController {
                     Thread.currentThread().interrupt();
                 }
             }
-        } else if (counterForWinner == guiPlayers.length - 1){
-            // There is one player on board Todo
         }
+    }
+
+    public void rollDiceInPrison(int[] faceValues){
+        getUserButtonPressed( "" ,readFile(turnMessagesPath, "rollDice"));
+        gui.setDice( faceValues[0], faceValues[1] );
     }
 
     public void teleportPlayerCar(int playerId, int dieRoll, int oldFieldId){
@@ -379,12 +380,20 @@ public class ViewController {
             switch (board.getFields()[i].getType()){
                 case ("street"):
                     ownerId = ((Ownable)board.getFields()[i]).getOwnerId();
-                    if (ownerId>=0)
-                    fieldSubtexts[i] = "<h2>" + readFile(setupMessagesPath,"owner") + " " + guiPlayers[ownerId].getName()  +"<br>"
+                    if (ownerId>=0) {
+                        fieldSubtexts[i] = "<h2>" + readFile(setupMessagesPath, "owner") + " " + guiPlayers[ownerId].getName() + "<br>"
+                                + readFile(setupMessagesPath, "price") + " " + ((Street) board.getFields()[i]).getPrice() + "<br>"
+                                + readFile(setupMessagesPath, "housePrice") + " " + ((Street) board.getFields()[i]).getHousePrice() + "<br>"
+                                + readFile(setupMessagesPath, "rent") + " " + ((Street) board.getFields()[i]).getRent() + "<br>"
+                        ;
+                    }
+                    else{
+                        fieldSubtexts[i] = "<h2>" + readFile(setupMessagesPath,"owner") + " " + readFile(setupMessagesPath,"none")  +"<br>"
                             + readFile(setupMessagesPath,"price") +" " + ((Street)board.getFields()[i]).getPrice() + "<br>"
                             + readFile(setupMessagesPath,"housePrice") +" " + ((Street)board.getFields()[i]).getHousePrice() + "<br>"
                             + readFile(setupMessagesPath,"rent") +" " + ((Street)board.getFields()[i]).getRent() + "<br>"
-                    ;
+                        ;
+                    }
                     fields[i].setDescription(fieldSubtexts[i]);
                     if (((Street)board.getFields()[i]).getHouseLevel() < 5){
                         ((GUI_Street)fields[i]).setHouses(((Street)board.getFields()[i]).getHouseLevel());
@@ -405,12 +414,18 @@ public class ViewController {
 
                 case ("brew"):
                     ownerId = ((Ownable)board.getFields()[i]).getOwnerId();
-                    if (ownerId>=0)
-                    fieldSubtexts[i] = "<h2>" +readFile(setupMessagesPath,"owner") + " " + guiPlayers[ownerId].getName() +"<br>>"
+                    if (ownerId>=0) {
+                        fieldSubtexts[i] = "<h2>" + readFile(setupMessagesPath, "owner") + " " + guiPlayers[ownerId].getName() + "<br>>"
+                                + readFile(setupMessagesPath, "price") + " " + ((Brewery) board.getFields()[i]).getPrice() + "<br>"
+                                + readFile(setupMessagesPath, "rent") + " " + ((Brewery) board.getFields()[i]).getRent() + "<br>";
+                        fields[i].setDescription(fieldSubtexts[i]);
+                    }
+                    else{
+                        fieldSubtexts[i] = "<h2>" +readFile(setupMessagesPath,"owner") + " " + readFile(setupMessagesPath,"none") +"<br>>"
                             + readFile(setupMessagesPath,"price") +" " + ((Brewery)board.getFields()[i]).getPrice() + "<br>"
                             + readFile(setupMessagesPath,"rent") +" " + ((Brewery)board.getFields()[i]).getRent() + "<br>";
-                    fields[i].setDescription(fieldSubtexts[i]);
-
+                        fields[i].setDescription(fieldSubtexts[i]);
+                    }
                     //Adds "pawned" if it is pawned
                     if (((Ownable)board.getFields()[i]).isPledged()){
                         fields[i].setSubText(readFile(setupMessagesPath,"pawned"));
@@ -426,8 +441,14 @@ public class ViewController {
                             + readFile(setupMessagesPath,"price") +" " + ((Ferry)board.getFields()[i]).getPrice() + "<br>"
                             + readFile(setupMessagesPath,"rent") +" " + ((Ferry)board.getFields()[i]).getRent() + "<br>"
                     ;
-                    fields[i].setDescription(fieldSubtexts[i]);
+                    else{
+                        fieldSubtexts[i] = "<h2>" + readFile(setupMessagesPath,"owner") + " " + readFile(setupMessagesPath,"none")  +"<br>"
+                                + readFile(setupMessagesPath,"price") +" " + ((Ferry)board.getFields()[i]).getPrice() + "<br>"
+                                + readFile(setupMessagesPath,"rent") +" " + ((Ferry)board.getFields()[i]).getRent() + "<br>"
+                        ;
 
+                    }
+                    fields[i].setDescription(fieldSubtexts[i]);
 
                     //Adds "pawned" if it is pawned
                     if (((Ownable)board.getFields()[i]).isPledged()){
@@ -462,11 +483,6 @@ public class ViewController {
     }
     public void showMessage(String message){
         gui.showMessage(message);
-    }
-
-
-    public void prisonMessage(){
-
     }
 
     public boolean chooseToBuy(int activePlayerId){
@@ -504,7 +520,7 @@ public class ViewController {
     }
 
     public void removeLoser(int playerId, int oldFieldId) {
-        // When the counterForWinner = playerNames.length-1, so we know that there is one player on board
+        // When the counterForWinner = playerNames.length-1, we know that there is one player on board
         counterForWinner++;
         fields[oldFieldId].setCar( guiPlayers[playerId], false );
         updateLooserOnBoard( playerId );
@@ -528,6 +544,4 @@ public class ViewController {
     public String getUserSelection(String msg,String ... options){
         return gui.getUserSelection(msg,options);
     }
-
-
 }

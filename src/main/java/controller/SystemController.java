@@ -13,7 +13,7 @@ public class SystemController {
     private int numberOfPlayers;
 
 
-    public SystemController(){
+    public SystemController() {
         //Initializes controllers
         this.gameController = new GameController();
         this.viewController = new ViewController(gameController.getBoardController().getBoard());
@@ -29,41 +29,96 @@ public class SystemController {
     public void play(){
 
         int activePlayerId;
+        int[] faceValues;
         //Plays turns
-        while (true){
+        while (true) {
+            int oldFieldId = gameController.getActivePlayer().getPositionOnBoard();
             //Gets activePlayerID for later use
             activePlayerId = gameController.getActivePlayerId();
-
             //Asks player to proceed or buy/sell
             String newTurnMessage = String.format( readFile( turnMessagesPath, "newTurn" ), gameController.getActivePlayer().getName() );
-            String selection = viewController.getUserButtonPressed(newTurnMessage,readFile(turnMessagesPath,"buySell"),"OK");
-            if (selection.equals(readFile(turnMessagesPath,"buySell"))){
+            String selection = viewController.getUserButtonPressed( newTurnMessage, readFile( turnMessagesPath, "buySell" ), "OK" );
+            if (selection.equals( readFile( turnMessagesPath, "buySell" ) )) {
                 buyOrSellBeforeTurn();
             }
-
-
             //If the player is in jail
-            if(gameController.getActivePlayer().isInJail()){
-                boolean success = true;
-                //shows that player is in prison
-                viewController.showMessage(String.format(readFile(turnMessagesPath,"playerPaysBail"),gameController.getActivePlayer().getName()));
+            boolean InJailTurn = gameController.getActivePlayer().isInJail();
+            while (InJailTurn) {
+                    String jailChoices[];
+                    boolean couldafford = true;
 
-                //If the player has prison card, the player uses the prisoncard and gets out of jail
-                if(gameController.getPlayerController().getPlayers()[activePlayerId].isPrisonCard()){
-                    gameController.getPlayerController().getPlayers()[activePlayerId].setInJail(false);
-                    gameController.getPlayerController().getPlayers()[activePlayerId].setPrisonCard(false);
-                }else {
-                    //If the player doesn't have a prison card, the player pays the bail and gets out of jail
-                    success = gameController.payBail(activePlayerId);
-                    gameController.getPlayerController().getPlayers()[activePlayerId].setInJail(false);
-                }
-                if(success == false){
-                    playerBankruptcy(gameController.getActivePlayerId());
-                }
+                String askWhichChoice = String.format( readFile( turnMessagesPath, "askWhichChoice" ), gameController.getActivePlayer().getName() );
+                // Give to player choices to choice
+                    if(gameController.getPlayerController().getActivePlayer().isPrisonCard() && gameController.getActivePlayer().getAccountBalance()>=1000) {
+                        jailChoices =  new String[3];
+                        jailChoices[0] = readFile(turnMessagesPath, "payToPrison");
+                        jailChoices[1] = readFile(turnMessagesPath, "rollDiceInPrison");
+                        jailChoices[2] = readFile(turnMessagesPath, "release'scard");
 
-            } else{
+                    }else{
+                        jailChoices = new String[2];
+                        jailChoices[0] = readFile(turnMessagesPath, "payToPrison");
+                        jailChoices[1] = readFile(turnMessagesPath, "rollDiceInPrison");
+                    }
+                    askWhichChoice = viewController.getUserSelection( askWhichChoice, jailChoices );
+
+                    if (askWhichChoice.equals(readFile(turnMessagesPath,"payToPrison"))) { // Pay 1000 kr
+                        couldafford = gameController.payBail(activePlayerId);
+                        gameController.getPlayerController().getPlayers()[activePlayerId].setInJail( false );
+                        InJailTurn = false;
+
+                    } else if (askWhichChoice.equals(readFile(turnMessagesPath,"rollDiceInPrison"))){ //Roll dice
+                        // Check first if player already roll dice twice so player should pay 1000
+                        if (gameController.getActivePlayer().getRollDiceInPrison() == 2) {
+                            gameController.getDiceController().roll();
+                            // first roll in prison
+                            faceValues = gameController.getDiceController().getFaceValues();
+                            viewController.rollDiceInPrison( faceValues );
+                            if (faceValues[0] != faceValues[1]) { //rolls to different on the last try and are forced to pay
+                                viewController.getUserButtonPressed( readFile( turnMessagesPath, "payPrisonLastTry" ), "Pay 1000" );
+                                couldafford = gameController.payBail(activePlayerId);
+                                gameController.getPlayerController().getPlayers()[activePlayerId].setInJail( false );
+                                InJailTurn = false;
+                            } else { //rolls 2 same on the last try
+                                gameController.getPlayerController().getPlayers()[activePlayerId].setInJail( false );
+                                playTurn( faceValues, oldFieldId );
+                            }
+
+                        }else{
+                            gameController.getDiceController().roll();
+                            // first roll in prison
+                            faceValues = gameController.getDiceController().getFaceValues();
+                            viewController.rollDiceInPrison( faceValues );
+                            // roll dice in prison, and dice are not equal
+                            if (!gameController.getDiceController().isSameValue()) {
+                                gameController.getActivePlayer().setRollDiceInPrison( (gameController.getActivePlayer().getRollDiceInPrison() == 0) ? 1 : gameController.getActivePlayer().getRollDiceInPrison()+1 );
+                            }
+                            // dice are equal
+                            if (gameController.getDiceController().isSameValue()) {
+                                gameController.getPlayerController().getPlayers()[activePlayerId].setInJail( false );
+                                playTurn( faceValues, oldFieldId);
+                            }
+                            InJailTurn = false;
+                        }
+
+                    } else if(askWhichChoice.equals(readFile(turnMessagesPath,"release'scard"))) { // Release card
+                        // If the player has prison card, the player uses the prisoncard and gets out of jail
+                        if (gameController.getPlayerController().getPlayers()[activePlayerId].isPrisonCard()) {
+                            gameController.getPlayerController().getPlayers()[activePlayerId].setInJail( false );
+                            gameController.getPlayerController().getPlayers()[activePlayerId].setPrisonCard( false );
+                            InJailTurn = false;
+                        }
+//
+                }
+                if(!couldafford){
+                    playerBankruptcy(activePlayerId);
+                }
+            }
+
+            if (!gameController.getActivePlayer().isInJail()){
                 //If not in jail, turn starts normally
-                playTurn();
+                faceValues = gameController.rollDice();
+                playTurn( faceValues, oldFieldId );
             }
 
             //Updates the balances and ownerships of all Players
@@ -76,13 +131,11 @@ public class SystemController {
     }
 
 
-    public void playTurn(){
+    public void playTurn(int[] faceValues, int oldFieldId){
         int activePlayerId = gameController.getActivePlayerId();
-        int oldFieldId = gameController.getActivePlayer().getPositionOnBoard();
 
         //Gets dieRoll and updates players position in model-layer
-        int[] faceValues = gameController.rollDice();
-        int sum = gameController.getDiceController().getSum();
+        int sum = faceValues[0] + faceValues[1];
 
         //Updates players position in view-layer
         viewController.rollDiceAndMove(faceValues,sum,activePlayerId,oldFieldId);
@@ -102,53 +155,62 @@ public class SystemController {
 
         //If the property is owned by someone else
         if(gameController.getOwnerId()>=0 && gameController.getOwnerId()!= gameController.getActivePlayerId()){
+
             //Gets data
             int fieldId = gameController.getActivePlayer().getPositionOnBoard();
-            String fromPlayerName = gameController.getActivePlayer().getName();
-            String toPlayerName = gameController.getPlayerController().getPlayers()[gameController.getOwnerId()].getName();
-            int rent=0;
 
-            //rent is calculated in different ways
-            switch (((Ownable)gameController.getBoardController().getBoard().getFields()[fieldId]).getType()){
-                case "street":
-                case "ferry":
-                    //Gets rent
-                    rent = ((Ownable)gameController.getBoardController().getBoard().getFields()[fieldId]).getRent();
-                break;
-                case "brew":
-                    rent = ((Ownable)gameController.getBoardController().getBoard().getFields()[fieldId]).getRent();
+            //If it is pawned, no rent is paid
+            if (((Ownable)gameController.getBoardController().getBoard().getFields()[fieldId]).isPledged()){
+                //Tells players that no rent is paid
+                viewController.showMessage(String.format(readFile(turnMessagesPath,"pawnedNorent"),gameController.getBoardController().getBoard().getFields()[fieldId].getName()));
 
-                    //Multiplies by dieSum
-                    rent = rent*gameController.getDiceController().getSum();
-                    break;
-            }
+            } else { //If it is not pawned - rent must be paid
 
+                String fromPlayerName = gameController.getActivePlayer().getName();
+                String toPlayerName = gameController.getPlayerController().getPlayers()[gameController.getOwnerId()].getName();
+                int rent=0;
 
-            //hvis ejeren af feltet er i fængsel, skal man ikke betale noget
-            if(gameController.getPlayerController().getPlayers()[gameController.getOwnerId()].isInJail()){
-            String message = String.format(readFile(turnMessagesPath, "ownerInPrison"));
-            viewController.showMessage(message);
-            //transfers 0 money from player to player
-            gameController.getPlayerController().safeTransferToPlayer(gameController.getActivePlayerId(),0,gameController.getOwnerId());
+                //rent is calculated in different ways
+                switch ((gameController.getBoardController().getBoard().getFields()[fieldId]).getType()){
+                    case "street":
+                    case "ferry":
+                        //Gets rent
+                        rent = ((Ownable)gameController.getBoardController().getBoard().getFields()[fieldId]).getRent();
+                        break;
+                    case "brew":
+                        rent = ((Ownable)gameController.getBoardController().getBoard().getFields()[fieldId]).getRent();
+
+                        //Multiplies by dieSum
+                        rent = rent*gameController.getDiceController().getSum();
+                        break;
                 }
 
-            //Tries to pay rent
-            else if(gameController.getPlayerController().safeTransferToPlayer(gameController.getActivePlayerId(),rent,gameController.getOwnerId())){
+                //hvis ejeren af feltet er i fængsel, skal man ikke betale noget
+                if(gameController.getPlayerController().getPlayers()[gameController.getOwnerId()].isInJail()){
+                    String message = String.format(readFile(turnMessagesPath, "ownerInPrison"));
+                    viewController.showMessage(message);
+                    //transfers 0 money from player to player
+                    gameController.getPlayerController().safeTransferToPlayer(gameController.getActivePlayerId(),0,gameController.getOwnerId());
+                }
 
-                //Displays message
-                String message = String.format(readFile(turnMessagesPath,"payRentFromTo"),fromPlayerName,rent,toPlayerName);
-                viewController.showMessage(message);
+                //Tries to pay rent
+                else if(gameController.getPlayerController().safeTransferToPlayer(gameController.getActivePlayerId(),rent,gameController.getOwnerId())){
 
-                //Updates player balances
-                viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
-            } else {
-                //Player can't afford the rent
-                playerBankruptcy(gameController.getActivePlayerId());
+                    //Displays message
+                    String message = String.format(readFile(turnMessagesPath,"payRentFromTo"),fromPlayerName,rent,toPlayerName);
+                    viewController.showMessage(message);
+
+                    //Updates player balances
+                    viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
+                } else {
+                    //Player can't afford the rent
+                    playerBankruptcy(gameController.getActivePlayerId());
+                }
             }
-            //If it is vacant - asks if player wants to buy
-        } else if (gameController.getOwnerId()==-1){
-            //If it is vacant
 
+
+
+        } else if (gameController.getOwnerId()==-1){//If it is vacant - asks if player wants to buy
             int currentFieldId = gameController.getActivePlayer().getPositionOnBoard();
 
             //If player can afford it
@@ -193,8 +255,6 @@ public class SystemController {
         switch (activeFieldType){
             case "street":
                 playPropertyField();
-
-
                 break;
             case "ferry":
                 playPropertyField();
@@ -202,7 +262,6 @@ public class SystemController {
             case "brew":
                 playPropertyField();
                 break;
-
             case "incomeTax":
                 //Asks how player wants to pay
                 String incTaxMsg = readFile(turnMessagesPath,"chooseIncomeTaxType");
@@ -298,10 +357,8 @@ public class SystemController {
         int playerBalance = gameController.getPlayerController().getPlayers()[playerId].getAccountBalance();
         int creditorId = gameController.getPlayerController().getPlayers()[playerId].getAccount().getCreditorId();
 
-
         // Updates balances on view
         viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
-
 
         //stillHasOptions tells if player can still sell or pawn more
         boolean stillHasOptions = true;
@@ -339,7 +396,7 @@ public class SystemController {
         }
         if (!couldPay) {
             //Handles the loser situation
-            looserSituation();
+            looserSituation(playerId);
         } else{
             //Tells that player is free of debt
             viewController.showMessage(String.format(readFile(turnMessagesPath,"freeOfDebt"),gameController.getPlayerController().getPlayers()[playerId].getName()));
@@ -348,17 +405,24 @@ public class SystemController {
     }
 
     //Deals if has lost
-    public void looserSituation(){
+    public void looserSituation(int playerId){
         int fieldId = gameController.getActivePlayer().getPositionOnBoard();
-
 
         //Reset the players account to 0
         gameController.getPlayerController().accountReset(gameController.getActivePlayerId());
         //Set the the player variale "hasPlayerLost" to true
         gameController.getPlayerController().getActivePlayer().setHasPlayerLost(true);
+        //Releases all the players properties in both model and view
+        //TODO her kan evt refaktureres, tjek om for-loop er nødvendigt
+        for (int i = 0; i < gameController.getPlayerController().getPlayers().length; i++) {
+            if (gameController.getPlayerController().getPlayers()[i].isHasPlayerLost()==true){
+                viewController.updateOwnerships(gameController.getBoardController().getBoard());
+                gameController.makeFieldsFree(i);
+            }
+        }
 
         viewController.looserMessage(gameController.getActivePlayerId());
-        viewController.removeLoser( gameController.getActivePlayerId(), fieldId);
+        viewController.removeLoser(playerId, fieldId);
         if (!gameController.findWinner().isEmpty()){
             viewController.endGame(gameController.findWinner());
         }
@@ -384,6 +448,10 @@ public class SystemController {
                 buyOrSellMore = false;
             }
         }
+
+
+
+
     }
 
     public void buyHouses(){
@@ -425,6 +493,7 @@ public class SystemController {
 
 
                 //If player chose to build on a street
+                //TODO refakturer evt indre loop, da else statement er overflødig
                 if (selectedStreetId != -1){
                     if (gameController.tryToBuyHouses(selectedStreetId, 1))
                         viewController.showMessage(readFile(turnMessagesPath, "buildingSucceeded"));
@@ -550,8 +619,6 @@ public class SystemController {
                 } else{ //If player chose exit
                     pawnMore=false;
                 }
-
-
                 //Updates view layer
                 viewController.updateOwnerships(gameController.getBoardController().getBoard());
                 viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());

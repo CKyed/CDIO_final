@@ -157,6 +157,7 @@ public class GameController {
         this.playerController = playerController;
     }
 
+    //TODO her kunne vi evt refakturere
     public boolean tryToBuyHouses(int fieldId, int numberOfHouses){
         int totalCost = numberOfHouses*((Street)boardController.getBoard().getFields()[fieldId]).getHousePrice();
         //If the player can't afford, or more houses can't be built
@@ -230,7 +231,6 @@ public class GameController {
         //Everytime a player looses, the counter goes up by 1
        for (int i = 0; i < playerController.getPlayers().length; i++) {
             if (playerController.getPlayers()[i].isHasPlayerLost()==true){
-                makeFreeField(i);
                 totalLostPlayers++;
             }
         }
@@ -249,14 +249,13 @@ public class GameController {
        return msg;
     }
 
-    //Releases all the fields that the looser owns
-    //This method might need to be deleted in because of new bankruptcy rules
-    public void makeFreeField(int playerIndex){
+    //Releases all the fields that the looser owns and make them pledged false
+    public void makeFieldsFree(int playerIndex){
         for (int i = 0; i < boardController.getBoard().getFields().length ; i++) {
             if (boardController.getBoard().getFields()[i] instanceof Ownable){
                 if (((Ownable)boardController.getBoard().getFields()[i]).getOwnerId() == playerIndex){
                     ((Ownable)boardController.getBoard().getFields()[i]).setOwnerId(-1);
-                    //TODO : update view
+                    ((Ownable)boardController.getBoard().getFields()[i]).setPledged(false);
                 }
             }
         }
@@ -278,7 +277,7 @@ public class GameController {
 
         //Checks that player can afford it
         if (!playerController.safeTransferToBank(playerId,amount)){
-            System.out.println("FEJl i pawnStreet()-metoden. Spilleren har ikke råd");
+            System.out.println("FEJl i pawnStreet()-metoden. Spilleren har ikke råd"); //TODO skriv en besked der er mere user-friendly
         }
 
         //changes pawn status

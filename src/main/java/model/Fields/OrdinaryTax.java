@@ -17,8 +17,6 @@ public class OrdinaryTax extends Field{
     }
 
 
-
-
     @Override
     public int getGroup() {
         return this.group;

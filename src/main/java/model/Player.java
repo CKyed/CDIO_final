@@ -6,6 +6,7 @@ public class Player {
     private boolean inJail;
     private int positionOnBoard =0;
     private boolean prisonCard = false;
+    private int rollDiceInPrison = 0;
     private boolean hasPlayerLost = false;
 
     public Player(String name, int startKapital){
@@ -75,6 +76,14 @@ public class Player {
 
     public void setOwesAmount(int owesAmount) {
         this.getAccount().setOwesAmount(owesAmount);
+    }
+
+    public int getRollDiceInPrison() {
+        return rollDiceInPrison;
+    }
+
+    public void setRollDiceInPrison(int rollDiceInPrison) {
+        this.rollDiceInPrison = rollDiceInPrison;
     }
 }
 
