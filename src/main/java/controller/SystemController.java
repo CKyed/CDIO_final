@@ -421,7 +421,7 @@ public class SystemController {
         for (int i = 0; i < gameController.getPlayerController().getPlayers().length; i++) {
             if (gameController.getPlayerController().getPlayers()[i].isHasPlayerLost()==true){
                 viewController.updateOwnerships(gameController.getBoardController().getBoard());
-                gameController.makeFreeField(i);
+                gameController.makeFieldsFree(i);
             }
         }
 
