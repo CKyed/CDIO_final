@@ -10,7 +10,6 @@ public class BoardController {
     private Board board;
     private int[] totalNumberOfStreetsInSeries;
 
-
     public BoardController(){
         this.board = new Board();
         setup();
@@ -62,7 +61,6 @@ public class BoardController {
         this.board.getFields()[38] = new OrdinaryTax("tax02");
         this.board.getFields()[39] = new Street("field22");
 
-
         //gets the total number of streets in each series
         this.totalNumberOfStreetsInSeries = new int[15];
         for (int i =0;i<board.getFields().length;i++){
@@ -88,7 +86,6 @@ public class BoardController {
         for (int i = 0; i < board.getFields().length; i++) {
             if (buildableArray[i])
                 buildAbleStreetIds[counter++] = i;
-
         }
 
         return buildAbleStreetIds;
@@ -102,7 +99,6 @@ public class BoardController {
             sellableArray[i] = isHouseSellable(i,playerId);
             if (sellableArray[i])
                 counter++;
-
         }
         //Makes array of size counter for the ids
         int[] sellAbleStreetIds=new int[counter];
@@ -111,12 +107,9 @@ public class BoardController {
         for (int i = 0; i < board.getFields().length; i++) {
             if (sellableArray[i])
                 sellAbleStreetIds[counter++] = i;
-
         }
-
         return sellAbleStreetIds;
     }
-
 
     public void buildHouses(int fieldId,int numberOfHouses){
         ((Street)this.board.getFields()[fieldId]).buildHouses(numberOfHouses);
@@ -135,7 +128,6 @@ public class BoardController {
         if (houseLevel==0 && ownsAllInSeries(fieldId)){
             rent *=2;
         }
-
         //Assigns as the actual rent
         ((Street)this.board.getFields()[fieldId]).setRent(rent);
     }
@@ -163,16 +155,9 @@ public class BoardController {
                     //sets rent
                     ((Ownable)board.getFields()[i]).setRent(rent);
                     break;
-
             }
-
-
-
         }
-
     }
-
-
 
     public int getNumberOfOwnablesOwnedInGroup(int fieldId){
         //Gets number of ownables in group, that is owned by the owner of the fieldId-field
@@ -182,7 +167,6 @@ public class BoardController {
         boolean correctOwner;
         boolean notBank;
         boolean notPawned;
-
 
         //loops through all fields and increments numberOfOwnables if groups and owners match
         for (int i=0;i<board.getFields().length;i++){
@@ -208,7 +192,6 @@ public class BoardController {
 
         //Checks if number is the same as totalNumber
         return numberOwned == totalNumberOfStreetsInSeries[board.getFields()[fieldId].getGroup()];
-
     }
 
     public boolean isBuildable(int fieldId, int playerBalance, int playerId){
@@ -366,6 +349,4 @@ public class BoardController {
         //Returns true if there were no errors
         return errors==0;
     }
-
-
 }

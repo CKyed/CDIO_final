@@ -154,8 +154,6 @@ public class PlayerController {
                     }
                 }
             }
-
-
         }
 
      return totalValue;
@@ -202,5 +200,4 @@ public class PlayerController {
         }
         return succes;
     }
-
 }
