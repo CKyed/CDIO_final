@@ -413,7 +413,7 @@ public class SystemController {
         //Set the the player variale "hasPlayerLost" to true
         gameController.getPlayerController().getActivePlayer().setHasPlayerLost(true);
         //Releases all the players properties in both model and view
-        //TODO har kan evt refaktureres, tjek om for-loop er nødvendigt
+        //TODO her kan evt refaktureres, tjek om for-loop er nødvendigt
         for (int i = 0; i < gameController.getPlayerController().getPlayers().length; i++) {
             if (gameController.getPlayerController().getPlayers()[i].isHasPlayerLost()==true){
                 viewController.updateOwnerships(gameController.getBoardController().getBoard());
