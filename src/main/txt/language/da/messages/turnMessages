@@ -34,6 +34,11 @@ buildingSucceeded:Det lykkedes at bygge et hus!
 cantSellHouse:%s kan ikke sælge nogen huse i øjeblikket.
 sellHouseWhere:Hvor kunne %s tænke sig at sælge et hus?
 sellingSucceded:Det lykkedes at sælge et hus!
+askWhichChoice:%s har følgende muligheder for at kome ud fra fængsel
+payToPrison:Betal 1000 kr for at komme ud
+rollDiceInPrison:Kast Terning
+release'scard:Løsladelskortet
+payPrisonLastTry:Du har brugt 3 forsøg på at slå dig ud af fængsel. Du skal nu betale 1000 kroner for at komme ud af fængsel
 pawnWhere:Hvilken grund kunne %s tænke sig at pantsætte?
 pawnOrUnpawn:Pantsæt/Ophæv pansætning
 pawn:Pantsæt
@@ -43,5 +48,5 @@ noUnpawningPossible:Der er ingen pantsætninger, det er muligt at ophæve.
 needsToSell:%s er nødt til at sælge eller pantsætte noget mere.
 freeOfDebt:%s er nu gældsfri.
 pawnedNorent:%s er pantsat, og der skal derfor ikke betales afgift.
-
+rollDice:Rull med terningerne
 

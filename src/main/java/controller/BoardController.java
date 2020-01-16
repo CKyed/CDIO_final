@@ -62,6 +62,7 @@ public class BoardController {
         this.board.getFields()[38] = new OrdinaryTax("tax02");
         this.board.getFields()[39] = new Street("field22");
 
+
         //gets the total number of streets in each series
         this.totalNumberOfStreetsInSeries = new int[15];
         for (int i =0;i<board.getFields().length;i++){
@@ -282,7 +283,7 @@ public class BoardController {
                 }
 
                 //If the pawning-status of the ownable is the same as the pawnable variable, correctPawnStatus==false
-                //If the pawning-status of the ownable is the different from the pawnable variable, correctPawnStatus==true
+                //If the pawning-status of the ownable is different from the pawnable variable, correctPawnStatus==true
                 correctPawnStatus = ! (((Ownable) board.getFields()[i]).isPledged() == pawnable);
             }
             //If it is owned and not already pawned and player can afford
@@ -293,7 +294,7 @@ public class BoardController {
             }
         }
 
-        //initializes array of corrct size
+        //initializes array of correct size
         int[] pawnableOrUnpawnableStreetIds = new int[numberOfPawnables];
         int counter =0;
 

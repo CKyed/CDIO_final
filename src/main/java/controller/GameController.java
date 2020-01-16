@@ -8,6 +8,7 @@ import model.Fields.Ownable;
 import model.Fields.OwnableFile.*;
 import model.Fields.Prison;
 
+
 public class GameController {
     private BoardController boardController;
     private PlayerController playerController;
@@ -156,6 +157,7 @@ public class GameController {
         this.playerController = playerController;
     }
 
+    //TODO her kunne vi evt refakturere
     public boolean tryToBuyHouses(int fieldId, int numberOfHouses){
         int totalCost = numberOfHouses*((Street)boardController.getBoard().getFields()[fieldId]).getHousePrice();
         //If the player can't afford, or more houses can't be built
@@ -248,8 +250,7 @@ public class GameController {
     }
 
     //Releases all the fields that the looser owns and make them pledged false
-    //This method might need to be deleted in because of new bankruptcy rules
-    public void makeFreeField(int playerIndex){
+    public void makeFieldsFree(int playerIndex){
         for (int i = 0; i < boardController.getBoard().getFields().length ; i++) {
             if (boardController.getBoard().getFields()[i] instanceof Ownable){
                 if (((Ownable)boardController.getBoard().getFields()[i]).getOwnerId() == playerIndex){

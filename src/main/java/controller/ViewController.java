@@ -310,8 +310,6 @@ public class ViewController {
             }
         }
 
-
-
         setupGuiPlayers(playerNames);
 
         return playerNames;
@@ -333,9 +331,12 @@ public class ViewController {
                     Thread.currentThread().interrupt();
                 }
             }
-        } else if (counterForWinner == guiPlayers.length - 1){
-            // There is one player on board Todo
         }
+    }
+
+    public void rollDiceInPrison(int[] faceValues){
+        getUserButtonPressed( "" ,readFile(turnMessagesPath, "rollDice"));
+        gui.setDice( faceValues[0], faceValues[1] );
     }
 
     public void teleportPlayerCar(int playerId, int dieRoll, int oldFieldId){
@@ -484,11 +485,6 @@ public class ViewController {
         gui.showMessage(message);
     }
 
-
-    public void prisonMessage(){
-
-    }
-
     public boolean chooseToBuy(int activePlayerId){
         String message = String.format(readFile(turnMessagesPath,"buyBeforeTurn"),guiPlayers[activePlayerId].getName());
         String selection = gui.getUserButtonPressed(message,
@@ -524,7 +520,7 @@ public class ViewController {
     }
 
     public void removeLoser(int playerId, int oldFieldId) {
-        // When the counterForWinner = playerNames.length-1, so we know that there is one player on board
+        // When the counterForWinner = playerNames.length-1, we know that there is one player on board
         counterForWinner++;
         fields[oldFieldId].setCar( guiPlayers[playerId], false );
         updateLooserOnBoard( playerId );
