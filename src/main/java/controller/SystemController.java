@@ -255,8 +255,6 @@ public class SystemController {
         switch (activeFieldType){
             case "street":
                 playPropertyField();
-
-
                 break;
             case "ferry":
                 playPropertyField();
@@ -264,7 +262,6 @@ public class SystemController {
             case "brew":
                 playPropertyField();
                 break;
-
             case "incomeTax":
                 //Asks how player wants to pay
                 String incTaxMsg = readFile(turnMessagesPath,"chooseIncomeTaxType");
@@ -360,10 +357,8 @@ public class SystemController {
         int playerBalance = gameController.getPlayerController().getPlayers()[playerId].getAccountBalance();
         int creditorId = gameController.getPlayerController().getPlayers()[playerId].getAccount().getCreditorId();
 
-
         // Updates balances on view
         viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
-
 
         //stillHasOptions tells if player can still sell or pawn more
         boolean stillHasOptions = true;
@@ -418,6 +413,7 @@ public class SystemController {
         //Set the the player variale "hasPlayerLost" to true
         gameController.getPlayerController().getActivePlayer().setHasPlayerLost(true);
         //Releases all the players properties in both model and view
+        //TODO har kan evt refaktureres, tjek om for-loop er nødvendigt
         for (int i = 0; i < gameController.getPlayerController().getPlayers().length; i++) {
             if (gameController.getPlayerController().getPlayers()[i].isHasPlayerLost()==true){
                 viewController.updateOwnerships(gameController.getBoardController().getBoard());
