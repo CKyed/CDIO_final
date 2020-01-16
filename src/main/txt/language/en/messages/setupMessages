@@ -1,13 +1,23 @@
-welcome:Velkommen til matadorspillet udviklet af gruppe 20.
-choosePlayerNumber:Vælg antal spillere.
-player:Spiller
-writeName:skriv dit navn
-nameError:To navne må ikke være ens og ikke tomme!
-owner:Ejer:
-none:Ingen
-price:Pris:
-housePrice:Huspris:
-rent:Leje:
-tax:Skat:
-pawned:Pantsat
+welcome: Welcome to the matador game developed by group 20.
+choosePlayerNumber: Select the number of players.
+player: Player
+writeName: Write your name
+nameError: Two names must not be the same and not empty!
+owner: Owner:
+none: None
+price: Price:
+housePrice: house price:
+rent: Rent:
+tax: Treasure:
+pawned: pledged
+
+
+
+
+
+
+
+
+
+
 

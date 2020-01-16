@@ -1,0 +1,13 @@
+welcome:Velkommen til matadorspillet udviklet af gruppe 20.
+choosePlayerNumber:Vælg antal spillere.
+player:Spiller
+writeName:skriv dit navn
+nameError:To navne må ikke være ens og ikke tomme!
+owner:Ejer:
+none:Ingen
+price:Pris:
+housePrice:Huspris:
+rent:Leje:
+tax:Skat:
+pawned:Pantsat
+
