@@ -64,6 +64,8 @@ public class SystemController {
                         couldafford = gameController.payBail(activePlayerId);
                         gameController.getPlayerController().getPlayers()[activePlayerId].setInJail( false );
                         InJailTurn = false;
+                        viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
+
 
                     } else if (askWhichChoice.equals(readFile(turnMessagesPath,"rollDiceInPrison"))){ //Roll dice
                         // Check first if player already roll dice twice so player should pay 1000
@@ -253,8 +255,6 @@ public class SystemController {
         switch (activeFieldType){
             case "street":
                 playPropertyField();
-
-
                 break;
             case "ferry":
                 playPropertyField();
@@ -262,7 +262,6 @@ public class SystemController {
             case "brew":
                 playPropertyField();
                 break;
-
             case "incomeTax":
                 //Asks how player wants to pay
                 String incTaxMsg = readFile(turnMessagesPath,"chooseIncomeTaxType");
@@ -606,8 +605,6 @@ public class SystemController {
                 } else{ //If player chose exit
                     pawnMore=false;
                 }
-
-
                 //Updates view layer
                 viewController.updateOwnerships(gameController.getBoardController().getBoard());
                 viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
