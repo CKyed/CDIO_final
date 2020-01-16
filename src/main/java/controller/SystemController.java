@@ -63,7 +63,7 @@ public class SystemController {
                     askWhichChoice = viewController.getUserSelection( askWhichChoice, jailChoices );
 
                     if (askWhichChoice.equals(readFile(turnMessagesPath,"payToPrison"))) { // Pay 1000 kr
-                        couldafford = gameController.safePaymentToBank(activePlayerId,1000);
+                        couldafford = gameController.payBail(activePlayerId);
                         gameController.getPlayerController().getPlayers()[activePlayerId].setInJail( false );
                         InJailTurn = false;
 
@@ -76,7 +76,7 @@ public class SystemController {
                             viewController.rollDiceInPrison( faceValues );
                             if (faceValues[0] != faceValues[1]) { //rolls to different on the last try and are forced to pay
                                 viewController.getUserButtonPressed( readFile( turnMessagesPath, "payPrisonLastTry" ), "Pay 1000" );
-                                couldafford = gameController.safePaymentToBank(activePlayerId,1000);
+                                couldafford = gameController.payBail(activePlayerId);
                                 gameController.getPlayerController().getPlayers()[activePlayerId].setInJail( false );
                                 InJailTurn = false;
                             } else { //rolls 2 same on the last try
