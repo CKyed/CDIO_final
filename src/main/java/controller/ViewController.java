@@ -487,11 +487,6 @@ public class ViewController {
         gui.showMessage(message);
     }
 
-
-    public void prisonMessage(){
-//TODO slet
-    }
-
     public boolean chooseToBuy(int activePlayerId){
         String message = String.format(readFile(turnMessagesPath,"buyBeforeTurn"),guiPlayers[activePlayerId].getName());
         String selection = gui.getUserButtonPressed(message,
