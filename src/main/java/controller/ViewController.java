@@ -336,10 +336,8 @@ public class ViewController {
         }
     }
 
-    //TODO beskeden her er hardcoded, det skal ændres
     public void rollDiceInPrison(int[] faceValues){
-//        gui.getUserButtonPressed("", "rollDice");
-        getUserButtonPressed( "" ,"rollDice" );
+        getUserButtonPressed( "" ,readFile(turnMessagesPath, "rollDice"));
         gui.setDice( faceValues[0], faceValues[1] );
     }
 
