@@ -495,13 +495,9 @@ public class SystemController {
                     }
                 }
 
-
-                //If player chose to build on a street
                 if (selectedStreetId != -1){
-                    if (gameController.tryToBuyHouses(selectedStreetId, 1))
-                        viewController.showMessage(readFile(turnMessagesPath, "buildingSucceeded"));
-                    else  //Service errormessage
-                        viewController.showMessage("HOV - SPILLEREN BURDE KUNNE BYGGE HUSET");
+                    //If player chose to build on a street
+                    gameController.buyHouse(selectedStreetId);
                 }
             }
             //Updates balances and ownerships

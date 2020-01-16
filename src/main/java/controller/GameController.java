@@ -156,20 +156,10 @@ public class GameController {
     public void setPlayerController(PlayerController playerController) {
         this.playerController = playerController;
     }
-
-    //TODO her kunne vi evt refakturere
-    public boolean tryToBuyHouses(int fieldId, int numberOfHouses){
-        int totalCost = numberOfHouses*((Street)boardController.getBoard().getFields()[fieldId]).getHousePrice();
-        //If the player can't afford, or more houses can't be built
-        if(totalCost>getActivePlayer().getAccountBalance() ||numberOfHouses + ((Street)boardController.getBoard().getFields()[fieldId]).getHouseLevel()>5){
-            return false;
-        } else{
-            //If the player can afford and expansion is possible, withdraws money and builds houses
-            safePaymentToBank(getActivePlayerId(),totalCost);
-            boardController.buildHouses(fieldId,numberOfHouses);
-            return true;
-        }
-
+    
+    public void buyHouse(int fieldId){
+        int cost = ((Street)boardController.getBoard().getFields()[fieldId]).getHousePrice();
+        safePaymentToBank(getActivePlayerId(),cost);
     }
 
     public void sellHouses(int fieldId, int numberOfHouses, int playerId){

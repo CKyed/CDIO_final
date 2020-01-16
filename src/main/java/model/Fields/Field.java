@@ -10,6 +10,7 @@ public abstract class Field {
     protected String description;
     protected int id;
     protected String type;
+    protected int group;
 
     public Field(String state){
         this.name = readFile(namePath,state);
@@ -17,19 +18,15 @@ public abstract class Field {
         this.description = readFile(descriptionMessagesPath,state);
     }
 
-    public abstract int getGroup(); //TODO lav attribut group her, som de andre kan nedarve
-    public abstract String getType(); //TODO lav attribut group her, som de andre kan nedarve
+    public int getGroup(){
+        return this.group;
+    }
+    public String getType(){
+        return this.type;
+    }
 
     public String getName() {
         return this.name;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public String getDescription() {

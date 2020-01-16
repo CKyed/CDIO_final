@@ -2,13 +2,13 @@ package model.Fields;
 import static Utilities.FileReader.*;
 
 public class OrdinaryTax extends Field{
-    private int group = 11;
-    private String type = "ordinaryTax";
     private int tax;
 
     public OrdinaryTax(String state) {
         super(state);
         this.tax = getFieldData(state,"price");
+        group = 11;
+        type = "ordinaryTax";
 
     }
 
@@ -16,14 +16,4 @@ public class OrdinaryTax extends Field{
         return tax;
     }
 
-
-    @Override
-    public int getGroup() {
-        return this.group;
-    }
-
-    @Override
-    public String getType() {
-        return this.type;
-    }
 }
