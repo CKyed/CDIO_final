@@ -5,6 +5,9 @@ import jdk.nashorn.internal.scripts.JO;
 import javax.swing.*;
 
 public class LanguagePick {
+    public LanguagePick(){
+        pickLanguage();
+    }
     public void pickLanguage(){
         Object[] flags = {
                 new ImageIcon(getClass().getClassLoader().getResource("language/da.png")),
