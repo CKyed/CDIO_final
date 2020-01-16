@@ -492,7 +492,7 @@ public class ViewController {
 
 
     public void prisonMessage(){
-
+//TODO slet
     }
 
     public boolean chooseToBuy(int activePlayerId){

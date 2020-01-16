@@ -46,7 +46,7 @@ public class PlayerController {
             succes=true;
         //If the player cant afford
         } else{
-            //Takes the remaining money he has left and pays it too the bank
+            //Takes the remaining money he has left and pays it to the bank
             takeMoneyFromPlayer(playerId,amount-(amount-playerBalance));
             //Saves in the player how much he owes
             players[playerId].setOwesAmount(amount-playerBalance);
