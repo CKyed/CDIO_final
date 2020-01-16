@@ -157,6 +157,7 @@ public class GameController {
         this.playerController = playerController;
     }
 
+    //TODO her kunne vi evt refakturere
     public boolean tryToBuyHouses(int fieldId, int numberOfHouses){
         int totalCost = numberOfHouses*((Street)boardController.getBoard().getFields()[fieldId]).getHousePrice();
         //If the player can't afford, or more houses can't be built
