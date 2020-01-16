@@ -310,8 +310,6 @@ public class ViewController {
             }
         }
 
-
-
         setupGuiPlayers(playerNames);
 
         return playerNames;
@@ -531,7 +529,7 @@ public class ViewController {
     }
 
     public void removeLoser(int playerId, int oldFieldId) {
-        // When the counterForWinner = playerNames.length-1, so we know that there is one player on board
+        // When the counterForWinner = playerNames.length-1, we know that there is one player on board
         counterForWinner++;
         fields[oldFieldId].setCar( guiPlayers[playerId], false );
         updateLooserOnBoard( playerId );
