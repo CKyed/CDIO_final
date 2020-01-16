@@ -44,19 +44,30 @@ public class SystemController {
             //If the player is in jail
             boolean InJailTurn = gameController.getActivePlayer().isInJail();
             while (InJailTurn) {
+                    String jailChoices[];
+                    boolean couldafford = true;
 
-                    // Give to player choices to choice
-                    String askWhichChoice = String.format( readFile( turnMessagesPath, "askWhichChoice" ), gameController.getActivePlayer().getName() );
-                    String[] jailChoices = {readFile( turnMessagesPath, "payToPrison" ), readFile( turnMessagesPath, "rollDiceInPrison" ), readFile( turnMessagesPath, "release'scard" )};
+                String askWhichChoice = String.format( readFile( turnMessagesPath, "askWhichChoice" ), gameController.getActivePlayer().getName() );
+                // Give to player choices to choice
+                    if(gameController.getPlayerController().getActivePlayer().isPrisonCard() && gameController.getActivePlayer().getAccountBalance()>=1000) {
+                        jailChoices =  new String[3];
+                        jailChoices[0] = readFile(turnMessagesPath, "payToPrison");
+                        jailChoices[1] = readFile(turnMessagesPath, "rollDiceInPrison");
+                        jailChoices[2] = readFile(turnMessagesPath, "release'scard");
+
+                    }else{
+                        jailChoices = new String[2];
+                        jailChoices[0] = readFile(turnMessagesPath, "payToPrison");
+                        jailChoices[1] = readFile(turnMessagesPath, "rollDiceInPrison");
+                    }
                     askWhichChoice = viewController.getUserSelection( askWhichChoice, jailChoices );
 
-
-                    if (askWhichChoice.equals( "Betal 1000 kr for at komme ud" )) { // first choice
-                        gameController.getActivePlayer().withdraw( 1000 );
+                    if (askWhichChoice.equals(readFile(turnMessagesPath,"payToPrison"))) { // Pay 1000 kr
+                        couldafford = gameController.safePaymentToBank(activePlayerId,1000);
                         gameController.getPlayerController().getPlayers()[activePlayerId].setInJail( false );
                         InJailTurn = false;
 
-                    } else if (askWhichChoice.equals( "Kast Terning" )) { // second choice
+                    } else if (askWhichChoice.equals(readFile(turnMessagesPath,"rollDiceInPrison"))){ //Roll dice
                         // Check first if player already roll dice twice so player should pay 1000
                         if (gameController.getActivePlayer().getRollDiceInPrison() == 2) {
                             gameController.getDiceController().roll();
@@ -65,7 +76,7 @@ public class SystemController {
                             viewController.rollDiceInPrison( faceValues );
                             if (faceValues[0] != faceValues[1]) { //rolls to different on the last try and are forced to pay
                                 viewController.getUserButtonPressed( readFile( turnMessagesPath, "payPrisonLastTry" ), "Pay 1000" );
-                                gameController.getActivePlayer().withdraw( 1000 );
+                                couldafford = gameController.safePaymentToBank(activePlayerId,1000);
                                 gameController.getPlayerController().getPlayers()[activePlayerId].setInJail( false );
                                 InJailTurn = false;
                             } else { //rolls 2 same on the last try
@@ -73,7 +84,7 @@ public class SystemController {
                                 playTurn( faceValues, oldFieldId );
                             }
 
-                        }else {
+                        }else{
                             gameController.getDiceController().roll();
                             // first roll in prison
                             faceValues = gameController.getDiceController().getFaceValues();
@@ -90,26 +101,19 @@ public class SystemController {
                             InJailTurn = false;
                         }
 
-                    } else { // Third choice
+                    } else if(askWhichChoice.equals(readFile(turnMessagesPath,"release'scard"))) { // Release card
                         // If the player has prison card, the player uses the prisoncard and gets out of jail
                         if (gameController.getPlayerController().getPlayers()[activePlayerId].isPrisonCard()) {
                             gameController.getPlayerController().getPlayers()[activePlayerId].setInJail( false );
                             gameController.getPlayerController().getPlayers()[activePlayerId].setPrisonCard( false );
                         }
-//                        else {// TODO: forklaring?
-//                            //If the player doesn't have a prison card, the player pays the bail and gets out of jail
-//                            success = gameController.payBail(activePlayerId);
-//                            gameController.getPlayerController().getPlayers()[activePlayerId].setInJail(false);
-//                        }
-//                        // TODO
-//                        if(success == false){
-//                            playerBankruptcy(gameController.getActivePlayerId());
-//                        }
-
-
+//
                 }
-
+                if(!couldafford){
+                    playerBankruptcy(activePlayerId);
+                }
             }
+
             if (!gameController.getActivePlayer().isInJail()){
                 //If not in jail, turn starts normally
                 faceValues = gameController.rollDice();
