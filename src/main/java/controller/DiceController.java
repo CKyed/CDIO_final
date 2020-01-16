@@ -33,7 +33,7 @@ public class DiceController {
 
             counter++;
         }
-
+        //TODO refakturer evt, her er et tomt loop
         for (int i = 0; i<diceCup.getNumberOfDice(); i++){
 
         }

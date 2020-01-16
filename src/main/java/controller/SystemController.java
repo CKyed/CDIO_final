@@ -66,6 +66,8 @@ public class SystemController {
                         couldafford = gameController.payBail(activePlayerId);
                         gameController.getPlayerController().getPlayers()[activePlayerId].setInJail( false );
                         InJailTurn = false;
+                        viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
+
 
                     } else if (askWhichChoice.equals(readFile(turnMessagesPath,"rollDiceInPrison"))){ //Roll dice
                         // Check first if player already roll dice twice so player should pay 1000
@@ -255,8 +257,6 @@ public class SystemController {
         switch (activeFieldType){
             case "street":
                 playPropertyField();
-
-
                 break;
             case "ferry":
                 playPropertyField();
@@ -264,7 +264,6 @@ public class SystemController {
             case "brew":
                 playPropertyField();
                 break;
-
             case "incomeTax":
                 //Asks how player wants to pay
                 String incTaxMsg = readFile(turnMessagesPath,"chooseIncomeTaxType");
@@ -360,10 +359,8 @@ public class SystemController {
         int playerBalance = gameController.getPlayerController().getPlayers()[playerId].getAccountBalance();
         int creditorId = gameController.getPlayerController().getPlayers()[playerId].getAccount().getCreditorId();
 
-
         // Updates balances on view
         viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
-
 
         //stillHasOptions tells if player can still sell or pawn more
         boolean stillHasOptions = true;
@@ -418,6 +415,7 @@ public class SystemController {
         //Set the the player variale "hasPlayerLost" to true
         gameController.getPlayerController().getActivePlayer().setHasPlayerLost(true);
         //Releases all the players properties in both model and view
+        //TODO her kan evt refaktureres, tjek om for-loop er nødvendigt
         for (int i = 0; i < gameController.getPlayerController().getPlayers().length; i++) {
             if (gameController.getPlayerController().getPlayers()[i].isHasPlayerLost()==true){
                 viewController.updateOwnerships(gameController.getBoardController().getBoard());
@@ -497,6 +495,7 @@ public class SystemController {
 
 
                 //If player chose to build on a street
+                //TODO refakturer evt indre loop, da else statement er overflødig
                 if (selectedStreetId != -1){
                     if (gameController.tryToBuyHouses(selectedStreetId, 1))
                         viewController.showMessage(readFile(turnMessagesPath, "buildingSucceeded"));
@@ -622,8 +621,6 @@ public class SystemController {
                 } else{ //If player chose exit
                     pawnMore=false;
                 }
-
-
                 //Updates view layer
                 viewController.updateOwnerships(gameController.getBoardController().getBoard());
                 viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
