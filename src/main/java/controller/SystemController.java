@@ -619,8 +619,6 @@ public class SystemController {
                 } else{ //If player chose exit
                     pawnMore=false;
                 }
-
-
                 //Updates view layer
                 viewController.updateOwnerships(gameController.getBoardController().getBoard());
                 viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
