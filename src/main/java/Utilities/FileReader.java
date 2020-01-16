@@ -1,20 +1,16 @@
-package controller;
+package Utilities;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-
-import static controller.PathExpert.*;
+import static Utilities.PathExpert.*;
 
 
-public class TextController {
+public class FileReader {
 
     public static String readFile(String file, String keyword){
         try {
-            String filePath = "src/main/java/model/" + file;
-
             String line;
-            BufferedReader reader = new BufferedReader(new FileReader(filePath));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream(file), StandardCharsets.UTF_8));
 
             while ((line = reader.readLine()) != null)
             {

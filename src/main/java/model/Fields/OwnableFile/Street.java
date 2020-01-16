@@ -2,7 +2,7 @@ package model.Fields.OwnableFile;
 
 import model.Fields.Ownable;
 
-import static controller.TextController.*;
+import static Utilities.FileReader.*;
 
 public class Street extends Ownable {
     private String type = "street";

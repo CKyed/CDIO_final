@@ -1,16 +1,13 @@
 package model.Fields;
 
-import model.Player;
-
-import static controller.PathExpert.fieldAttributesPath;
-import static controller.TextController.getFieldData;
-import static controller.TextController.readFile;
+import static Utilities.FileReader.getFieldData;
 
 public abstract class Ownable extends Field {
     protected int price;
     protected int rent;
     protected boolean isPledged;
     protected int ownerId = -1;
+    protected int group;
 
     public Ownable(String state) {
         super(state);
@@ -40,5 +37,9 @@ public abstract class Ownable extends Field {
 
     public boolean isPledged() {
         return isPledged;
+    }
+
+    public void setPledged(boolean pledged){
+        this.isPledged = pledged;
     }
 }

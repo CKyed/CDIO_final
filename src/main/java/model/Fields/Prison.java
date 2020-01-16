@@ -1,16 +1,19 @@
 package model.Fields;
 
+import static Utilities.FileReader.getFieldData;
+
 public class Prison  extends Field{
     private String type = "prison";
     private int group = 9;
-    public Prison(String state) {
-        super(state);
-    }
-    private int bail = 1000;
-    //TODO I have hardoded the bail, later this should be implemented from textdocument
+    private int bail;
     private int turnsInJail = 0;
 
-   //method for counting turns in Jail
+    public Prison(String state) {
+        super(state);
+        this.bail = getFieldData(state,"rent");
+    }
+
+   //method for counting turns in Jail if needed
 
     @Override
     public int getGroup() {

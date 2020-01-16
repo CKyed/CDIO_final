@@ -4,7 +4,7 @@ carpark:20
 
 visit:10
 
-prison:30
+prison:30,1000
 
 chance01:2
 chance02:7

@@ -1,8 +1,7 @@
 package model.Fields;
-import static controller.PathExpert.*;
-import static controller.TextController.getFieldData;
-import static controller.TextController.readFile;
-import static controller.PathExpert.fieldAttributesPath;
+import static Utilities.PathExpert.*;
+import static Utilities.FileReader.getFieldData;
+import static Utilities.FileReader.readFile;
 
 
 public abstract class Field {
@@ -18,8 +17,8 @@ public abstract class Field {
         this.description = readFile(descriptionMessagesPath,state);
     }
 
-    public abstract int getGroup();
-    public abstract String getType();
+    public abstract int getGroup(); //TODO lav attribut group her, som de andre kan nedarve
+    public abstract String getType(); //TODO lav attribut group her, som de andre kan nedarve
 
     public String getName() {
         return this.name;

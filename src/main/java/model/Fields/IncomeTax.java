@@ -1,6 +1,6 @@
 package model.Fields;
 
-import static controller.TextController.getFieldData;
+import static Utilities.FileReader.getFieldData;
 
 public class IncomeTax extends Field{
     private int group = 11;
@@ -10,8 +10,8 @@ public class IncomeTax extends Field{
     public IncomeTax(String state) {
         super(state);
         //the names of these attributes don't match their real value
-        this.incomeTax = getFieldData(state,"rent");
-        this.percentTax = getFieldData(state,"houseprice");
+        this.incomeTax = getFieldData(state,"price");
+        this.percentTax = getFieldData(state,"rent");
     }
 
     public int getIncomeTax() {

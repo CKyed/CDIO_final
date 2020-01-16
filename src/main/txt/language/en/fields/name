@@ -6,12 +6,12 @@ visit:I fængsel/På besøg
 
 prison:Fængsel
 
-chance01:Prøv lykken
-chance02:Prøv lykken
-chance03:Prøv lykken
-chance04:Prøv lykken
-chance05:Prøv lykken
-chance06:Prøv lykken
+chance01:<center><h1>?
+chance02:<center><h1>?
+chance03:<center><h1>?
+chance04:<center><h1>?
+chance05:<center><h1>?
+chance06:<center><h1>?
 
 
 tax01:Indkomstskat
@@ -46,4 +46,4 @@ field18:Amagertorv
 field19:Vimmelskaftet
 field20:Nygade
 field21:Frederiksberggade
-field22:Rådhuspladsen
+field22:AdviceHouse\nPlace
