@@ -16,10 +16,9 @@ public class DiceController {
     public void roll() {
         //Rolls and updates the diceNumber and the sameValue variables
         this.diceCup.rollDice();
-        this.faceValues = new int[diceCup.getNumberOfDice()];
-        for (int i = 0; i<diceCup.getNumberOfDice(); i++){
-            this.faceValues[i] = diceCup.getDice()[i].getFaceValue();
-        }
+        this.faceValues = diceCup.getFaceValues();
+
+        //Checks if all dice have same faceValues
         this.sameValue = true;
         int counter =0;
         while (sameValue==true){
@@ -33,11 +32,6 @@ public class DiceController {
 
             counter++;
         }
-
-        for (int i = 0; i<diceCup.getNumberOfDice(); i++){
-
-        }
-
     }
 
     public int[] getFaceValues(){
