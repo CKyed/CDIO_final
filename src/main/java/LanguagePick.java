@@ -24,36 +24,44 @@ public class LanguagePick {
                 null,
                 flags,
                null);
-        if (box == 0){
-            PathExpert.setSprog("da");
-            SystemController systemController = new SystemController();
-        }
-        else if (box == 1){
-            PathExpert.setSprog("en");
-            SystemController systemController = new SystemController();
-        }
-        else if (box == 2){
-            PathExpert.setSprog("es");
-            SystemController systemController = new SystemController();
-        }
-        else if (box == 3){
-            PathExpert.setSprog("ar");
-            SystemController systemController = new SystemController();
-        }
-        else if (box == 4){
-            PathExpert.setSprog("sw");
-            SystemController systemController = new SystemController();
-        }
-        else if (box == 5){
-            PathExpert.setSprog("bg");
-            SystemController systemController = new SystemController();
-        }
-        else if (box == 6){
-            PathExpert.setSprog("de");
-            SystemController systemController = new SystemController();
-        }
-        else {
-            System.exit(0);
+        switch (box) {
+            case 0: {
+                PathExpert.setSprog("da");
+                SystemController systemController = new SystemController();
+                break;
+            }
+            case 1: {
+                PathExpert.setSprog("en");
+                SystemController systemController = new SystemController();
+                break;
+            }
+            case 2: {
+                PathExpert.setSprog("es");
+                SystemController systemController = new SystemController();
+                break;
+            }
+            case 3: {
+                PathExpert.setSprog("ar");
+                SystemController systemController = new SystemController();
+                break;
+            }
+            case 4: {
+                PathExpert.setSprog("sw");
+                SystemController systemController = new SystemController();
+                break;
+            }
+            case 5: {
+                PathExpert.setSprog("bg");
+                SystemController systemController = new SystemController();
+                break;
+            }
+            case 6: {
+                PathExpert.setSprog("de");
+                SystemController systemController = new SystemController();
+                break;
+            }
+            default:
+                System.exit(0);
         }
     }
 }
