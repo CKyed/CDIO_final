@@ -10,7 +10,7 @@ public class Prison  extends Field{
 
     public Prison(String state) {
         super(state);
-        this.bail = getFieldData(state,"rent");
+        this.bail = getFieldData(state,"price");
     }
 
    //method for counting turns in Jail if needed

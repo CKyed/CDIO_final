@@ -66,6 +66,8 @@ public class SystemController {
                         couldafford = gameController.payBail(activePlayerId);
                         gameController.getPlayerController().getPlayers()[activePlayerId].setInJail( false );
                         InJailTurn = false;
+                        viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
+
 
                     } else if (askWhichChoice.equals(readFile(turnMessagesPath,"rollDiceInPrison"))){ //Roll dice
                         // Check first if player already roll dice twice so player should pay 1000
