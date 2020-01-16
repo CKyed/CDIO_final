@@ -1,4 +1,7 @@
-loser:%s har ikke flere penge, og er ude af spillet.
-winner:Vinderen er %s.
-updateLooserOnBoard: har tabt
-hasToSell:%s skylder %s kr. og bliver nu nødt til at sælge noget for at betale gælden af.
+loser: % s has no more money and is out of the game.
+winner: The winner is% s.
+updateLooserOnBoard: has lost
+hasToSell: % s owes% s DKK and will now have to sell something to pay off the debt.
+
+
+
