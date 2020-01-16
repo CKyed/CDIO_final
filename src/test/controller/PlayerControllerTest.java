@@ -52,8 +52,24 @@ class PlayerControllerTest {
             if(accountBalanceBefore-amount<0){
                 assertTrue(pc.getPlayers()[0].getAccountBalance()==0 && pc.getPlayers()[0].getOwesAmount()==amount-accountBalanceBefore);
             }
+        }
+    }
+
+    //TODO: Delete it or finish it
+   /* @Test
+    void safePaymentToPlayer(){
+
+        String[] tT = {"TorbenTest","TinaTest"};
+        PlayerController pc = new PlayerController(tT);
+
+        for (int i = 0; i <1000; i++) {
+            int fromPlayerId
+            int amount=(int)(Math.random()*500);
+            int balanceBeforeFromPlayer = pc.getPlayers()[0].getAccountBalance();
+            int balanceBeforeToPlayer = pc.getPlayers()
 
         }
 
     }
+   */
 }
