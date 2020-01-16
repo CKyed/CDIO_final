@@ -10,8 +10,6 @@ import static Utilities.FileReader.readFile;
 public class SystemController {
     private GameController gameController;
     private ViewController viewController;
-    private int numberOfPlayers;
-
 
     public SystemController() {
         //Initializes controllers
@@ -356,14 +354,8 @@ public class SystemController {
     }
 
     public void playerBankruptcy(int playerId) {
-        int owesAmount = gameController.getActivePlayer().getOwesAmount();
-        int playerBalance = gameController.getPlayerController().getPlayers()[playerId].getAccountBalance();
-        int creditorId = gameController.getPlayerController().getPlayers()[playerId].getAccount().getCreditorId();
-
-
         // Updates balances on view
         viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
-
 
         //stillHasOptions tells if player can still sell or pawn more
         boolean stillHasOptions = true;
@@ -452,10 +444,6 @@ public class SystemController {
                 buyOrSellMore = false;
             }
         }
-
-
-
-
     }
 
     public void buyHouses(){
@@ -671,6 +659,4 @@ public class SystemController {
             viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
         }
     }
-
-
 }

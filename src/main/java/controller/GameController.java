@@ -66,12 +66,6 @@ public class GameController {
 
     }
 
-    /**
-     * Method that can be called when a player lands on the field called Ordinary Tax
-     * @param activePlayerId
-     * @return
-     */
-
     public boolean payOrdinaryTax(int activePlayerId){
         return safePaymentToBank(activePlayerId, ((OrdinaryTax)boardController.getBoard().getFields()[38]).getTax());
     }
@@ -86,18 +80,11 @@ public class GameController {
 
             succesfulTransfer = safePaymentToBank(activePlayerId,tenPctOfValues);
         }
-        return succesfulTransfer; //change later
+        return succesfulTransfer;
     }
     // The method withdraws bail from player
     public boolean payBail(int activePlayerId){
         return playerController.safeTransferToBank(activePlayerId,((Prison)boardController.getBoard().getFields()[30]).getBail());
-    }
-
-
-
-    public boolean safePaymentToPlayer(int fromPlayerId, int amount, int toPlayerId){
-        return playerController.safeTransferToPlayer(fromPlayerId,amount,toPlayerId);
-
     }
 
     public PlayerController getPlayerController() {
@@ -140,17 +127,6 @@ public class GameController {
         ((Ownable)boardController.getBoard().getFields()[playerController.getActivePlayer().getPositionOnBoard()]).setOwnerId(playerController.getActivePlayerId());
 
     }
-
-    /**
-     * Method that can be called when a player lands on the field called Ordinary Tax
-     * @param //activePlayerId
-     * @return
-     */
-
-    //public boolean payOrdinaryTax(int activePlayerId){
-        //return safePaymentToBank(activePlayerId, ((OrdinaryTax)boardController.getBoard().getFields()[38]).getTax());
-
-    //}
 
 
     public void setPlayerController(PlayerController playerController) {
