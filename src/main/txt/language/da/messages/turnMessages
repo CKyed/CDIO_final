@@ -37,7 +37,7 @@ sellingSucceded:Det lykkedes at sælge et hus!
 askWhichChoice:%s har følgende muligheder for at kome ud fra fængsel
 payToPrison:Betal 1000 kr for at komme ud
 rollDiceInPrison:Kast Terning
-release'scard:løsladelskortet
+release'scard:Løsladelskortet
 payPrisonLastTry:Du har brugt 3 forsøg på at slå dig ud af fængsel. Du skal nu betale 1000 kroner for at komme ud af fængsel
 pawnWhere:Hvilken grund kunne %s tænke sig at pantsætte?
 pawnOrUnpawn:Pantsæt/Ophæv pansætning
