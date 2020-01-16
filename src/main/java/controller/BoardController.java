@@ -152,7 +152,7 @@ public class BoardController {
                     //Gets number of ferries owned
                     int numberOfFerriesOwned = getNumberOfOwnablesOwnedInGroup(i);
                     // gets actual rent
-                    rent = ((Ferry)board.getFields()[i]).getRentLevels()[numberOfFerriesOwned];//TODO her stod -1 vi tjekker lige
+                    rent = ((Ferry)board.getFields()[i]).getRentLevels()[numberOfFerriesOwned];
 
                     //sets rent
                     ((Ownable)board.getFields()[i]).setRent(rent);

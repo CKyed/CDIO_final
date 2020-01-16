@@ -333,8 +333,6 @@ public class ViewController {
                     Thread.currentThread().interrupt();
                 }
             }
-        } else if (counterForWinner == guiPlayers.length - 1){
-            // There is one player on board Todo
         }
     }
 
