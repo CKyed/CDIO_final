@@ -1,0 +1,184 @@
+_DESCRIPTION_
+Start
+Parkering
+I fængsel/På besøg
+Gå direkte i fængsel
+Prøv lykken
+Prøv lykken
+Prøv lykken
+Prøv lykken
+Prøv lykken
+Prøv lykken
+Indkomstskat
+Ekstraordinær statsskat
+dårlig øl
+god bajer
+Helsingør - Helsingborg
+Mols Linien
+Gedser - Rostock
+Rød by   Puttgarden
+Rød ovre vej
+Hvid ovre vej
+Ros kilde vej
+Valby Lang gade
+Allé gade
+Frederiks berg Allé
+Bülows vej
+Gammel Kongevej
+Bernstorffs vej
+Hellerup vej
+Strand vejen
+Trianglen
+Øster bro gade
+Grøn ingen
+Bred gade
+Kongens Nye torv
+Østergade
+Amager torv
+Vim mel skaftet
+Ny gade
+Frederiks berg gade
+Råd hus pladsen
+
+_NAME_
+Start
+Parkering
+I fængsel/På besøg
+Gå direkte i fængsel
+<_center><h1>?
+<_center><h1>?
+<_center><h1>?
+<_center><h1>?
+<_center><h1>?
+<_center><h1>?
+Indkomstskat
+Ekstraordinær statsskat
+dårlig øl
+god bajer
+Helsingør - Helsingborg
+Mols Linien
+Gedser - Rostock
+Rød by   Puttgarden
+Rød ovre vej
+Hvid ovre vej
+Ros kilde vej
+Valby Lang gade
+Allé gade
+Frederiks berg Allé
+Bülows vej
+Gammel Kongevej
+Bernstorffs vej
+Hellerup vej
+Strand vejen
+Trianglen
+Øster bro gade
+Grøn ingen
+Bred gade
+Kongens Nye torv
+Østergade
+Amager torv
+Vim mel skaftet
+Ny gade
+Frederiks berg gade
+Råd hus pladsen
+
+_END_GAME_MESSAGES_
+%s har ikke flere penge, og er ude af spillet.
+Vinderen er %s.
+ har tabt
+%s skylder %s kr. og bliver nu nødt til at sælge noget for at betale gælden af.
+
+_SETUP_MESSAGES_
+Velkommen til matadorspillet udviklet af gruppe 20.
+Vælg antal spillere.
+Spiller
+skriv dit navn
+To navne må ikke være ens og ikke tomme!
+Ejer:
+Ingen
+Pris:
+Huspris:
+Leje:
+Skat:
+Pantsat
+
+_TURN_MESSAGES_
+Det er %s's tur.
+%s er landet på
+:Ønsker %s at købe %s?
+Ja
+Nej
+Du skal desværre i fængsel, god tur
+Betal indkomstskat, enten 10% eller 4000kr
+%s betaler %s i afgift til %s.
+Betal 4000 kr. i skat
+Betal 10% af dine værdier i skat
+Ønsker %s at købe huse?
+Hvor mange huse ønsker %s at købe på %s?
+Den ønskede udbygning er ikke mulig.
+%s ejer allerede %s.
+%s samlede værdier udgør ikke mere end 15000. %s modtager Matadorlegatet.
+%s samlede værdier udgør mere end 15000. %s modtager ikke Matadorlegatet.
+%s er landet på et chancefelt. Læs kortet i midten af brættet.
+Prøv lykken
+%s har ikke råd til at købe %s.
+%s ryger direkte i fængsel og modtager ikke 4000 kr. for at passere start.
+Hvordan ønsker %s at betale indkomstskatten?
+%s skal betale 2000 i Ekstraordinær Statsskat.
+%s har betalt %s i indkomstskat.
+Ejeren af denne grund er i fængsel, så du skal ikke betale husleje
+%s er i fængsel og betaler 1000 kr. i bøde for at komme ud.
+%s har modtaget et benådelseskort som han benytter næste gang han kommer i fængsel
+Køb/salg
+Afslut
+Køb huse
+Sælg huse
+Hvor kunne %s tænke sig at bygge et hus?
+%s kan ikke bygge nogen huse i øjeblikket.
+Det lykkedes at bygge et hus!
+%s kan ikke sælge nogen huse i øjeblikket.
+Hvor kunne %s tænke sig at sælge et hus?
+Det lykkedes at sælge et hus!
+%s har 3 muligheder for at går ud fra fængsel
+Betal 1000 kr for at komme ud
+Kast Terning
+løsladels kortet
+Du har haft 3 Betal 1000 kr for at komme ud
+Hvilken grund kunne %s tænke sig at pantsætte?
+Pantsæt/Ophæv pansætning
+Pant sæt
+Ophæv pantsætning
+Der er ingen grunde at pantsætte.
+Der er ingen pantsætninger, det er muligt at ophæve.
+%s er nødt til at sælge eller pantsætte noget mere.
+%s er nu gældsfri.
+%s er pantsat, og der skal derfor ikke betales afgift.
+
+_CHANCE_CARD_TEXTS_
+De har vundet i klasselotteriet. Modtag 500 kr.
+De har vundet i klasselotteriet. Modtag 500 kr.
+De modtager Deres aktieudbytte. Modtag 1000 kroner af banken.
+De modtager Deres aktieudbytte. Modtag 1000 kroner af banken.
+De modtager Deres aktieudbytte. Modtag 1000 kroner af banken.
+De have en række med elleve rigtige i tipning, modtag 1000 kroner.
+Grundet dyrtiden har De fået gageforhøjelse, modtag 1000 kroner.
+Deres præmieobligation er udtrykket. De modtager 1000 kroner af banken.
+Deres præmieobligation er udtrykket. De modtager 1000 kroner af banken.
+De har solg nogle gamle møbler på auktion. Modtag 1000 kroner af banken.
+Kommunen har eftergivet et kvartals skat. Hæv i banken 3000 kroner
+Værdien af egen avl fra nyttehaven udgør 200 som de modtager af banken
+De modtager “Matador-legatet” på kr 40.000, men kun hvis værdier ikke overstiger 15.000 kr
+I anledning af kongens fødselsdag benådes De herved for fængsel. Dette kort kan opbevares indtil De får brug for det, eller De kan sælge det.
+I anledning af kongens fødselsdag benådes De herved for fængsel. Dette kort kan opbevares indtil De får brug for det, eller De kan sælge det.
+Ryk frem til start.
+Ryk frem til start.
+Ryk tre felter frem.
+Ryk frem til Frederiks berg Allé. Hvis De passere start , indkasser da 4000 kr.
+Tag med mols Linjen, flyt brikken frem og hvis De passerer startindkassér da 4000 kroner.
+Ryk frem til grøn ingen, hvis De passerer start indkasser da kr. 4000.
+Ryk frem til vim mel skaftet, hvis de passerer start indkasser da kr 4000.
+Ryk frem til Strand vejen. Hvis De passerer start, indkasser da kr.4000.
+Tag til Rådhuspladsen
+Ryk tre felter tilbage.
+Ryk tre felter tilbage.
+

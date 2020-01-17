@@ -1,0 +1,183 @@
+_DESCRIPTION_
+Start
+Parking
+In prison / Visiting
+Go directly to jail
+Try your luck
+Try your luck
+Try your luck
+Try your luck
+Try your luck
+Try your luck
+Income tax
+Exceptional state tax
+bad beer
+good bows
+Helsingør - Helsingborg
+Mols the line
+Goats - Rostock
+Red town of Puttgarden
+Red upper road
+White upper road
+Praise the source of the road
+Valby Lang street
+Alé street
+Frederiksberg Alle
+Bülow's way
+Old Kongevej
+Bernstorff's way
+Hellerup road
+Beach road
+triangle
+East bridge street
+Green none
+Wide street
+The King's New Square
+East Street
+Amager turf
+Vim flour shaft
+New street
+Frederik's mountain street
+Town square
+
+_NAME_
+Start
+Parking
+In prison / Visiting
+Go directly to jail
+<_Center> <h1>?
+<_Center> <h1>?
+<_Center> <h1>?
+<_Center> <h1>?
+<_Center> <h1>?
+<_Center> <h1>?
+Income tax
+Exceptional state tax
+bad beer
+good bows
+Helsingør - Helsingborg
+Mols the line
+Goats - Rostock
+Red town of Puttgarden
+Red upper road
+White upper road
+Praise the source of the road
+Valby Lang street
+Alé street
+Frederiksberg Alle
+Bülow's way
+Old Kongevej
+Bernstorff's way
+Hellerup road
+Beach road
+triangle
+East bridge street
+Green none
+Wide street
+The King's New Square
+East Street
+Amager turf
+Vim flour shaft
+New street
+Frederik's mountain street
+Town square
+
+_END_GAME_MESSAGES_
+% s has no more money and is out of the game.
+The winner is% s.
+ has lost
+% s owes% s DKK and will now have to sell something to pay off the debt.
+
+_SETUP_MESSAGES_
+Welcome to the matador game developed by group 20.
+Select the number of players.
+Player
+Write your name
+Two names must not be the same and not empty!
+Owner:
+None
+Price:
+house price:
+Rent:
+Treasure:
+pledged
+
+_TURN_MESSAGES_
+It's% s turn.
+% s has landed on
+: Does% s want to buy% s?
+Yes
+No
+You must unfortunately go to jail, good luck
+Pay income tax, either 10% or 4000 kr
+% s pays% s in fee to% s.
+Pay DKK 4000 in tax
+Pay 10% of your values ​​in taxes
+Want% s to buy houses?
+How many houses does% s want to buy on% s?
+The desired extension is not possible.
+% s already owns% s.
+% s total values ​​do not exceed 15000.% s receives the Matador Scholarship.
+% s total values ​​amount to more than 15000.% s does not receive the Matador Scholarship.
+% s landed on a chance field. Read the card in the middle of the board.
+Try your luck
+% s cannot afford to buy% s.
+% s smokes directly in jail and does not receive $ 4000 to pass the start.
+How does% s want to pay the income tax?
+% s must pay 2000 in Extraordinary State Tax.
+% s has paid% s in income tax.
+The owner for this reason is in jail, so you do not have to pay rent
+% s is in jail and pays £ 1000 fine to get out.
+% s has received a pardon card which he will use the next time he goes to jail
+Buy sale
+Quit
+Buy houses
+Sell ​​houses
+Where could% s plan to build a house?
+% s cannot build any houses at this time.
+They succeeded in building a house!
+% s cannot sell any houses at this time.
+Where could% s want to sell a house?
+They managed to sell a house!
+% s has 3 options for starting from prison
+Pay 1000 kr to get out
+Discard dice
+the release card
+You have had 3 Pay 1000 kr to get out
+What reason could% s want to pledge?
+Pledge / Cancel pledge
+Pledge set
+Cancel pledge
+There are no reasons to pledge.
+There are no mortgages, it is possible to cancel.
+% s needs to sell or pledge something more.
+% s is now debt free.
+% s is pledged and therefore no tax is payable.
+
+_CHANCE_CARD_TEXTS_
+They have won in the class lottery. Receive £ 500
+They have won in the class lottery. Receive £ 500
+They receive your dividend. Receive 1000 kroner from the bank.
+They receive your dividend. Receive 1000 kroner from the bank.
+They receive your dividend. Receive 1000 kroner from the bank.
+They have a row of eleven right in tipping, receive 1000 kroner.
+Due to the expensive time you have received gage increase, receive 1000 kroner.
+Their premium bond is the term. They receive 1000 kroner from the bank.
+Their premium bond is the term. They receive 1000 kroner from the bank.
+They have sold some old furniture at auction. Receive 1000 kroner from the bank.
+The municipality has abandoned a quarter's tax. Raise in the bank 3000 kroner
+The value of own breeding from the commercial garden is 200 which they receive from the bank
+They receive the “Matador scholarship” of 40,000 kroner, but only if the value does not exceed 15,000 kroner
+On the occasion of the king's birthday you are hereby pardoned for imprisonment. This card can be stored until you need it, or you can sell it.
+On the occasion of the king's birthday you are hereby pardoned for imprisonment. This card can be stored until you need it, or you can sell it.
+Get to the start.
+Get to the start.
+Move three fields forward.
+Head to Frederik's mountain Allé. If you pass the start, you will collect $ 4000.
+Take the mols Line, move the piece forward and if you pass start collect then 4,000 kroner.
+Move forward to green no one if you pass start cashing then kr. 4000.
+Move forward to the vim flour shaft, if they pass start cashing then $ 4000.
+Proceed to Strand road. If you pass the start, you will collect $ 4,000.
+Go to City Hall Square
+Return three squares.
+Return three squares.

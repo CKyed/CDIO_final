@@ -1,0 +1,183 @@
+_DESCRIPTION_
+Start
+parkering
+I fängelse / besök
+Gå direkt till fängelse
+Prova lyckan
+Prova lyckan
+Prova lyckan
+Prova lyckan
+Prova lyckan
+Prova lyckan
+inkomstskatt
+Exceptionell statsskatt
+dåligt öl
+bra bågar
+Helsingør - Helsingborg
+Mols linjen
+Getter - Rostock
+Röd stad Puttgarden
+Röd övre väg
+Vit övre väg
+Beröm vägen
+Valby Lang street
+Alé street
+Frederiks berg Allé
+Bülows väg
+Gamla Kongevej
+Bernstorffs väg
+Hellerup väg
+Strandväg
+triangel
+East Bridge Street
+Grön ingen
+Bred gata
+Kungens nya torg
+East Street
+Amager torv
+Vim mjölaxel
+Ny gata
+Frederiks bergsgata
+Råd huset torg
+
+_NAME_
+Start
+parkering
+I fängelse / besök
+Gå direkt till fängelse
+<_Center> <h1>?
+<_Center> <h1>?
+<_Center> <h1>?
+<_Center> <h1>?
+<_Center> <h1>?
+<_Center> <h1>?
+inkomstskatt
+Exceptionell statsskatt
+dåligt öl
+bra bågar
+Helsingør - Helsingborg
+Mols linjen
+Getter - Rostock
+Röd stad Puttgarden
+Röd övre väg
+Vit övre väg
+Beröm vägen
+Valby Lang street
+Alé street
+Frederiks berg Allé
+Bülows väg
+Gamla Kongevej
+Bernstorffs väg
+Hellerup väg
+Strandväg
+triangel
+East Bridge Street
+Grön ingen
+Bred gata
+Kungens nya torg
+East Street
+Amager torv
+Vim mjölaxel
+Ny gata
+Frederiks bergsgata
+Råd huset torg
+
+_END_GAME_MESSAGES_
+% s har inte mer pengar och är ur spelet.
+Vinnaren är% s.
+ har förlorat
+% s är skyldig% s DKK och måste nu sälja något för att betala av skulden.
+
+_SETUP_MESSAGES_
+Välkommen till matador-spelet som utvecklats av grupp 20.
+Välj antal spelare.
+spelare
+skriv ditt namn
+Två namn får inte vara desamma och inte tomma!
+ägare:
+ingen
+pris:
+house pris:
+hyra:
+skatt:
+ställda
+
+_TURN_MESSAGES_
+Det är% s tur.
+% s har landat på
+: Vill% s köpa% s?
+Ja
+ingen
+Du måste tyvärr gå till fängelse, lycka till
+Betala inkomstskatt, antingen 10% eller 4000 kr
+% s betalar% s i avgift till% s.
+Betala 4000 DKK i skatt
+Betala 10% av dina värden i skatter
+Vill% s köpa hus?
+Hur många hus vill% s köpa på% s?
+Den önskade förlängningen är inte möjlig.
+% s äger redan% s.
+% s totala värden överstiger inte 15000.% s får Matador-stipendiet.
+% s totala värden uppgår till mer än 15000.% s får inte Matador-stipendiet.
+% s landade på ett chansfält. Läs kortet mitt på brädet.
+Prova lyckan
+% s har inte råd att köpa% s.
+% s röker direkt i fängelse och tar inte emot $ 4000 för att klara starten.
+Hur vill% s betala inkomstskatten?
+% s måste betala 2000 i extra statlig skatt.
+% s har betalat% s i inkomstskatt.
+Ägaren är därför i fängelse, så du behöver inte betala hyran
+% s sitter i fängelse och betalar 1000 pund böter för att komma ut.
+% s har fått ett benådningskort som han kommer att använda nästa gång han går i fängelse
+Köp / försäljning
+avsluta
+Köp hus
+Sälj hus
+Var kunde% s planera att bygga ett hus?
+% s kan inte bygga några hus just nu.
+De lyckades bygga ett hus!
+% s kan inte sälja några hus just nu.
+Var skulle% s vilja sälja ett hus?
+De lyckades sälja ett hus!
+% s har 3 alternativ för att starta från fängelse
+Betala 1000 kr för att komma ut
+Kasta tärningar
+frigöringskortet
+Du har haft 3 Betala 1000 kr för att komma ut
+Vilken anledning kan% s vilja pantsätta?
+Pant / Avbryt pant
+Pantsättning
+Avbryt löfte
+Det finns inga skäl att pantsätta.
+Det finns inga inteckningar, det är möjligt att avbryta.
+% s behöver sälja eller pantsätta något mer.
+% s är nu skuldfritt.
+% s är pantsatt och därför betalas ingen skatt.
+
+_CHANCE_CARD_TEXTS_
+De har vunnit i klasslotteriet. Få 500 £
+De har vunnit i klasslotteriet. Få 500 £
+De får din utdelning. Få 1000 kronor från banken.
+De får din utdelning. Få 1000 kronor från banken.
+De får din utdelning. Få 1000 kronor från banken.
+De har en rad på elva rätt att tippa, får 1000 kronor.
+På grund av den dyra tiden du har fått ökad mått, får du 1000 kronor.
+Deras premiumobligation är termen. De får 1000 kronor från banken.
+Deras premiumobligation är termen. De får 1000 kronor från banken.
+De har sålt några gamla möbler på auktion. Få 1000 kronor från banken.
+Kommunen har övergett en fjärdedels skatt. Hämta in banken 3000 kronor
+Värdet på egen avel från den kommersiella trädgården är 200 som de får från banken
+De får ”Matador-stipendiet” på 40 000 kronor, men endast om värdet inte överstiger 15 000 kronor
+Vid tillfälle av kungens födelsedag förlåts du härmed för fängelse. Det här kortet kan lagras tills du behöver det, eller så kan du sälja det.
+Vid tillfälle av kungens födelsedag förlåts du härmed för fängelse. Det här kortet kan lagras tills du behöver det, eller så kan du sälja det.
+Kom igång.
+Kom igång.
+Flytta tre fält framåt.
+Gå till Frederiks berg Allé. Om du klarar starten samlar du in $ 4000.
+Ta molslinjen, flytta biten framåt och om du passerar börjar samla in 4 000 kronor.
+Gå framåt till grönt ingen om du klarar att börja kassa sedan 4000 kr.
+Gå vidare till vim mjölaxeln, om de passerar börja kassa sedan $ 4000.
+Fortsätt till Strandvägen. Om du klarar starten samlar du in $ 4 000.
+Gå till rådhuset
+Returnera tre rutor.
+Returnera tre rutor.

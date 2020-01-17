@@ -11,7 +11,6 @@ public class FileReader {
         try {
             String line;
             BufferedReader reader = new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream(file), StandardCharsets.UTF_8));
-
             while ((line = reader.readLine()) != null)
             {
                 String[] parts = line.split(":", 2);
@@ -23,16 +22,10 @@ public class FileReader {
                         return value;
                     }
                 }
-                //else {
-                    //System.out.println("ignoring line: " + line);
-                //}
-
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 

@@ -1,0 +1,183 @@
+_DESCRIPTION_
+Start
+Parkplatz
+Im Gefängnis / Besuch
+Geh direkt ins Gefängnis
+Versuche dein Glück
+Versuche dein Glück
+Versuche dein Glück
+Versuche dein Glück
+Versuche dein Glück
+Versuche dein Glück
+Einkommensteuer
+Außergewöhnliche staatliche Steuer
+schlechtes Bier
+gute Bögen
+Helsingør - Helsingborg
+Mols die Leitung
+Ziegen - Rostock
+Rote Stadt von Puttgarden
+Rote obere Straße
+Weiße obere Straße
+Loben Sie die Quelle der Straße
+Valby Lang Straße
+Alé Straße
+Frederiks Berg Allé
+Bü lows Straße
+Alte Königstraße
+Bernstorffs Weg
+Hellerup Straße
+Strandstraße
+Dreieck
+East Bridge Street
+Grün keine
+Breite Straße
+Der neue Platz des Königs
+East Street
+Amager Rasen
+Vim Mehlschacht
+Neue Straße
+Frederiks Bergstraße
+Beraten Sie den Hausplatz
+
+_NAME_
+Start
+Parkplatz
+Im Gefängnis / Besuch
+Geh direkt ins Gefängnis
+<_Center> <h1>?
+<_Center> <h1>?
+<_Center> <h1>?
+<_Center> <h1>?
+<_Center> <h1>?
+<_Center> <h1>?
+Einkommensteuer
+Außergewöhnliche staatliche Steuer
+schlechtes Bier
+gute Bögen
+Helsingør - Helsingborg
+Mols die Leitung
+Ziegen - Rostock
+Rote Stadt von Puttgarden
+Rote obere Straße
+Weiße obere Straße
+Loben Sie die Quelle der Straße
+Valby Lang Straße
+Alé Straße
+Frederiks Berg Allé
+Bü lows Straße
+Alte Königstraße
+Bernstorffs Weg
+Hellerup Straße
+Strandstraße
+Dreieck
+East Bridge Street
+Grün keine
+Breite Straße
+Der neue Platz des Königs
+East Street
+Ein magerer Rasen
+Vim Mehlschacht
+Neue Straße
+Frederiks Bergstraße
+Beraten Sie den Hausplatz
+
+_END_GAME_MESSAGES_
+% s hat kein Geld mehr und ist aus dem Spiel.
+Der Gewinner ist% s.
+ hat verloren
+% s schuldet% s Kronen und muss nun etwas verkaufen, um die Schulden zu begleichen.
+
+_SETUP_MESSAGES_
+Willkommen zum Matador-Spiel der Gruppe 20.
+Wählen Sie die Anzahl der Spieler.
+Spieler
+Schreibe deinen Namen
+Zwei Namen dürfen nicht gleich und nicht leer sein!
+Besitzer:
+keine
+Preis:
+Hauspreis:
+mieten:
+Steuern:
+verpfändete
+
+_TURN_MESSAGES_
+Es ist an der Reihe.
+% s ist auf gelandet
+: Will% s% s kaufen?
+ja
+keine
+Du musst leider ins Gefängnis, viel Glück
+Lohnsteuer, entweder 10% oder 4000 kr
+% s zahlt% s an% s.
+Zahlen Sie 4000 DKK an Steuern
+Zahlen Sie 10% Ihrer Steuerwerte
+Möchten Sie, dass% s Häuser kauft?
+Wie viele Häuser möchte% s auf% s kaufen?
+Die gewünschte Verlängerung ist nicht möglich.
+% s besitzt bereits% s.
+% s Gesamtwerte überschreiten 15000 nicht.% s erhält das Matador-Stipendium.
+Die Gesamtwerte von% s belaufen sich auf mehr als 15000.% s erhält kein Matador-Stipendium.
+% s ist auf einem Zufallsfeld gelandet. Lies die Karte in der Mitte der Tafel.
+Versuche dein Glück
+% s kann es sich nicht leisten,% s zu kaufen.
+% s raucht direkt im Gefängnis und erhält keine $ 4000, um den Start zu bestehen.
+Wie will% s die Einkommensteuer bezahlen?
+% s muss 2000 in der außerordentlichen staatlichen Steuer bezahlen.
+% s hat% s an Einkommensteuer gezahlt.
+Der Besitzer ist aus diesem Grund im Gefängnis, so dass Sie keine Miete zahlen müssen
+% s ist im Gefängnis und zahlt $ 1000 Geldstrafe, um rauszukommen.
+% s hat eine Begnadigungskarte erhalten, die er das nächste Mal verwendet, wenn er ins Gefängnis kommt
+Kauf / Verkauf
+verlassen
+Häuser kaufen
+Verkaufe Häuser
+Wo könnte% s planen, ein Haus zu bauen?
+% s kann derzeit keine Häuser bauen.
+Es ist ihnen gelungen, ein Haus zu bauen!
+% s kann derzeit keine Häuser verkaufen.
+Wo könnten% s ein Haus verkaufen wollen?
+Sie haben es geschafft, ein Haus zu verkaufen!
+% s hat 3 Möglichkeiten, um aus dem Gefängnis zu kommen
+Zahlen Sie 1000 kr, um auszusteigen
+Würfel wegwerfen
+die Release-Karte
+Sie haben 3 Pay 1000 kr gehabt, um auszusteigen
+Welchen Grund könnten% s verpfänden wollen?
+Verpfändung / Verpfändung kündigen
+Verpfändungssatz
+Verpfändung stornieren
+Es gibt keine Verpfändungsgründe.
+Es gibt keine Hypotheken, es ist möglich zu stornieren.
+% s muss etwas mehr verkaufen oder verpfänden.
+% s ist jetzt schuldenfrei.
+% s ist verpfändet und daher ist keine Steuer zu zahlen.
+
+_CHANCE_CARD_TEXTS_
+Sie haben in der Klassenlotterie gewonnen. Erhalten Sie 500 €
+Sie haben in der Klassenlotterie gewonnen. Erhalten Sie 500 €
+Sie erhalten Ihre Dividende. Erhalten Sie 1000 Kronen von der Bank.
+Sie erhalten Ihre Dividende. Erhalten Sie 1000 Kronen von der Bank.
+Sie erhalten Ihre Dividende. Erhalten Sie 1000 Kronen von der Bank.
+Sie haben eine Reihe von elf richtigen Trinkgeldern, erhalten 1000 Kronen.
+Aufgrund der teuren Zeit, die Sie erhalten haben, erhalten Sie 1000 Kronen.
+Ihre Premium-Anleihe ist die Laufzeit. Sie erhalten 1000 Kronen von der Bank.
+Ihre Premium-Anleihe ist die Laufzeit. Sie erhalten 1000 Kronen von der Bank.
+Sie haben einige alte Möbel auf einer Auktion verkauft. Erhalten Sie 1000 Kronen von der Bank.
+Die Gemeinde hat eine Viertelsteuer aufgegeben. Erhöhen Sie in der Bank 3000 Kronen
+Der Wert der eigenen Zucht aus dem kommerziellen Garten beträgt 200, die sie von der Bank erhalten
+Sie erhalten das „Matador-Stipendium“ in Höhe von 40.000 Kronen, jedoch nur, wenn der Wert 15.000 Kronen nicht überschreitet
+Anlässlich des Geburtstages des Königs wird Ihnen hiermit die Inhaftierung verzeiht. Diese Karte kann aufbewahrt werden, bis Sie sie benötigen, oder Sie können sie verkaufen.
+Anlässlich des Geburtstages des Königs wird Ihnen hiermit die Inhaftierung verzeiht. Diese Karte kann aufbewahrt werden, bis Sie sie benötigen, oder Sie können sie verkaufen.
+Kommen Sie zum Anfang.
+Kommen Sie zum Anfang.
+Bewege drei Felder vorwärts.
+Gehen Sie zu Frederiks Berg Allé. Wenn Sie den Start bestanden haben, erhalten Sie 4000 USD.
+Nehmen Sie die Mols-Linie, bewegen Sie das Stück nach vorne und wenn Sie vorbei sind, sammeln Sie 4.000 Kronen.
+Bewegen Sie sich vorwärts zu Grün, niemand, wenn Sie vorbei sind, um Geld zu verdienen, dann kr. 4000.
+Gehen Sie vorwärts zum Vim Mehlschacht, wenn sie vorbei sind, fangen Sie an, $ 4000 einzulösen.
+Fahren Sie weiter bis zur Strandstraße. Wenn Sie den Start bestanden haben, erhalten Sie 4.000 US-Dollar.
+Gehe zum Rathausplatz
+Gib drei Felder zurück.
+Gib drei Felder zurück.

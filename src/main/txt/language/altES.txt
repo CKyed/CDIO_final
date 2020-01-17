@@ -1,0 +1,183 @@
+_DESCRIPTION_
+comienzo
+estacionamiento
+En prisión / Visitando
+Ir directamente a la cárcel
+Prueba tu suerte
+Prueba tu suerte
+Prueba tu suerte
+Prueba tu suerte
+Prueba tu suerte
+Prueba tu suerte
+impuesto sobre la renta
+Impuesto estatal excepcional
+mala cerveza
+buenos arcos
+Helsingør - Helsingborg
+Moldea la línea
+Cabras - Rostock
+Pueblo rojo de Puttgarden
+Carretera superior roja
+Carretera superior blanca
+Alabado sea el origen del camino
+Calle Valby Lang
+Calle Alé
+Frederiks montaña Allé
+El camino de Bülow
+Kongevej viejo
+El camino de Bernstorff
+Camino Hellerup
+Camino de la playa
+triángulo
+Calle del puente este
+Verde ninguno
+Calle ancha
+La nueva plaza del rey
+Calle Oriente
+Amager turf
+Eje de harina Vim
+Nueva calle
+Calle de la montaña de Frederik
+Consejo de la plaza de la casa
+
+_NAME_
+comienzo
+estacionamiento
+En prisión / Visitando
+Ir directamente a la cárcel
+<_Center> <h1>?
+<_Center> <h1>?
+<_Center> <h1>?
+<_Center> <h1>?
+<_Center> <h1>?
+<_Center> <h1>?
+impuesto sobre la renta
+Impuesto estatal excepcional
+mala cerveza
+buenos arcos
+Helsingør - Helsingborg
+Moldea la línea
+Cabras - Rostock
+Pueblo rojo de Puttgarden
+Carretera superior roja
+Carretera superior blanca
+Alabado sea el origen del camino
+Calle Valby Lang
+Calle Alé
+Frederiks montaña Allé
+El camino de Bülow
+Kongevej viejo
+El camino de Bernstorff
+Camino Hellerup
+Camino de la playa
+triángulo
+Calle del puente este
+Verde ninguno
+Calle ancha
+La nueva plaza del rey
+Calle Oriente
+Amager turf
+Eje de harina Vim
+Nueva calle
+Calle de la montaña de Frederik
+Consejo de la plaza de la casa
+
+_END_GAME_MESSAGES_
+% s no tiene más dinero y está fuera del juego.
+El ganador es% s.
+ ha perdido
+% s debe% s DKK y ahora tendrá que vender algo para pagar la deuda.
+
+_SETUP_MESSAGES_
+Bienvenido al juego matador desarrollado por el grupo 20.
+Selecciona el número de jugadores.
+jugador
+escribe tu nombre
+¡Dos nombres no deben ser iguales ni estar vacíos!
+propietario:
+no
+Precio:
+precio de la vivienda:
+alquilar:
+impuestos:
+comprometido
+
+_TURN_MESSAGES_
+Es el turno de% s.
+% s ha aterrizado en
+: ¿% S quiere comprar% s?
+sí
+no
+Desafortunadamente debes ir a la cárcel, buena suerte
+Pague el impuesto sobre la renta, ya sea 10% o 4000 kr
+% s paga% s en tarifa a% s.
+Pague 4000 DKK en impuestos
+Paga el 10% de tus valores en impuestos
+¿Quieres% s para comprar casas?
+¿Cuántas casas quiere comprar% s en% s?
+La extensión deseada no es posible.
+% s ya posee% s.
+Los valores totales de% s no superan los 15000.% s recibe la beca Matador.
+Los valores totales de% s ascienden a más de 15000.% s no recibe la beca Matador.
+% s aterrizó en un campo de oportunidad. Lea la tarjeta en el medio del pizarrón.
+Prueba tu suerte
+% s no puede permitirse comprar% s.
+% s fuma directamente en la cárcel y no recibe $ 4000 para pasar el comienzo.
+¿Cómo quiere% s pagar el impuesto sobre la renta?
+% s debe pagar 2000 en impuestos estatales extraordinarios.
+% s ha pagado% s en impuesto sobre la renta.
+El propietario por este motivo está en la cárcel, por lo que no tiene que pagar el alquiler.
+% s está en la cárcel y paga una multa de £ 1000 para salir.
+% s ha recibido una tarjeta de perdón que usará la próxima vez que vaya a la cárcel
+Compra / Venta
+dejar
+Comprar casas
+Vender casas
+¿Dónde podría% s planear construir una casa?
+% s no puede construir ninguna casa en este momento.
+¡Lograron construir una casa!
+% s no puede vender ninguna casa en este momento.
+¿Dónde podría% s querer vender una casa?
+¡Se las arreglaron para vender una casa!
+% s tiene 3 opciones para comenzar desde la prisión
+Paga 1000 kr para salir
+Descartar dados
+la tarjeta de lanzamiento
+Has tenido 3 Pay 1000 kr para salir
+¿Qué razón podría% s querer prometer?
+Compromiso / Cancelar compromiso
+Conjunto de compromiso
+Cancelar compromiso
+No hay razones para prometer.
+No hay hipotecas, es posible cancelar.
+% s necesita vender o prometer algo más.
+% s ahora está libre de deudas.
+% s está comprometido y, por lo tanto, no se pagan impuestos.
+
+_CHANCE_CARD_TEXTS_
+Han ganado en la lotería de la clase. Recibe £ 500
+Han ganado en la lotería de la clase. Recibe £ 500
+Reciben tu dividendo. Recibe 1000 coronas del banco.
+Reciben tu dividendo. Recibe 1000 coronas del banco.
+Reciben tu dividendo. Recibe 1000 coronas del banco.
+Tienen una fila de once en propina, reciben 1000 coronas.
+Debido al tiempo costoso que ha recibido el aumento del indicador, reciba 1000 coronas.
+Su bono premium es el término. Reciben 1000 coronas del banco.
+Su bono premium es el término. Reciben 1000 coronas del banco.
+Han vendido algunos muebles viejos en una subasta. Recibe 1000 coronas del banco.
+El municipio ha abandonado el impuesto de un cuarto. Subir en el banco 3000 coronas
+El valor de la propia cría del huerto comercial es de 200 que reciben del banco.
+Reciben la "beca Matador" de 40,000 coronas, pero solo si el valor no excede las 15,000 coronas
+Con motivo del cumpleaños del rey, por el presente se te perdona el encarcelamiento. Esta tarjeta se puede almacenar hasta que la necesite, o puede venderla.
+Con motivo del cumpleaños del rey, por el presente se te perdona el encarcelamiento. Esta tarjeta se puede almacenar hasta que la necesite, o puede venderla.
+Llegar al inicio
+Llegar al inicio
+Mueve tres campos hacia adelante.
+Dirígete a la montaña de Frederik Allé. Si pasa el inicio, recaudará $ 4000.
+Tome la línea de moles, mueva la pieza hacia adelante y si pasa comenzar a recoger, entonces 4.000 coronas.
+Avanzar a verde nadie si pasa comenzar a cobrar luego kr.4000.
+Avanzar hacia el eje de harina vim, si pasan comenzar a cobrar luego $ 4000.
+Proceder a Strand Road. Si pasa el inicio, recaudará $ 4,000.
+Ir a la plaza del ayuntamiento
+Devuelve tres cuadrados.
+Devuelve tres cuadrados.
