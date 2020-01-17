@@ -77,7 +77,6 @@ public class BoardController {
             buildableArray[i] = isBuildable(i,playerBalance, playerId);
             if (buildableArray[i])
                 counter++;
-
         }
         //Makes array of size counter for the ids
         int[] buildAbleStreetIds=new int[counter];
