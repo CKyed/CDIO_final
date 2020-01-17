@@ -56,7 +56,7 @@ class PlayerControllerTest {
     }
 
    @Test
-    void safePaymentToPlayer(){
+    void safePaymentToPlayer(){ 
         String[] tT = {"TorbenTest","TinaTest"};
         PlayerController pc = new PlayerController(tT);
 
