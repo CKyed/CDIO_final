@@ -77,17 +77,16 @@ public class BoardController {
             buildableArray[i] = isBuildable(i,playerBalance, playerId);
             if (buildableArray[i])
                 counter++;
-
         }
         //Makes array of size counter for the ids
         int[] buildAbleStreetIds=new int[counter];
 
         counter =0;
+        //Loops trough all the fields, if it's buildable, it add's the id too the buildAbleStreetIds array
         for (int i = 0; i < board.getFields().length; i++) {
             if (buildableArray[i])
                 buildAbleStreetIds[counter++] = i;
         }
-
         return buildAbleStreetIds;
     }
 

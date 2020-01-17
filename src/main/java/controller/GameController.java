@@ -243,7 +243,7 @@ public class GameController {
 
         //Checks that player can afford it
         if (!playerController.safeTransferToBank(playerId,amount)){
-            System.out.println("FEJl i pawnStreet()-metoden. Spilleren har ikke råd"); //TODO skriv en besked der er mere user-friendly
+            System.out.println("Fejl i pawnStreet()-metoden. Spilleren har ikke råd");
         }
 
         //changes pawn status

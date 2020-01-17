@@ -1,6 +1,6 @@
 newTurn: It's %s turn.
 landedOn: %s has landed on
-buyField?: : Does %s want to buy %s?
+buyField?: Does %s want to buy %s?
 yes: Yes
 no: No
 prison: You must unfortunately go to jail, good luck

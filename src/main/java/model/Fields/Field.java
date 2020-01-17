@@ -4,6 +4,7 @@ import static Utilities.FileReader.getFieldData;
 import static Utilities.FileReader.readFile;
 
 
+
 public abstract class Field {
     protected String color;
     protected String name;
