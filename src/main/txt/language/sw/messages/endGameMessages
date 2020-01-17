@@ -1,0 +1,4 @@
+loser:%s har ikke flere penge, og er ude af spillet.
+winner:Vinderen er %s.
+updateLooserOnBoard: har tabt
+hasToSell:%s skylder %s kr. og bliver nu nødt til at sælge noget for at betale gælden af.

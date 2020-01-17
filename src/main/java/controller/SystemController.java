@@ -10,8 +10,6 @@ import static Utilities.FileReader.readFile;
 public class SystemController {
     private GameController gameController;
     private ViewController viewController;
-    private int numberOfPlayers;
-
 
     public SystemController() {
         //Initializes controllers
@@ -63,9 +61,11 @@ public class SystemController {
                     askWhichChoice = viewController.getUserSelection( askWhichChoice, jailChoices );
 
                     if (askWhichChoice.equals(readFile(turnMessagesPath,"payToPrison"))) { // Pay 1000 kr
-                        couldafford = gameController.safePaymentToBank(activePlayerId,1000);
+                        couldafford = gameController.payBail(activePlayerId);
                         gameController.getPlayerController().getPlayers()[activePlayerId].setInJail( false );
                         InJailTurn = false;
+                        viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
+
 
                     } else if (askWhichChoice.equals(readFile(turnMessagesPath,"rollDiceInPrison"))){ //Roll dice
                         // Check first if player already roll dice twice so player should pay 1000
@@ -76,7 +76,7 @@ public class SystemController {
                             viewController.rollDiceInPrison( faceValues );
                             if (faceValues[0] != faceValues[1]) { //rolls to different on the last try and are forced to pay
                                 viewController.getUserButtonPressed( readFile( turnMessagesPath, "payPrisonLastTry" ), "Pay 1000" );
-                                couldafford = gameController.safePaymentToBank(activePlayerId,1000);
+                                couldafford = gameController.payBail(activePlayerId);
                                 gameController.getPlayerController().getPlayers()[activePlayerId].setInJail( false );
                                 InJailTurn = false;
                             } else { //rolls 2 same on the last try
@@ -255,8 +255,6 @@ public class SystemController {
         switch (activeFieldType){
             case "street":
                 playPropertyField();
-
-
                 break;
             case "ferry":
                 playPropertyField();
@@ -264,7 +262,6 @@ public class SystemController {
             case "brew":
                 playPropertyField();
                 break;
-
             case "incomeTax":
                 //Asks how player wants to pay
                 String incTaxMsg = readFile(turnMessagesPath,"chooseIncomeTaxType");
@@ -356,14 +353,8 @@ public class SystemController {
     }
 
     public void playerBankruptcy(int playerId) {
-        int owesAmount = gameController.getActivePlayer().getOwesAmount();
-        int playerBalance = gameController.getPlayerController().getPlayers()[playerId].getAccountBalance();
-        int creditorId = gameController.getPlayerController().getPlayers()[playerId].getAccount().getCreditorId();
-
-
         // Updates balances on view
         viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
-
 
         //stillHasOptions tells if player can still sell or pawn more
         boolean stillHasOptions = true;
@@ -452,10 +443,6 @@ public class SystemController {
                 buyOrSellMore = false;
             }
         }
-
-
-
-
     }
 
     public void buyHouses(){
@@ -495,13 +482,9 @@ public class SystemController {
                     }
                 }
 
-
-                //If player chose to build on a street
                 if (selectedStreetId != -1){
-                    if (gameController.tryToBuyHouses(selectedStreetId, 1))
-                        viewController.showMessage(readFile(turnMessagesPath, "buildingSucceeded"));
-                    else  //Service errormessage
-                        viewController.showMessage("HOV - SPILLEREN BURDE KUNNE BYGGE HUSET");
+                    //If player chose to build on a street
+                    gameController.buyHouse(selectedStreetId);
                 }
             }
             //Updates balances and ownerships
@@ -622,8 +605,6 @@ public class SystemController {
                 } else{ //If player chose exit
                     pawnMore=false;
                 }
-
-
                 //Updates view layer
                 viewController.updateOwnerships(gameController.getBoardController().getBoard());
                 viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
@@ -675,6 +656,4 @@ public class SystemController {
             viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
         }
     }
-
-
 }

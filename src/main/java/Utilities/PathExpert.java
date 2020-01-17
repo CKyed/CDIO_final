@@ -2,16 +2,23 @@ package Utilities;
 
 public class PathExpert {
     private static String language = "da";
-    public static final String namePath            = "language/" + language +"/fields/name";
-    public static final String fieldAttributesPath = "fieldAttributes";
-    public static final String descriptionMessagesPath   = "language/" + language +"/fields/description";
-    public static final String setupMessagesPath   = "language/" + language +"/messages/setupMessages";
-    public static final String turnMessagesPath   = "language/" + language +"/messages/turnMessages";
-    public static final String chanceCardPath   = "language/" + language +"/chanceCardTexts";
-    public static final String endMessagePath   = "language/" + language +"/messages/endGameMessages";
+    public static String namePath;
+    public static String fieldAttributesPath ;
+    public static String descriptionMessagesPath ;
+    public static String setupMessagesPath  ;
+    public static String turnMessagesPath  ;
+    public static String chanceCardPath  ;
+    public static String endMessagePath;
 
     public static void setSprog(String sprog) {
         language = sprog;
+        namePath                    = "language/" + language +"/fields/name";
+        fieldAttributesPath         = "fieldAttributes";
+        descriptionMessagesPath     = "language/" + language +"/fields/description";
+        setupMessagesPath           = "language/" + language +"/messages/setupMessages";
+        turnMessagesPath            = "language/" + language +"/messages/turnMessages";
+        chanceCardPath              = "language/" + language +"/chanceCardTexts";
+        endMessagePath              = "language/" + language +"/messages/endGameMessages";
     }
 }
 

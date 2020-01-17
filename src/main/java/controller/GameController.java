@@ -66,12 +66,6 @@ public class GameController {
 
     }
 
-    /**
-     * Method that can be called when a player lands on the field called Ordinary Tax
-     * @param activePlayerId
-     * @return
-     */
-
     public boolean payOrdinaryTax(int activePlayerId){
         return safePaymentToBank(activePlayerId, ((OrdinaryTax)boardController.getBoard().getFields()[38]).getTax());
     }
@@ -86,18 +80,11 @@ public class GameController {
 
             succesfulTransfer = safePaymentToBank(activePlayerId,tenPctOfValues);
         }
-        return succesfulTransfer; //change later
+        return succesfulTransfer;
     }
     // The method withdraws bail from player
     public boolean payBail(int activePlayerId){
         return playerController.safeTransferToBank(activePlayerId,((Prison)boardController.getBoard().getFields()[30]).getBail());
-    }
-
-
-
-    public boolean safePaymentToPlayer(int fromPlayerId, int amount, int toPlayerId){
-        return playerController.safeTransferToPlayer(fromPlayerId,amount,toPlayerId);
-
     }
 
     public PlayerController getPlayerController() {
@@ -141,35 +128,14 @@ public class GameController {
 
     }
 
-    /**
-     * Method that can be called when a player lands on the field called Ordinary Tax
-     * @param //activePlayerId
-     * @return
-     */
-
-    //public boolean payOrdinaryTax(int activePlayerId){
-        //return safePaymentToBank(activePlayerId, ((OrdinaryTax)boardController.getBoard().getFields()[38]).getTax());
-
-    //}
-
 
     public void setPlayerController(PlayerController playerController) {
         this.playerController = playerController;
     }
-
-    //TODO her kunne vi evt refakturere
-    public boolean tryToBuyHouses(int fieldId, int numberOfHouses){
-        int totalCost = numberOfHouses*((Street)boardController.getBoard().getFields()[fieldId]).getHousePrice();
-        //If the player can't afford, or more houses can't be built
-        if(totalCost>getActivePlayer().getAccountBalance() ||numberOfHouses + ((Street)boardController.getBoard().getFields()[fieldId]).getHouseLevel()>5){
-            return false;
-        } else{
-            //If the player can afford and expansion is possible, withdraws money and builds houses
-            safePaymentToBank(getActivePlayerId(),totalCost);
-            boardController.buildHouses(fieldId,numberOfHouses);
-            return true;
-        }
-
+    
+    public void buyHouse(int fieldId){
+        int cost = ((Street)boardController.getBoard().getFields()[fieldId]).getHousePrice();
+        safePaymentToBank(getActivePlayerId(),cost);
     }
 
     public void sellHouses(int fieldId, int numberOfHouses, int playerId){
@@ -277,7 +243,7 @@ public class GameController {
 
         //Checks that player can afford it
         if (!playerController.safeTransferToBank(playerId,amount)){
-            System.out.println("FEJl i pawnStreet()-metoden. Spilleren har ikke råd");
+            System.out.println("FEJl i pawnStreet()-metoden. Spilleren har ikke råd"); //TODO skriv en besked der er mere user-friendly
         }
 
         //changes pawn status

@@ -30,13 +30,6 @@ public class PlayerController {
         players[playerid].withdraw(amount);
     }
 
-    /**
-     * Checks is player has enough money on account, if yes then returns true
-     * @param playerId
-     * @param amount
-     * @return
-     */
-
     public boolean safeTransferToBank(int playerId,int amount) {
         boolean succes;
         int playerBalance = players[playerId].getAccountBalance();
@@ -82,15 +75,6 @@ public class PlayerController {
 
     public Player[] getPlayers() {
         return players;
-    }
-
-
-    public int[] getFieldIds(){
-        int[] fieldIds = new int[numberOfPlayers];
-        for (int i =0; i< numberOfPlayers; i++){
-            fieldIds[i] = players[i].getPositionOnBoard();
-        }
-        return fieldIds;
     }
 
     public int[] getPlayerBalances(){
@@ -200,5 +184,4 @@ public class PlayerController {
         }
         return succes;
     }
-
 }
