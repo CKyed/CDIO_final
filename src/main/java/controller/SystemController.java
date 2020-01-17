@@ -10,8 +10,6 @@ import static Utilities.FileReader.readFile;
 public class SystemController {
     private GameController gameController;
     private ViewController viewController;
-    private int numberOfPlayers;
-
 
     public SystemController() {
         //Initializes controllers
@@ -355,10 +353,6 @@ public class SystemController {
     }
 
     public void playerBankruptcy(int playerId) {
-        int owesAmount = gameController.getActivePlayer().getOwesAmount();
-        int playerBalance = gameController.getPlayerController().getPlayers()[playerId].getAccountBalance();
-        int creditorId = gameController.getPlayerController().getPlayers()[playerId].getAccount().getCreditorId();
-
         // Updates balances on view
         viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
 
@@ -415,7 +409,6 @@ public class SystemController {
         //Set the the player variale "hasPlayerLost" to true
         gameController.getPlayerController().getActivePlayer().setHasPlayerLost(true);
         //Releases all the players properties in both model and view
-        //TODO her kan evt refaktureres, tjek om for-loop er nødvendigt
         for (int i = 0; i < gameController.getPlayerController().getPlayers().length; i++) {
             if (gameController.getPlayerController().getPlayers()[i].isHasPlayerLost()==true){
                 viewController.updateOwnerships(gameController.getBoardController().getBoard());
@@ -450,10 +443,6 @@ public class SystemController {
                 buyOrSellMore = false;
             }
         }
-
-
-
-
     }
 
     public void buyHouses(){
@@ -493,14 +482,9 @@ public class SystemController {
                     }
                 }
 
-
-                //If player chose to build on a street
-                //TODO refakturer evt indre loop, da else statement er overflødig
                 if (selectedStreetId != -1){
-                    if (gameController.tryToBuyHouses(selectedStreetId, 1))
-                        viewController.showMessage(readFile(turnMessagesPath, "buildingSucceeded"));
-                    else  //Service errormessage
-                        viewController.showMessage("HOV - SPILLEREN BURDE KUNNE BYGGE HUSET");
+                    //If player chose to build on a street
+                    gameController.buyHouse(selectedStreetId);
                 }
             }
             //Updates balances and ownerships
@@ -672,6 +656,4 @@ public class SystemController {
             viewController.updatePlayerBalances(gameController.getPlayerController().getPlayerBalances());
         }
     }
-
-
 }

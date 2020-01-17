@@ -5,8 +5,6 @@ import model.Fields.Ownable;
 import static Utilities.FileReader.*;
 
 public class Street extends Ownable {
-    private String type = "street";
-    private int group;
     private int housePrice;
     private int houseLevel;
     private int[] rentLevels;
@@ -23,6 +21,7 @@ public class Street extends Ownable {
             rentLevels[i] = getFieldData(state,"house"+i);
         }
         this.rent = rentLevels[0];
+        type = "street";
     }
 
     public int getHousePrice() {

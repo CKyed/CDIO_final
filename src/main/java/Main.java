@@ -5,7 +5,6 @@ import controller.SystemController;
 public class Main {
     public static void main(String[] args) {
         LanguagePick l = new LanguagePick();
-        l.pickLanguage();
     }
 }
 
