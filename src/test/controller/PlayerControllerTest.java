@@ -55,21 +55,32 @@ class PlayerControllerTest {
         }
     }
 
-    //TODO: Delete it or finish it
-   /* @Test
-    void safePaymentToPlayer(){
-
+   @Test
+    void safePaymentToPlayer(){ 
         String[] tT = {"TorbenTest","TinaTest"};
         PlayerController pc = new PlayerController(tT);
 
-        for (int i = 0; i <1000; i++) {
-            int fromPlayerId
-            int amount=(int)(Math.random()*500);
-            int balanceBeforeFromPlayer = pc.getPlayers()[0].getAccountBalance();
-            int balanceBeforeToPlayer = pc.getPlayers()
+        for (int i = 0; i <10000; i++) {
+            int fromPlayerId = ((int)(Math.random()*2));
+            int toPlayerId = 0;
+            if(fromPlayerId==0)
+                toPlayerId =1;
+            int amount=(int)(Math.random()*30000);
+            int balanceBeforeFromPlayer = pc.getPlayers()[fromPlayerId].getAccountBalance();
+            int balanceBeforeToPlayer = pc.getPlayers()[toPlayerId].getAccountBalance();
+            pc.safeTransferToPlayer(fromPlayerId,amount,toPlayerId);
 
+            if(balanceBeforeFromPlayer-amount>=0) {
+                assertTrue(pc.getPlayers()[fromPlayerId].getAccountBalance() == balanceBeforeFromPlayer - amount);
+                assertTrue(pc.getPlayers()[toPlayerId].getAccountBalance() == balanceBeforeToPlayer + amount);
+            }
+            if(balanceBeforeFromPlayer-amount<0){
+                assertTrue(pc.getPlayers()[fromPlayerId].getAccountBalance()==0);
+                assertTrue(pc.getPlayers()[fromPlayerId].getOwesAmount()==amount-balanceBeforeFromPlayer);
+                assertTrue(pc.getPlayers()[toPlayerId].getAccountBalance() == balanceBeforeToPlayer+(balanceBeforeFromPlayer));
+            }
         }
 
     }
-   */
+
 }
