@@ -1,40 +1,40 @@
-start: بداية
-carpark: موقف سيارات
-visit: في السجن / الزيارة
-prison: السجن
-chance01: <center> <h1> ؟
-chance02: <center> <h1> ؟
-chance03: <center> <h1> ؟
-chance04: <center> <h1> ؟
-chance05: <center> <h1> ؟
-chance06: <center> <h1> ؟
-tax01: ضريبة الدخل
-tax02: ضريبة الدولة استثنائية
-brew01: Tuborg الاسكواش
-brew02: كوكا كولا
-ferry01: هيلسينجور - هيلسينجبورج
-ferry02: الخط مولس
-ferry03: الماعز - روستوك
-ferry04: رودبي - بوتغاردن
-field01: Rødovrevej
-field02: Hvidovrevej
-field03: Roskildevej
-field04: فالبي لانجاد
-field05: Allégade
-field06: فريدريكسبرج ألي
-field07: Bülowsvej
-field08: جليلي. طريق الملك
-field09: Bernstorffsvej
-field10: Hellerupvej
-field11: طريق الشاطئ
-field12: مثلث
-field13: Østerbrogade
-field14: Grønningen
-field15: شارع واسع
-field16: كلغ. نيتورف
-field17: شارع الشرق
-field18: Amagertorv
-field19: Vimmelskaftet
-field20: Nygade
-field21: Frederiksberggade
-field22: نصيحة البيت \ nplace
+start:بداية
+carpark:موقف سيارات
+visit:في السجن / الزيارة
+prison:اذهب مباشرة إلى السجن
+chance01:<center> <h1> ؟
+chance02:<center> <h1> ؟
+chance03:<center> <h1> ؟
+chance04:<center> <h1> ؟
+chance05:<center> <h1> ؟
+chance06:<center> <h1> ؟
+tax01:ضريبة الدخل
+tax02:ضريبة الدولة استثنائية
+brew01:البيرة سيئة
+brew02:الانحناء جيدة
+ferry01:هيلسينجور - هيلسينجبورج
+ferry02:مولس الخط
+ferry03:الماعز - روستوك
+ferry04:مدينة بوتغاردن الحمراء
+field01:الطريق العلوي الأحمر
+field02:الطريق العلوي الأبيض
+field03:مدح مصدر الطريق
+field04:شارع فالبي لانج
+field05:شارع علي
+field06:فريدريك جبل ألي
+field07:بو أدنى مستوى الطريق
+field08:طريق الملك القديم
+field09:طريقة بيرنستورف
+field10:طريق هيليروب
+field11:طريق الشاطئ
+field12:مثلث
+field13:شارع الجسر الشرقي
+field14:لا شيء أخضر
+field15:شارع واسع
+field16:ميدان الملك الجديد
+field17:شارع الشرق
+field18:العشب العجاف
+field19:فيم رمح الدقيق
+field20:شارع جديد
+field21:شارع فريدريك الجبلي
+field22:تقديم المشورة ساحة المنزل

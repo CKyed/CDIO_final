@@ -10,4 +10,23 @@ housePrice: Huspris:
 rent: Leje:
 tax: Skat:
 pawned: Pantsat
-
+car: Bil
+racecar: Racerbil
+tractor: Traktor
+ufo: UFO
+red: Rød
+blue: Blå
+green: Grøn
+yellow: Gul
+gray: Grå
+black: Sort
+checkered: Ternet
+gradient: Overgang
+fill: Kun primær farve
+zebra: Stribet som en zebra
+pickcar: Vælg venligst en bil
+pricolor: Vælg venligst en primær farve
+seccolor: Vælg venligst en sekundær farve
+pattern: Vælg venligst et mønster
+failure: Der er desværre allerede en anden spiller med denne kombination,\n prøv noget andet
+success: Til lykken du har nu valgt din bils opsætning.

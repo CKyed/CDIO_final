@@ -1,12 +1,32 @@
-welcome:
-choosePlayerNumber:
-player:
-writeName:
-nameError:
-owner:
-none:
-price:
-housePrice:
-rent:
-tax:
-pawned:
+welcome:Добре дошли в играта на matador, разработена от група 20.
+choosePlayerNumber:Изберете броя на играчите.
+player:плейър
+writeName:напиши името си
+nameError:Две имена не трябва да са еднакви и да не са празни!
+owner:Собственик:
+none:не
+price:Цена:
+housePrice:къща цена:
+rent:под наем:
+tax:данък:
+pawned:заложени
+car: Кола
+racecar: Състезателна кола
+tractor: Трактор
+ufo: НЛО
+red: Червено
+blue: Синьо
+green: Зелено
+yellow: Жълто
+gray: Сиво
+black: Черен
+checkered: Проверено
+gradient: Преход
+fill: Само основен цвят
+zebra: Раирана като зебра
+pickcar: Моля, изберете кола
+pricolor: Моля, изберете основен цвят
+seccolor: Моля, изберете вторичен цвят
+pattern: Моля, изберете модел
+failure: За съжаление вече има друг играч с тази комбинация, опитайте нещо друго
+success: За щастие сега сте избрали настройката на вашия автомобил

@@ -1,52 +1,51 @@
-newTurn:
-landedOn:
-buyField?:
-yes:
-no:
-prison:
-incometax:
-payRentFromTo:
-pay4kTax:
-pay10pct:
-buyBeforeTurn:
-howManyHouses:
-notPossibleToBuild:
-selfOwned:
-qualifies:
-qualifiesNot:
-landedOnChance:
-getLucky:
-cantAffordOwnable:
-goesToJail:
-chooseIncomeTaxType:
-ordTax:
-playerPayed:
-ownerInPrison:
-playerPaysBail:
-getsPrisonCard:
-buySell:
-exit:
-buyHouses:
-sellHouses:
-buildHouseWhere:
-cantBuild:
-buildingSucceeded:
-cantSellHouse:
-sellHouseWhere:
-sellingSucceded:
-askWhichChoice:
-payToPrison:
-rollDiceInPrison:
-release'scard:
-payPrisonLastTry:
-pawnWhere:
-pawnOrUnpawn:
-pawn:
-unpawn:
-noPawningPossible:
-noUnpawningPossible:
-needsToSell:
-freeOfDebt:
-pawnedNorent:
-rollDice:
-
+newTurn:Es ist an der Reihe.
+landedOn:%s ist auf gelandet
+buyField?:Will %s %s kaufen?
+yes:ja
+no:keine
+prison:Du musst leider ins Gefängnis, viel Glück
+incometax:Lohnsteuer, entweder 10 %oder 4000 kr
+payRentFromTo:%s zahlt %s an %s.
+pay4kTax:Zahlen Sie 4000 DKK an Steuern
+pay10pct:Zahlen Sie 10 %Ihrer Steuerwerte
+buyBeforeTurn:Möchten Sie, dass %s Häuser kauft?
+howManyHouses:Wie viele Häuser möchte %s auf %s kaufen?
+notPossibleToBuild:Die gewünschte Verlängerung ist nicht möglich.
+selfOwned:%s besitzt bereits %s.
+qualifies:%s Gesamtwerte überschreiten 15000 nicht. %s erhält das Matador-Stipendium.
+qualifiesNot:Die Gesamtwerte von %s belaufen sich auf mehr als 15000. %s erhält kein Matador-Stipendium.
+landedOnChance:%s ist auf einem Zufallsfeld gelandet. Lies die Karte in der Mitte der Tafel.
+getLucky:Versuche dein Glück
+cantAffordOwnable:%s kann es sich nicht leisten, %s zu kaufen.
+goesToJail:%s raucht direkt im Gefängnis und erhält keine $ 4000, um den Start zu bestehen.
+chooseIncomeTaxType:Wie will %s die Einkommensteuer bezahlen?
+ordTax:%s muss 2000 in der außerordentlichen staatlichen Steuer bezahlen.
+playerPayed:%s hat %s an Einkommensteuer gezahlt.
+ownerInPrison:Der Besitzer ist aus diesem Grund im Gefängnis, so dass Sie keine Miete zahlen müssen
+playerPaysBail:%s ist im Gefängnis und zahlt $ 1000 Geldstrafe, um rauszukommen.
+getsPrisonCard:%s hat eine Begnadigungskarte erhalten, die er das nächste Mal verwendet, wenn er ins Gefängnis kommt
+buySell:Kauf / Verkauf
+exit:verlassen
+buyHouses:Häuser kaufen
+sellHouses:Verkaufe Häuser
+buildHouseWhere:Wo könnte %s planen, ein Haus zu bauen?
+cantBuild:%s kann derzeit keine Häuser bauen.
+buildingSucceeded:Es ist ihnen gelungen, ein Haus zu bauen!
+cantSellHouse:%s kann derzeit keine Häuser verkaufen.
+sellHouseWhere:Wo könnten %s ein Haus verkaufen wollen?
+sellingSucceded:Sie haben es geschafft, ein Haus zu verkaufen!
+askWhichChoice:%s hat 3 Möglichkeiten, um aus dem Gefängnis zu kommen
+payToPrison:Zahlen Sie 1000 kr, um auszusteigen
+rollDiceInPrison:Würfel wegwerfen
+release'scard:die Release-Karte
+payPrisonLastTry:Sie haben 3 Pay 1000 kr gehabt, um auszusteigen
+pawnWhere:Welchen Grund könnten %s verpfänden wollen?
+pawnOrUnpawn:Verpfändung / Verpfändung kündigen
+pawn:Verpfändungssatz
+unpawn:Verpfändung stornieren
+noPawningPossible:Es gibt keine Verpfändungsgründe.
+noUnpawningPossible:Es gibt keine Hypotheken, es ist möglich zu stornieren.
+needsToSell:%s muss etwas mehr verkaufen oder verpfänden.
+freeOfDebt:%s ist jetzt schuldenfrei.
+pawnedNorent:%s ist verpfändet und daher ist keine Steuer zu zahlen.
+rollDice:rull das tzerning gebensht

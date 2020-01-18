@@ -1,13 +1,32 @@
-welcome:Velkommen til matadorspillet udviklet af gruppe 20.
-choosePlayerNumber:Vælg antal spillere.
-player:Spiller
-writeName:skriv dit navn
-nameError:To navne må ikke være ens og ikke tomme!
-owner:Ejer:
-none:Ingen
-price:Pris:
-housePrice:Huspris:
-rent:Leje:
-tax:Skat:
-pawned:Pantsat
-
+welcome:Välkommen till matador-spelet som utvecklats av grupp 20.
+choosePlayerNumber:Välj antal spelare.
+player:spelare
+writeName:skriv ditt namn
+nameError:Två namn får inte vara desamma och inte tomma!
+owner:ägare:
+none:ingen
+price:pris:
+housePrice:house pris:
+rent:hyra:
+tax:skatt:
+pawned:ställda
+car: Bil
+racecar: Racerbil
+tractor: Traktor
+ufo: UFO
+red: Röd
+blue: Blå
+green: Grön
+yellow: Gul
+gray: Grå
+black: Svart
+checkered: Kontrollerad
+gradient: Övergång
+fill: Endast primärfärg
+zebra: Randig som en sebra
+pickcar: Välj en bil
+pricolor: Välj en primärfärg
+seccolor: Välj en sekundär färg
+pattern: Välj ett mönster
+failure: Tyvärr finns det redan en annan spelare med denna kombination som kan prova något annat
+success: Till tur har du nu valt din bil

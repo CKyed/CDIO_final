@@ -1,40 +1,40 @@
-start:
-carpark:
-visit:
-prison:
-chance01:
-chance02:
-chance03:
-chance04:
-chance05:
-chance06:
-tax01:
-tax02:
-brew01:
-brew02:
-ferry01:
-ferry02:
-ferry03:
-ferry04:
-field01:
-field02:
-field03:
-field04:
-field05:
-field06:
-field07:
-field08:
-field09:
-field10:
-field11:
-field12:
-field13:
-field14:
-field15:
-field16:
-field17:
-field18:
-field19:
-field20:
-field21:
-field22:
+start:начало
+carpark:паркинг
+visit:В затвора / на посещение
+prison:Отидете директно в затвора
+chance01:Опитайте късмета си
+chance02:Опитайте късмета си
+chance03:Опитайте късмета си
+chance04:Опитайте късмета си
+chance05:Опитайте късмета си
+chance06:Опитайте късмета си
+tax01:данък общ доход
+tax02:Изключителен държавен данък
+brew01:лоша бира
+brew02:добри лъкове
+ferry01:Хелсингер - Хелсингборг
+ferry02:Оформя линията
+ferry03:Кози - Росток
+ferry04:Червен град Путгарден
+field01:Червен горен път
+field02:Бял горен път
+field03:Похвалете източника на пътя
+field04:Улица Валби Ланг
+field05:Али улица
+field06:Планина Фредерикс Але
+field07:Пътят на Бюлов
+field08:Стар Конгевей
+field09:Пътят на Бернсторф
+field10:Път на Hellerup
+field11:Плажен път
+field12:триъгълник
+field13:Източна мостова улица
+field14:Зелено няма
+field15:Широка улица
+field16:Новият площад на краля
+field17:Източна улица
+field18:Удивителна трева
+field19:Вал от брашно Vim
+field20:Нова улица
+field21:Планинската улица на Фредерик
+field22:Съветвайте площада на къщата

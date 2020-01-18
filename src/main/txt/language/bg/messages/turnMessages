@@ -1,52 +1,51 @@
-newTurn:
-landedOn:
-buyField?:
-yes:
-no:
-prison:
-incometax:
-payRentFromTo:
-pay4kTax:
-pay10pct:
-buyBeforeTurn:
-howManyHouses:
-notPossibleToBuild:
-selfOwned:
-qualifies:
-qualifiesNot:
-landedOnChance:
-getLucky:
-cantAffordOwnable:
-goesToJail:
-chooseIncomeTaxType:
-ordTax:
-playerPayed:
-ownerInPrison:
-playerPaysBail:
-getsPrisonCard:
-buySell:
-exit:
-buyHouses:
-sellHouses:
-buildHouseWhere:
-cantBuild:
-buildingSucceeded:
-cantSellHouse:
-sellHouseWhere:
-sellingSucceded:
-askWhichChoice:
-payToPrison:
-rollDiceInPrison:
-release'scard:
-payPrisonLastTry:
-pawnWhere:
-pawnOrUnpawn:
-pawn:
-unpawn:
-noPawningPossible:
-noUnpawningPossible:
-needsToSell:
-freeOfDebt:
-pawnedNorent:
-rollDice:
-
+newTurn:%s е ред.
+landedOn:%s е кацнал
+buyField?:%s иска ли да купи %s ?
+yes:да
+no:не
+prison:За съжаление трябва да отидете в затвора, късмет
+incometax:Платете данък върху дохода, 10% или 4000 кр
+payRentFromTo:%s плаща %s такса до %s.
+pay4kTax:Платете данък 4000 DKK
+pay10pct:Плащайте 10% от стойностите си в данъци
+buyBeforeTurn:Искате %s да купувате къщи?
+howManyHouses:Колко къщи %s иска да купи на %s?
+notPossibleToBuild:Желаното разширение не е възможно.
+selfOwned:%s вече притежава %s.
+qualifies:%s общите стойности не надвишават 15000. %s получава стипендия Matador.
+qualifiesNot:%s общите стойности възлизат на повече от 15000. %s не получава стипендия Matador.
+landedOnChance:%s кацнаха на поле за шанс. Прочетете картата в средата на дъската.
+getLucky:Опитайте късмета си
+cantAffordOwnable:%s не могат да си позволят да купят %s.
+goesToJail:%s пуши директно в затвора и не получава 4000 $, за да премине старта.
+chooseIncomeTaxType:Как %s иска да плати данъка върху дохода?
+ordTax:%s трябва да плати 2000 извънреден държавен данък.
+playerPayed:%s е платил %s в данъка върху дохода.
+ownerInPrison:Собственикът по тази причина е в затвора, така че не е нужно да плащате наем
+playerPaysBail:%s е в затвора и плаща 1000 паунда глоба, за да се измъкне.
+getsPrisonCard:%s получи карта за помилване, която ще използва следващия път, когато влезе в затвора
+buySell:Покупка / продажба
+exit:напускам
+buyHouses:Купете къщи
+sellHouses:Продавам къщи
+buildHouseWhere:Къде може %s да планира да построи къща?
+cantBuild:Понастоящем %s не може да изгради нито една къща.
+buildingSucceeded:Те успяха да построят къща!
+cantSellHouse:Понастоящем %s не може да продава нито една къща.
+sellHouseWhere:Къде може %s да иска да продаде къща?
+sellingSucceded:Успяха да продадат къща!
+askWhichChoice:%s има 3 възможности за стартиране от затвора
+payToPrison:Платете 1000 кр, за да излезете
+rollDiceInPrison:Изхвърлете зара
+release'scard:картата за освобождаване
+payPrisonLastTry:Имали сте 3 Pay 1000 kr, за да излезете
+pawnWhere:Каква причина може %s да иска да заложи?
+pawnOrUnpawn:Залог / Отказ залог
+pawn:Обезпечен комплект
+unpawn:Анулиране на залог
+noPawningPossible:Няма причини за залог.
+noUnpawningPossible:Няма ипотеки, възможно е отмяна.
+needsToSell:%s трябва да продаде или заложи нещо повече.
+freeOfDebt:%s вече е без дълг.
+pawnedNorent:%s е заложен и следователно не се плаща данък.
+rollDice:roll the dice

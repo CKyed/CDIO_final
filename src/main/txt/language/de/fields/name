@@ -1,40 +1,40 @@
-start:
-carpark:
-visit:
-prison:
-chance01:
-chance02:
-chance03:
-chance04:
-chance05:
-chance06:
-tax01:
-tax02:
-brew01:
-brew02:
-ferry01:
-ferry02:
-ferry03:
-ferry04:
-field01:
-field02:
-field03:
-field04:
-field05:
-field06:
-field07:
-field08:
-field09:
-field10:
-field11:
-field12:
-field13:
-field14:
-field15:
-field16:
-field17:
-field18:
-field19:
-field20:
-field21:
-field22:
+start:Start
+carpark:Parkplatz
+visit:Im Gefängnis / Besuch
+prison:Geh direkt ins Gefängnis
+chance01:<center> <h1>?
+chance02:<center> <h1>?
+chance03:<center> <h1>?
+chance04:<center> <h1>?
+chance05:<center> <h1>?
+chance06:<center> <h1>?
+tax01:Einkommensteuer
+tax02:Außergewöhnliche staatliche Steuer
+brew01:schlechtes Bier
+brew02:gute Bögen
+ferry01:Helsingør - Helsingborg
+ferry02:Mols die Leitung
+ferry03:Ziegen - Rostock
+ferry04:Rote Stadt von Puttgarden
+field01:Rote obere Straße
+field02:Weiße obere Straße
+field03:Loben Sie die Quelle der Straße
+field04:Valby Lang Straße
+field05:Alé Straße
+field06:Frederiks Berg Allé
+field07:Bü lows Straße
+field08:Alte Königstraße
+field09:Bernstorffs Weg
+field10:Hellerup Straße
+field11:Strandstraße
+field12:Dreieck
+field13:East Bridge Street
+field14:Grün keine
+field15:Breite Straße
+field16:Der neue Platz des Königs
+field17:East Street
+field18:Ein magerer Rasen
+field19:Vim Mehlschacht
+field20:Neue Straße
+field21:Frederiks Bergstraße
+field22:Beraten Sie den Hausplatz

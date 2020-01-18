@@ -1,23 +1,32 @@
-welcome: Welcome to the matador game developed by group 20.
-choosePlayerNumber: Select the number of players.
-player: Player
-writeName: Write your name
-nameError: Two names must not be the same and not empty!
-owner: Owner:
-none: None
-price: Price:
-housePrice: house price:
-rent: Rent:
-tax: Treasure:
-pawned: pledged
-
-
-
-
-
-
-
-
-
-
-
+welcome:Welcome to the matador game developed by group 20.
+choosePlayerNumber:Select the number of players.
+player:Player
+writeName:Write your name
+nameError:Two names must not be the same and not empty!
+owner:Owner:
+none:None
+price:Price:
+housePrice:house price:
+rent:Rent:
+tax:Treasure:
+pawned:pledged
+car: Car
+racecar: Racer car
+tractor: Tractor
+ufo: UFO
+red: Red
+blue: Blue
+green: Green
+yellow: Yellow
+gray: Gray
+black: Black
+checkered: Checked
+gradient: Transition
+fill: Primary color only
+zebra: Striped like a zebra
+pickcar: Please choose a car
+pricolor: Please select a primary color
+seccolor: Please select a secondary color
+pattern: Please select a pattern
+failure: Unfortunately there is already another player with this combination try something else
+success: To the luck you have now chosen your car's setup
