@@ -1,0 +1,101 @@
+newTurn: إنه دور٪ s.
+landedOn: لقد هبط٪ s
+buyField?: : هل يريد٪ s شراء٪ s؟
+yes: نعم
+no: لا
+prison: يجب أن تذهب للأسف إلى السجن ، حظاً سعيداً
+incometax: دفع ضريبة الدخل ، إما 10 ٪ أو 4000 كرونة
+payRentFromTo: يدفع٪ s٪ s رسومًا إلى٪ s.
+pay4kTax: دفع 4000 كرونة دانمركية في الضريبة
+pay10pct: دفع 10 ٪ من القيم الخاصة بك في الضرائب
+buyBeforeTurn: هل تريد٪ s شراء المنازل؟
+howManyHouses: كم عدد المنازل التي يريد٪ s شراءها على٪ s؟
+notPossibleToBuild: التمديد المطلوب غير ممكن.
+selfOwned: يملك٪ s بالفعل٪ s.
+qualifies: لا تتجاوز القيم الإجمالية٪ 15000. تتلقى٪ s منحة Matador.
+qualifiesNot: تبلغ القيم الإجمالية٪ s أكثر من 15000. لا تتلقى٪ s منحة Matador.
+landedOnChance: هبط٪ s في حقل فرصة. اقرأ البطاقة في منتصف اللوحة.
+getLucky: جرب حظك
+cantAffordOwnable: لا يستطيع٪ s شراء٪ s.
+goesToJail: ٪ s يدخن مباشرة في السجن ولا يتلقى 4000 دولار لتمرير البداية.
+chooseIncomeTaxType: كيف يريد٪ s دفع ضريبة الدخل؟
+ordTax: يجب أن يدفع٪ s 2000 ضريبة الدولة الاستثنائية.
+playerPayed: قام٪ s بدفع٪ s من ضريبة الدخل.
+ownerInPrison: المالك لهذا السبب في السجن ، لذلك لا يتعين عليك دفع الإيجار
+playerPaysBail: ٪ s في السجن ويدفع غرامة قدرها 1000 جنيه إسترليني للخروج.
+getsPrisonCard: تلقى٪ s بطاقة العفو التي سيستخدمها في المرة التالية التي يذهب فيها إلى السجن
+buySell: شراء / بيع
+exit: استقال
+buyHouses: شراء المنازل
+sellHouses: بيع المنازل
+buildHouseWhere: أين يمكن أن تخطط٪ s لبناء منزل؟
+cantBuild: لا يستطيع٪ s بناء أي منازل في الوقت الحالي.
+buildingSucceeded: لقد نجحوا في بناء منزل!
+cantSellHouse: لا يستطيع٪ s بيع أي منازل في الوقت الحالي.
+sellHouseWhere: أين يمكن أن يريد٪ s بيع منزل؟
+sellingSucceded: تمكنوا من بيع منزل!
+askWhichChoice: يحتوي٪ s على 3 خيارات للبدء من السجن
+payToPrison: دفع 1000 كرونة للخروج
+rollDiceInPrison: تجاهل النرد
+release'scard: scard: løsladelskortet
+payPrisonLastTry: كان لديك 3 دفع 1000 كرونة للخروج
+pawnWhere: ما السبب الذي قد يرغب٪ s في التعهد به؟
+pawnOrUnpawn: تعهد / إلغاء تعهد
+pawn: Pantsæt
+unpawn: إلغاء التعهد
+noPawningPossible: لا توجد أسباب للتعهد.
+noUnpawningPossible: لا توجد رهونات ، من الممكن الإلغاء.
+needsToSell: يحتاج٪ s إلى البيع أو التعهد بشيء أكثر.
+freeOfDebt: ٪ s الآن خالية من الديون.
+pawnedNorent: تم تعهد٪ s وبالتالي لا توجد ضريبة مستحقة الدفع.
+rollDice:
+                            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
