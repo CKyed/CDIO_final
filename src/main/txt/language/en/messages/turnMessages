@@ -1,52 +1,51 @@
-newTurn: It's %s turn.
-landedOn: %s has landed on
-buyField?: Does %s want to buy %s?
-yes: Yes
-no: No
-prison: You must unfortunately go to jail, good luck
-incometax: Pay income tax, either 10% or 4000 kr
-payRentFromTo: %s pays %s in fee to %s.
-pay4kTax: Pay DKK 4000 in tax
-pay10pct: Pay 10% of your values ​​in taxes
-buyBeforeTurn: Want %s to buy houses?
-howManyHouses: How many houses does %s want to buy on %s?
-notPossibleToBuild: The desired extension is not possible.
-selfOwned: %s already owns %s.
-qualifies:  %s total values ​​do not exceed 15000. %s receives the Matador Scholarship.
-qualifiesNot:  %s total values ​​amount to more than 15000. %s does not receive the Matador Scholarship.
-landedOnChance:  %s landed on a chance field. Read the card in the middle of the board.
-getLucky: Try your luck
-cantAffordOwnable:  %s cannot afford to buy %s.
-goesToJail:  %s smokes directly in jail and does not receive $ 4000 to pass the start.
-chooseIncomeTaxType: How does %s want to pay the income tax?
-ordTax:  %s must pay 2000 in Extraordinary State Tax.
-playerPayed:  %s has paid %s in income tax.
-ownerInPrison: The owner for this reason is in jail, so you do not have to pay rent
-playerPaysBail:  %s is in jail and pays £ 1000 fine to get out.
-getsPrisonCard:  %s has received a pardon card which he will use the next time he goes to jail
-buySell: Buy sale
-exit: Quit
-buyHouses: Buy houses
-sellHouses: Sell ​​houses
-buildHouseWhere: Where could %s plan to build a house?
-cantBuild:  %s cannot build any houses at this time.
-buildingSucceeded: They succeeded in building a house!
-cantSellHouse:  %s cannot sell any houses at this time.
-sellHouseWhere: Where could %s want to sell a house?
-sellingSucceded: They managed to sell a house!
-askWhichChoice:  %s has 3 options for starting from prison
-payToPrison: Pay 1000 kr to get out
-rollDiceInPrison: Discard dice
-release'scard: scard: løsladelskortet
-payPrisonLastTry: You have had 3 Pay 1000 kr to get out
-pawnWhere: What reason could %s want to pledge?
-pawnOrUnpawn: Pledge / Cancel pledge
-pawn: Pantsæt
-unpawn: Cancel pledge
-noPawningPossible: There are no reasons to pledge.
-noUnpawningPossible: There are no mortgages, it is possible to cancel.
-needsToSell:  %s needs to sell or pledge something more.
-freeOfDebt:  %s is now debt free.
-pawnedNorent:  %s is pledged and therefore no tax is payable.
-rollDice:
-                        
+newTurn:It's %s turn.
+landedOn:%s has landed on
+buyField?:Does %s want to buy %s?
+yes:Yes
+no:No
+prison:You must unfortunately go to jail, good luck
+incometax:Pay income tax, either 10 %or 4000 kr
+payRentFromTo:%s pays %s in fee to %s.
+pay4kTax:Pay DKK 4000 in tax
+pay10pct:Pay 10 %of your values ​​in taxes
+buyBeforeTurn:Want %s to buy houses?
+howManyHouses:How many houses does %s want to buy on %s?
+notPossibleToBuild:The desired extension is not possible.
+selfOwned:%s already owns %s.
+qualifies:%s total values ​​do not exceed 15000. %s receives the Matador Scholarship.
+qualifiesNot:%s total values ​​amount to more than 15000. %s does not receive the Matador Scholarship.
+landedOnChance:%s landed on a chance field. Read the card in the middle of the board.
+getLucky:Try your luck
+cantAffordOwnable:%s cannot afford to buy %s.
+goesToJail:%s smokes directly in jail and does not receive $ 4000 to pass the start.
+chooseIncomeTaxType:How does %s want to pay the income tax?
+ordTax:%s must pay 2000 in Extraordinary State Tax.
+playerPayed:%s has paid %s in income tax.
+ownerInPrison:The owner for this reason is in jail, so you do not have to pay rent
+playerPaysBail:%s is in jail and pays £ 1000 fine to get out.
+getsPrisonCard:%s has received a pardon card which he will use the next time he goes to jail
+buySell:Buy sale
+exit:Quit
+buyHouses:Buy houses
+sellHouses:Sell ​​houses
+buildHouseWhere:Where could %s plan to build a house?
+cantBuild:%s cannot build any houses at this time.
+buildingSucceeded:They succeeded in building a house!
+cantSellHouse:%s cannot sell any houses at this time.
+sellHouseWhere:Where could %s want to sell a house?
+sellingSucceded:They managed to sell a house!
+askWhichChoice:%s has 3 options for starting from prison
+payToPrison:Pay 1000 kr to get out
+rollDiceInPrison:Discard dice
+release'scard:the release card
+payPrisonLastTry:You have had 3 Pay 1000 kr to get out
+pawnWhere:What reason could %s want to pledge?
+pawnOrUnpawn:Pledge / Cancel pledge
+pawn:Pledge set
+unpawn:Cancel pledge
+noPawningPossible:There are no reasons to pledge.
+noUnpawningPossible:There are no mortgages, it is possible to cancel.
+needsToSell:%s needs to sell or pledge something more.
+freeOfDebt:%s is now debt free.
+pawnedNorent:%s is pledged and therefore no tax is payable.
+rollDice:roll the dice

@@ -1,40 +1,40 @@
-start: Start
-carpark: Parking
-visit: In prison / Visiting
-prison: Prison
-chance01: <Center> <h1>?
-chance02: <Center> <h1>?
-chance03: <Center> <h1>?
-chance04: <Center> <h1>?
-chance05: <Center> <h1>?
-chance06: <Center> <h1>?
-tax01: Income tax
-tax02: Exceptional state tax
-brew01: Tuborg Squash
-brew02: Coca Cola
-ferry01: Helsingør - Helsingborg
-ferry02: Mols Line
-ferry03: Goats - Rostock
-ferry04: Rødby - Puttgarden
-field01: Rødovrevej
-field02: Hvidovrevej
-field03: Roskildevej
-field04: Valby Langgade
-field05: Allégade
-field06: Frederiksberg Alle
-field07: Bülowsvej
-field08: Gl. King's Road
-field09: Bernstorffsvej
-field10: Hellerupvej
-field11: beach road
-field12: triangle
-field13: Østerbrogade
-field14: Grønningen
-field15: broad Street
-field16: Kgs. Nytorv
-field17: East Street
-field18: Amagertorv
-field19: Vimmelskaftet
-field20: Nygade
-field21: Frederiksberggade
-field22: Advice House \ nplace
+start:Start
+carpark:Parking
+visit:In prison / Visiting
+prison:Go directly to jail
+chance01:<center> <h1>?
+chance02:<center> <h1>?
+chance03:<center> <h1>?
+chance04:<center> <h1>?
+chance05:<center> <h1>?
+chance06:<center> <h1>?
+tax01:Income tax
+tax02:Exceptional state tax
+brew01:Turborg
+brew02:Carlsbarg
+ferry01:Whole singer - Whole singer fortress
+ferry02:Mols the line
+ferry03:Goats - Row stock
+ferry04:Red town of Puttgarden
+field01:Red upper road
+field02:White upper road
+field03:Praise the source of the road
+field04:Valby Long street
+field05:Alé street
+field06:Frederiksberg Alle
+field07:Bülow's way
+field08:Old Kongevej
+field09:Bernstorff's way
+field10:Hellerup road
+field11:Beach road
+field12:triangle
+field13:East bridge street
+field14:Green none
+field15:Wide street
+field16:The King's New Square
+field17:East Street
+field18:Amager turf
+field19:Vim flour shaft
+field20:New street
+field21:Frederik's mountain street
+field22:Town square

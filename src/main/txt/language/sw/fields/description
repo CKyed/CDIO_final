@@ -1,49 +1,40 @@
 start:Start
-
-carpark:Parkering
-
-visit:I fængsel/På besøg
-
-prison:Gå direkte i fængsel
-
-chance01:Prøv lykken
-chance02:Prøv lykken
-chance03:Prøv lykken
-chance04:Prøv lykken
-chance05:Prøv lykken
-chance06:Prøv lykken
-
-
-tax01:Indkomstskat
-tax02:Ekstraordinær statsskat
-
-brew01:Tuborg Squash
-brew02:Coca Cola
-
+carpark:parkering
+visit:I fängelse / besök
+prison:Gå direkt till fängelse
+chance01:Prova lyckan
+chance02:Prova lyckan
+chance03:Prova lyckan
+chance04:Prova lyckan
+chance05:Prova lyckan
+chance06:Prova lyckan
+tax01:inkomstskatt
+tax02:Exceptionell statsskatt
+brew01:dåligt öl
+brew02:bra bågar
 ferry01:Helsingør - Helsingborg
-ferry02:Mols-Linien
-ferry03:Gedser - Rostock
-ferry04:Rødby - Puttgarden
-
-field01:Rødovrevej
-field02:Hvidovrevej
-field03:Roskildevej
-field04:Valby Langgade
-field05:Allégade
-field06:Frederiksberg Allé
-field07:Bülowsvej
-field08:Gl. Kongevej
-field09:Bernstorffsvej
-field10:Hellerupvej
-field11:Strandvejen
-field12:Trianglen
-field13:Østerbrogade
-field14:Grønningen
-field15:Bredgade
-field16:Kgs. Nytorv
-field17:Østergade
-field18:Amagertorv
-field19:Vimmelskaftet
-field20:Nygade
-field21:Frederiksberggade
-field22:Rådhuspladsen
+ferry02:Mols linjen
+ferry03:Getter - Rostock
+ferry04:Röd stad Puttgarden
+field01:Röd övre väg
+field02:Vit övre väg
+field03:Beröm vägen
+field04:Valby Lang street
+field05:Alé street
+field06:Frederiks berg Allé
+field07:Bülows väg
+field08:Gamla Kongevej
+field09:Bernstorffs väg
+field10:Hellerup väg
+field11:Strandväg
+field12:triangel
+field13:East Bridge Street
+field14:Grön ingen
+field15:Bred gata
+field16:Kungens nya torg
+field17:East Street
+field18:Amager torv
+field19:Vim mjölaxel
+field20:Ny gata
+field21:Frederiks bergsgata
+field22:Råd huset torg

@@ -1,51 +1,26 @@
-card0: They have won in the class lottery. Receive £ 500
-card1: They have won in the class lottery. Receive £ 500
-card2: They receive your dividend. Receive $ 1000 from the bank.
-card3: They receive your dividend. Receive $ 1000 from the bank.
-card4: They receive your dividend. Receive $ 1000 from the bank.
-card5: They have a row of eleven right in tipping, receive $ 1000.
-card6: Due to the expensive time you have received gage increase, receive kr 1000.
-card7: Their premium bond is the term. They receive $ 1000 from the bank.
-card8: Their premium bond is the term. They receive $ 1000 from the bank.
-card9: They have sold some old furniture at auction. Receive $ 1000 from the bank.
-card10: The municipality has abandoned a quarter's tax. Raise in the bank DKK 3000
-card11: The value of own breeding from the commercial garden is 200 which they receive from the bank
-card12: They receive the “Matador scholarship” of 40,000 kroner, but only if the value does not exceed 15,000 kroner
-card13: On the occasion of the king's birthday you are hereby pardoned for imprisonment. This card can be stored until you need it, or you can sell it.
-card14: On the occasion of the king's birthday you are hereby pardoned for imprisonment. This card can be stored until you need it, or you can sell it.
-card15: Move forward to START.
-card16: Move forward to START.
-card17: Move three fields forward.
-card18: Proceed to Frederiksberg Allé. If you pass START, you will collect $ 4000.
-card19: Take the Mols-Line, move the piece forward and if you pass START then collect $ 4000.
-card20: Move forward to Grønningen, if you pass start start collecting then DKK 4000.
-card21: Move forward to the Vimmelskaftet, if they pass start, then cash in at DKK 4000.
-card22: Proceed to Strandvejen. If you pass the start, you will collect DKK 4000.
-card23: Go to City Hall Square
-card24: Return three squares.
-card25: Return three squares.
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+card0:They have won in the class lottery. Receive £ 500
+card1:They have won in the class lottery. Receive £ 500
+card2:They receive your dividend. Receive 1000 kroner from the bank.
+card3:They receive your dividend. Receive 1000 kroner from the bank.
+card4:They receive your dividend. Receive 1000 kroner from the bank.
+card5:They have a row of eleven right in tipping, receive 1000 kroner.
+card6:Due to the expensive time you have received gage increase, receive 1000 kroner.
+card7:Their premium bond is the term. They receive 1000 kroner from the bank.
+card8:Their premium bond is the term. They receive 1000 kroner from the bank.
+card9:They have sold some old furniture at auction. Receive 1000 kroner from the bank.
+card10:The municipality has abandoned a quarter's tax. Raise in the bank 3000 kroner
+card11:The value of own breeding from the commercial garden is 200 which they receive from the bank
+card12:They receive the “Matador scholarship” of 40,000 kroner, but only if the value does not exceed 15,000 kroner
+card13:On the occasion of the king's birthday you are hereby pardoned for imprisonment. This card can be stored until you need it, or you can sell it.
+card14:On the occasion of the king's birthday you are hereby pardoned for imprisonment. This card can be stored until you need it, or you can sell it.
+card15:Get to the start.
+card16:Get to the start.
+card17:Move three fields forward.
+card18:Head to Frederik's mountain Allé. If you pass the start, you will collect $ 4000.
+card19:Take the mols Line, move the piece forward and if you pass start collect then 4,000 kroner.
+card20:Move forward to green no one if you pass start cashing then kr. 4000.
+card21:Move forward to the vim flour shaft, if they pass start cashing then $ 4000.
+card22:Proceed to Strand road. If you pass the start, you will collect $ 4,000.
+card23:Go to City Hall Square
+card24:Return three squares.
+card25:Return three squares.

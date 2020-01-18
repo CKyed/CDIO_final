@@ -1,24 +1,32 @@
-welcome: Bienvenido al juego matador desarrollado por el grupo 20.
-choosePlayerNumber: Selecciona el número de jugadores.
-player: jugador
-writeName: escribe tu nombre
-nameError: ¡Dos nombres no deben ser iguales ni estar vacíos!
-owner: propietario:
-none: no
-price: Precio:
-housePrice: precio de la vivienda:
-rent: alquilar:
-tax: impuestos:
-pawned: comprometido
-                       
-
-
-
-
-
-
-
-
-
-
-
+welcome:Bienvenido al juego matador desarrollado por el grupo 20.
+choosePlayerNumber:Selecciona el número de jugadores.
+player:jugador
+writeName:escribe tu nombre
+nameError:¡Dos nombres no deben ser iguales ni estar vacíos!
+owner:propietario:
+none:no
+price:Precio:
+housePrice:precio de la vivienda:
+rent:alquilar:
+tax:impuestos:
+pawned:comprometido
+car: Coche
+racecar: Racer car
+tractor: Tractor
+ufo: OVNI
+red: rojo
+blue: azul
+green: Verde
+yellow: amarillo
+gray: gris
+black: negro
+checkered: marcado
+gradient: Transición
+fill: solo color primario
+zebra: Rayado como una cebra
+pickcar: Por favor elige un auto
+pricolor: Seleccione un color primario
+seccolor: seleccione un color secundario
+pattern: Seleccione un patrón
+failure: Desafortunadamente ya hay otro jugador con esta combinación, intente otra cosa
+success: Para la suerte, ahora ha elegido la configuración de su automóvil

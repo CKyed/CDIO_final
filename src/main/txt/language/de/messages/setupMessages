@@ -1,12 +1,32 @@
-welcome:
-choosePlayerNumber:
-player:
-writeName:
-nameError:
-owner:
-none:
-price:
-housePrice:
-rent:
-tax:
-pawned:
+welcome:Willkommen zum Matador-Spiel der Gruppe 20.
+choosePlayerNumber:Wählen Sie die Anzahl der Spieler.
+player:Spieler
+writeName:Schreibe deinen Namen
+nameError:Zwei Namen dürfen nicht gleich und nicht leer sein!
+owner:Besitzer:
+none:keine
+price:Preis:
+housePrice:Hauspreis:
+rent:mieten:
+tax:Steuern:
+pawned:verpfändete
+car: Auto
+racecar: Rennwagen
+tractor: Traktor
+ufo: UFO
+red: Rot
+blue: Blau
+green: Grün
+yellow: Gelb
+gray: Grau
+black: Schwarz
+checkered: überprüft
+gradient: Übergang
+fill: Nur Primärfarbe
+zebra: Gestreift wie ein Zebra
+pickcar: Bitte wählen Sie ein Auto
+pricolor: Bitte wählen Sie eine Grundfarbe
+seccolor: Bitte wählen Sie eine Sekundärfarbe
+pattern: Bitte wählen Sie ein Muster aus
+failure: Leider gibt es bereits einen anderen Spieler mit dieser Kombination, versuchen Sie etwas anderes
+success: Zum Glück haben Sie jetzt das Setup Ihres Autos gewählt

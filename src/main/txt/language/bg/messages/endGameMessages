@@ -1,4 +1,4 @@
-loser:
-winner:
-updateLooserOnBoard:
-hasToSell:
+loser:%s няма повече пари и е извън играта.
+winner:Победителят е %s.
+updateLooserOnBoard:е загубил
+hasToSell:%s дължи %s DKK и сега ще трябва да продаде нещо, за да изплати дълга.

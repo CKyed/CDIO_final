@@ -1,101 +1,51 @@
-newTurn: Es el turno de% s.
-landedOn: % s ha aterrizado en
-buyField?: : ¿% S quiere comprar% s?
-yes: sí
-no: no
-prison: Desafortunadamente debes ir a la cárcel, buena suerte
-incometax: Pague el impuesto sobre la renta, ya sea 10% o 4000 kr
-payRentFromTo: % s paga% s en tarifa a% s.
-pay4kTax: Pague 4000 DKK en impuestos
-pay10pct: Paga el 10% de tus valores en impuestos
-buyBeforeTurn: ¿Quieres% s para comprar casas?
-howManyHouses: ¿Cuántas casas quiere comprar% s en% s?
-notPossibleToBuild: La extensión deseada no es posible.
-selfOwned: % s ya posee% s.
-qualifies: Los valores totales de% s no superan los 15000.% s recibe la beca Matador.
-qualifiesNot: Los valores totales de% s ascienden a más de 15000.% s no recibe la beca Matador.
-landedOnChance: % s aterrizó en un campo de oportunidad. Lea la tarjeta en el medio del pizarrón.
-getLucky: Prueba tu suerte
-cantAffordOwnable: % s no puede permitirse comprar% s.
-goesToJail: % s fuma directamente en la cárcel y no recibe $ 4000 para pasar el comienzo.
-chooseIncomeTaxType: ¿Cómo quiere% s pagar el impuesto sobre la renta?
-ordTax: % s debe pagar 2000 en impuestos estatales extraordinarios.
-playerPayed: % s ha pagado% s en impuesto sobre la renta.
-ownerInPrison: El propietario por este motivo está en la cárcel, por lo que no tiene que pagar el alquiler.
-playerPaysBail: % s está en la cárcel y paga una multa de £ 1000 para salir.
-getsPrisonCard: % s ha recibido una tarjeta de perdón que usará la próxima vez que vaya a la cárcel
-buySell: Compra / Venta
-exit: dejar
-buyHouses: Comprar casas
-sellHouses: Vender casas
-buildHouseWhere: ¿Dónde podría% s planear construir una casa?
-cantBuild: % s no puede construir ninguna casa en este momento.
-buildingSucceeded: ¡Lograron construir una casa!
-cantSellHouse: % s no puede vender ninguna casa en este momento.
-sellHouseWhere: ¿Dónde podría% s querer vender una casa?
-sellingSucceded: ¡Se las arreglaron para vender una casa!
-askWhichChoice: % s tiene 3 opciones para comenzar desde la prisión
-payToPrison: Paga 1000 kr para salir
-rollDiceInPrison: Descartar dados
-release'scard: SCard: løsladelskortet
-payPrisonLastTry: Has tenido 3 Pay 1000 kr para salir
-pawnWhere: ¿Qué razón podría% s querer prometer?
-pawnOrUnpawn: Compromiso / Cancelar compromiso
-pawn: Pantsæt
-unpawn: Cancelar compromiso
-noPawningPossible: No hay razones para prometer.
-noUnpawningPossible: No hay hipotecas, es posible cancelar.
-needsToSell: % s necesita vender o prometer algo más.
-freeOfDebt: % s ahora está libre de deudas.
-pawnedNorent: % s está comprometido y, por lo tanto, no se pagan impuestos.
-rollDice :
-                          
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+newTurn:Es el turno de %s.
+landedOn:%s ha aterrizado en
+buyField?:¿ %S quiere comprar %s?
+yes:sí
+no:no
+prison:Desafortunadamente debes ir a la cárcel, buena suerte
+incometax:Pague el impuesto sobre la renta, ya sea 10 %o 4000 kr
+payRentFromTo:%s paga %s en tarifa a %s.
+pay4kTax:Pague 4000 DKK en impuestos
+pay10pct:Paga el 10 %de tus valores en impuestos
+buyBeforeTurn:¿Quieres %s para comprar casas?
+howManyHouses:¿Cuántas casas quiere comprar %s en %s?
+notPossibleToBuild:La extensión deseada no es posible.
+selfOwned:%s ya posee %s.
+qualifies:Los valores totales de %s no superan los 15000. %s recibe la beca Matador.
+qualifiesNot:Los valores totales de %s ascienden a más de 15000. %s no recibe la beca Matador.
+landedOnChance:%s aterrizó en un campo de oportunidad. Lea la tarjeta en el medio del pizarrón.
+getLucky:Prueba tu suerte
+cantAffordOwnable:%s no puede permitirse comprar %s.
+goesToJail:%s fuma directamente en la cárcel y no recibe $ 4000 para pasar el comienzo.
+chooseIncomeTaxType:¿Cómo quiere %s pagar el impuesto sobre la renta?
+ordTax:%s debe pagar 2000 en impuestos estatales extraordinarios.
+playerPayed:%s ha pagado %s en impuesto sobre la renta.
+ownerInPrison:El propietario por este motivo está en la cárcel, por lo que no tiene que pagar el alquiler.
+playerPaysBail:%s está en la cárcel y paga una multa de £ 1000 para salir.
+getsPrisonCard:%s ha recibido una tarjeta de perdón que usará la próxima vez que vaya a la cárcel
+buySell:Compra / Venta
+exit:dejar
+buyHouses:Comprar casas
+sellHouses:Vender casas
+buildHouseWhere:¿Dónde podría %s planear construir una casa?
+cantBuild:%s no puede construir ninguna casa en este momento.
+buildingSucceeded:¡Lograron construir una casa!
+cantSellHouse:%s no puede vender ninguna casa en este momento.
+sellHouseWhere:¿Dónde podría %s querer vender una casa?
+sellingSucceded:¡Se las arreglaron para vender una casa!
+askWhichChoice:%s tiene 3 opciones para comenzar desde la prisión
+payToPrison:Paga 1000 kr para salir
+rollDiceInPrison:Descartar dados
+release'scard:la tarjeta de lanzamiento
+payPrisonLastTry:Has tenido 3 Pay 1000 kr para salir
+pawnWhere:¿Qué razón podría %s querer prometer?
+pawnOrUnpawn:Compromiso / Cancelar compromiso
+pawn:Conjunto de compromiso
+unpawn:Cancelar compromiso
+noPawningPossible:No hay razones para prometer.
+noUnpawningPossible:No hay hipotecas, es posible cancelar.
+needsToSell:%s necesita vender o prometer algo más.
+freeOfDebt:%s ahora está libre de deudas.
+pawnedNorent:%s está comprometido y, por lo tanto, no se pagan impuestos.
+rollDice:comienzo del dicioso

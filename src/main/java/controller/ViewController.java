@@ -165,7 +165,12 @@ public class ViewController {
         GUI_Car.Pattern guiPatternChoice = GUI_Car.Pattern.DIAGONAL_DUAL_COLOR;
 
         //CarTypeOptions
-        String[] cars = {"car", "racecar", "tractor", "ufo"};
+        String[] cars = {
+                readFile(setupMessagesPath,"car"),
+                readFile(setupMessagesPath,"racecar"),
+                readFile(setupMessagesPath,"tractor"),
+                readFile(setupMessagesPath,"ufo")
+        };
         GUI_Car.Type[] guiCars = {
                 GUI_Car.Type.CAR,
                 GUI_Car.Type.RACECAR,
@@ -173,7 +178,12 @@ public class ViewController {
                 GUI_Car.Type.UFO};
 
         //CarPrimaryColorOptions
-        String[] primaryColors = {"red","blue","green","yellow"};
+        String[] primaryColors = {
+                readFile(setupMessagesPath,"red"),
+                readFile(setupMessagesPath,"blue"),
+                readFile(setupMessagesPath,"green"),
+                readFile(setupMessagesPath,"yellow")
+        };
         Color[] guiPrimaryColors = {
                 new Color(245,101,101),
                 new Color(99,179,237),
@@ -181,7 +191,12 @@ public class ViewController {
                 new Color(250,240,137)};
 
         //CarSecondaryColorOptions
-        String[] secondaryColors = {"red","blue","gray","black"};
+        String[] secondaryColors = {
+                readFile(setupMessagesPath,"red"),
+                readFile(setupMessagesPath,"blue"),
+                readFile(setupMessagesPath,"gray"),
+                readFile(setupMessagesPath,"black")
+        };
         Color[] guiSecondaryColors = {
                 new Color(155,44,44),
                 new Color(42,67,101),
@@ -189,7 +204,12 @@ public class ViewController {
                 new Color(26,32,44 )};
 
         //CarPatternOptions
-        String[] patterns = {"checkered","gradient","fill","zebra"};
+        String[] patterns = {
+                readFile(setupMessagesPath,"checkered"),
+                readFile(setupMessagesPath,"gradient"),
+                readFile(setupMessagesPath,"fill"),
+                readFile(setupMessagesPath,"zebra")
+        };
         GUI_Car.Pattern[] guiPatterns = {
                 GUI_Car.Pattern.CHECKERED,
                 GUI_Car.Pattern.HORIZONTAL_GRADIANT,
@@ -198,7 +218,7 @@ public class ViewController {
 
         //The player picks his vehicel
         String carChoice = gui.getUserButtonPressed(
-                playerName + " Please pick a vehicel",
+                playerName + " " + readFile(setupMessagesPath,"pickcar"),
                 cars[0],cars[1],cars[2],cars[3]
         );
         for ( int i = 0; i < cars.length; i++ ) {
@@ -210,7 +230,7 @@ public class ViewController {
 
         //The player picks his primary color
         String primaryColorChoice = gui.getUserButtonPressed(
-                playerName + "Please pick a primary color",
+                playerName + " " + readFile(setupMessagesPath,"pricolor"),
                 primaryColors[0],primaryColors[1],primaryColors[2],primaryColors[3]
         );
         for ( int i = 0; i < primaryColors.length; i++ ) {
@@ -222,7 +242,7 @@ public class ViewController {
 
         //The player picks his secondary color
         String secondaryColorChoice = gui.getUserButtonPressed(
-                playerName + "Please pick a secondary color",
+                playerName + readFile(setupMessagesPath,"seccolor"),
                 secondaryColors[0],secondaryColors[1],secondaryColors[2],secondaryColors[3]
         );
         for ( int i = 0; i < primaryColors.length; i++ ) {
@@ -234,7 +254,7 @@ public class ViewController {
 
         //The player picks his pattern
         String carPatternChoice = gui.getUserButtonPressed(
-                playerName + "Please pick a pattern",
+                playerName + readFile(setupMessagesPath,"pattern"),
                 patterns[0],patterns[1],patterns[2],patterns[3]
         );
         for ( int i = 0; i < primaryColors.length; i++ ) {
@@ -246,13 +266,13 @@ public class ViewController {
 
         //The program checks if the players combination is unique
         if (this.combinationsPicked[playerCombination[0]][playerCombination[1]][playerCombination[2]][playerCombination[3]] == false){
-            gui.showMessage("Some one else has the same try something else");
+            gui.showMessage(readFile(setupMessagesPath,"failure"));
             return manuallyCreateGuiPlayer(playerName);
         }
         else{
             this.combinationsPicked[playerCombination[0]][playerCombination[1]][playerCombination[2]][playerCombination[3]] = false;
             player = new GUI_Player(playerName,30000,new GUI_Car(guiPrimaryColorChoice,guiSecondaryColorChoice,guiCarChoice,guiPatternChoice));
-            gui.showMessage("To the happiness your choice is unique.");
+            gui.showMessage(readFile(setupMessagesPath,"success"));
         }
         return player;
         //

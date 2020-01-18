@@ -1,4 +1,4 @@
-loser:
-winner:
-updateLooserOnBoard:
-hasToSell:
+loser:%s hat kein Geld mehr und ist aus dem Spiel.
+winner:Der Gewinner ist %s.
+updateLooserOnBoard:hat verloren
+hasToSell:%s schuldet %s Kronen und muss nun etwas verkaufen, um die Schulden zu begleichen.

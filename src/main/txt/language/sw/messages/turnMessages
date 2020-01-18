@@ -1,52 +1,51 @@
-newTurn:Det er %s's tur.
-landedOn:%s er landet på
-buyField?:Ønsker %s at købe %s?
+newTurn:Det är %s tur.
+landedOn:%s har landat på
+buyField?:Vill %s köpa %s?
 yes:Ja
-no:Nej
-prison:Du skal desværre i fængsel, god tur
-incometax:Betal indkomstskat, enten 10% eller 4000kr
-payRentFromTo:%s betaler %s i afgift til %s.
-pay4kTax:Betal 4000 kr. i skat
-pay10pct:Betal 10% af dine værdier i skat
-buyBeforeTurn:Ønsker %s at købe huse?
-howManyHouses:Hvor mange huse ønsker %s at købe på %s?
-notPossibleToBuild:Den ønskede udbygning er ikke mulig.
-selfOwned:%s ejer allerede %s.
-qualifies:%s samlede værdier udgør ikke mere end 15000. %s modtager Matadorlegatet.
-qualifiesNot:%s samlede værdier udgør mere end 15000. %s modtager ikke Matadorlegatet.
-landedOnChance:%s er landet på et chancefelt. Læs kortet i midten af brættet.
-getLucky:Prøv lykken
-cantAffordOwnable:%s har ikke råd til at købe %s.
-goesToJail:%s ryger direkte i fængsel og modtager ikke 4000 kr. for at passere start.
-chooseIncomeTaxType:Hvordan ønsker %s at betale indkomstskatten?
-ordTax:%s skal betale 2000 i Ekstraordinær Statsskat.
-playerPayed:%s har betalt %s i indkomstskat.
-ownerInPrison:Ejeren af denne grund er i fængsel, så du skal ikke betale husleje
-playerPaysBail:%s er i fængsel og betaler 1000 kr. i bøde for at komme ud.
-getsPrisonCard:%s har modtaget et benådelseskort som han benytter næste gang han kommer i fængsel
-buySell:Køb/salg
-exit:Afslut
-buyHouses:Køb huse
-sellHouses:Sælg huse
-buildHouseWhere:Hvor kunne %s tænke sig at bygge et hus?
-cantBuild:%s kan ikke bygge nogen huse i øjeblikket.
-buildingSucceeded:Det lykkedes at bygge et hus!
-cantSellHouse:%s kan ikke sælge nogen huse i øjeblikket.
-sellHouseWhere:Hvor kunne %s tænke sig at sælge et hus?
-sellingSucceded:Det lykkedes at sælge et hus!
-askWhichChoice:%s har 3 muligheder for at går ud fra fængsel
-payToPrison:Betal 1000 kr for at komme ud
-rollDiceInPrison:Kast Terning
-release'scard:løsladelskortet
-payPrisonLastTry:Du har haft 3 Betal 1000 kr for at komme ud
-pawnWhere:Hvilken grund kunne %s tænke sig at pantsætte?
-pawnOrUnpawn:Pantsæt/Ophæv pansætning
-pawn:Pantsæt
-unpawn:Ophæv pantsætning
-noPawningPossible:Der er ingen grunde at pantsætte.
-noUnpawningPossible:Der er ingen pantsætninger, det er muligt at ophæve.
-needsToSell:%s er nødt til at sælge eller pantsætte noget mere.
-freeOfDebt:%s er nu gældsfri.
-pawnedNorent:%s er pantsat, og der skal derfor ikke betales afgift.
-
-
+no:ingen
+prison:Du måste tyvärr gå till fängelse, lycka till
+incometax:Betala inkomstskatt, antingen 10 %eller 4000 kr
+payRentFromTo:%s betalar %s i avgift till %s.
+pay4kTax:Betala 4000 DKK i skatt
+pay10pct:Betala 10 %av dina värden i skatter
+buyBeforeTurn:Vill %s köpa hus?
+howManyHouses:Hur många hus vill %s köpa på %s?
+notPossibleToBuild:Den önskade förlängningen är inte möjlig.
+selfOwned:%s äger redan %s.
+qualifies:%s totala värden överstiger inte 15000. %s får Matador-stipendiet.
+qualifiesNot:%s totala värden uppgår till mer än 15000. %s får inte Matador-stipendiet.
+landedOnChance:%s landade på ett chansfält. Läs kortet mitt på brädet.
+getLucky:Prova lyckan
+cantAffordOwnable:%s har inte råd att köpa %s.
+goesToJail:%s röker direkt i fängelse och tar inte emot $ 4000 för att klara starten.
+chooseIncomeTaxType:Hur vill %s betala inkomstskatten?
+ordTax:%s måste betala 2000 i extra statlig skatt.
+playerPayed:%s har betalat %s i inkomstskatt.
+ownerInPrison:Ägaren är därför i fängelse, så du behöver inte betala hyran
+playerPaysBail:%s sitter i fängelse och betalar 1000 pund böter för att komma ut.
+getsPrisonCard:%s har fått ett benådningskort som han kommer att använda nästa gång han går i fängelse
+buySell:Köp / försäljning
+exit:avsluta
+buyHouses:Köp hus
+sellHouses:Sälj hus
+buildHouseWhere:Var kunde %s planera att bygga ett hus?
+cantBuild:%s kan inte bygga några hus just nu.
+buildingSucceeded:De lyckades bygga ett hus!
+cantSellHouse:%s kan inte sälja några hus just nu.
+sellHouseWhere:Var skulle %s vilja sälja ett hus?
+sellingSucceded:De lyckades sälja ett hus!
+askWhichChoice:%s har 3 alternativ för att starta från fängelse
+payToPrison:Betala 1000 kr för att komma ut
+rollDiceInPrison:Kasta tärningar
+release'scard:frigöringskortet
+payPrisonLastTry:Du har haft 3 Betala 1000 kr för att komma ut
+pawnWhere:Vilken anledning kan %s vilja pantsätta?
+pawnOrUnpawn:Pant / Avbryt pant
+pawn:Pantsättning
+unpawn:Avbryt löfte
+noPawningPossible:Det finns inga skäl att pantsätta.
+noUnpawningPossible:Det finns inga inteckningar, det är möjligt att avbryta.
+needsToSell:%s behöver sälja eller pantsätta något mer.
+freeOfDebt:%s är nu skuldfritt.
+pawnedNorent:%s är pantsatt och därför betalas ingen skatt.
+rollDice:träkke kartet
