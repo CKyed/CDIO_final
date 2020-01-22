@@ -136,6 +136,7 @@ public class GameController {
     public void buyHouse(int fieldId){
         int cost = ((Street)boardController.getBoard().getFields()[fieldId]).getHousePrice();
         safePaymentToBank(getActivePlayerId(),cost);
+        boardController.buildHouses(fieldId,1);
     }
 
     public void sellHouses(int fieldId, int numberOfHouses, int playerId){

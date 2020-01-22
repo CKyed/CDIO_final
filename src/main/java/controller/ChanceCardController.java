@@ -15,7 +15,8 @@ public class ChanceCardController {
         }
 
         this.cardDeck = new CardDeck(cardTexts);
-        this.cardDeck.shuffle();
+        //this.cardDeck.shuffle();
+        this.cardDeck.swap(0,24);
     }
 
     public CardDeck getCardDeck() {

@@ -13,8 +13,8 @@ public class Die {
     }
 
     public void roll(){
-        Random Ran = new Random();
-        faceValue = Ran.nextInt(sideNumber) + 1;
+        //Random Ran = new Random();
+        //faceValue = Ran.nextInt(sideNumber) + 1;
     }
 
     public int getFaceValue(){
